@@ -1,0 +1,46 @@
+# POST http://laprg03.eastus.cloudapp.azure.com:81/PViewISAPI.dll/la/rest/TView/WDame_calendario
+
+POST http://laprg01.eastus.cloudapp.azure.com:8079/Pview/PViewISAPI.dll/la/rest/TView/WDame_calendario
+
+{
+  "Json":"true"
+}
+###
+
+POST http://laprg01.eastus.cloudapp.azure.com:8079/Pview/PViewISAPI.dll/la/rest/TView/WDame_DatosM
+
+{
+    "Json":"true",
+    "Param": {
+        "Status": 0,
+        "Mensaje": " ",
+        "Rif": "D047  00000013"
+    }
+}
+###
+
+POST  http://laprg01.eastus.cloudapp.azure.com:8079/Pview/PViewISAPI.dll/la/rest/TView/WDame_corden
+
+Request:
+{
+	"Json":"true",
+	"param": {
+		"Status": 0,
+		"Mensaje": "<NUORIGEN>1</NUORIGEN>",
+		"Rif": "D047  00000013",
+    "desde": "25-02-2020",
+    "Hasta": "25-02-2020"
+	}
+}
+###
+
+POST http://laprg01.eastus.cloudapp.azure.com:8079/Pview/PViewISAPI.dll/la/rest/TView/WDame_PosicionM_Ant
+
+{
+  "Json": "true",
+  "param": {
+    "Rif":"D047  00000013",
+    "Fechin":"25-02-2020"
+  }
+}
+###
