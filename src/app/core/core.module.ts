@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 
 // Librerías LA
 import { SysutilModule } from 'lib-sysutil';
-import { UltranetTablasModule } from 'lib-ultra-net';
+import { UltranetTablasModule } from '@laranda/lib-ultra-net';
 
 // Parametros
 import { environment } from './../../environments/environment';
@@ -21,10 +23,11 @@ import { DataComponent } from './components/data/data.component';
     DataComponent,
     Error404Component,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
     CommonModule,
+    FormsModule,
     SysutilModule,
     UltranetTablasModule.forRoot(environment.URL_REST)
   ]

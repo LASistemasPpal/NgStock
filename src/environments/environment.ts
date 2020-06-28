@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  URL_REST: 'http://laprg01.eastus.cloudapp.azure.com:8079/Pview/PViewISAPI.dll/la/rest/TView/'
+  URL_REST: 'http://la2k12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/TView/'
 };
 
 /*

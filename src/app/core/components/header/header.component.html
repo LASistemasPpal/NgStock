@@ -1,9 +1,11 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" target="_blank" href="http://www.lasistemas.com">
+<nav class="d-flex flex-row justify-content-between bg-dark">
+
+  <a class="pt-3 pl-3 pb-3" target="_blank" href="http://www.lasistemas.com">
     <img src="../../../../assets/img/logo.png" width="260" height="28" class="d-inline-block align-top" alt="">
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <i class="fa fa-bars"></i>
-  </button>
+
+  <span class="d-flex flex-row pt-3 pr-3 navbar-text text-white">
+    <p class="pr-3">Vehiculo: {{ codVehiculo }}</p>
+    <p>Fecha: {{ fecha }}</p>
+  </span>
 </nav>

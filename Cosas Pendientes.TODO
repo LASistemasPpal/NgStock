@@ -1,0 +1,38 @@
+Ajustar:
+    ✔ en el header mostar la fecha del dame_calendario: @done(19-06-2020 07:40)
+      Fecha
+      Vehiculo
+    ✔ Colocar iconos dameCorden de la columna Estado @done(22-06-2020 11:14)
+      ☐ Definir tipos de iconos para dameCorden
+    ✔ filtrar por codigo del cliente para las consultas del REST @done(19-06-2020 08:52)
+    ☐ mostar dame_datosM y Dame_PosicionM_Ant solo si el codigo de cliente esta lleno
+    ☐ mostar del Dame Datos M:
+      Apellido
+      Nombre
+      Tlf1
+      Tlf2
+      Email
+      Dirhabitacion1
+      Dirhabitacion2
+      Dirhabitacion3
+      Ejecutivo
+
+    ☐ Dame_PosicionM_Ant columnas a mostrar:
+      Producto1
+      Moneda_abrevia
+      Saldofin
+      Ini
+      Fin
+      Producto = MM ? Rend,Mrkt solo si estan los dosprimeros caracteres MM
+      Efecfin
+      Clave
+
+      ☐ servicio dame_datosM referencia y cotitulares pendiente pueden ser array de json o json
+
+    ☐ Segun lo conversadoel grafico de Precios y Volumenes depende si esta filtrado por titulo
+
+      https://codepen.io/Shven/pen/chKqD
+      https://codepen.io/suez/pen/vAais
+      https://codepen.io/vivek3003/pen/jPzdZg
+      https://codepen.io/rickyeckhardt/pen/bEMJGX
+      https://codepen.io/Remling/pen/VMbzGr

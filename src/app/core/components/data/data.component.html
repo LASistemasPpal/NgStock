@@ -1,25 +1,44 @@
-<app-header></app-header>
+<app-header *ngIf="dameCalendario.CadOut !== undefined" [codVehiculo]="dameCalendario.CadOut.Vehiculo" [fecha]="dameCalendario.CadOut.Fecha"></app-header>
 <div class="container-fluid">
 
 
   <div class="row">
     <div class="col-2 pl-0">
-      <div class="list-group rounded-0 vh-70" id="list-tab" role="tablist">
-        <a class="list-group-item list-group-item-dark list-group-item-action active" id="Dame-COrden-Grid" data-toggle="list" href="#Dame-COrden" role="tab" aria-controls="home"><i class="fas fa-bezier-curve pr-2"></i>Consulta COrden</a>
-        <a class="list-group-item list-group-item-dark list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile"><i class="fas fa-broadcast-tower pr-2"></i>Dame Casos</a>
-        <a class="list-group-item list-group-item-dark list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile"><i class="fas fa-cannabis pr-2"></i>Dame Casos</a>
-        <a class="list-group-item list-group-item-dark list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile"><i class="fas fa-dice-d20 pr-2"></i>Dame Casos</a>
-        <a class="list-group-item list-group-item-dark list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile"><i class="fas fa-cubes pr-2"></i>Dame Casos</a>
-        <a class="list-group-item list-group-item-dark list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile"><i class="fas fa-coins pr-2"></i>Dame Casos</a>
-        <a class="list-group-item list-group-item-dark list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile"><i class="fas fa-chart-bar pr-2"></i>Dame Casos</a>
+      <div class="list-group rounded-0 vh-90" id="list-tab" role="tablist">
+        <a class="list-group-item list-group-item-dark list-group-item-action active" id="Dame-COrden-Grid" href="#Dame-COrden" role="tab" aria-controls="home"><i class="fas fa-bezier-curve pr-2"></i>Consulta COrden</a>
+        <a class="list-group-item list-group-item-dark list-group-item-action" id="list-profile-list" href="#Dame_DatosM" role="tab" aria-controls="profile"><i class="fas fa-broadcast-tower pr-2"></i>Dame_DatosM</a>
+        <a class="list-group-item list-group-item-dark list-group-item-action" id="list-profile-list" href="#list-profile" role="tab" aria-controls="profile"><i class="fas fa-cannabis pr-2"></i>Dame Casos</a>
+        <a class="list-group-item list-group-item-dark list-group-item-action" id="list-profile-list" href="#list-profile" role="tab" aria-controls="profile"><i class="fas fa-dice-d20 pr-2"></i>Dame Casos</a>
+        <a class="list-group-item list-group-item-dark list-group-item-action" id="list-profile-list" href="#list-profile" role="tab" aria-controls="profile"><i class="fas fa-cubes pr-2"></i>Dame Casos</a>
+        <a class="list-group-item list-group-item-dark list-group-item-action" id="jjjjjlist-profile-list" href="#list-profile" role="tab" aria-controls="profile"><i class="fas fa-coins pr-2"></i>Dame Casos</a>
+        <a class="list-group-item list-group-item-dark list-group-item-action" id="list-profile-list" href="#list-profile" role="tab" aria-controls="profile"><i class="fas fa-chart-bar pr-2"></i>Dame Casos</a>
       </div>
     </div>
-    <div class="col-10 pt-2 pl-0 pr-3">
+
+    <div class="col-10 pt-3 pl-0 pr-3">
+      <div class="row">
+          <div class="col-4">
+            <div class="input-group input-group-sm mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Codigo Cliente</span>
+              </div>
+              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Codigo o IDLA" [(ngModel)]="codigoCliente" name="codigo">
+            </div>
+          </div>
+
+          <div class="col-4 pl-0">
+            <button type="button" class="btn btn-outline-secondary btn-sm" (click)="getDatos()">Consultar</button>
+          </div>
+      </div>
+      <hr>
+
       <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="Dame-COrden" role="tabpanel" aria-labelledby="Dame-COrden-Grid">
-          <lsy-tabla-la *ngIf="dameCorden.visible" [columnas]="dtColumnas" [datosX]="dameCorden.CadOut"></lsy-tabla-la>
+          <lsy-tabla-la *ngIf="dameCorden.visible" [columnas]="dtColumnasCorden" [datosX]="dameCorden.CadOut"></lsy-tabla-la>
+          <lsy-tabla-la *ngIf="dameDatosM.visible" [columnas]="dtColumnasDatosM" [datosX]="dameDatosM.CadOut"></lsy-tabla-la>
         </div>
-        <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+
+        <div class="tab-pane fade" id="Dame_DatosM" role="tabpanel" aria-labelledby="list-profile-list">
         </div>
       </div>
     </div>
