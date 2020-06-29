@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 
 
@@ -9,9 +9,18 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  @Input() codVehiculo = '';
-  @Input() fecha = '';
+  xcolor = { color: '#8B363E' };
 
+  xborde = {
+    border: '.25em solid #8B363E'
+  };
+
+  xborde2 = {
+    border: '.02em solid #8B363E',
+    'border-radius': '.55em',
+    'background-color': '#8B363E',
+    color: 'white'
+  };
 
   constructor() { }
 

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DameCorden, DamePosicionMAnt, DameCalendario, DameDatosM } from '@laranda/lib-ultra-net';
-import { NONE_TYPE } from '@angular/compiler';
 
 @Component({
   selector: 'app-data',
@@ -8,6 +7,13 @@ import { NONE_TYPE } from '@angular/compiler';
   styleUrls: ['./data.component.scss']
 })
 export class DataComponent implements OnInit {
+
+  xcolor = { color: '#8B363E' };
+  xbgColor = {
+    'background-color': '#8B363E',
+    color: 'white',
+    'border-color': '#8B363E',
+  }
 
   dtColumnasCorden: DataTables.ColumnSettings[] = [];
   dtColumnasDatosM: any[] = [];
@@ -77,7 +83,7 @@ export class DataComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dameCalendario.consultar();
+    // this.dameCalendario.consultar();
 
     this.dameCorden.CadOut = [];
     this.dameCorden.visible = true;
