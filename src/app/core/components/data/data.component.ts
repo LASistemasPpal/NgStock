@@ -17,15 +17,12 @@ export class DataComponent implements OnInit {
   };
 
   xEjemplo = [
-    { Monto: 'DOP 475,000,000', Titulo: 'MH0323'},
-    { Monto: 'DOP 123,645,000', Titulo: 'AFI024'},
-    { Monto: 'Usd 123,000', Titulo: 'PAR027'},
-    { Monto: 'Usd 28,100', Titulo: 'BC0224'}
+    { Monto: 'DOP 475,000,000', Titulo: 'MH0323' },
+    { Monto: 'DOP 123,645,000', Titulo: 'AFI024' },
+    { Monto: 'Usd 123,000', Titulo: 'PAR027' },
+    { Monto: 'Usd 28,100', Titulo: 'BC0224' }
   ];
 
-
-  Grafico1 = 'GraficoPrecio';
-  Grafico2 = 'GraficoPrecio2';
 
   graficoPrecio = {
     type: 'line',
@@ -42,69 +39,21 @@ export class DataComponent implements OnInit {
       ]
     },
     options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      }
+      responsive: true
     }
   };
 
   graficoMonTran = {
-    type: 'line',
+    type: 'doughnut',
     data: {
-      labels: ['9:00am', '10:00am', '11:00am', '12:00am', '1:00pm', '2:00pm'],
+      labels: ['DOP. mm'],
       datasets: [
         {
           label: 'Titulo 1',
-          data: [110.000, 94.000, 36.000, 100.000, 80.000, 80.000],
-          backgroundBorder: '#00ff00',
-          backgroundColor: 'rgba(250, 2, 2, 0.5)',
+          data: [46, 54],
+          // backgroundBorder: '#00ff00',
+          backgroundColor: ['rgba(250, 2, 2, 0.5)', 'transtarent'],
           borderWidth: 1
-        }
-      ]
-    },
-    options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      }
-    }
-  };
-
-  graficoVolumen = {
-    type: 'line',
-    data: {
-      labels: ['9:00am', '10:00am', '11:00am', '12:00am', '1:00pm', '2:00pm'],
-      datasets: [
-        {
-          label: 'MH0323',
-          backgroundColor: 'Blue',
-          borderColor: 'Blue',
-          fill: false,
-          data: [110.000, 94.000, 36.000, 100.000, 80.000, 80.000],
-          borderWidth: 2
-        },
-        {
-          label: 'AF1032',
-          backgroundColor: 'Red',
-          borderColor: 'Red',
-          fill: false,
-          data: [10.000, 99.000, 60.000, 70.000, 95.000, 97.000],
-          borderWidth: 2
-        },
-        {
-          label: 'BC0630',
-          backgroundColor: 'Orange',
-          borderColor: 'Orange',
-          fill: false,
-          data: [50.000, 80.000, 10.000, 100.000, 150.000, 97.000],
-          borderWidth: 2
         }
       ]
     },
@@ -113,12 +62,144 @@ export class DataComponent implements OnInit {
     }
   };
 
+  graficoMonTran2 = {
+    type: 'doughnut',
+    data: {
+      labels: ['USD. mm'],
+      datasets: [
+        {
+          label: 'Titulo 1',
+          data: [35, 65],
+          backgroundColor: ['rgba(250, 2, 2, 0.5)', 'transtarent'],
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      responsive: true
+    }
+  };
+
+  graficoMonTran3 = {
+    type: 'doughnut',
+    data: {
+      labels: ['Total mm'],
+      datasets: [
+        {
+          label: 'Titulo 1',
+          data: [35, 65],
+          backgroundColor: ['rgba(250, 2, 2, 0.5)', 'transtarent'],
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      responsive: true
+    }
+  };
+
+  graficoVolumen = {
+    type: 'line',
+    data: {
+      datasets: [
+        {
+          label: 'MH0323',
+          fill: false,
+          backgroundColor: 'Blue',
+          borderColor: 'Blue',
+          data: [
+            {
+              x: new Date('2020-06-30T09:00:00'),
+              y: 110.000
+            },
+            {
+              x: new Date('2020-06-30T09:30:00'),
+              y: 98.300
+            },
+            {
+              x: new Date('2020-06-30T10:40:00'),
+              y: 94.000
+            },
+            {
+              x: new Date('2020-06-30T11:15:00'),
+              y: 98.000
+            },
+            {
+              x: new Date('2020-06-30T13:40:00'),
+              y: 130.000
+            }
+          ]
+        },
+        {
+          label: 'AF1032',
+          fill: false,
+          backgroundColor: 'red',
+          borderColor: 'red',
+          data: [
+            {
+              x: new Date('2020-06-30T09:00:00'),
+              y: 100.000
+            },
+            {
+              x: new Date('2020-06-30T09:10:00'),
+              y: 99.300
+            },
+            {
+              x: new Date('2020-06-30T10:15:00'),
+              y: 60.000
+            },
+            {
+              x: new Date('2020-06-30T11:30:00'),
+              y: 70.000
+            },
+            {
+              x: new Date('2020-06-30T13:05:00'),
+              y: 97.130
+            }
+          ]
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        yAxes: [{
+          ticks: {
+            // suggestedMin: 0,
+            suggestedMax: 131,
+            stepSize: 10
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            min: new Date('2020-06-30T09:00:00'),
+            max: new Date('2020-06-30T14:00:00')
+          },
+          type: 'time',
+          time: {
+            format: 'HH:mm',
+            unit: 'hour',
+            unitStepSize: 1,
+            displayFormats: {
+              // minute: 'mm',
+              hour: 'HH:mm'
+            },
+            tooltipFormat: 'HH:mm'
+          },
+          gridLines: {
+            display: true
+          }
+        }],
+      }
+    }
+  };
+
   dtColumnasCorden: DataTables.ColumnSettings[] = [];
   dtColumnasEjemplo: DataTables.ColumnSettings[] = [];
   dtColumnasDatosM: any[] = [];
   public codigoCliente = '';
 
-  IconCOrden: DataTables.FunctionColumnRender = ( data, type, row, meta ) => {
+  IconCOrden: DataTables.FunctionColumnRender = (data, type, row, meta) => {
     let clase: string;
 
     switch (row.Estado) {
@@ -144,10 +225,10 @@ export class DataComponent implements OnInit {
     }
 
     return `<i class="fa fa-lightbulb-o LA-size ${clase}"></i> ${data}`;
-}
+  }
 
   // dtColumnas: any[] = [
-    // Estado iconos
+  // Estado iconos
 
   constructor(
     public dameCorden: DameCorden,
@@ -174,9 +255,11 @@ export class DataComponent implements OnInit {
       { title: 'Tlf1', data: 'Tlf1' },
       { title: 'Tlf2', data: 'Tlf2' },
       { title: 'Email', data: 'Email' },
-      { title: 'Direccion', data: null, render: ( data: any, type: any, row: any, meta: any ) => {
-        return `${data.Dirhabitacion1} ${data.Dirhabitacion2} ${data.Dirhabitacion3}`;
-      }},
+      {
+        title: 'Direccion', data: null, render: (data: any, type: any, row: any, meta: any) => {
+          return `${data.Dirhabitacion1} ${data.Dirhabitacion2} ${data.Dirhabitacion3}`;
+        }
+      },
       { title: 'Ejecutivo', data: 'Ejecutivo' },
     ];
 

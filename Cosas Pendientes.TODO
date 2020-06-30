@@ -1,4 +1,6 @@
 Ajustar:
+    ☐ tabla Movimiento colocar isin, precio promedio y indicador de liquides
+    ☐ limitar lo que se muestra en el grid de Lib-sysutil a 5 ojo
     ✔ en el header mostar la fecha del dame_calendario: @done(19-06-2020 07:40)
       Fecha
       Vehiculo

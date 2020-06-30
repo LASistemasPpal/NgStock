@@ -40,11 +40,6 @@
               "node_modules/popper.js/dist/umd/popper.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "node_modules/datatables.net/js/jquery.dataTables.min.js",
-              "node_modules/jszip/dist/jszip.min.js",
-              "node_modules/datatables.net-buttons/js/dataTables.buttons.min.js",
-              "node_modules/datatables.net-buttons/js/buttons.flash.min.js",
-              "node_modules/datatables.net-buttons/js/buttons.html5.min.js",
-              "node_modules/datatables.net-buttons/js/buttons.print.min.js"
             ]
           },
           "configurations": {
