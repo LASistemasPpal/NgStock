@@ -7,6 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
+  xcolor = { color: '#8B363E' };
+  xbgColor = {
+    'background-color': '#8B363E',
+    color: 'white',
+    'border-color': '#8B363E',
+  };
+
   constructor() { }
 
   ngOnInit() {

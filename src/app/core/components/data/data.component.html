@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <div class="d-flex flex-row bg-gris">
-  <div class="flex-column col-10 pl-0">
+  <div class="flex-column col-9 pl-0">
 
     <div class="d-flex flex-row">
       <div class="pl-2">
@@ -52,11 +52,30 @@
     <lsy-tabla-la [columnas]="dtColumnasEjemplo" [datosX]="xEjemplo"></lsy-tabla-la>
   </div>
 
-  <div class="flex-column pl-4">
+  <div class="flex-column">
     <div class="d-flex flex-column justify-content-center">
-      <h3 class="text-center"><i class="fas fa-comments-dollar pr-1 rounded-circle p-2" [ngStyle]="xbgColor"></i> Precios</h3>
-      <div class="divchart">
-        <canvas id="graficoPrecio"></canvas>
+      <h3 class="text-center"><i class="fas fa-graduation-cap pr-1 rounded-circle p-2" [ngStyle]="xbgColor"></i> Montos Transados</h3>
+
+      <div class="d-flex flex-row">
+        <div class="flex-column">
+          <div class="divchart-ss">
+            <canvas id="graficoMonTran"></canvas>
+          </div>
+          <h1 class="text-center" [ngStyle]="xcolor">46</h1>
+        </div>
+
+        <div class="flex-column">
+          <div class="divchart-ss">
+            <canvas id="graficoMonTran2"></canvas>
+          </div>
+          <h1 class="text-center" [ngStyle]="xcolor">35</h1>
+        </div>
+        <div class="flex-column">
+          <div class="divchart-ss">
+            <canvas id="graficoMonTran3"></canvas>
+          </div>
+          <h1 class="text-center" [ngStyle]="xcolor">62</h1>
+        </div>
       </div>
     </div>
   </div>
@@ -65,18 +84,9 @@
 <div class="d-flex flex-row pt-2 pl-2">
   <div class="flex-column">
     <div class="d-flex flex-column justify-content-center">
-      <h3 class="text-center"><i class="fas fa-graduation-cap pr-1 rounded-circle p-2" [ngStyle]="xbgColor"></i> Montos Transados</h3>
-
-      <div class="d-flex flex-row">
-        <div class="divchart-ss">
-          <canvas id="graficoMonTran"></canvas>
-        </div>
-        <div class="divchart-ss">
-          <canvas id="graficoMonTran2"></canvas>
-        </div>
-        <div class="divchart-ss">
-          <canvas id="graficoMonTran3"></canvas>
-        </div>
+      <h3 class="text-center"><i class="fas fa-comments-dollar pr-1 rounded-circle p-2" [ngStyle]="xbgColor"></i> Precios</h3>
+      <div class="divchart">
+        <canvas id="graficoPrecio"></canvas>
       </div>
     </div>
   </div>
@@ -91,4 +101,4 @@
   </div>
 </div>
 
-<!-- <app-footer></app-footer> -->
+<app-footer></app-footer>

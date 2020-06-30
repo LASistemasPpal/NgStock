@@ -87,7 +87,7 @@ export class DataComponent implements OnInit {
       datasets: [
         {
           label: 'Titulo 1',
-          data: [35, 65],
+          data: [62, 38],
           backgroundColor: ['rgba(250, 2, 2, 0.5)', 'transtarent'],
           borderWidth: 1
         }
@@ -182,9 +182,9 @@ export class DataComponent implements OnInit {
             unitStepSize: 1,
             displayFormats: {
               // minute: 'mm',
-              hour: 'HH:mm'
+              hour: 'h:mm a'
             },
-            tooltipFormat: 'HH:mm'
+            tooltipFormat: 'h:mm a'
           },
           gridLines: {
             display: true
@@ -281,8 +281,10 @@ export class DataComponent implements OnInit {
     // this.damePosicionMAnt.visible = true;
 
     const myChart = new Chart('graficoPrecio', this.graficoPrecio);
-    const myChart2 = new Chart('graficoMonTran', this.graficoMonTran);
-    const myChart3 = new Chart('graficoVolumen', this.graficoVolumen);
+    const myChart2 = new Chart('graficoVolumen', this.graficoVolumen);
+    const myChart3 = new Chart('graficoMonTran', this.graficoMonTran);
+    const myChart4 = new Chart('graficoMonTran2', this.graficoMonTran2);
+    const myChart5 = new Chart('graficoMonTran3', this.graficoMonTran3);
   }
 
   getDatos() {
