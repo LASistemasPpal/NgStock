@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 
 // Librerías LA
-import { SysutilModule } from 'lib-sysutil';
+import { SysutilModule } from '@laranda/lib-sysutil';
 import { UltranetTablasModule } from '@laranda/lib-ultra-net';
 
 // Parametros
@@ -23,7 +23,7 @@ import { DataComponent } from './components/data/data.component';
     DataComponent,
     Error404Component,
     FooterComponent,
-    HeaderComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,

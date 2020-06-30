@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Chart } from 'chart.js';
 import { DameCorden, DamePosicionMAnt, DameCalendario, DameDatosM } from '@laranda/lib-ultra-net';
 
 @Component({
@@ -13,9 +14,107 @@ export class DataComponent implements OnInit {
     'background-color': '#8B363E',
     color: 'white',
     'border-color': '#8B363E',
-  }
+  };
+
+  xEjemplo = [
+    { Monto: 'DOP 475,000,000', Titulo: 'MH0323'},
+    { Monto: 'DOP 123,645,000', Titulo: 'AFI024'},
+    { Monto: 'Usd 123,000', Titulo: 'PAR027'},
+    { Monto: 'Usd 28,100', Titulo: 'BC0224'}
+  ];
+
+
+  Grafico1 = 'GraficoPrecio';
+  Grafico2 = 'GraficoPrecio2';
+
+  graficoPrecio = {
+    type: 'line',
+    data: {
+      labels: ['9:00am', '10:00am', '11:00am', '12:00am', '1:00pm', '2:00pm'],
+      datasets: [
+        {
+          label: 'Titulo 1',
+          data: [110.000, 94.000, 36.000, 100.000, 80.000, 80.000],
+          backgroundBorder: '#00ff00',
+          backgroundColor: 'rgba(250, 2, 2, 0.5)',
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  };
+
+  graficoMonTran = {
+    type: 'line',
+    data: {
+      labels: ['9:00am', '10:00am', '11:00am', '12:00am', '1:00pm', '2:00pm'],
+      datasets: [
+        {
+          label: 'Titulo 1',
+          data: [110.000, 94.000, 36.000, 100.000, 80.000, 80.000],
+          backgroundBorder: '#00ff00',
+          backgroundColor: 'rgba(250, 2, 2, 0.5)',
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  };
+
+  graficoVolumen = {
+    type: 'line',
+    data: {
+      labels: ['9:00am', '10:00am', '11:00am', '12:00am', '1:00pm', '2:00pm'],
+      datasets: [
+        {
+          label: 'MH0323',
+          backgroundColor: 'Blue',
+          borderColor: 'Blue',
+          fill: false,
+          data: [110.000, 94.000, 36.000, 100.000, 80.000, 80.000],
+          borderWidth: 2
+        },
+        {
+          label: 'AF1032',
+          backgroundColor: 'Red',
+          borderColor: 'Red',
+          fill: false,
+          data: [10.000, 99.000, 60.000, 70.000, 95.000, 97.000],
+          borderWidth: 2
+        },
+        {
+          label: 'BC0630',
+          backgroundColor: 'Orange',
+          borderColor: 'Orange',
+          fill: false,
+          data: [50.000, 80.000, 10.000, 100.000, 150.000, 97.000],
+          borderWidth: 2
+        }
+      ]
+    },
+    options: {
+      responsive: true
+    }
+  };
 
   dtColumnasCorden: DataTables.ColumnSettings[] = [];
+  dtColumnasEjemplo: DataTables.ColumnSettings[] = [];
   dtColumnasDatosM: any[] = [];
   public codigoCliente = '';
 
@@ -80,6 +179,11 @@ export class DataComponent implements OnInit {
       }},
       { title: 'Ejecutivo', data: 'Ejecutivo' },
     ];
+
+    this.dtColumnasEjemplo = [
+      { title: 'Monto', data: 'Monto' },
+      { title: 'Titulos', data: 'Titulo' }
+    ];
   }
 
   ngOnInit(): void {
@@ -92,6 +196,10 @@ export class DataComponent implements OnInit {
     this.dameDatosM.visible = true;
 
     // this.damePosicionMAnt.visible = true;
+
+    const myChart = new Chart('graficoPrecio', this.graficoPrecio);
+    const myChart2 = new Chart('graficoMonTran', this.graficoMonTran);
+    const myChart3 = new Chart('graficoVolumen', this.graficoVolumen);
   }
 
   getDatos() {
