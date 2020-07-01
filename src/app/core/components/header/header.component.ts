@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-
-
+declare let $: any;
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -30,5 +29,7 @@ export class HeaderComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    $('[data-toggle="tooltip"]').tooltip();
+  }
 }
