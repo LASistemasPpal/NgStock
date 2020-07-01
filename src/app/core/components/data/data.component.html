@@ -57,50 +57,56 @@
   </div>
 </div>
 
-<div class="container-12 mx-5">
-  <div class="col-4 pr-0">
-    <h3 class="text-center"><i class="fas fa-graduation-cap pr-1 rounded-circle p-2" [ngStyle]="xbgColor"></i> Montos
-      Transados</h3>
+<div class="container-12 mx-5 pt-1">
+  <div class="row">
+    <div class="col-4 pr-0">
+      <h3 class="text-center"><i class="fas fa-graduation-cap pr-1 rounded-circle p-2" [ngStyle]="xbgColor"></i> Montos
+        Transados</h3>
 
-    <div class="row">
-      <div class="col">
-        <div class="divchart-ss">
-          <canvas id="graficoMonTran"></canvas>
+      <div class="row">
+        <div class="col">
+          <div class="divchart-ss">
+            <canvas id="graficoMonTran"></canvas>
+          </div>
+          <h1 class="text-right" [ngStyle]="xcolor">46</h1>
         </div>
-        <h1 class="text-right" [ngStyle]="xcolor">46</h1>
-      </div>
 
-      <div class="col">
-        <div class="divchart-ss">
-          <canvas id="graficoMonTran2"></canvas>
+        <div class="col">
+          <div class="divchart-ss">
+            <canvas id="graficoMonTran2"></canvas>
+          </div>
+          <h1 class="text-right" [ngStyle]="xcolor">35</h1>
         </div>
-        <h1 class="text-right" [ngStyle]="xcolor">35</h1>
-      </div>
 
-      <div class="col">
-        <div class="divchart-ss">
-          <canvas id="graficoMonTran3"></canvas>
+        <div class="col">
+          <div class="divchart-ss">
+            <canvas id="graficoMonTran3"></canvas>
+          </div>
+          <h1 class="text-right" [ngStyle]="xcolor">62</h1>
         </div>
-        <h1 class="text-right" [ngStyle]="xcolor">62</h1>
+
       </div>
     </div>
-  </div>
 
-
-  <div class="row">
     <div class="col-4">
       <h3 class="text-center"><i class="fas fa-comments-dollar pr-1 rounded-circle p-2" [ngStyle]="xbgColor"></i>
         Precios</h3>
-      <div class="divchart">
-        <canvas id="graficoPrecio"></canvas>
+
+      <div class="row justify-content-center">
+        <div class="divchart">
+          <canvas id="graficoPrecio"></canvas>
+        </div>
       </div>
     </div>
 
     <div class="col-4">
       <h3 class="text-center"><i class="fas fa-briefcase pr-1 rounded-circle p-2" [ngStyle]="xbgColor"></i> Volumenes
       </h3>
-      <div class="divchart">
-        <canvas id="graficoVolumen"></canvas>
+
+      <div class="row justify-content-center">
+        <div class="divchart">
+          <canvas id="graficoVolumen"></canvas>
+        </div>
       </div>
     </div>
   </div>
