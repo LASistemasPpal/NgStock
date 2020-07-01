@@ -22,6 +22,12 @@ export class HeaderComponent implements OnInit {
     color: 'white'
   };
 
+  xbgColor = {
+    'background-color': '#8B363E',
+    color: 'white',
+    'border-color': '#8B363E',
+  };
+
   constructor() { }
 
   ngOnInit() { }
