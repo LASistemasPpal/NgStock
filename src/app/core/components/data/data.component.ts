@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Host } from '@angular/core';
 import { Chart } from 'chart.js';
-import { DameCorden, DamePosicionMAnt, DameCalendario, DameDatosM } from '@laranda/lib-ultra-net';
+import { DameCorden, DamePosicionMAnt, DameCalendario } from '@laranda/lib-ultra-net';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-data',
@@ -10,6 +11,7 @@ import { DameCorden, DamePosicionMAnt, DameCalendario, DameDatosM } from '@laran
 export class DataComponent implements OnInit {
 
   xcolor = { color: '#8B363E' };
+
   xbgColor = {
     'background-color': '#8B363E',
     color: 'white',
@@ -196,7 +198,6 @@ export class DataComponent implements OnInit {
 
   dtColumnasCorden: DataTables.ColumnSettings[] = [];
   dtColumnasEjemplo: DataTables.ColumnSettings[] = [];
-  dtColumnasDatosM: any[] = [];
   public codigoCliente = '';
 
   IconCOrden: DataTables.FunctionColumnRender = (data, type, row, meta) => {
@@ -233,8 +234,8 @@ export class DataComponent implements OnInit {
   constructor(
     public dameCorden: DameCorden,
     public dameCalendario: DameCalendario,
-    public dameDatosM: DameDatosM,
-    public damePosicionMAnt: DamePosicionMAnt
+    public damePosicionMAnt: DamePosicionMAnt,
+    @Host() private headerCP: HeaderComponent
   ) {
 
     this.dtColumnasCorden = [
@@ -249,20 +250,6 @@ export class DataComponent implements OnInit {
       { title: 'Observacion', data: 'Observacion' }
     ];
 
-    this.dtColumnasDatosM = [
-      { title: 'Apellido', data: 'Apellido' },
-      { title: 'Nombre', data: 'Nombre' },
-      { title: 'Tlf1', data: 'Tlf1' },
-      { title: 'Tlf2', data: 'Tlf2' },
-      { title: 'Email', data: 'Email' },
-      {
-        title: 'Direccion', data: null, render: (data: any, type: any, row: any, meta: any) => {
-          return `${data.Dirhabitacion1} ${data.Dirhabitacion2} ${data.Dirhabitacion3}`;
-        }
-      },
-      { title: 'Ejecutivo', data: 'Ejecutivo' },
-    ];
-
     this.dtColumnasEjemplo = [
       { title: 'Monto', data: 'Monto' },
       { title: 'Titulos', data: 'Titulo' }
@@ -270,13 +257,8 @@ export class DataComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.dameCalendario.consultar();
-
     this.dameCorden.CadOut = [];
     this.dameCorden.visible = true;
-
-    this.dameDatosM.CadOut = [];
-    this.dameDatosM.visible = true;
 
     // this.damePosicionMAnt.visible = true;
 
@@ -296,10 +278,7 @@ export class DataComponent implements OnInit {
     this.dameCorden.ParamIn.Hasta = this.dameCalendario.CadOut.Fecha;
     this.dameCorden.consultar();
 
-    this.dameDatosM.ParamIn.Status = 0;
-    this.dameDatosM.ParamIn.Mensaje = ' ';
-    this.dameDatosM.ParamIn.Rif = this.codigoCliente;
-    this.dameDatosM.consultar();
+    // this.codigoCliente = this.headerCP.codgoCliente;
   }
 
 }

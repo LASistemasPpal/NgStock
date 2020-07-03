@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { DameCalendario } from '@laranda/lib-ultra-net';
 
 declare let $: any;
 @Component({
@@ -27,9 +28,17 @@ export class HeaderComponent implements OnInit {
     'border-color': '#8B363E',
   };
 
-  constructor() { }
+  codgoCliente: string;
+  codgoTitulo: string;
+  codgoMoneda: string;
+
+  constructor(
+    public dameCalendario: DameCalendario
+  ) { }
 
   ngOnInit() {
     $('[data-toggle="tooltip"]').tooltip();
+
+    this.dameCalendario.consultar();
   }
 }
