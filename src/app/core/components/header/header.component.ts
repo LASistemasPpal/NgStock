@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { DameCalendario } from '@laranda/lib-ultra-net';
 
 declare let $: any;
@@ -28,9 +28,12 @@ export class HeaderComponent implements OnInit {
     'border-color': '#8B363E',
   };
 
+
   codgoCliente: string;
   codgoTitulo: string;
   codgoMoneda: string;
+
+  @Output() XCliente = new EventEmitter<string>();
 
   constructor(
     public dameCalendario: DameCalendario
@@ -38,7 +41,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     $('[data-toggle="tooltip"]').tooltip();
+  }
 
-    this.dameCalendario.consultar();
+  getCliente() {
+    this.XCliente.emit(this.codgoCliente);
   }
 }

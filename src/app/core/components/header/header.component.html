@@ -1,7 +1,5 @@
 <div class="container-12 mx-5">
   <div class="row pt-3">
-    <!-- <div class="col-xl-1 col-lg-2 p-0">
-    </div> -->
 
     <img src="../../../../assets/img/Logo parval.png" [ngStyle]="xborde" alt="" class="mb-3">
     <div class="col-xl-6 align-self-end pl-4 pr-0">
@@ -30,7 +28,7 @@
           </button>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="#"><i class="fas mr-2 fa-search"></i>Buscar</a>
-            <a class="dropdown-item" href="#"><i class="fas mr-2 fa-camera"></i>Detalle uno</a>
+            <a class="dropdown-item" href="#" (click)="getCliente()"><i class="fas mr-2 fa-camera"></i>Detalle uno</a>
             <a class="dropdown-item" href="#"><i class="fas mr-2 fa-portrait"></i>Detale dos</a>
             <a class="dropdown-item" href="#"><i class="fas mr-2 fa-luggage-cart"></i>Detalle tres</a>
             <a class="dropdown-item" href="#"><i class="fas mr-2 fa-globe"></i>Detalle cuatro</a>

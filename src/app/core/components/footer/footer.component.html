@@ -1,23 +1,2 @@
-<footer class="d-flex flex-row py-2 pl-2">
-
-  <div class="d-flex flex-column justify-content-center">
-    <h3 class="text-center"><i class="fas fa-flag pr-1 rounded-circle p-2" [ngStyle]="xbgColor"></i> Seleccion</h3>
-
-    <div class="row">
-      <input type="text" class="form-control col-3 ml-4" placeholder="Titulo" data-toggle="tooltip" data-placement="top" title="Codigo del Titulo a Buscar">
-      <input type="text" class="form-control col-3 ml-2" placeholder="Cliente" data-toggle="tooltip" data-placement="top" title="Codigo del Cliente a Buscar">
-      <input type="text" class="form-control col-3 ml-2" placeholder="Moneda" data-toggle="tooltip" data-placement="top" title="Codigo de la Moneda a Buscar">
-      <button type="button" class="btn btn-outline-secondary btn-sm col-2 ml-3"><i class="fas fa-search"></i> Buscar</button>
-    </div>
-  </div>
-
-  <div class="d-flex flex-column justify-content-center w-50 ml-5">
-    <h3 class="text-center"><i class="fas fa-basketball-ball pr-1 rounded-circle p-2" [ngStyle]="xbgColor"></i> Detalles</h3>
-    <div class="d-flex flex-row justify-content-center">
-      <button type="button" class="btn btn-outline-secondary" data-toggle="tooltip" data-placement="top" title="Detalle uno"><i class="h1 fas fa-camera"></i></button>
-      <button type="button" class="btn btn-outline-secondary ml-3" data-toggle="tooltip" data-placement="top" title="Detalle dos"><i class="h1  fas fa-portrait"></i></button>
-      <button type="button" class="btn btn-outline-secondary ml-3" data-toggle="tooltip" data-placement="top" title="Detalle tres"><i class="h1  fas fa-luggage-cart"></i></button>
-      <button type="button" class="btn btn-outline-secondary ml-3" data-toggle="tooltip" data-placement="top" title="Detalle cuatro"><i class="h1  fas fa-globe"></i></button>
-    </div>
-  </div>
-</footer>
+<lsy-tabla-la *ngIf="dameDatosM.CadOut != undefined" [columnas]="dtColumnasDatosM" [datosX]="dameDatosM.CadOut"></lsy-tabla-la>
+<p>{{ dameDatosM.CadOut | json }}</p>

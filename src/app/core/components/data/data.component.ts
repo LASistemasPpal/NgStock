@@ -1,7 +1,6 @@
 import { Component, OnInit, Host } from '@angular/core';
 import { Chart } from 'chart.js';
-import { DameCorden, DamePosicionMAnt, DameCalendario } from '@laranda/lib-ultra-net';
-import { HeaderComponent } from '../header/header.component';
+import { DameCorden, DamePosicionMAnt, DameCalendario, DameDatosM } from '@laranda/lib-ultra-net';
 
 @Component({
   selector: 'app-data',
@@ -198,6 +197,7 @@ export class DataComponent implements OnInit {
 
   dtColumnasCorden: DataTables.ColumnSettings[] = [];
   dtColumnasEjemplo: DataTables.ColumnSettings[] = [];
+  dtColumnasDatosM: DataTables.ColumnSettings[] = [];
   public codigoCliente = '';
 
   IconCOrden: DataTables.FunctionColumnRender = (data, type, row, meta) => {
@@ -235,8 +235,9 @@ export class DataComponent implements OnInit {
     public dameCorden: DameCorden,
     public dameCalendario: DameCalendario,
     public damePosicionMAnt: DamePosicionMAnt,
-    @Host() private headerCP: HeaderComponent
+    public dameDatosM: DameDatosM
   ) {
+    this.dameCalendario.consultar();
 
     this.dtColumnasCorden = [
       { title: 'Estado', data: 'Estado', render: this.IconCOrden },
@@ -254,9 +255,28 @@ export class DataComponent implements OnInit {
       { title: 'Monto', data: 'Monto' },
       { title: 'Titulos', data: 'Titulo' }
     ];
+
+    this.dtColumnasDatosM = [
+      { title: 'Apellido', data: 'Apellido' },
+      { title: 'Nombre', data: 'Nombre' }
+      // { title: 'Tlf1', data: 'Tlf1' },
+      // { title: 'Tlf2', data: 'Tlf2' },
+      // { title: 'Email', data: 'Email' }
+      // ,
+      // {
+      //   title: 'Direccion', data: null, render: (data: any, type: any, row: any, meta: any) => {
+      //     return `${data.Dirhabitacion1} ${data.Dirhabitacion2} ${data.Dirhabitacion3}`;
+      //   }
+      // },
+      // { title: 'Ejecutivo', data: 'Ejecutivo' },
+    ];
   }
 
+
   ngOnInit(): void {
+    this.dameDatosM.CadOut = [];
+    this.dameDatosM.visible = false;
+
     this.dameCorden.CadOut = [];
     this.dameCorden.visible = true;
 
@@ -279,6 +299,25 @@ export class DataComponent implements OnInit {
     this.dameCorden.consultar();
 
     // this.codigoCliente = this.headerCP.codgoCliente;
+  }
+
+  consultarCliente(codigo: string) {
+
+    if (codigo.trim().length > 0) {
+      this.dameDatosM.ParamIn.Status = 0;
+      this.dameDatosM.ParamIn.Mensaje = ' ';
+      this.dameDatosM.ParamIn.Rif = codigo;
+      console.log(codigo);
+
+
+      this.dameDatosM.consultar();
+      console.log('Fino....!');
+
+    } else {
+      this.dameDatosM.CadOut = [];
+      this.dameDatosM.visible = false;
+    }
+
   }
 
 }

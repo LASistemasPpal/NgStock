@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header (XCliente)="consultarCliente($event)"></app-header>
 
 
 <div class="container-fluid bg-gris">
@@ -111,4 +111,9 @@
   </div>
 </div>
 
-<!-- <app-footer *ngIf="codigoCliente != undefined" [codCliente]="codigoCliente"></app-footer> -->
+<lsy-tabla-la *ngIf="dameDatosM.visible" [columnas]="dtColumnasDatosM" [datosX]="dameDatosM.CadOut"></lsy-tabla-la>
+<p *ngIf="dameDatosM.visible">
+  {{ dameDatosM.CadOut | json }}
+</p>
+
+<!-- <app-footer *ngIf="dameDatosM.visible"></app-footer> -->
