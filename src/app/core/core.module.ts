@@ -15,6 +15,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { Error404Component } from './components/error404/error404.component';
 import { DataComponent } from './components/data/data.component';
+import { CordenComponent } from './components/corden/corden.component';
+import { PosicionMAntComponent } from './components/posicion-m-ant/posicion-m-ant.component';
 
 
 
@@ -23,7 +25,9 @@ import { DataComponent } from './components/data/data.component';
     DataComponent,
     Error404Component,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    CordenComponent,
+    PosicionMAntComponent
   ],
   imports: [
     CommonModule,

@@ -1,11 +1,11 @@
-<app-header (XCliente)="consultarCliente($event)"></app-header>
+<app-header (codCliente)="consultarCliente($event)"></app-header>
 
 
 <div class="container-fluid bg-gris">
   <div class="container-12 mx-5">
     <div class="row">
 
-      <div class="col-6">
+      <div class="col-5">
         <div class="row">
           <div class="col pl-0">
             <h1 [ngStyle]="xcolor" class="text-center"><strong>132</strong></h1>
@@ -46,7 +46,7 @@
         <p [ngStyle]="xcolor"><strong>PAR027 AFI034</strong></p>
       </div>
 
-      <div class="col-4 pt-2">
+      <div class="col-5 pt-2">
         <h3 class="text-center"><i class="fas fa-money-bill-wave pr-1 rounded-circle p-2" [ngStyle]="xbgColor"></i>
           Movimiento</h3>
         <lsy-tabla-la [columnas]="dtColumnasEjemplo" [datosX]="xEjemplo"></lsy-tabla-la>
@@ -111,9 +111,6 @@
   </div>
 </div>
 
-<lsy-tabla-la *ngIf="dameDatosM.visible" [columnas]="dtColumnasDatosM" [datosX]="dameDatosM.CadOut"></lsy-tabla-la>
-<p *ngIf="dameDatosM.visible">
-  {{ dameDatosM.CadOut | json }}
-</p>
-
-<!-- <app-footer *ngIf="dameDatosM.visible"></app-footer> -->
+<app-footer *ngIf="consultaTipo === '1'" [codRif]="codigoCliente"></app-footer>
+<app-corden *ngIf="consultaTipo === '2'" [codRif]="codigoCliente" [fecha]="dameCalendario.CadOut.Fecha"></app-corden>
+<app-posicion-m-ant *ngIf="consultaTipo === '3'" [codRif]="codigoCliente" [fecha]="dameCalendario.CadOut.Fecha"></app-posicion-m-ant>

@@ -1,6 +1,6 @@
 import { Component, OnInit, Host } from '@angular/core';
 import { Chart } from 'chart.js';
-import { DameCorden, DamePosicionMAnt, DameCalendario, DameDatosM } from '@laranda/lib-ultra-net';
+import { DameCalendario } from '@laranda/lib-ultra-net';
 
 @Component({
   selector: 'app-data',
@@ -18,10 +18,10 @@ export class DataComponent implements OnInit {
   };
 
   xEjemplo = [
-    { Monto: 'DOP 475,000,000', Titulo: 'MH0323' },
-    { Monto: 'DOP 123,645,000', Titulo: 'AFI024' },
-    { Monto: 'Usd 123,000', Titulo: 'PAR027' },
-    { Monto: 'Usd 28,100', Titulo: 'BC0224' }
+    { Monto: 'DOP 475,000,000', Titulo: 'MH0323', Isin: 'COD001',  MtPromedio: '101.450', Liquides: 'A'},
+    { Monto: 'DOP 123,645,000', Titulo: 'AFI024', Isin: 'COD002',  MtPromedio: '99.054', Liquides: 'B' },
+    { Monto: 'Usd 123,000', Titulo: 'PAR027', Isin: 'COD003',  MtPromedio: '98.765', Liquides: 'C' },
+    { Monto: 'Usd 28,100', Titulo: 'BC0224', Isin: 'COD004',  MtPromedio: '92.789', Liquides: 'D' }
   ];
 
 
@@ -195,92 +195,27 @@ export class DataComponent implements OnInit {
     }
   };
 
-  dtColumnasCorden: DataTables.ColumnSettings[] = [];
   dtColumnasEjemplo: DataTables.ColumnSettings[] = [];
-  dtColumnasDatosM: DataTables.ColumnSettings[] = [];
+
   public codigoCliente = '';
-
-  IconCOrden: DataTables.FunctionColumnRender = (data, type, row, meta) => {
-    let clase: string;
-
-    switch (row.Estado) {
-      case '0':
-        clase = 'LA-icon-video-camera';
-        break;
-
-      case '1':
-        clase = 'LA-icon-circle';
-        break;
-
-      case '2':
-        clase = 'LA-icon-clock-o';
-        break;
-
-      case '3':
-        clase = 'LA-icon-history';
-        break;
-
-      case '4':
-        clase = 'LA-icon-check-square-red';
-        break;
-    }
-
-    return `<i class="fa fa-lightbulb-o LA-size ${clase}"></i> ${data}`;
-  }
-
-  // dtColumnas: any[] = [
-  // Estado iconos
+  public consultaTipo = '';
 
   constructor(
-    public dameCorden: DameCorden,
-    public dameCalendario: DameCalendario,
-    public damePosicionMAnt: DamePosicionMAnt,
-    public dameDatosM: DameDatosM
+    public dameCalendario: DameCalendario
   ) {
     this.dameCalendario.consultar();
 
-    this.dtColumnasCorden = [
-      { title: 'Estado', data: 'Estado', render: this.IconCOrden },
-      { title: 'Nº Orden', data: 'Nordennew' },
-      { title: 'Producto', data: 'Concepto' }, // seta pendiente Vanessa
-      { title: 'Cliente', data: 'Nombre' },
-      { title: 'Titulo', data: 'Producto' },
-      { title: 'Cant./Monto', data: 'Camonto' },
-      { title: 'Prec/Rend/Venc', data: 'Precio1' },
-      { title: 'Ejecutivo', data: 'Ejecutivo' },
-      { title: 'Observacion', data: 'Observacion' }
-    ];
-
     this.dtColumnasEjemplo = [
       { title: 'Monto', data: 'Monto' },
-      { title: 'Titulos', data: 'Titulo' }
-    ];
-
-    this.dtColumnasDatosM = [
-      { title: 'Apellido', data: 'Apellido' },
-      { title: 'Nombre', data: 'Nombre' }
-      // { title: 'Tlf1', data: 'Tlf1' },
-      // { title: 'Tlf2', data: 'Tlf2' },
-      // { title: 'Email', data: 'Email' }
-      // ,
-      // {
-      //   title: 'Direccion', data: null, render: (data: any, type: any, row: any, meta: any) => {
-      //     return `${data.Dirhabitacion1} ${data.Dirhabitacion2} ${data.Dirhabitacion3}`;
-      //   }
-      // },
-      // { title: 'Ejecutivo', data: 'Ejecutivo' },
+      { title: 'Titulos', data: 'Titulo' },
+      { title: 'Isin', data: 'Isin' },
+      { title: 'Prec. Promedio', data: 'MtPromedio' },
+      { title: 'Liquides', data: 'Liquides' }
     ];
   }
 
 
   ngOnInit(): void {
-    this.dameDatosM.CadOut = [];
-    this.dameDatosM.visible = false;
-
-    this.dameCorden.CadOut = [];
-    this.dameCorden.visible = true;
-
-    // this.damePosicionMAnt.visible = true;
 
     const myChart = new Chart('graficoPrecio', this.graficoPrecio);
     const myChart2 = new Chart('graficoVolumen', this.graficoVolumen);
@@ -289,35 +224,12 @@ export class DataComponent implements OnInit {
     const myChart5 = new Chart('graficoMonTran3', this.graficoMonTran3);
   }
 
-  getDatos() {
+  consultarCliente(codigo: string[]) {
 
-    this.dameCorden.ParamIn.Status = 0;
-    this.dameCorden.ParamIn.Mensaje = '<NUORIGEN>1</NUORIGEN>';
-    this.dameCorden.ParamIn.Rif = this.codigoCliente;
-    this.dameCorden.ParamIn.desde = this.dameCalendario.CadOut.Fecha;
-    this.dameCorden.ParamIn.Hasta = this.dameCalendario.CadOut.Fecha;
-    this.dameCorden.consultar();
-
-    // this.codigoCliente = this.headerCP.codgoCliente;
-  }
-
-  consultarCliente(codigo: string) {
-
-    if (codigo.trim().length > 0) {
-      this.dameDatosM.ParamIn.Status = 0;
-      this.dameDatosM.ParamIn.Mensaje = ' ';
-      this.dameDatosM.ParamIn.Rif = codigo;
-      console.log(codigo);
-
-
-      this.dameDatosM.consultar();
-      console.log('Fino....!');
-
-    } else {
-      this.dameDatosM.CadOut = [];
-      this.dameDatosM.visible = false;
+    if (codigo.length > 0 && codigo[0].trim().length > 0) {
+      this.codigoCliente = codigo[0];
+      this.consultaTipo = codigo[1];
     }
-
   }
 
 }

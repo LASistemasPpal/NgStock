@@ -1,2 +1,19 @@
-<lsy-tabla-la *ngIf="dameDatosM.CadOut != undefined" [columnas]="dtColumnasDatosM" [datosX]="dameDatosM.CadOut"></lsy-tabla-la>
-<p>{{ dameDatosM.CadOut | json }}</p>
+<div class="conteiner-12 mx-5">
+  <div class="row justify-content-center">
+    <div class="col-6 my-4">
+      <div *ngIf="dameDatosM.visible" class="card shadow">
+        <div class="card-body">
+          <h5 class="card-title text-center">{{ dameDatosM.CadOut.Apellido + ' ' + dameDatosM.CadOut.Nombre }}</h5>
+          <hr>
+          <p class="card-text"><b>Telefono1:</b> {{ dameDatosM.CadOut.Tlf1 }}</p>
+          <p class="card-text"><b>Telefono2:</b> {{ dameDatosM.CadOut.Tlf2 }}</p>
+          <p class="card-text"><b>Email:</b> {{ dameDatosM.CadOut.Email }}</p>
+          <p class="card-text"><b>Ejecutivo:</b> {{ dameDatosM.CadOut.Ejecutivo }}</p>
+          <p class="card-text"><b>Direccion:</b>
+            {{ dameDatosM.CadOut.Dirhabitacion1 + ' ' + dameDatosM.CadOut.Dirhabitacion2 + ' ' + dameDatosM.CadOut.Dirhabitacion3}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

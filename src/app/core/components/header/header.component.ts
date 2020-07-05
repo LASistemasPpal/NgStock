@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
   codgoTitulo: string;
   codgoMoneda: string;
 
-  @Output() XCliente = new EventEmitter<string>();
+  @Output() codCliente = new EventEmitter<string[]>();
 
   constructor(
     public dameCalendario: DameCalendario
@@ -43,7 +43,15 @@ export class HeaderComponent implements OnInit {
     $('[data-toggle="tooltip"]').tooltip();
   }
 
-  getCliente() {
-    this.XCliente.emit(this.codgoCliente);
+  getDatosM() {
+    this.codCliente.emit([this.codgoCliente, '1']);
+  }
+
+  getCOrden() {
+    this.codCliente.emit([this.codgoCliente, '2']);
+  }
+
+  getDatosM_Ant() {
+    this.codCliente.emit([this.codgoCliente, '3']);
   }
 }
