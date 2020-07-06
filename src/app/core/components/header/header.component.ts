@@ -9,26 +9,6 @@ declare let $: any;
 })
 export class HeaderComponent implements OnInit {
 
-  xcolor = { color: '#8B363E' };
-
-  xborde = {
-    border: '.25em solid #8B363E'
-  };
-
-  xborde2 = {
-    border: '.02em solid #8B363E',
-    'border-radius': '.55em',
-    'background-color': '#8B363E',
-    color: 'white'
-  };
-
-  xbgColor = {
-    'background-color': '#8B363E',
-    color: 'white',
-    'border-color': '#8B363E',
-  };
-
-
   codgoCliente: string;
   codgoTitulo: string;
   codgoMoneda: string;
@@ -37,7 +17,28 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     public dameCalendario: DameCalendario
-  ) { }
+  ) {
+
+    if (this.dameCalendario.visible) {
+
+      Object.assign(this.dameCalendario, {
+          xcolor : { color: this.dameCalendario.CadOut.Color },
+          xborde : { border: '.25em solid ' + this.dameCalendario.CadOut.Color },
+          xborde2 : {
+            border: '.02em solid ' + this.dameCalendario.CadOut.Color,
+            'border-radius': '.55em',
+            'background-color': this.dameCalendario.CadOut.Color,
+            color: 'white'
+          },
+          xbgColor : {
+            'background-color': this.dameCalendario.CadOut.Color,
+            color: 'white',
+            'border-color': this.dameCalendario.CadOut.Color,
+          }
+      });
+    }
+
+  }
 
   ngOnInit() {
     $('[data-toggle="tooltip"]').tooltip();

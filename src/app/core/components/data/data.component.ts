@@ -1,3 +1,4 @@
+import { async } from '@angular/core/testing';
 import { Component, OnInit, Host } from '@angular/core';
 import { Chart } from 'chart.js';
 import { DameCalendario } from '@laranda/lib-ultra-net';
@@ -8,14 +9,6 @@ import { DameCalendario } from '@laranda/lib-ultra-net';
   styleUrls: ['./data.component.scss']
 })
 export class DataComponent implements OnInit {
-
-  xcolor = { color: '#8B363E' };
-
-  xbgColor = {
-    'background-color': '#8B363E',
-    color: 'white',
-    'border-color': '#8B363E',
-  };
 
   xEjemplo = [
     { Monto: 'DOP 475,000,000', Titulo: 'MH0323', Isin: 'COD001',  MtPromedio: '101.450', Liquides: 'A'},

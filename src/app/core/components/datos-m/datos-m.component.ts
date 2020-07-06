@@ -2,18 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { DameDatosM } from '@laranda/lib-ultra-net';
 
 @Component({
-  selector: 'app-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+  selector: 'app-datos-m',
+  templateUrl: './datos-m.component.html',
+  styleUrls: ['./datos-m.component.scss']
 })
-export class FooterComponent implements OnInit {
-
-  xcolor = { color: '#8B363E' };
-  xbgColor = {
-    'background-color': '#8B363E',
-    color: 'white',
-    'border-color': '#8B363E',
-  };
+export class DatosMComponent implements OnInit {
 
   dtColumnasDatosM: any[];
 

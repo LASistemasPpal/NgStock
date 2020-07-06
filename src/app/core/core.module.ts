@@ -12,11 +12,11 @@ import { environment } from './../../environments/environment';
 
 // Componentes
 import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { Error404Component } from './components/error404/error404.component';
 import { DataComponent } from './components/data/data.component';
 import { CordenComponent } from './components/corden/corden.component';
 import { PosicionMAntComponent } from './components/posicion-m-ant/posicion-m-ant.component';
+import { DatosMComponent } from './components/datos-m/datos-m.component';
 
 
 
@@ -24,10 +24,10 @@ import { PosicionMAntComponent } from './components/posicion-m-ant/posicion-m-an
   declarations: [
     DataComponent,
     Error404Component,
-    FooterComponent,
     HeaderComponent,
     CordenComponent,
-    PosicionMAntComponent
+    PosicionMAntComponent,
+    DatosMComponent
   ],
   imports: [
     CommonModule,
