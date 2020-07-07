@@ -48,7 +48,6 @@ export class CadJsons implements ICadJson{
     ValorNominalPesos: number;
     ValorTransadoDolares: number;
     ValorTransadoPesos: number;
-
     constructor(CadJ: ICadJson){
         this.CODRUEDA = CadJ.CODRUEDA;
         this.Duracion = CadJ.Duracion;
@@ -86,7 +85,7 @@ export class BvrdPosturaP implements IbvrdPostura{
     Status: number;
     Mensaje: string;
     CadJson: CadJsons[];
-    constructor( bvrdPosturaP: IbvrdPostura){
+    constructor(bvrdPosturaP: IbvrdPostura){
         this.Status = bvrdPosturaP.Status;
         this.Mensaje = bvrdPosturaP.Mensaje;
         this.CadJson = [];
@@ -188,45 +187,44 @@ export class CadJsonOpers implements ICadJsonOper{
     ValorTransadoEquivalentePesos: number;
     ValorTransadoPesos: number;
     Yield: number;
-
     constructor(CadJOper: CadJsonOpers){
-        this.CantidadTitulos                 = CadJOper.CantidadTitulos;
-        this.CodEmisorBVRD                   = CadJOper.CodEmisorBVRD;
-        this.CodigoISIN                      = CadJOper.CodigoISIN;
-        this.ComisionComprador               = CadJOper.ComisionComprador;
-        this.ComisionVendedor                = CadJOper.ComisionVendedor;
-        this.DiasVencimiento                 = CadJOper.DiasVencimiento;
-        this.Estatus                         = CadJOper.Estatus;
-        this.FechaEmision                    = CadJOper.FechaEmision;
-        this.FechaLiquidacion                = CadJOper.FechaLiquidacion;
-        this.FechaOperacion                  = CadJOper.FechaOperacion;
-        this.FechaVencimiento                = CadJOper.FechaVencimiento;
-        this.HoraOperacion                   = CadJOper.HoraOperacion;
-        this.MonedaTransada                  = CadJOper.MonedaTransada;
-        this.NemoTecnico                     = CadJOper.NemoTecnico;
-        this.NombreMercado                   = CadJOper.NombreMercado;
-        this.NumeroOfertaCompra              = CadJOper.NumeroOfertaCompra;
-        this.NumeroOfertaVenta               = CadJOper.NumeroOfertaVenta;
-        this.NumeroOperacion                 = CadJOper.NumeroOperacion;
-        this.PrecioLimpio                    = CadJOper.PrecioLimpio;
-        this.PuestoComprador                 = CadJOper.PuestoComprador;
-        this.PuestoVendedor                  = CadJOper.PuestoVendedor;
-        this.TasaCompra                      = CadJOper.TasaCompra;
-        this.TasaCupon                       = CadJOper.TasaCupon;
-        this.TasaVenta                       = CadJOper.TasaVenta;
-        this.TipoMercado                     = CadJOper.TipoMercado;
-        this.Tipodeinstrumento               = CadJOper.Tipodeinstrumento;
-        this.ValorNominalDolares             = CadJOper.ValorNominalDolares;
-        this.ValorNominalEquivalenteDolares  = CadJOper.ValorNominalEquivalenteDolares;
-        this.ValorNominalEquivalentePesos    = CadJOper.ValorNominalEquivalentePesos;
-        this.ValorNominalPesos               = CadJOper.ValorNominalPesos;
-        this.ValorNominalTotal               = CadJOper.ValorNominalTotal;
-        this.ValorTransado                   = CadJOper.ValorTransado;
-        this.ValorTransadoDolares            = CadJOper.ValorTransadoDolares;
+        this.CantidadTitulos = CadJOper.CantidadTitulos;
+        this.CodEmisorBVRD = CadJOper.CodEmisorBVRD;
+        this.CodigoISIN = CadJOper.CodigoISIN;
+        this.ComisionComprador = CadJOper.ComisionComprador;
+        this.ComisionVendedor = CadJOper.ComisionVendedor;
+        this.DiasVencimiento = CadJOper.DiasVencimiento;
+        this.Estatus = CadJOper.Estatus;
+        this.FechaEmision = CadJOper.FechaEmision;
+        this.FechaLiquidacion = CadJOper.FechaLiquidacion;
+        this.FechaOperacion = CadJOper.FechaOperacion;
+        this.FechaVencimiento = CadJOper.FechaVencimiento;
+        this.HoraOperacion = CadJOper.HoraOperacion;
+        this.MonedaTransada = CadJOper.MonedaTransada;
+        this.NemoTecnico = CadJOper.NemoTecnico;
+        this.NombreMercado = CadJOper.NombreMercado;
+        this.NumeroOfertaCompra = CadJOper.NumeroOfertaCompra;
+        this.NumeroOfertaVenta = CadJOper.NumeroOfertaVenta;
+        this.NumeroOperacion = CadJOper.NumeroOperacion;
+        this.PrecioLimpio = CadJOper.PrecioLimpio;
+        this.PuestoComprador = CadJOper.PuestoComprador;
+        this.PuestoVendedor = CadJOper.PuestoVendedor;
+        this.TasaCompra = CadJOper.TasaCompra;
+        this.TasaCupon = CadJOper.TasaCupon;
+        this.TasaVenta = CadJOper.TasaVenta;
+        this.TipoMercado = CadJOper.TipoMercado;
+        this.Tipodeinstrumento = CadJOper.Tipodeinstrumento;
+        this.ValorNominalDolares = CadJOper.ValorNominalDolares;
+        this.ValorNominalEquivalenteDolares = CadJOper.ValorNominalEquivalenteDolares;
+        this.ValorNominalEquivalentePesos = CadJOper.ValorNominalEquivalentePesos;
+        this.ValorNominalPesos = CadJOper.ValorNominalPesos;
+        this.ValorNominalTotal = CadJOper.ValorNominalTotal;
+        this.ValorTransado = CadJOper.ValorTransado;
+        this.ValorTransadoDolares = CadJOper.ValorTransadoDolares;
         this.ValorTransadoEquivalenteDolares = CadJOper.ValorTransadoEquivalenteDolares;
-        this.ValorTransadoEquivalentePesos   = CadJOper.ValorTransadoEquivalentePesos;
-        this.ValorTransadoPesos              = CadJOper.ValorTransadoPesos;
-        this.Yield                           = CadJOper.Yield;
+        this.ValorTransadoEquivalentePesos = CadJOper.ValorTransadoEquivalentePesos;
+        this.ValorTransadoPesos = CadJOper.ValorTransadoPesos;
+        this.Yield = CadJOper.Yield;
         }
 }
 
@@ -248,4 +246,93 @@ export class BvrdOpers implements IbvrdOper{
             this.CadJson.push(new CadJsonOpers(cadJ));
         }
     }
+}
+
+export class Cantidades {
+    PosturasP: number;
+    PosturasM: number;
+    PrimarioP: number;
+    PrimarioM: number;
+    MarketMP: number;
+    MarketMM: number;
+    OperacionesP: number;
+    OperacionesM: number;
+    MtodopM: number;
+    MtousdM: number;
+    MtototM: number;
+    constructor(Cant: Cantidades) {
+      this.PosturasP = Cant.PosturasP;
+      this.PosturasM = Cant.PosturasM;
+      this.PrimarioP = Cant.PrimarioP;
+      this.PrimarioM = Cant.PrimarioM;
+      this.MarketMP = Cant.MarketMP;
+      this.MarketMM = Cant.MarketMM;
+      this.OperacionesP = Cant.OperacionesP;
+      this.OperacionesM = Cant.OperacionesM;
+      this.MtodopM = Cant.MtodopM;
+      this.MtousdM = Cant.MtousdM;
+      this.MtototM = Cant.MtototM;
+    }
+  }
+
+export class Movimientos {
+    Moneda: string;
+    Monto: number;
+    Cotitulo: string;
+    Isin: string;
+    Cant: number;
+    c_v: string;
+    constructor(Mov: Movimientos) {
+      this.Moneda = Mov.Moneda;
+      this.Monto = Mov.Monto;
+      this.Cotitulo = Mov.Cotitulo;
+      this.Isin = Mov.Isin;
+      this.Cant = Mov.Cant;
+      this.c_v = Mov.c_v;
+    }
+  }
+
+export class Graficos {
+    Hora: Date;
+    EjeY: number;
+    constructor(Graf: Graficos) {
+      this.Hora = Graf.Hora;
+      this.EjeY = Graf.EjeY;
+    }
+  }
+
+export class Estadisticas{
+    GrafPrecioP: Graficos[] = [];
+    GrafPrecioM: Graficos[] = [];
+    GrafPrecioOper: Graficos[] = [];
+    GrafVolumenP: Graficos[] = [];
+    GrafVolumenM: Graficos[] = [];
+    GrafVolumenOper: Graficos[] = [];
+    MinGrafPrecio: number;
+    MaxGrafPrecio: number;
+    MinGrafVolumen: number;
+    MaxGrafVolumen: number;
+    Movi: Movimientos[] = [];
+    emisiones: string[] = [];
+    MastransadaDOP = '';
+    MastransadaUSD = '';
+    MastranMtoDOP: number;
+    MastranMtoUSD: number;
+    isin: string;
+    posi: number;
+    canti: Cantidades = new Cantidades({
+      PosturasM: 0,
+      PosturasP: 0,
+      PrimarioM: 0,
+      PrimarioP: 0,
+      MarketMM: 0,
+      MarketMP: 0,
+      OperacionesM: 0,
+      OperacionesP: 0,
+      MtodopM: 0,
+      MtousdM: 0,
+      MtototM: 0
+    });
+
+    constructor() {}
 }

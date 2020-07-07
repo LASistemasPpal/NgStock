@@ -20,7 +20,6 @@ export class HeaderComponent implements OnInit {
   ) {
 
     if (this.dameCalendario.visible) {
-
       Object.assign(this.dameCalendario, {
           xcolor : { color: this.dameCalendario.CadOut.Color },
           xborde : { border: '.25em solid ' + this.dameCalendario.CadOut.Color },

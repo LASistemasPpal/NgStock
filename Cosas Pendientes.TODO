@@ -1,4 +1,6 @@
 Ajustar:
+    ☐ incorporar dame-titulos para el codigo LA @critical
+    ☐ modificar a Dame-cordenX @critical
     ☐ al dar click en el grafico mostrar un showModal del mismo
     ☐ limitar lo que se muestra en el grid de Lib-sysutil a 5 ojo
     ✔ tabla Movimiento colocar isin, precio promedio y indicador de liquides @done(05-07-2020 19:20)
