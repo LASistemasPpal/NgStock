@@ -1,8 +1,4 @@
 Ajustar:
-    ☐ incorporar dame-titulos para el codigo LA @critical
-    ☐ modificar a Dame-cordenX @critical
-    ☐ al dar click en el grafico mostrar un showModal del mismo
-    ☐ limitar lo que se muestra en el grid de Lib-sysutil a 5 ojo
     ✔ tabla Movimiento colocar isin, precio promedio y indicador de liquides @done(05-07-2020 19:20)
     ✔ en el header mostar la fecha del dame_calendario: @done(19-06-2020 07:40)
       Fecha
@@ -32,9 +28,28 @@ Ajustar:
       Efecfin
       Clave
 
-      ☐ servicio dame_datosM referencia y cotitulares pendiente pueden ser array de json o json
+      ✘ servicio dame_datosM referencia y cotitulares pendiente pueden ser array de json o json @cancelled(09-07-2020 11:33)
 
     ☐ Segun lo conversado el grafico de Precios y Volumenes depende si esta filtrado por titulo
+
+Reunion con Luis y Vanessa 08/07/2020:
+    ☐ incorporar dame-titulos para el codigo LA @critical
+    ✔ modificar a Dame-cordenX @critical @done(09-07-2020 16:30)
+    ☐ al dar click en el grafico mostrar un showModal del mismo
+    ☐ limitar lo que se muestra en el grid de Lib-sysutil a 5 ojo
+    ☐ generar GrafPrecioM sin fondo
+    ☐ generar GrafPrecioOper con fondo
+    ☐ generar GrafVolumenM
+    ☐ generar GrafVolumenOper
+    ✔ Monto del grid a la derecha @done(09-07-2020 15:59)
+    ☐ evento de refrescar en el logo tipo y en la barra de color
+    ☐ dame posturas propias nuevo
+    ☐ Crear menu de dameOperaciones damePosturasM damePosturasP
+
+    Pendientes por porbar:
+      ✔ Mostrar MastranMtoDOP MastransadaDOP @done(09-07-2020 18:34)
+      ✔ Mostrar MastranMtoUSD MastransadaUSD @done(09-07-2020 18:34)
+      ✔ albuscar cliente mostrar Dame_PosicionM_Ant Dame-Datos-M @done(09-07-2020 18:29)
 
 
       https://codepen.io/Shven/pen/chKqD

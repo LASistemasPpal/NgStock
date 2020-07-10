@@ -1,7 +1,9 @@
-import { async } from '@angular/core/testing';
-import { Component, OnInit, Host } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import { DameCalendario } from '@laranda/lib-ultra-net';
+import { CalculosRD } from './../../../shared/services/estadisticas.service';
+import { DamePosturasM, DamePosturasP, DameOperaciones } from './../../../shared/services/data-bvrd.service';
+
 
 @Component({
   selector: 'app-data',
@@ -9,14 +11,6 @@ import { DameCalendario } from '@laranda/lib-ultra-net';
   styleUrls: ['./data.component.scss']
 })
 export class DataComponent implements OnInit {
-
-  xEjemplo = [
-    { Monto: 'DOP 475,000,000', Titulo: 'MH0323', Isin: 'COD001',  MtPromedio: '101.450', Liquides: 'A'},
-    { Monto: 'DOP 123,645,000', Titulo: 'AFI024', Isin: 'COD002',  MtPromedio: '99.054', Liquides: 'B' },
-    { Monto: 'Usd 123,000', Titulo: 'PAR027', Isin: 'COD003',  MtPromedio: '98.765', Liquides: 'C' },
-    { Monto: 'Usd 28,100', Titulo: 'BC0224', Isin: 'COD004',  MtPromedio: '92.789', Liquides: 'D' }
-  ];
-
 
   graficoPrecio = {
     type: 'line',
@@ -191,19 +185,25 @@ export class DataComponent implements OnInit {
   dtColumnasEjemplo: DataTables.ColumnSettings[] = [];
 
   public codigoCliente = '';
+  public codigoTitulo = '';
   public consultaTipo = '';
 
   constructor(
-    public dameCalendario: DameCalendario
+    public dameCalendario: DameCalendario,
+    private damePosturasM: DamePosturasM,
+    private damePosturasP: DamePosturasP,
+    private dameOperaciones: DameOperaciones,
+    public calculosRD: CalculosRD
   ) {
     this.dameCalendario.consultar();
 
     this.dtColumnasEjemplo = [
-      { title: 'Monto', data: 'Monto' },
-      { title: 'Titulos', data: 'Titulo' },
+      { title: 'Moneda', data: 'Moneda' },
+      { title: 'Monto', data: 'Monto', className: 'dt-body-right' },
+      { title: 'Titulos', data: 'Cotitulo' },
       { title: 'Isin', data: 'Isin' },
-      { title: 'Prec. Promedio', data: 'MtPromedio' },
-      { title: 'Liquides', data: 'Liquides' }
+      { title: 'Cantidad', data: 'Cant', className: 'dt-body-right' },
+      { title: 'C/V', data: 'c_v' }
     ];
   }
 
@@ -215,14 +215,59 @@ export class DataComponent implements OnInit {
     const myChart3 = new Chart('graficoMonTran', this.graficoMonTran);
     const myChart4 = new Chart('graficoMonTran2', this.graficoMonTran2);
     const myChart5 = new Chart('graficoMonTran3', this.graficoMonTran3);
+
+    this.dameOperaciones.consultar();
+    this.damePosturasM.consultar();
+    this.damePosturasP.consultar();
+    // dame_COrdenX
+    this.calculosRD.calcular();
+
+    console.log('Emisiones: ' + this.calculosRD.estadisticas.emisiones);
+    // console.log(canti);
+
+    // console.table(bvrdPsot[0].CadJson);;
+    console.log('Grafico Precios ' + this.calculosRD.estadisticas.isin);
+
+    console.log('GrafPrecioP');
+    console.table(this.calculosRD.estadisticas.GrafPrecioP);
+
+    console.log('GrafPrecioM');
+    console.table(this.calculosRD.estadisticas.GrafPrecioM);
+
+    console.log('GrafPrecioOper');
+    console.table(this.calculosRD.estadisticas.GrafPrecioOper);
+
+    console.log('GrafVolumenP');
+    console.table(this.calculosRD.estadisticas.GrafVolumenP);
+
+    console.log('GrafVolumenM');
+    console.table(this.calculosRD.estadisticas.GrafVolumenM);
+
+    console.log('GrafVolumenOper');
+    console.table(this.calculosRD.estadisticas.GrafVolumenOper);
+
+    console.log('Min/Max Vol ' + this.calculosRD.estadisticas.MinGrafVolumen + ' ' + this.calculosRD.estadisticas.MaxGrafVolumen);
+    console.log('Min/Max Pre  ' + this.calculosRD.estadisticas.MinGrafPrecio + ' ' + this.calculosRD.estadisticas.MaxGrafPrecio);
+
+    console.table(this.calculosRD.estadisticas.Movi);
+    console.log('USD ' + this.calculosRD.estadisticas.MastransadaUSD + '  ' + this.calculosRD.estadisticas.MastranMtoUSD);
+    console.log('DOP ' + this.calculosRD.estadisticas.MastransadaDOP + '  ' + this.calculosRD.estadisticas.MastranMtoDOP);
+    console.table(this.calculosRD.estadisticas.canti);
+
   }
 
   consultarCliente(codigo: string[]) {
+    // console.log(environm ent.cliente_prod);
+    this.consultaTipo = '0';
 
-    if (codigo.length > 0 && codigo[0].trim().length > 0) {
-      this.codigoCliente = codigo[0];
-      this.consultaTipo = codigo[1];
-    }
+    this.codigoCliente = codigo[0];
+    this.consultaTipo = codigo[1];
+    this.codigoTitulo = codigo[2];
+    // if (codigo.length > 0 && codigo[0].trim().length > 0) {
+    //   this.codigoCliente = codigo[0];
+    //   this.consultaTipo = codigo[1];
+    //   this.codigoTitulo = codigo[2];
+    // }
   }
 
 }

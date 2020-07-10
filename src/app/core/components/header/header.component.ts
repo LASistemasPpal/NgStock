@@ -9,15 +9,17 @@ declare let $: any;
 })
 export class HeaderComponent implements OnInit {
 
-  codgoCliente: string;
-  codgoTitulo: string;
-  codgoMoneda: string;
+  codgoCliente = '';
+  codgoTitulo = '';
+  codgoMoneda = '';
 
   @Output() codCliente = new EventEmitter<string[]>();
 
   constructor(
     public dameCalendario: DameCalendario
   ) {
+
+    this.dameCalendario.CadOut.Fecha = '15-03-2018'; // DANGER OJO eliminar solo para pruebas
 
     if (this.dameCalendario.visible) {
       Object.assign(this.dameCalendario, {
@@ -44,14 +46,14 @@ export class HeaderComponent implements OnInit {
   }
 
   getDatosM() {
-    this.codCliente.emit([this.codgoCliente, '1']);
+    this.codCliente.emit([this.codgoCliente, '1', '']);
   }
 
-  getCOrden() {
-    this.codCliente.emit([this.codgoCliente, '2']);
+  getCOrdenX() {
+    this.codCliente.emit([this.codgoCliente, '2', this.codgoTitulo]);
   }
 
-  getDatosM_Ant() {
-    this.codCliente.emit([this.codgoCliente, '3']);
+  inicializar() {
+    this.codCliente.emit(['', '0', '']);
   }
 }

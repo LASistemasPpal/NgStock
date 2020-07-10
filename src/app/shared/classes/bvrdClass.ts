@@ -260,6 +260,10 @@ export class Cantidades {
     MtodopM: number;
     MtousdM: number;
     MtototM: number;
+    PordopM: number;
+    PorusdM: number;
+    PortotM: number;
+
     constructor(Cant: Cantidades) {
       this.PosturasP = Cant.PosturasP;
       this.PosturasM = Cant.PosturasM;
@@ -272,6 +276,9 @@ export class Cantidades {
       this.MtodopM = Cant.MtodopM;
       this.MtousdM = Cant.MtousdM;
       this.MtototM = Cant.MtototM;
+      this.PordopM = Cant.PordopM;
+      this.PorusdM = Cant.PorusdM;
+      this.PortotM = Cant.PortotM;
     }
   }
 
@@ -281,6 +288,7 @@ export class Movimientos {
     Cotitulo: string;
     Isin: string;
     Cant: number;
+    // tslint:disable-next-line: variable-name
     c_v: string;
     constructor(Mov: Movimientos) {
       this.Moneda = Mov.Moneda;
@@ -293,11 +301,11 @@ export class Movimientos {
   }
 
 export class Graficos {
-    Hora: Date;
-    EjeY: number;
+    x: Date;
+    y: number;
     constructor(Graf: Graficos) {
-      this.Hora = Graf.Hora;
-      this.EjeY = Graf.EjeY;
+      this.x = Graf.x;
+      this.y = Graf.y;
     }
   }
 
@@ -331,7 +339,10 @@ export class Estadisticas{
       OperacionesP: 0,
       MtodopM: 0,
       MtousdM: 0,
-      MtototM: 0
+      MtototM: 0,
+      PordopM: 30,
+      PorusdM: 70,
+      PortotM: 100
     });
 
     constructor() {}

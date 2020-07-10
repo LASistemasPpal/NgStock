@@ -1,27 +1,27 @@
 <app-header *ngIf="dameCalendario.visible"  (codCliente)="consultarCliente($event)"></app-header>
 
 
-<div class="container-fluid bg-gris">
+<div *ngIf="dameCalendario.visible" class="container-fluid bg-gris">
   <div class="container-12 mx-5">
     <div class="row">
 
       <div class="col-5">
         <div class="row">
           <div class="col pl-0">
-            <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>132</strong></h1>
-            <p class="text-center">Postura 44</p>
+            <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>{{ calculosRD.estadisticas.canti.PosturasM }}</strong></h1>
+            <p class="text-center">Posturas {{ calculosRD.estadisticas.canti.PosturasP }}</p>
           </div>
           <div class="col">
-            <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>77</strong></h1>
-            <p class="text-center">Primario 0</p>
+            <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>{{ calculosRD.estadisticas.canti.PrimarioM }}</strong></h1>
+            <p class="text-center">Primario {{ calculosRD.estadisticas.canti.PrimarioP }}</p>
           </div>
           <div class="col">
-            <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>16</strong></h1>
-            <p class="text-center">MarketMarkes 0</p>
+            <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>{{ calculosRD.estadisticas.canti.MarketMM }}</strong></h1>
+            <p class="text-center">MarketMakers {{ calculosRD.estadisticas.canti.MarketMP }}</p>
           </div>
           <div class="col">
-            <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>98</strong></h1>
-            <p class="text-center">Operaciones 24</p>
+            <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>{{ calculosRD.estadisticas.canti.OperacionesM }}</strong></h1>
+            <p class="text-center">Operaciones {{ calculosRD.estadisticas.canti.OperacionesP }}</p>
           </div>
         </div>
 
@@ -39,17 +39,29 @@
         <p class="mb-0">Feha</p>
         <p *ngIf="dameCalendario.CadOut != undefined" [ngStyle]="dameCalendario['xcolor']"><strong> {{ dameCalendario.CadOut.Fecha }} </strong></p>
 
-        <p class="mb-0">Mas Transada</p>
-        <p [ngStyle]="dameCalendario['xcolor']"><strong>MH0323</strong></p>
+        <p class="mb-0">Mas Transada DOP</p>
+        <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastransadaDOP }}</strong></p>
+
+        <p class="mb-0">Mas Transada DOP Monto</p>
+        <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastranMtoDOP }}</strong></p>
+
+        <p class="mb-0">Mas Transada USD</p>
+        <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastransadaUSD }}</strong></p>
+
+        <p class="mb-0">Mas Transada USD Monto</p>
+        <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastranMtoUSD }}</strong></p>
 
         <p class="mb-0">Emision</p>
-        <p [ngStyle]="dameCalendario['xcolor']"><strong>PAR027 AFI034</strong></p>
+        <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.emisiones }}</strong></p>
+
+        <p class="mb-0">Tipo de Cambio</p>
+        <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ dameCalendario.CadOut.Tcdolar }}</strong></p>
       </div>
 
       <div class="col-5 pt-2">
         <h3 class="text-center"><i class="fas fa-money-bill-wave pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i>
           Movimiento</h3>
-        <lsy-tabla-la [columnas]="dtColumnasEjemplo" [datosX]="xEjemplo"></lsy-tabla-la>
+        <lsy-tabla-la [columnas]="dtColumnasEjemplo" [datosX]="calculosRD.estadisticas.Movi"></lsy-tabla-la>
       </div>
 
     </div>
@@ -112,5 +124,5 @@
 </div>
 
 <app-datos-m *ngIf="consultaTipo === '1'" [codRif]="codigoCliente"></app-datos-m>
-<app-corden *ngIf="consultaTipo === '2'" [codRif]="codigoCliente" [fecha]="dameCalendario.CadOut.Fecha"></app-corden>
-<app-posicion-m-ant *ngIf="consultaTipo === '3'" [codRif]="codigoCliente" [fecha]="dameCalendario.CadOut.Fecha"></app-posicion-m-ant>
+<app-posicion-m-ant *ngIf="consultaTipo === '1'" [codRif]="codigoCliente" [fecha]="dameCalendario.CadOut.Fecha"></app-posicion-m-ant>
+<app-cordenx *ngIf="consultaTipo === '2'" [codRif]="codigoCliente" [fecha]="dameCalendario.CadOut.Fecha" [titulo]="codigoTitulo"></app-cordenx>

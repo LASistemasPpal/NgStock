@@ -11,14 +11,14 @@ export class CalculosRD{
         private bvrdPMkrt: DamePosturasM,
         private bvrdOper: DameOperaciones ){ }
 
-    limpiarMovimientos(Mov: Movimientos[], hasta: number) {
+     limpiarMovimientos(Mov: Movimientos[], hasta: number) {
             for (let tam = Mov.length; tam > hasta; ) {
               Mov.pop();
               tam = Mov.length;
             }
           }
 
-    indexMovimientos(Mov: Movimientos[], isinn: string, C_V: string) {
+     indexMovimientos(Mov: Movimientos[], isinn: string, C_V: string) {
             let j = -1;
             for (let i = 0; i < Mov.length; i++) {
               if (Mov[i].Isin === isinn && Mov[i].c_v === C_V) {
@@ -27,6 +27,7 @@ export class CalculosRD{
             }
             return j;
           }
+
 
     calcular() {
         this.estadisticas.isin = 'DO1002220627';
@@ -41,14 +42,15 @@ export class CalculosRD{
         this.estadisticas.canti.MtodopM = 0;
         this.estadisticas.canti.MtousdM = 0;
         this.estadisticas.canti.MtototM = 0;
+
         // recorrido  propio
         for (const bvrdPJson of this.bvrdPsot.posturasPropias[0].CadJson) {
         if (bvrdPJson.Estatus !== 'Cancelada') {
             this.estadisticas.canti.PosturasP = this.estadisticas.canti.PosturasP + 1;
             if (bvrdPJson.ISIN === this.estadisticas.isin) {
-            this.estadisticas.GrafPrecioP.push({ Hora: new Date(bvrdPJson.HoraPostura), EjeY: bvrdPJson.Precio });
+            this.estadisticas.GrafPrecioP.push({ x: new Date(`2020-06-30T${bvrdPJson.HoraPostura}`), y: bvrdPJson.Precio });
             // tslint:disable-next-line: max-line-length
-            this.estadisticas.GrafVolumenP.push({ Hora: new Date(bvrdPJson.HoraPostura), EjeY: bvrdPJson.ValorNominalPesos + bvrdPJson.ValorNominalDolares });
+            this.estadisticas.GrafVolumenP.push({ x: new Date(`2020-06-30T${bvrdPJson.HoraPostura}`), y: bvrdPJson.ValorNominalPesos + bvrdPJson.ValorNominalDolares });
             }
             if (bvrdPJson.Estatus === 'Calzada') {
                 this.estadisticas.canti.OperacionesP = this.estadisticas.canti .OperacionesP + 1;
@@ -78,16 +80,16 @@ export class CalculosRD{
                                                                                 60 + bvrdMJson.ValorTransadoPesos;
 
             if (bvrdMJson.ISIN === this.estadisticas.isin) {
-                this.estadisticas.GrafPrecioM.push({ Hora: new Date(bvrdMJson.HoraPostura), EjeY: bvrdMJson.Precio });
+                this.estadisticas.GrafPrecioM.push({ x: new Date(`2020-06-30T${bvrdMJson.HoraPostura}`), y: bvrdMJson.Precio });
                 // tslint:disable-next-line: max-line-length
-                this.estadisticas.GrafVolumenM.push({ Hora: new Date(bvrdMJson.HoraPostura), EjeY: bvrdMJson.ValorNominalPesos + bvrdMJson.ValorNominalDolares });
+                this.estadisticas.GrafVolumenM.push({ x: new Date(`2020-06-30T${bvrdMJson.HoraPostura}`), y: bvrdMJson.ValorNominalPesos + bvrdMJson.ValorNominalDolares });
             } // seleccion por isin para graficos
 
             if (bvrdMJson.Estatus === 'Calzada') {
             this.estadisticas.canti.OperacionesM = this.estadisticas.canti .OperacionesM + 1;
-            this.estadisticas.GrafPrecioOper.push({ Hora: new Date(bvrdMJson.HoraPostura), EjeY: bvrdMJson.Precio });
+            this.estadisticas.GrafPrecioOper.push({ x: new Date(`2020-06-30T${bvrdMJson.HoraPostura}`), y: bvrdMJson.Precio });
             // tslint:disable-next-line: max-line-length
-            this.estadisticas.GrafVolumenOper.push({ Hora: new Date(bvrdMJson.HoraPostura), EjeY: bvrdMJson.ValorNominalPesos + bvrdMJson.ValorNominalDolares });
+            this.estadisticas.GrafVolumenOper.push({ x: new Date(`2020-06-30T${bvrdMJson.HoraPostura}`), y: bvrdMJson.ValorNominalPesos + bvrdMJson.ValorNominalDolares });
             }
             if ( bvrdMJson.Estatus !== 'Vigente' ) {      //  vigente cancelada y calzada
             this.estadisticas.posi = this.indexMovimientos(this.estadisticas.Movi, bvrdMJson.ISIN, bvrdMJson.PosicionCompraVenta);
@@ -147,22 +149,22 @@ export class CalculosRD{
         // GrafPrecioP.push({ Hora: 10.15, EjeY: 102.5975 });
         // GrafPrecioP.push({ Hora: 11.3, EjeY: 102.58 });
         for (const graf of this.estadisticas.GrafPrecioP) {
-        if (graf.EjeY < this.estadisticas.MinGrafPrecio) {
-            this.estadisticas.MinGrafPrecio = graf.EjeY;
+        if (graf.y < this.estadisticas.MinGrafPrecio) {
+            this.estadisticas.MinGrafPrecio = graf.y;
         }
-        if (graf.EjeY > this.estadisticas.MaxGrafPrecio) {
-            this.estadisticas.MaxGrafPrecio = graf.EjeY;
+        if (graf.y > this.estadisticas.MaxGrafPrecio) {
+            this.estadisticas.MaxGrafPrecio = graf.y;
         }
         }
 
         // GrafVolumenP.push({ Hora: 12.15, EjeY: 1030000.5 });
         // GrafVolumenP.push({ Hora: 12.3, EjeY: 3000.5 });
         for (const graf of this.estadisticas.GrafVolumenP) {
-        if (graf.EjeY < this.estadisticas.MinGrafVolumen) {
-            this.estadisticas.MinGrafVolumen = graf.EjeY;
+        if (graf.y < this.estadisticas.MinGrafVolumen) {
+            this.estadisticas.MinGrafVolumen = graf.y;
         }
-        if (graf.EjeY > this.estadisticas.MaxGrafVolumen) {
-            this.estadisticas.MaxGrafVolumen = graf.EjeY;
+        if (graf.y > this.estadisticas.MaxGrafVolumen) {
+            this.estadisticas.MaxGrafVolumen = graf.y;
         }
         }
     }

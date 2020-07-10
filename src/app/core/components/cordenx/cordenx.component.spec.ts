@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CordenComponent } from './corden.component';
+import { CordenxComponent } from './cordenx.component';
 
-describe('CordenComponent', () => {
-  let component: CordenComponent;
-  let fixture: ComponentFixture<CordenComponent>;
+describe('CordenxComponent', () => {
+  let component: CordenxComponent;
+  let fixture: ComponentFixture<CordenxComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CordenComponent ]
+      declarations: [ CordenxComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CordenComponent);
+    fixture = TestBed.createComponent(CordenxComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

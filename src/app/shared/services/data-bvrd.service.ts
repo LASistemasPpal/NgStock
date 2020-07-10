@@ -6,9 +6,7 @@ import { BvrdPosturaP, BvrdPosturaM, BvrdOpers } from '../classes/bvrdClass';
 @Injectable()
 export class DamePosturasP{
   posturasPropias: BvrdPosturaP[] = [];
-
   constructor() { }
-
   consultar() {
     for (const bvrdP of jsbvrdPosturasP as IbvrdPostura[]) {
       this.posturasPropias.push(new BvrdPosturaP(bvrdP));
@@ -19,9 +17,7 @@ export class DamePosturasP{
 @Injectable()
 export class DamePosturasM{
   posturasSiopel: BvrdPosturaM[] = [];
-
   constructor() { }
-
   consultar(){
     for (const bvrdM of jsbvrdPosturasSiopel as IbvrdPostura[]) {
       this.posturasSiopel.push(new BvrdPosturaM(bvrdM));
@@ -32,9 +28,7 @@ export class DamePosturasM{
 @Injectable()
 export class DameOperaciones{
   operacionBvrd: BvrdOpers[] = [];
-
   constructor() { }
-
   consultar() {
     for (const OperP of jsbvrdOperacionesP as IbvrdOper[]) {
       this.operacionBvrd.push(new BvrdOpers(OperP));

@@ -1,17 +1,18 @@
-import { DameCorden } from '@laranda/lib-ultra-net';
 import { Component, OnInit, Input } from '@angular/core';
+import { DameCOrdenX } from '@laranda/lib-ultra-net';
 
 @Component({
-  selector: 'app-corden',
-  templateUrl: './corden.component.html',
-  styleUrls: ['./corden.component.scss']
+  selector: 'app-cordenx',
+  templateUrl: './cordenx.component.html',
+  styleUrls: ['./cordenx.component.scss']
 })
-export class CordenComponent implements OnInit {
+export class CordenxComponent implements OnInit {
 
   @Input() codRif: string;
   @Input() fecha: string;
+  @Input() titulo: string;
 
-  dtColumnasCorden: DataTables.ColumnSettings[] = [];
+  dtColumnasCOrdenX: DataTables.ColumnSettings[] = [];
 
   IconCOrden: DataTables.FunctionColumnRender = (data, type, row, meta) => {
     let clase: string;
@@ -42,34 +43,32 @@ export class CordenComponent implements OnInit {
   }
 
   constructor(
-    public dameCorden: DameCorden
+    public dameCOrdenX: DameCOrdenX
   ) {
 
-    this.dtColumnasCorden = [
+    this.dtColumnasCOrdenX = [
       { title: 'Estado', data: 'Estado', render: this.IconCOrden },
       { title: 'Nº Orden', data: 'Nordennew' },
       { title: 'Producto', data: 'Concepto' },
       { title: 'Cliente', data: 'Nombre' },
       { title: 'Titulo', data: 'Producto' },
-      { title: 'Cant./Monto', data: 'Camonto' },
-      { title: 'Prec/Rend/Venc', data: 'Precio1' },
+      { title: 'Cant./Monto', data: 'Camonto', className: 'dt-body-right' },
+      { title: 'Prec/Rend/Venc', data: 'Precio1', className: 'dt-body-right' },
       { title: 'Ejecutivo', data: 'Ejecutivo' },
       { title: 'Observacion', data: 'Observacion' }
     ];
-
   }
 
   ngOnInit(): void {
-    this.dameCorden.CadOut = [];
-    this.dameCorden.visible = true;
+    this.dameCOrdenX.ParamIn.Desde    = this.fecha.replace(/\//g, '-');
+    this.dameCOrdenX.ParamIn.Hasta    = this.dameCOrdenX.ParamIn.Desde;
+    this.dameCOrdenX.ParamIn.Nuorigen = 1;
+    this.dameCOrdenX.ParamIn.Rif      = this.codRif;
+    this.dameCOrdenX.ParamIn.Titulo   = this.titulo;
 
-    this.dameCorden.ParamIn.Status = 0;
-    this.dameCorden.ParamIn.Mensaje = '<NUORIGEN>1</NUORIGEN>';
-    this.dameCorden.ParamIn.Rif = this.codRif;
-    this.dameCorden.ParamIn.desde = this.fecha.replace(/\//g, '-');
-    this.dameCorden.ParamIn.Hasta = this.dameCorden.ParamIn.desde;
+    console.log(this.dameCOrdenX.ParamIn);
 
-    this.dameCorden.consultar();
+    this.dameCOrdenX.consultar();
   }
 
 }

@@ -33,6 +33,33 @@ POST  http://la2k12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/
 }
 ###
 
+POST  http://la2k12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/TView/WDame_cordenX
+
+{
+	"Json":"true",
+	"param": {
+    "Desde": "15-03-2018",
+    "Hasta": "15-03-2018",
+		"Rif": "",
+    "Nuorigen": 1,
+    "Titulo": ""
+	}
+}
+###
+
+POST  http://la2k12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/TView/WDame_Titulos
+
+{
+	"Json":"true",
+	"param": {
+    "Cotitulo": "DO1002215825",
+    "Mrkt": "P",
+    "Vigencia": 0,
+    "Moneda": 99
+	}
+}
+###
+
 POST http://la2k12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/TView/WDame_PosicionM_Ant
 
 {
