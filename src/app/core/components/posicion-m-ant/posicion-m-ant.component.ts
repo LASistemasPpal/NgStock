@@ -20,13 +20,13 @@ export class PosicionMAntComponent implements OnInit {
     this.dtColumnas = [
       { title: 'Producto1', data: 'Producto1' },
       { title: 'Moneda', data: 'Moneda_abrevia' },
-      { title: 'Saldo Fin', data: 'Saldofin' },
+      { title: 'Saldo Fin', data: 'Saldofin', className: 'dt-body-right' },
       { title: 'Fecha Ini', data: 'Ini' },
       { title: 'Fecha Fin', data: 'Fin' },
       { title: 'Producto', data: null, render: (data: any, type: any, row: any, meta) => {
         return data.Producto.substr(0, 2) === 'MM' ? data.Rend : data.Mrkt;
-      } },
-      { title: 'Efecfin', data: 'Efecfin' },
+      }, className: 'dt-body-right' },
+      { title: 'Efecfin', data: 'Efecfin', className: 'dt-body-right' },
       { title: 'Clave', data: 'Clave' }
     ];
   }

@@ -260,9 +260,9 @@ export class Cantidades {
     MtodopM: number;
     MtousdM: number;
     MtototM: number;
-    PordopM: number;
-    PorusdM: number;
-    PortotM: number;
+    PorcdopM: number;
+    PorcusdM: number;
+    PorctotM: number;
 
     constructor(Cant: Cantidades) {
       this.PosturasP = Cant.PosturasP;
@@ -276,9 +276,9 @@ export class Cantidades {
       this.MtodopM = Cant.MtodopM;
       this.MtousdM = Cant.MtousdM;
       this.MtototM = Cant.MtototM;
-      this.PordopM = Cant.PordopM;
-      this.PorusdM = Cant.PorusdM;
-      this.PortotM = Cant.PortotM;
+      this.PorcdopM = Cant.PorcdopM;
+      this.PorcusdM = Cant.PorcusdM;
+      this.PorctotM = Cant.PorctotM;
     }
   }
 
@@ -303,10 +303,14 @@ export class Movimientos {
 export class Graficos {
     x: Date;
     y: number;
-    constructor(Graf: Graficos) {
-      this.x = Graf.x;
-      this.y = Graf.y;
+    constructor() {
+      this.x = new Date();
+      this.y = 0;
     }
+    // constructor(Graf: Graficos) {
+    //   this.x = Graf.x;
+    //   this.y = Graf.y;
+    // }
   }
 
 export class Estadisticas{
@@ -326,8 +330,11 @@ export class Estadisticas{
     MastransadaUSD = '';
     MastranMtoDOP: number;
     MastranMtoUSD: number;
-    isin: string;
+    isinsel: string;
+    monsel: string;
     posi: number;
+    tpcambio: number;
+    hoy: string;
     canti: Cantidades = new Cantidades({
       PosturasM: 0,
       PosturasP: 0,
@@ -340,9 +347,9 @@ export class Estadisticas{
       MtodopM: 0,
       MtousdM: 0,
       MtototM: 0,
-      PordopM: 30,
-      PorusdM: 70,
-      PortotM: 100
+      PorcdopM: 0,
+      PorcusdM: 0,
+      PorctotM: 0
     });
 
     constructor() {}

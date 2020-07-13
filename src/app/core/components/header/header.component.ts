@@ -19,8 +19,6 @@ export class HeaderComponent implements OnInit {
     public dameCalendario: DameCalendario
   ) {
 
-    this.dameCalendario.CadOut.Fecha = '15-03-2018'; // DANGER OJO eliminar solo para pruebas
-
     if (this.dameCalendario.visible) {
       Object.assign(this.dameCalendario, {
           xcolor : { color: this.dameCalendario.CadOut.Color },
@@ -51,9 +49,5 @@ export class HeaderComponent implements OnInit {
 
   getCOrdenX() {
     this.codCliente.emit([this.codgoCliente, '2', this.codgoTitulo]);
-  }
-
-  inicializar() {
-    this.codCliente.emit(['', '0', '']);
   }
 }

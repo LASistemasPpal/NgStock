@@ -70,3 +70,74 @@ POST http://la2k12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/T
   }
 }
 ###
+
+POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/TView/WDame_permiso_usuario
+
+{
+  "Json":"true",
+  "param": {
+    "User": "ALO",
+    "Codigo": "J"
+  }
+}
+###
+
+# Nuevo OJO MOSCA incorporar
+POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/TView/WAutentica_usuario
+
+{
+  "Json":"True",
+  "param": {
+    "User": "LASISTEMAS",
+    "Pass": "ALO103"
+  }
+}
+###
+
+
+POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/TView/WDame_IDMRif
+
+{
+  "Json":"True",
+  "param": {
+    "Id": "ACO001",
+    "Cual": "I"
+  }
+}
+###
+
+# ESTOS LLAMAR DIRECTO EN EL PROYECTO SIN LIBRERIA
+# INCORPORAR "User": "USUARIO" + Usuariobv
+
+# Posturas Propias BVRD
+POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/TView/WdamePosturasPropias
+
+{
+  "Json":"False",
+  "param": {
+    "User": "USUARIO1"
+  }
+}
+###
+
+# Operaciones Propias BVRD
+POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/TView/WdameOperacionesPropias
+
+{
+  "Json":"False",
+  "param": {
+    "User": "USUARIO1"
+  }
+}
+###
+
+# Posturas Mercado BVRD
+POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/TView/WdamePosturasSiopel
+
+{
+    "Json":"False",
+    "param": {
+        "User": "USUARIO1"
+    }
+}
+###

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 // Librerías LA
@@ -37,7 +38,8 @@ import { CordenxComponent } from './components/cordenx/cordenx.component';
     CommonModule,
     FormsModule,
     SysutilModule,
-    UltranetTablasModule.forRoot(environment.URL_REST)
+    UltranetTablasModule.forRoot(environment.URL_REST),
+    NgxMaskModule.forRoot()
   ],
   providers: [ DameOperaciones, DamePosturasM, DamePosturasP, CalculosRD ]
 })

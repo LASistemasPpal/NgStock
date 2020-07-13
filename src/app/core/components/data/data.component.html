@@ -40,16 +40,10 @@
         <p *ngIf="dameCalendario.CadOut != undefined" [ngStyle]="dameCalendario['xcolor']"><strong> {{ dameCalendario.CadOut.Fecha }} </strong></p>
 
         <p class="mb-0">Mas Transada DOP</p>
-        <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastransadaDOP }}</strong></p>
-
-        <p class="mb-0">Mas Transada DOP Monto</p>
-        <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastranMtoDOP }}</strong></p>
+        <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastransadaDOP }} {{ calculosRD.estadisticas.MastranMtoDOP }}</strong></p>
 
         <p class="mb-0">Mas Transada USD</p>
-        <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastransadaUSD }}</strong></p>
-
-        <p class="mb-0">Mas Transada USD Monto</p>
-        <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastranMtoUSD }}</strong></p>
+        <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastransadaUSD }} {{ calculosRD.estadisticas.MastranMtoUSD }}</strong></p>
 
         <p class="mb-0">Emision</p>
         <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.emisiones }}</strong></p>
@@ -79,21 +73,21 @@
           <div class="divchart-ss">
             <canvas id="graficoMonTran"></canvas>
           </div>
-          <h1 class="text-right" [ngStyle]="dameCalendario['xcolor']">46</h1>
+          <h1 class="text-right" [ngStyle]="dameCalendario['xcolor']">{{ calculosRD.estadisticas.canti.PorcdopM | number }}</h1>
         </div>
 
         <div class="col">
           <div class="divchart-ss">
             <canvas id="graficoMonTran2"></canvas>
           </div>
-          <h1 class="text-right" [ngStyle]="dameCalendario['xcolor']">35</h1>
+          <h1 class="text-right" [ngStyle]="dameCalendario['xcolor']">{{ calculosRD.estadisticas.canti.PorcusdM | number }}</h1>
         </div>
 
         <div class="col">
           <div class="divchart-ss">
             <canvas id="graficoMonTran3"></canvas>
           </div>
-          <h1 class="text-right" [ngStyle]="dameCalendario['xcolor']">62</h1>
+          <h1 class="text-right" [ngStyle]="dameCalendario['xcolor']">{{ calculosRD.estadisticas.canti.PorctotM | number }}</h1>
         </div>
 
       </div>

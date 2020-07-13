@@ -8,7 +8,7 @@
       <h4 *ngIf="dameCalendario.CadOut != undefined" [ngStyle]="dameCalendario['xborde2']" class="pl-2 py-1">{{ dameCalendario.CadOut.Vehiculo }}</h4>
 
       <div class="row ml-1" *ngIf="dameCalendario.CadOut != undefined">
-        <p class=""><i class="fas fa-phone-alt pr-1" [ngStyle]="dameCalendario['xcolor']"></i>{{ dameCalendario.CadOut.Tlfveh1 }}</p>
+        <p class=""><i class="fas fa-phone-alt pr-1" [ngStyle]="dameCalendario['xcolor']"></i>{{ dameCalendario.CadOut.Tlfveh1 | mask: '(0000) 000-00-00' }}</p>
         <p class="ml-2"><i class="fas fa-envelope pr-1" [ngStyle]="dameCalendario['xcolor']"></i>{{ dameCalendario.CadOut.Email }}</p>
         <p class="  ml-2"><i class="fas fa-globe-americas pr-1" [ngStyle]="dameCalendario['xcolor']"></i>{{ dameCalendario.CadOut.Webpage }}</p>
       </div>
@@ -18,7 +18,7 @@
       <h5 class="text-center"><i class="fas fa-flag pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i> Seleccion</h5>
 
       <div class="row justify-content-center">
-        <input type="text" class="form-control col-3 ml-4" placeholder="Titulo" data-toggle="tooltip" data-placement="top" title="Codigo del Titulo a Buscar" [(ngModel)]="codgoTitulo" (focus)="inicializar()">
+        <input type="text" class="form-control col-3 ml-4" placeholder="Titulo" data-toggle="tooltip" data-placement="top" title="Codigo del Titulo a Buscar" [(ngModel)]="codgoTitulo">
         <input type="text" class="form-control col-3 ml-2" placeholder="Moneda" data-toggle="tooltip" data-placement="top" title="Codigo de la Moneda a Buscar" [(ngModel)]="codgoMoneda">
         <input type="text" class="form-control col-3 ml-2" placeholder="Cliente" data-toggle="tooltip" data-placement="top" title="Codigo del Cliente a Buscar" [(ngModel)]="codgoCliente">
 
@@ -28,8 +28,7 @@
           </button>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="#" (click)="getDatosM()"><i class="fas mr-2 fa-search"></i>Buscar Cliente</a>
-            <a class="dropdown-item" href="#" (click)="getDatosM()"><i class="fas mr-2 fa-camera"></i>Dame Datos M</a>
-            <a class="dropdown-item" href="#" (click)="getCOrdenX()"><i class="fas mr-2 fa-portrait"></i>Dame COrdenX</a>
+            <a class="dropdown-item" href="#" (click)="getCOrdenX()"><i class="fas mr-2 fa-portrait"></i>Ordenes del dia</a>
           </div>
         </div>
 
