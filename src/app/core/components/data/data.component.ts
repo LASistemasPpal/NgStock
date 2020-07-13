@@ -28,12 +28,20 @@ export class DataComponent implements OnInit {
     private dameOperaciones: DameOperaciones,
     public calculosRD: CalculosRD
   ) {
-    this.dameCalendario.consultar();
 
     this.dtColumnasEjemplo = [
       { title: 'Moneda', data: 'Moneda' },
       { title: 'Monto', data: 'Monto', className: 'dt-body-right' },
-      { title: 'Titulos', data: 'Cotitulo' },
+      { title: 'Titulos', data: null, render:  (data: any, type: any, row: any, meta) => {
+        return data.Cotitulo;
+        // this.dameTitulos2.ParamIn.Cotitulo = data.Cotitulo;
+        // this.dameTitulos2.ParamIn.Mrkt = 'P';
+        // this.dameTitulos2.ParamIn.Vigencia = 0;
+        // this.dameTitulos2.ParamIn.Moneda = 99;
+        // this.dameTitulos2.consultar().then(() => data.Cotitulo = this.dameTitulos2.CadOut.Coregistro);
+
+        // return this.dameTitulos2.CadOut.Coregistro;
+      }},
       { title: 'Isin', data: 'Isin' },
       { title: 'Cantidad', data: 'Cant', className: 'dt-body-right' },
       { title: 'C/V', data: 'c_v' }
@@ -164,60 +172,63 @@ export class DataComponent implements OnInit {
       }
     });
 
+    this.dameCalendario.consultar().then(() => {
 
-    const myChart3 = new Chart('graficoMonTran', {
-      type: 'doughnut',
-      data: {
-        labels: ['DOP. mm'],
-        datasets: [
-          {
-            label: 'Titulo 1',
-            data: [this.calculosRD.estadisticas.canti.PorcdopM, 100 - this.calculosRD.estadisticas.canti.PorcdopM],
-            // backgroundBorder: '#00ff00',
-            backgroundColor: ['rgba(250, 2, 2, 0.5)', 'transtarent'],
-            borderWidth: 1
-          }
-        ]
-      },
-      options: {
-        responsive: true
-      }
-    });
+      const myChart3 = new Chart('graficoMonTran', {
+        type: 'doughnut',
+        data: {
+          labels: ['DOP. mm'],
+          datasets: [
+            {
+              label: 'Titulo 1',
+              data: [this.calculosRD.estadisticas.canti.PorcdopM, 100 - this.calculosRD.estadisticas.canti.PorcdopM],
+              // backgroundBorder: '#00ff00',
+              // backgroundColor: ['rgba(250, 2, 2, 0.5)', 'transtarent'],
+              backgroundColor: [this.dameCalendario.CadOut.Color, 'transtarent'],
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          responsive: true
+        }
+      });
 
-    const myChart4 = new Chart('graficoMonTran2', {
-      type: 'doughnut',
-      data: {
-        labels: ['USD. mm'],
-        datasets: [
-          {
-            label: 'Titulo 1',
-            data: [this.calculosRD.estadisticas.canti.PorcusdM, 100 - this.calculosRD.estadisticas.canti.PorcusdM],
-            backgroundColor: ['rgba(250, 2, 2, 0.5)', 'transtarent'],
-            borderWidth: 1
-          }
-        ]
-      },
-      options: {
-        responsive: true
-      }
-    });
+      const myChart4 = new Chart('graficoMonTran2', {
+        type: 'doughnut',
+        data: {
+          labels: ['USD. mm'],
+          datasets: [
+            {
+              label: 'Titulo 1',
+              data: [this.calculosRD.estadisticas.canti.PorcusdM, 100 - this.calculosRD.estadisticas.canti.PorcusdM],
+              backgroundColor: [this.dameCalendario.CadOut.Color, 'transtarent'],
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          responsive: true
+        }
+      });
 
-    const myChart5 = new Chart('graficoMonTran3', {
-      type: 'doughnut',
-      data: {
-        labels: ['Total mm'],
-        datasets: [
-          {
-            label: 'Titulo 1',
-            data: [this.calculosRD.estadisticas.canti.PorctotM, 100 - this.calculosRD.estadisticas.canti.PorctotM],
-            backgroundColor: ['rgba(250, 2, 2, 0.5)', 'transtarent'],
-            borderWidth: 1
-          }
-        ]
-      },
-      options: {
-        responsive: true
-      }
+      const myChart5 = new Chart('graficoMonTran3', {
+        type: 'doughnut',
+        data: {
+          labels: ['Total mm'],
+          datasets: [
+            {
+              label: 'Titulo 1',
+              data: [this.calculosRD.estadisticas.canti.PorctotM, 100 - this.calculosRD.estadisticas.canti.PorctotM],
+              backgroundColor: [this.dameCalendario.CadOut.Color, 'transtarent'],
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          responsive: true
+        }
+      });
     });
 
 
