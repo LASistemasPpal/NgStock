@@ -51,7 +51,7 @@ export class CalculosRD {
   }
 
   calcular() {
-    this.estadisticas.isinsel = 'DO1002220627'; //  DO1002220627
+    this.estadisticas.isinsel = ''; //  DO1002220627
     this.estadisticas.monsel = '';
     this.estadisticas.canti.MarketMM = 0;
     this.estadisticas.canti.MarketMP = 0;

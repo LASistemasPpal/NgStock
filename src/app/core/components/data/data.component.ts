@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
-import { DameCalendario } from '@laranda/lib-ultra-net';
+import { DameCalendario, DameTitulos } from '@laranda/lib-ultra-net';
 import { CalculosRD } from './../../../shared/services/estadisticas.service';
 import { DamePosturasM, DamePosturasP, DameOperaciones } from './../../../shared/services/data-bvrd.service';
 import { display_d } from '@laranda/lib-sysutil';
@@ -21,6 +21,8 @@ export class DataComponent implements OnInit {
 
   constructor(
     public dameCalendario: DameCalendario,
+    private dameTitulos: DameTitulos,
+    private dameTitulos2: DameTitulos,
     private damePosturasM: DamePosturasM,
     private damePosturasP: DamePosturasP,
     private dameOperaciones: DameOperaciones,
@@ -45,6 +47,13 @@ export class DataComponent implements OnInit {
     this.damePosturasM.consultar();
     this.damePosturasP.consultar();
     this.calculosRD.calcular();
+
+    this.dameTitulos.ParamIn.Cotitulo = this.calculosRD.estadisticas.emisiones[0];
+    this.dameTitulos.ParamIn.Mrkt = 'P';
+    this.dameTitulos.ParamIn.Vigencia = 0;
+    this.dameTitulos.ParamIn.Moneda = 99;
+    this.dameTitulos.consultar().then(() => this.calculosRD.estadisticas.emisiones[0] = this.dameTitulos.CadOut.Coregistro);
+
 
     const myChart = new Chart('graficoPrecio', {
       type: 'line',
@@ -154,6 +163,7 @@ export class DataComponent implements OnInit {
         }
       }
     });
+
 
     const myChart3 = new Chart('graficoMonTran', {
       type: 'doughnut',

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DamePosicionMAnt } from '@laranda/lib-ultra-net';
+import { DamePosicionMAnt, DameTitulos } from '@laranda/lib-ultra-net';
 
 @Component({
   selector: 'app-posicion-m-ant',

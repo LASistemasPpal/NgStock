@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { DameCalendario } from '@laranda/lib-ultra-net';
+import { DameCalendario, DameIDMRif } from '@laranda/lib-ultra-net';
 
 declare let $: any;
 @Component({
@@ -16,10 +16,13 @@ export class HeaderComponent implements OnInit {
   @Output() codCliente = new EventEmitter<string[]>();
 
   constructor(
-    public dameCalendario: DameCalendario
+    public dameCalendario: DameCalendario,
+    private dameIDMRif: DameIDMRif
   ) {
 
     if (this.dameCalendario.visible) {
+      this.dameCalendario.CadOut.Fecha = this.dameCalendario.CadOut.Fecha.replace(/\//g, '-');
+
       Object.assign(this.dameCalendario, {
           xcolor : { color: this.dameCalendario.CadOut.Color },
           xborde : { border: '.25em solid ' + this.dameCalendario.CadOut.Color },
@@ -44,7 +47,10 @@ export class HeaderComponent implements OnInit {
   }
 
   getDatosM() {
-    this.codCliente.emit([this.codgoCliente, '1', '']);
+    this.dameIDMRif.ParamIn.Id = this.codgoCliente.toUpperCase();
+    this.dameIDMRif.ParamIn.Cual = 'I';
+
+    this.dameIDMRif.consultar().then(() => this.codCliente.emit([this.dameIDMRif.CadOut.Rif, '1', '']));
   }
 
   getCOrdenX() {
