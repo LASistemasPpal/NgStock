@@ -32,16 +32,7 @@ export class DataComponent implements OnInit {
     this.dtColumnasEjemplo = [
       { title: 'Moneda', data: 'Moneda' },
       { title: 'Monto', data: 'Monto', className: 'dt-body-right' },
-      { title: 'Titulos', data: null, render:  (data: any, type: any, row: any, meta) => {
-        return data.Cotitulo;
-        // this.dameTitulos2.ParamIn.Cotitulo = data.Cotitulo;
-        // this.dameTitulos2.ParamIn.Mrkt = 'P';
-        // this.dameTitulos2.ParamIn.Vigencia = 0;
-        // this.dameTitulos2.ParamIn.Moneda = 99;
-        // this.dameTitulos2.consultar().then(() => data.Cotitulo = this.dameTitulos2.CadOut.Coregistro);
-
-        // return this.dameTitulos2.CadOut.Coregistro;
-      }},
+      { title: 'Titulos', data: 'Cotitulo' },
       { title: 'Isin', data: 'Isin' },
       { title: 'Cantidad', data: 'Cant', className: 'dt-body-right' },
       { title: 'C/V', data: 'c_v' }
