@@ -48,6 +48,7 @@ POST  http://la2k12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/
 ###
 
 # CC0122
+#
 POST  http://la2k12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/TView/WDame_Titulos
 
 {
@@ -57,6 +58,21 @@ POST  http://la2k12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/
     "Mrkt": "",
     "Vigencia": 0,
     "Moneda": 99
+	}
+}
+###
+
+# Titulos masivos
+todos los titulos vigentes
+POST  http://la2k12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/TView/WDame_Titulos
+
+{
+	"Json":"true",
+	"param": {
+    "Cotitulo": "",
+    "Mrkt": "P",
+    "Vigencia": 1,
+    "Moneda": -1
 	}
 }
 ###

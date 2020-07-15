@@ -1,0 +1,46 @@
+<div class="container-fluid ">
+  <div class="row vh-100 align-items-center justify-content-center">
+    <div class="col-3 ">
+      <div class="container-logo border border-black shadow px-4">
+
+        <div class="mylogo col-12">
+          <img src="../../../../assets/img/logo.png" width="100%">
+        </div>
+        <br><br>
+
+        <form autocomplete="off" class="login-content" [formGroup]="formLogin" (ngSubmit)="onLogin()">
+          <div class="col-12 form-group">
+            <label><i class="fa fa-user"></i> Usuario</label>
+            <input class="form-control" type="text" formControlName="user" placeholder="Usuario"
+              [class.is-invalid]="usuarioNoValido">
+
+            <small *ngIf="usuarioNoValido" class="form-text text-danger">
+              Ingrese un Usuario Valido
+            </small>
+          </div>
+
+          <div class="col-12 form-group">
+            <label> <i class="fa fa-unlock-alt"></i> Contraseña</label>
+            <div class="password input-group">
+              <input class="form-control" [type]="verPass" formControlName="password" placeholder="Password"
+                [class.is-invalid]="passwordNoValido">
+              <button class="btn btn-outline-secondary" type="button" id="verClave" (mousedown)='claveVisible()'
+                (mouseup)='claveOculta()'>
+                <i class="fa" [ngClass]="{'fa-eye': verPass === 'password', 'fa-eye-slash': verPass === 'text'}"></i>
+              </button>
+
+              <small *ngIf="passwordNoValido" class="form-text text-danger">
+                El Password debe ser mayor de 4 caracteres
+              </small>
+            </div>
+          </div>
+
+          <div class="col-12 form-group text-center pb-2">
+            <button type="submit" class="form-control btn-primary">Entrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

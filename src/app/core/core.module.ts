@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
 
 
@@ -18,11 +18,15 @@ import { DataComponent } from './components/data/data.component';
 import { PosicionMAntComponent } from './components/posicion-m-ant/posicion-m-ant.component';
 import { DatosMComponent } from './components/datos-m/datos-m.component';
 
+
 // Servicios LA
 import { DameOperaciones, DamePosturasM, DamePosturasP } from '../shared/services/data-bvrd.service';
 import { CalculosRD } from '../shared/services/estadisticas.service';
 import { CordenxComponent } from './components/cordenx/cordenx.component';
+import { LoginComponent } from './components/login/login.component';
 
+// Rutas
+import { AppRoutingModule } from './../app-routing.module';
 
 
 @NgModule({
@@ -32,12 +36,15 @@ import { CordenxComponent } from './components/cordenx/cordenx.component';
     HeaderComponent,
     PosicionMAntComponent,
     DatosMComponent,
-    CordenxComponent
+    CordenxComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     SysutilModule,
+    AppRoutingModule,
     UltranetTablasModule.forRoot(environment.URL_REST),
     NgxMaskModule.forRoot()
   ],
