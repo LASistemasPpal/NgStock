@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DameCOrdenX } from '@laranda/lib-ultra-net';
+import { DameCOrdenX, ConectorService } from '@laranda/lib-ultra-net';
 
 @Component({
   selector: 'app-cordenx',
@@ -43,7 +43,8 @@ export class CordenxComponent implements OnInit {
   }
 
   constructor(
-    public dameCOrdenX: DameCOrdenX
+    public dameCOrdenX: DameCOrdenX,
+    private conectorService: ConectorService
   ) {
 
     this.dtColumnasCOrdenX = [
@@ -63,12 +64,10 @@ export class CordenxComponent implements OnInit {
     this.dameCOrdenX.ParamIn.Desde    = this.fecha.replace(/\//g, '-');
     this.dameCOrdenX.ParamIn.Hasta    = this.dameCOrdenX.ParamIn.Desde;
     this.dameCOrdenX.ParamIn.Nuorigen = 1;
-    this.dameCOrdenX.ParamIn.Rif      = this.codRif;
+    this.dameCOrdenX.ParamIn.Rif      = this.codRif.toUpperCase();
     this.dameCOrdenX.ParamIn.Titulo   = this.titulo;
 
-    console.log(this.dameCOrdenX.ParamIn);
-
-    this.dameCOrdenX.consultar();
+    this.dameCOrdenX.consultar(this.conectorService.info.URL_REST);
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AutenticaCli } from '@laranda/lib-ultra-net';
+import { AutenticaCli, ConectorService } from '@laranda/lib-ultra-net';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +14,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public autenticaCli: AutenticaCli,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private conectorService: ConectorService
   ) {
     this.formLogin = this.fb.group({
       user: ['', [Validators.required, Validators.minLength(4)]],
@@ -48,7 +49,9 @@ export class LoginComponent implements OnInit {
       this.autenticaCli.ParamIn.User = this.formLogin.value.user;
       this.autenticaCli.ParamIn.Pass = this.formLogin.value.password;
 
-      this.autenticaCli.logIn();
+      this.conectorService.getParametros().then(() => {
+        this.autenticaCli.logIn(this.conectorService.info.URL_REST);
+      });
     }
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DamePosicionMAnt, DameTitulos } from '@laranda/lib-ultra-net';
+import { DamePosicionMAnt, ConectorService } from '@laranda/lib-ultra-net';
 
 @Component({
   selector: 'app-posicion-m-ant',
@@ -14,7 +14,8 @@ export class PosicionMAntComponent implements OnInit {
   @Input() fecha: string;
 
   constructor(
-    public damePosicionMAnt: DamePosicionMAnt
+    public damePosicionMAnt: DamePosicionMAnt,
+    private conectorService: ConectorService
   ) {
 
     this.dtColumnas = [
@@ -37,7 +38,7 @@ export class PosicionMAntComponent implements OnInit {
     this.damePosicionMAnt.ParamIn.Rif = this.codRif;
     this.damePosicionMAnt.ParamIn.Fechin = this.fecha;
 
-    this.damePosicionMAnt.consultar();
+    this.damePosicionMAnt.consultar(this.conectorService.info.URL_REST);
   }
 
 }

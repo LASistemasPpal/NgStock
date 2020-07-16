@@ -40,7 +40,7 @@ POST  http://la2k12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/
 	"param": {
     "Desde": "15-03-2018",
     "Hasta": "15-03-2018",
-		"Rif": "",
+		"Rif": "D0040222765857",
     "Nuorigen": 1,
     "Titulo": ""
 	}

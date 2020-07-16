@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
-import { DameCalendario, DameTitulos } from '@laranda/lib-ultra-net';
+import { DameCalendario, DameTitulos, ConectorService } from '@laranda/lib-ultra-net';
 import { CalculosRD } from './../../../shared/services/estadisticas.service';
 import { DamePosturasM, DamePosturasP, DameOperaciones } from './../../../shared/services/data-bvrd.service';
 import { display_d } from '@laranda/lib-sysutil';
@@ -20,12 +20,13 @@ export class DataComponent implements OnInit {
   public consultaTipo = '';
 
   constructor(
-    public dameCalendario: DameCalendario,
+    private conectorService: ConectorService,
     private dameTitulos: DameTitulos,
     private dameTitulos2: DameTitulos,
     private damePosturasM: DamePosturasM,
     private damePosturasP: DamePosturasP,
     private dameOperaciones: DameOperaciones,
+    public dameCalendario: DameCalendario,
     public calculosRD: CalculosRD
   ) {
 
@@ -42,6 +43,50 @@ export class DataComponent implements OnInit {
 
   ngOnInit(): void {
 
+    if (this.conectorService.info === undefined) {
+      this.conectorService.getParametros().then(() => {
+        this.procesarCalculos();
+      });
+    } else {
+      this.procesarCalculos();
+    }
+
+
+
+    console.log('Emisiones: ' + this.calculosRD.estadisticas.emisiones);
+    // console.log(canti);
+
+    // console.table(bvrdPsot[0].CadJson);;
+
+    console.log('GrafPrecioP');
+    console.table(this.calculosRD.estadisticas.GrafPrecioP);
+
+    console.log('GrafPrecioM');
+    console.table(this.calculosRD.estadisticas.GrafPrecioM);
+
+    console.log('GrafPrecioOper');
+    console.table(this.calculosRD.estadisticas.GrafPrecioOper);
+
+    console.log('GrafVolumenP');
+    console.table(this.calculosRD.estadisticas.GrafVolumenP);
+
+    console.log('GrafVolumenM');
+    console.table(this.calculosRD.estadisticas.GrafVolumenM);
+
+    console.log('GrafVolumenOper');
+    console.table(this.calculosRD.estadisticas.GrafVolumenOper);
+
+    console.log('Min/Max Vol ' + this.calculosRD.estadisticas.MinGrafVolumen + ' ' + this.calculosRD.estadisticas.MaxGrafVolumen);
+    console.log('Min/Max Pre  ' + this.calculosRD.estadisticas.MinGrafPrecio + ' ' + this.calculosRD.estadisticas.MaxGrafPrecio);
+
+    console.table(this.calculosRD.estadisticas.Movi);
+    console.log('USD ' + this.calculosRD.estadisticas.MastransadaUSD + '  ' + this.calculosRD.estadisticas.MastranMtoUSD);
+    console.log('DOP ' + this.calculosRD.estadisticas.MastransadaDOP + '  ' + this.calculosRD.estadisticas.MastranMtoDOP);
+    console.table(this.calculosRD.estadisticas.canti);
+
+  }
+
+  procesarCalculos(): void {
     this.dameOperaciones.consultar();
     this.damePosturasM.consultar();
     this.damePosturasP.consultar();
@@ -51,7 +96,8 @@ export class DataComponent implements OnInit {
     this.dameTitulos.ParamIn.Mrkt = 'P';
     this.dameTitulos.ParamIn.Vigencia = 0;
     this.dameTitulos.ParamIn.Moneda = 99;
-    this.dameTitulos.consultar().then(() => this.calculosRD.estadisticas.emisiones[0] = this.dameTitulos.CadOut.Coregistro);
+    this.dameTitulos.consultar(this.conectorService.info.URL_REST)
+      .then(() => this.calculosRD.estadisticas.emisiones[0] = this.dameTitulos.CadOut.Coregistro);
 
 
     const myChart = new Chart('graficoPrecio', {
@@ -163,7 +209,7 @@ export class DataComponent implements OnInit {
       }
     });
 
-    this.dameCalendario.consultar().then(() => {
+    this.dameCalendario.consultar(this.conectorService.info.URL_REST).then(() => {
 
       const myChart3 = new Chart('graficoMonTran', {
         type: 'doughnut',
@@ -221,39 +267,6 @@ export class DataComponent implements OnInit {
         }
       });
     });
-
-
-    console.log('Emisiones: ' + this.calculosRD.estadisticas.emisiones);
-    // console.log(canti);
-
-    // console.table(bvrdPsot[0].CadJson);;
-
-    console.log('GrafPrecioP');
-    console.table(this.calculosRD.estadisticas.GrafPrecioP);
-
-    console.log('GrafPrecioM');
-    console.table(this.calculosRD.estadisticas.GrafPrecioM);
-
-    console.log('GrafPrecioOper');
-    console.table(this.calculosRD.estadisticas.GrafPrecioOper);
-
-    console.log('GrafVolumenP');
-    console.table(this.calculosRD.estadisticas.GrafVolumenP);
-
-    console.log('GrafVolumenM');
-    console.table(this.calculosRD.estadisticas.GrafVolumenM);
-
-    console.log('GrafVolumenOper');
-    console.table(this.calculosRD.estadisticas.GrafVolumenOper);
-
-    console.log('Min/Max Vol ' + this.calculosRD.estadisticas.MinGrafVolumen + ' ' + this.calculosRD.estadisticas.MaxGrafVolumen);
-    console.log('Min/Max Pre  ' + this.calculosRD.estadisticas.MinGrafPrecio + ' ' + this.calculosRD.estadisticas.MaxGrafPrecio);
-
-    console.table(this.calculosRD.estadisticas.Movi);
-    console.log('USD ' + this.calculosRD.estadisticas.MastransadaUSD + '  ' + this.calculosRD.estadisticas.MastranMtoUSD);
-    console.log('DOP ' + this.calculosRD.estadisticas.MastransadaDOP + '  ' + this.calculosRD.estadisticas.MastranMtoDOP);
-    console.table(this.calculosRD.estadisticas.canti);
-
   }
 
   consultarCliente(codigo: string[]) {

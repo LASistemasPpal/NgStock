@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { DameCalendario, DameIDMRif } from '@laranda/lib-ultra-net';
+import { DameCalendario, DameIDMRif, ConectorService } from '@laranda/lib-ultra-net';
 
 declare let $: any;
 @Component({
@@ -17,7 +17,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     public dameCalendario: DameCalendario,
-    private dameIDMRif: DameIDMRif
+    private dameIDMRif: DameIDMRif,
+    private conectorService: ConectorService
   ) {
 
     if (this.dameCalendario.visible) {
@@ -50,7 +51,7 @@ export class HeaderComponent implements OnInit {
     this.dameIDMRif.ParamIn.Id = this.codgoCliente.toUpperCase();
     this.dameIDMRif.ParamIn.Cual = 'I';
 
-    this.dameIDMRif.consultar().then(() => this.codCliente.emit([this.dameIDMRif.CadOut.Rif, '1', '']));
+    this.dameIDMRif.consultar(this.conectorService.info.URL_REST).then(() => this.codCliente.emit([this.dameIDMRif.CadOut.Rif, '1', '']));
   }
 
   getCOrdenX() {

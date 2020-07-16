@@ -8,9 +8,6 @@ import { NgxMaskModule } from 'ngx-mask';
 import { SysutilModule } from '@laranda/lib-sysutil';
 import { UltranetTablasModule } from '@laranda/lib-ultra-net';
 
-// Parametros
-import { environment } from './../../environments/environment';
-
 // Componentes
 import { HeaderComponent } from './components/header/header.component';
 import { Error404Component } from './components/error404/error404.component';
@@ -45,7 +42,7 @@ import { AppRoutingModule } from './../app-routing.module';
     ReactiveFormsModule,
     SysutilModule,
     AppRoutingModule,
-    UltranetTablasModule.forRoot(environment.URL_REST),
+    UltranetTablasModule,
     NgxMaskModule.forRoot()
   ],
   providers: [ DameOperaciones, DamePosturasM, DamePosturasP, CalculosRD ]

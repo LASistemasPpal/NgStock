@@ -3,9 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  URL_REST: 'http://la2k12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/TView/',
-  cliente_prod: '777666'
+  production: false
 };
 
 /*

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DameDatosM } from '@laranda/lib-ultra-net';
+import { DameDatosM, ConectorService } from '@laranda/lib-ultra-net';
 
 @Component({
   selector: 'app-datos-m',
@@ -13,7 +13,8 @@ export class DatosMComponent implements OnInit {
   @Input() codRif = '';
 
   constructor(
-    public dameDatosM: DameDatosM
+    public dameDatosM: DameDatosM,
+    private conectorService: ConectorService
   ) { }
 
   ngOnInit() {
@@ -23,7 +24,7 @@ export class DatosMComponent implements OnInit {
 
     this.dameDatosM.ParamIn.Rif = this.codRif;
 
-    this.dameDatosM.consultar();
+    this.dameDatosM.consultar(this.conectorService.info.URL_REST);
 
   }
 
