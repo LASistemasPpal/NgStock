@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { DameCalendario, DameIDMRif, ConectorService } from '@laranda/lib-ultra-net';
+import { DameCalendario, DameIDMRif, DameTitulos } from '@laranda/lib-ultra-net';
+import { ConectorService } from '@laranda/lib-sysutil';
 
 declare let $: any;
 @Component({
@@ -18,6 +19,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     public dameCalendario: DameCalendario,
     private dameIDMRif: DameIDMRif,
+    private dameTitulos: DameTitulos,
     private conectorService: ConectorService
   ) {
 
@@ -47,14 +49,26 @@ export class HeaderComponent implements OnInit {
     $('[data-toggle="tooltip"]').tooltip();
   }
 
-  getDatosM() {
-    this.dameIDMRif.ParamIn.Id = this.codgoCliente.toUpperCase();
-    this.dameIDMRif.ParamIn.Cual = 'I';
+  getConsultar(tipo: string) {
 
-    this.dameIDMRif.consultar(this.conectorService.info.URL_REST).then(() => this.codCliente.emit([this.dameIDMRif.CadOut.Rif, '1', '']));
-  }
+    if (tipo === '1') {
+      this.dameIDMRif.ParamIn.Id = this.codgoCliente.toUpperCase();
+      this.dameIDMRif.ParamIn.Cual = 'I';
 
-  getCOrdenX() {
-    this.codCliente.emit([this.codgoCliente, '2', this.codgoTitulo]);
+      this.dameIDMRif.consultar(this.conectorService.info.URL_REST).then(() => {
+        this.codCliente.emit([this.dameIDMRif.CadOut.Rif, tipo, '']);
+      });
+    }
+
+    if ((tipo === '2') || (tipo === '3')) {
+      this.dameTitulos.ParamIn.Cotitulo = this.codgoTitulo.toUpperCase();
+      this.dameTitulos.ParamIn.Mrkt = '';
+      this.dameTitulos.ParamIn.Vigencia = 0;
+      this.dameTitulos.ParamIn.Moneda = 99;
+
+      this.dameTitulos.consultar(this.conectorService.info.URL_REST).then(() => {
+        this.codCliente.emit(['', tipo, this.dameTitulos.CadOut.Isin]);
+      });
+    }
   }
 }

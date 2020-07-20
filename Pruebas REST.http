@@ -48,13 +48,13 @@ POST  http://la2k12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/
 ###
 
 # CC0122
-#
+# DO8013700828
 POST  http://la2k12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/TView/WDame_Titulos
 
 {
 	"Json":"true",
 	"param": {
-    "Cotitulo": "DO8013700828",
+    "Cotitulo": "DO1002220627",
     "Mrkt": "",
     "Vigencia": 0,
     "Moneda": 99
@@ -99,7 +99,7 @@ POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/T
 }
 ###
 
-# Nuevo OJO MOSCA incorporar
+
 POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/TView/WAutentica_usuario
 
 {

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DamePosicionMAnt, ConectorService } from '@laranda/lib-ultra-net';
+import { DamePosicionMAnt } from '@laranda/lib-ultra-net';
+import { ConectorService } from '@laranda/lib-sysutil';
 
 @Component({
   selector: 'app-posicion-m-ant',

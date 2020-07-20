@@ -1,3 +1,4 @@
+import { DameCalendario } from '@laranda/lib-ultra-net';
 import { Injectable } from '@angular/core';
 import { Estadisticas, Movimientos, Graficos } from '../classes/bvrdClass';
 import {
@@ -13,7 +14,8 @@ export class CalculosRD {
   constructor(
     private bvrdPsot: DamePosturasP,
     private bvrdPMkrt: DamePosturasM,
-    private bvrdOper: DameOperaciones
+    private bvrdOper: DameOperaciones,
+    private dameCalendario: DameCalendario
   ) { }
 
   limpiarGraf(Gr: Graficos[], hasta: number) {
@@ -50,8 +52,10 @@ export class CalculosRD {
     return j;
   }
 
-  calcular() {
-    this.estadisticas.isinsel = ''; //  DO1002220627
+
+
+  calcular( codISIN: string) {
+    this.estadisticas.isinsel = codISIN; //  DO1002220627
     this.estadisticas.monsel = '';
     this.estadisticas.canti.MarketMM = 0;
     this.estadisticas.canti.MarketMP = 0;
@@ -67,7 +71,7 @@ export class CalculosRD {
     this.estadisticas.canti.PorcdopM = 0;
     this.estadisticas.canti.PorcusdM = 0;
     this.estadisticas.canti.PorctotM = 0;
-    this.estadisticas.tpcambio = 60;
+    this.estadisticas.tpcambio = +this.dameCalendario.CadOut.Tcdolar;
     this.estadisticas.hoy = ''; //  '2020-06-30T';
     this.limpiarGraf(this.estadisticas.GrafPrecioP, 0);
     this.limpiarGraf(this.estadisticas.GrafPrecioM, 0);

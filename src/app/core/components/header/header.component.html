@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <div class="col-xl-5 ml-0 pl-0 pt-2">
+\    <div class="col-xl-5 ml-0 pl-0 pt-2">
       <h5 class="text-center"><i class="fas fa-flag pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i> Seleccion</h5>
 
       <div class="row justify-content-center">
@@ -27,8 +27,9 @@
             Menu
           </button>
           <div class="dropdown-menu">
-            <a class="dropdown-item" (click)="getDatosM()"><i class="fas mr-2 fa-search"></i>Buscar Cliente</a>
-            <a class="dropdown-item" (click)="getCOrdenX()"><i class="fas mr-2 fa-portrait"></i>Ordenes del dia</a>
+            <a class="dropdown-item" (click)="getConsultar('1')"><i class="fas mr-2 fa-search"></i>Buscar Cliente</a>
+            <a class="dropdown-item" (click)="getConsultar('2')"><i class="fas mr-2 fa-portrait"></i>Ordenes del dia</a>
+            <a class="dropdown-item" (click)="getConsultar('3')"><i class="fas mr-2 fa-sync"></i>Refrescar Datos</a>
           </div>
         </div>
 

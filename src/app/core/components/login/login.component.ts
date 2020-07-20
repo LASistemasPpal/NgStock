@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AutenticaCli, ConectorService } from '@laranda/lib-ultra-net';
+import { AutenticaCli } from '@laranda/lib-ultra-net';
+import { ConectorService } from '@laranda/lib-sysutil';
 
 @Component({
   selector: 'app-login',

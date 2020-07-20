@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DameDatosM, ConectorService } from '@laranda/lib-ultra-net';
+import { DameDatosM } from '@laranda/lib-ultra-net';
+import { ConectorService } from '@laranda/lib-sysutil';
 
 @Component({
   selector: 'app-datos-m',

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DameCOrdenX, ConectorService } from '@laranda/lib-ultra-net';
+import { DameCOrdenX } from '@laranda/lib-ultra-net';
+import { ConectorService } from '@laranda/lib-sysutil';
 
 @Component({
   selector: 'app-cordenx',
