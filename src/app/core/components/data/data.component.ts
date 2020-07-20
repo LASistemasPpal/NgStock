@@ -52,8 +52,6 @@ export class DataComponent implements OnInit {
   }
 
   procesarCalculos(codTitulo: string): void {
-    console.log('codTitulo', codTitulo);
-
     this.dameCalendario.consultar(this.conectorService.info.URL_REST).then(() => {
 
       this.dameOperaciones.consultar();
@@ -69,170 +67,144 @@ export class DataComponent implements OnInit {
         .then(() => this.calculosRD.estadisticas.emisiones[0] = this.dameTitulos.CadOut.Coregistro);
 
 
-      const myChart = new Chart('graficoPrecio', {
-        type: 'line',
-        data: {
-          datasets: [
-            {
-              label: 'PrecioM',
-              fill: false,
-              backgroundColor: 'Blue',
-              borderColor: 'Blue',
-              data: this.calculosRD.estadisticas.GrafPrecioM
-            },
-            {
-              label: 'recioOper',
-              fill: true,
-              backgroundColor: 'rgba(255, 79, 9, 0.411)',
-              borderColor: 'rgba(255, 79, 9)',
-              data: this.calculosRD.estadisticas.GrafPrecioOper
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            xAxes: [{
-              ticks: {
-                min: new Date(`${this.calculosRD.estadisticas.hoy}09:00:00`),
-                max: new Date(`${this.calculosRD.estadisticas.hoy}13:00:00`)
-              },
-              type: 'time',
-              time: {
-                format: 'HH:mm:ss',
-                unit: 'hour',
-                unitStepSize: 1,
-                displayFormats: {
-                  // minute: 'mm',
-                  hour: 'hh:mm:ss a'
-                },
-                tooltipFormat: 'hh:mm:ss a'
-              },
-              gridLines: {
-                display: true
-              }
-            }],
-          }
-        }
-      });
+      const myChart = this.generaGraficoLinia1();
+      const myChart2 = this.generaGraficoLinia2();
+      const myChart3 = this.graficoDona('graficoMonTran', 'DOP. mm', this.calculosRD.estadisticas.canti.PorcdopM);
+      const myChart4 = this.graficoDona('graficoMonTran2', 'USD. mm', this.calculosRD.estadisticas.canti.PorcusdM);
+      const myChart5 = this.graficoDona('graficoMonTran3', 'Total mm', this.calculosRD.estadisticas.canti.PorctotM);
+    });
+  }
 
-      const myChart2 = new Chart('graficoVolumen', {
-        type: 'line',
-        data: {
-          datasets: [
-            {
-              label: 'VolumenM',
-              fill: false,
-              backgroundColor: 'Blue',
-              borderColor: 'Blue',
-              data: this.calculosRD.estadisticas.GrafVolumenM
-            },
-            {
-              label: 'VolumenOper',
-              fill: false,
-              backgroundColor: 'red',
-              borderColor: 'red',
-              data: this.calculosRD.estadisticas.GrafVolumenOper
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: true,
-                callback: (value) => {
-                  return display_d(value, 10, 2);
-                }
-              }
-            }],
-            xAxes: [{
-              ticks: {
-                min: new Date(`${this.calculosRD.estadisticas.hoy}09:00:00`),
-                max: new Date(`${this.calculosRD.estadisticas.hoy}13:00:00`)
-              },
-              type: 'time',
-              time: {
-                format: 'HH:mm:ss',
-                unit: 'hour',
-                unitStepSize: 1,
-                displayFormats: {
-                  // minute: 'mm',
-                  hour: 'hh:mm:ss a'
-                },
-                tooltipFormat: 'hh:mm:ss a'
-              },
-              gridLines: {
-                display: true
-              }
-            }],
+  generaGraficoLinia1() {
+    return new Chart('graficoPrecio', {
+      type: 'line',
+      data: {
+        datasets: [
+          {
+            label: 'PrecioM',
+            fill: false,
+            backgroundColor: 'Blue',
+            borderColor: 'Blue',
+            data: this.calculosRD.estadisticas.GrafPrecioM
           },
-          tooltips: {
-            callbacks: {
-              label: (tooltipItem, chart) => {
-                return `${chart.datasets[tooltipItem.datasetIndex].label}: ${display_d(tooltipItem.yLabel, 10, 2)}`;
+          {
+            label: 'PrecioOper',
+            fill: true,
+            backgroundColor: 'rgba(255, 79, 9, 0.411)',
+            borderColor: 'rgba(255, 79, 9)',
+            data: this.calculosRD.estadisticas.GrafPrecioOper
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          xAxes: [{
+            ticks: {
+              min: new Date(`${this.calculosRD.estadisticas.hoy}09:00:00`),
+              max: new Date(`${this.calculosRD.estadisticas.hoy}13:00:00`)
+            },
+            type: 'time',
+            time: {
+              format: 'HH:mm:ss',
+              unit: 'hour',
+              unitStepSize: 1,
+              displayFormats: {
+                // minute: 'mm',
+                hour: 'hh:mm:ss a'
+              },
+              tooltipFormat: 'hh:mm:ss a'
+            },
+            gridLines: {
+              display: true
+            }
+          }],
+        }
+      }
+    });
+  }
+
+  generaGraficoLinia2() {
+    return new Chart('graficoVolumen', {
+      type: 'line',
+      data: {
+        datasets: [
+          {
+            label: 'VolumenM',
+            fill: false,
+            backgroundColor: 'Blue',
+            borderColor: 'Blue',
+            data: this.calculosRD.estadisticas.GrafVolumenM
+          },
+          {
+            label: 'VolumenOper',
+            fill: false,
+            backgroundColor: 'red',
+            borderColor: 'red',
+            data: this.calculosRD.estadisticas.GrafVolumenOper
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              callback: (value) => {
+                return display_d(value, 10, 2);
               }
+            }
+          }],
+          xAxes: [{
+            ticks: {
+              min: new Date(`${this.calculosRD.estadisticas.hoy}09:00:00`),
+              max: new Date(`${this.calculosRD.estadisticas.hoy}13:00:00`)
+            },
+            type: 'time',
+            time: {
+              format: 'HH:mm:ss',
+              unit: 'hour',
+              unitStepSize: 1,
+              displayFormats: {
+                // minute: 'mm',
+                hour: 'hh:mm:ss a'
+              },
+              tooltipFormat: 'hh:mm:ss a'
+            },
+            gridLines: {
+              display: true
+            }
+          }],
+        },
+        tooltips: {
+          callbacks: {
+            label: (tooltipItem, chart) => {
+              return `${chart.datasets[tooltipItem.datasetIndex].label}: ${display_d(tooltipItem.yLabel, 10, 2)}`;
             }
           }
         }
-      });
+      }
+    });
+  }
 
-      const myChart3 = new Chart('graficoMonTran', {
-        type: 'doughnut',
-        data: {
-          labels: ['DOP. mm'],
-          datasets: [
-            {
-              label: 'Titulo 1',
-              data: [this.calculosRD.estadisticas.canti.PorcdopM, 100 - this.calculosRD.estadisticas.canti.PorcdopM],
-              // backgroundBorder: '#00ff00',
-              // backgroundColor: ['rgba(250, 2, 2, 0.5)', 'transtarent'],
-              backgroundColor: [this.dameCalendario.CadOut.Color, 'transtarent'],
-              borderWidth: 1
-            }
-          ]
-        },
-        options: {
-          responsive: true
-        }
-      });
-
-      const myChart4 = new Chart('graficoMonTran2', {
-        type: 'doughnut',
-        data: {
-          labels: ['USD. mm'],
-          datasets: [
-            {
-              label: 'Titulo 1',
-              data: [this.calculosRD.estadisticas.canti.PorcusdM, 100 - this.calculosRD.estadisticas.canti.PorcusdM],
-              backgroundColor: [this.dameCalendario.CadOut.Color, 'transtarent'],
-              borderWidth: 1
-            }
-          ]
-        },
-        options: {
-          responsive: true
-        }
-      });
-
-      const myChart5 = new Chart('graficoMonTran3', {
-        type: 'doughnut',
-        data: {
-          labels: ['Total mm'],
-          datasets: [
-            {
-              label: 'Titulo 1',
-              data: [this.calculosRD.estadisticas.canti.PorctotM, 100 - this.calculosRD.estadisticas.canti.PorctotM],
-              backgroundColor: [this.dameCalendario.CadOut.Color, 'transtarent'],
-              borderWidth: 1
-            }
-          ]
-        },
-        options: {
-          responsive: true
-        }
-      });
+  graficoDona(nombreID: string, nombreEtiqueta: string, datos: number) {
+    return new Chart(nombreID, {
+      type: 'doughnut',
+      data: {
+        labels: [nombreEtiqueta],
+        datasets: [
+          {
+            label: 'Titulo 1',
+            data: [datos, 100 - datos],
+            backgroundColor: [this.dameCalendario.CadOut.Color, 'transtarent'],
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true
+      }
     });
   }
 

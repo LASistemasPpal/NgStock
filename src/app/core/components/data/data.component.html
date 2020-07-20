@@ -73,14 +73,14 @@
           <div class="divchart-ss">
             <canvas id="graficoMonTran"></canvas>
           </div>
-          <h1 class="text-right" [ngStyle]="dameCalendario['xcolor']">{{ calculosRD.estadisticas.canti.PorcdopM | number }}</h1>
+          <h1 class="text-right" [ngStyle]="dameCalendario['xcolor']">{{ calculosRD.estadisticas.canti.PorcdopM | number:'.2-2' }}</h1>
         </div>
 
         <div class="col">
           <div class="divchart-ss">
             <canvas id="graficoMonTran2"></canvas>
           </div>
-          <h1 class="text-right" [ngStyle]="dameCalendario['xcolor']">{{ calculosRD.estadisticas.canti.PorcusdM | number }}</h1>
+          <h1 class="text-right" [ngStyle]="dameCalendario['xcolor']">{{ calculosRD.estadisticas.canti.PorcusdM | number:'.2-2' }}</h1>
         </div>
 
         <div class="col">
