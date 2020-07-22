@@ -5,7 +5,7 @@
   <div class="container-12 mx-5">
     <div class="row">
 
-      <div class="col-4">
+      <div class="col-5">
         <div class="row">
           <div class="col pl-0">
             <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>{{ calculosRD.estadisticas.canti.PosturasM }}</strong></h1>
@@ -52,10 +52,10 @@
         <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ dameCalendario.CadOut.Tcdolar }}</strong></p>
       </div>
 
-      <div class="col-6 pt-2">
+      <div class="col-5 pt-2">
         <h3 class="text-center"><i class="fas fa-money-bill-wave pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i>
           Movimiento</h3>
-        <lsy-tabla-la *ngIf="calculosRD.visibleMovi" [columnas]="dtColumnasEjemplo" [datosX]="calculosRD.estadisticas.Movi"></lsy-tabla-la>
+        <lsy-tabla-la *ngIf="calculosRD.visibleMovi" [columnas]="dtColumnasEjemplo" [datosX]="calculosRD.estadisticas.Movi" [filas]="5" class="tabla-font-12"></lsy-tabla-la>
       </div>
 
     </div>
@@ -120,3 +120,6 @@
 <app-datos-m *ngIf="consultaTipo === '1'" [codRif]="codigoCliente"></app-datos-m>
 <app-posicion-m-ant *ngIf="consultaTipo === '1'" [codRif]="codigoCliente" [fecha]="dameCalendario.CadOut.Fecha"></app-posicion-m-ant>
 <app-cordenx *ngIf="consultaTipo === '2'" [codRif]="codigoCliente" [fecha]="dameCalendario.CadOut.Fecha" [titulo]="codigoTitulo"></app-cordenx>
+<app-posturas-propias *ngIf="consultaTipo === '4'" [datos]="damePosturasP.posturasPropias[0].CadJson" class="tabla-font-11"></app-posturas-propias>
+<app-posturas-siopel *ngIf="consultaTipo === '5'" [datos]="damePosturasM.posturasSiopel[0].CadJson" class="tabla-font-11"></app-posturas-siopel>
+<app-operaciones-propias *ngIf="consultaTipo === '6'" [datos]="dameOperaciones.operacionBvrd[0].CadJson" class="tabla-font-11"></app-operaciones-propias>

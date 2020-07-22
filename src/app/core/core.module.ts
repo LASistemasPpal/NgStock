@@ -24,6 +24,9 @@ import { LoginComponent } from './components/login/login.component';
 
 // Rutas
 import { AppRoutingModule } from './../app-routing.module';
+import { PosturasPropiasComponent } from './components/posturas-propias/posturas-propias.component';
+import { OperacionesPropiasComponent } from './components/operaciones-propias/operaciones-propias.component';
+import { PosturasSiopelComponent } from './components/posturas-siopel/posturas-siopel.component';
 
 
 @NgModule({
@@ -34,7 +37,10 @@ import { AppRoutingModule } from './../app-routing.module';
     PosicionMAntComponent,
     DatosMComponent,
     CordenxComponent,
-    LoginComponent
+    LoginComponent,
+    PosturasPropiasComponent,
+    OperacionesPropiasComponent,
+    PosturasSiopelComponent
   ],
   imports: [
     CommonModule,

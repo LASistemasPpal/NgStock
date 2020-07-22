@@ -55,10 +55,10 @@ export class CalculosRD {
 
 
 
-  calcular( codISIN: string) {
+  calcular( codISIN: string, codMoneda: string) {
     this.visibleMovi = false;
     this.estadisticas.isinsel = codISIN; //  DO1002220627
-    this.estadisticas.monsel = '';
+    this.estadisticas.monsel = codMoneda;
     this.estadisticas.canti.MarketMM = 0;
     this.estadisticas.canti.MarketMP = 0;
     this.estadisticas.canti.PosturasM = 0;

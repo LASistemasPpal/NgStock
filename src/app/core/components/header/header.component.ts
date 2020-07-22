@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { DameCalendario, DameIDMRif, DameTitulos } from '@laranda/lib-ultra-net';
 import { ConectorService } from '@laranda/lib-sysutil';
+import { iif } from 'rxjs';
 
 declare let $: any;
 @Component({
@@ -56,19 +57,22 @@ export class HeaderComponent implements OnInit {
       this.dameIDMRif.ParamIn.Cual = 'I';
 
       this.dameIDMRif.consultar(this.conectorService.info.URL_REST).then(() => {
-        this.codCliente.emit([this.dameIDMRif.CadOut.Rif, tipo, '']);
+        this.codCliente.emit([this.dameIDMRif.CadOut.Rif, tipo, '', '']);
       });
-    }
 
-    if ((tipo === '2') || (tipo === '3')) {
+    } else if ((tipo === '2') || (tipo === '3')) {
+
       this.dameTitulos.ParamIn.Cotitulo = this.codgoTitulo.toUpperCase();
       this.dameTitulos.ParamIn.Mrkt = '';
       this.dameTitulos.ParamIn.Vigencia = 0;
       this.dameTitulos.ParamIn.Moneda = 99;
 
       this.dameTitulos.consultar(this.conectorService.info.URL_REST).then(() => {
-        this.codCliente.emit(['', tipo, this.dameTitulos.CadOut.Isin]);
+        this.codCliente.emit(['', tipo, this.dameTitulos.CadOut.Isin, this.codgoMoneda.toUpperCase()]);
       });
+
+    } else {
+      this.codCliente.emit(['', tipo, '', '']);
     }
   }
 }

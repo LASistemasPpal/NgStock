@@ -9,8 +9,8 @@
 
       <div class="row ml-1" *ngIf="dameCalendario.CadOut != undefined">
         <p class=""><i class="fas fa-phone-alt pr-1" [ngStyle]="dameCalendario['xcolor']"></i>{{ dameCalendario.CadOut.Tlfveh1 | mask: '(0000) 000-00-00' }}</p>
-        <p class="ml-2"><i class="fas fa-envelope pr-1" [ngStyle]="dameCalendario['xcolor']"></i>{{ dameCalendario.CadOut.Email }}</p>
-        <p class="  ml-2"><i class="fas fa-globe-americas pr-1" [ngStyle]="dameCalendario['xcolor']"></i>{{ dameCalendario.CadOut.Webpage }}</p>
+        <p class="ml-5"><i class="fas fa-envelope pr-1" [ngStyle]="dameCalendario['xcolor']"></i>{{ dameCalendario.CadOut.Email }}</p>
+        <p class="  ml-5"><i class="fas fa-globe-americas pr-1" [ngStyle]="dameCalendario['xcolor']"></i>{{ dameCalendario.CadOut.Webpage }}</p>
       </div>
     </div>
 
@@ -18,8 +18,8 @@
       <h5 class="text-center"><i class="fas fa-flag pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i> Seleccion</h5>
 
       <div class="row justify-content-center">
-        <input type="text" class="form-control col-3 ml-4" placeholder="Titulo" data-toggle="tooltip" data-placement="top" title="Codigo del Titulo a Buscar" [(ngModel)]="codgoTitulo">
-        <input type="text" class="form-control col-3 ml-2" placeholder="Moneda" data-toggle="tooltip" data-placement="top" title="Codigo de la Moneda a Buscar" [(ngModel)]="codgoMoneda">
+        <input type="text" class="form-control col-3 ml-4 text-uppercase" placeholder="Titulo" data-toggle="tooltip" data-placement="top" title="Codigo del Titulo a Buscar" [(ngModel)]="codgoTitulo">
+        <input type="text" class="form-control col-3 ml-2 text-uppercase" placeholder="Moneda" data-toggle="tooltip" data-placement="top" title="Codigo de la Moneda a Buscar" [(ngModel)]="codgoMoneda">
         <input type="text" class="form-control col-3 ml-2 text-uppercase" placeholder="Cliente" data-toggle="tooltip" data-placement="top" title="Codigo del Cliente a Buscar" [(ngModel)]="codgoCliente">
 
         <div class="btn-group dropleft ml-3">
@@ -30,6 +30,9 @@
             <a class="dropdown-item" (click)="getConsultar('1')"><i class="fas mr-2 fa-search"></i>Buscar Cliente</a>
             <a class="dropdown-item" (click)="getConsultar('2')"><i class="fas mr-2 fa-portrait"></i>Ordenes del dia</a>
             <a class="dropdown-item" (click)="getConsultar('3')"><i class="fas mr-2 fa-sync"></i>Refrescar Datos</a>
+            <a class="dropdown-item" (click)="getConsultar('4')"><i class="fas mr-2 fa-bezier-curve"></i>Posturas Propias</a>
+            <a class="dropdown-item" (click)="getConsultar('5')"><i class="fas mr-2 fa-bolt"></i>Posturas SIOPEL</a>
+            <a class="dropdown-item" (click)="getConsultar('6')"><i class="fas mr-2 fa-bahai"></i>Operaciones Propias</a>
           </div>
         </div>
 
