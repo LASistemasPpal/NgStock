@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { DameCalendario, DameIDMRif, DameTitulos } from '@laranda/lib-ultra-net';
+import { DameCalendario, DameIDMRif, DameTitulos, AutenticaCli } from '@laranda/lib-ultra-net';
 import { ConectorService } from '@laranda/lib-sysutil';
 import { iif } from 'rxjs';
 
@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     public dameCalendario: DameCalendario,
+    public autenticaCli: AutenticaCli,
     private dameIDMRif: DameIDMRif,
     private dameTitulos: DameTitulos,
     private conectorService: ConectorService

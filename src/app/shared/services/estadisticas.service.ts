@@ -1,4 +1,4 @@
-import { DameCalendario } from '@laranda/lib-ultra-net';
+import { DameCalendario, DameTitulosAll } from '@laranda/lib-ultra-net';
 import { Injectable } from '@angular/core';
 import { Estadisticas, Movimientos, Graficos } from '../classes/bvrdClass';
 import {
@@ -16,7 +16,8 @@ export class CalculosRD {
     private bvrdPsot: DamePosturasP,
     private bvrdPMkrt: DamePosturasM,
     private bvrdOper: DameOperaciones,
-    private dameCalendario: DameCalendario
+    private dameCalendario: DameCalendario,
+    private dameTitulosAll: DameTitulosAll
   ) { }
 
   limpiarGraf(Gr: Graficos[], hasta: number) {
@@ -165,7 +166,7 @@ export class CalculosRD {
               this.estadisticas.Movi.push({
                 Moneda: 'USD',
                 Monto: bvrdMJson.ValorTransadoDolares,
-                Cotitulo: bvrdMJson.ISIN,
+                Cotitulo: this.getCodTituloLA(bvrdMJson.ISIN),
                 Isin: bvrdMJson.ISIN,
                 Cant: 1,
                 c_v: bvrdMJson.PosicionCompraVenta,
@@ -174,7 +175,7 @@ export class CalculosRD {
               this.estadisticas.Movi.push({
                 Moneda: 'DOP',
                 Monto: bvrdMJson.ValorTransadoPesos,
-                Cotitulo: bvrdMJson.ISIN,
+                Cotitulo: this.getCodTituloLA(bvrdMJson.ISIN),
                 Isin: bvrdMJson.ISIN,
                 Cant: 1,
                 c_v: bvrdMJson.PosicionCompraVenta,
@@ -281,5 +282,10 @@ export class CalculosRD {
         this.estadisticas.MaxGrafVolumen = graf.y;
       }
     }
+  }
+
+  getCodTituloLA(codISIN: string) {
+    const resultado = this.dameTitulosAll.CadOut.find((valor) => valor.Isin === codISIN);
+    return resultado !== undefined ? resultado.Coregistro : 'No Encontrado';
   }
 }

@@ -40,10 +40,10 @@
         <p *ngIf="dameCalendario.CadOut != undefined" [ngStyle]="dameCalendario['xcolor']"><strong> {{ dameCalendario.CadOut.Fecha }} </strong></p>
 
         <p class="mb-0">Mas Transada DOP</p>
-        <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastransadaDOP }} {{ calculosRD.estadisticas.MastranMtoDOP | number:'.2-2' }}</strong></p>
+        <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastransadaDOP }} / {{ calculosRD.estadisticas.MastranMtoDOP | number:'.2-2' }}</strong></p>
 
         <p class="mb-0">Mas Transada USD</p>
-        <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastransadaUSD }} {{ calculosRD.estadisticas.MastranMtoUSD | number:'.2-2' }}</strong></p>
+        <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastransadaUSD }} / {{ calculosRD.estadisticas.MastranMtoUSD | number:'.2-2' }}</strong></p>
 
         <p class="mb-0">Emision</p>
         <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.emisiones }}</strong></p>

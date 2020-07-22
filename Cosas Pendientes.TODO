@@ -32,21 +32,21 @@ Ajustar:
 
       ✘ servicio dame_datosM referencia y cotitulares pendiente pueden ser array de json o json @cancelled(09-07-2020 11:33)
 
-    ☐ Segun lo conversado el grafico de Precios y Volumenes depende si esta filtrado por titulo
+    ✔ Segun lo conversado el grafico de Precios y Volumenes depende si esta filtrado por titulo @done(22-07-2020 17:24)
 
 Reunion con Luis y Vanessa 08/07/2020:
     ✔ incorporar dame-titulos para el codigo LA @critical @done(10-07-2020 10:41)
     ✔ modificar a Dame-cordenX @critical @done(09-07-2020 16:30)
     ☐ al dar click en el grafico mostrar un showModal del mismo
-    ☐ limitar lo que se muestra en el grid de Lib-sysutil a 5 ojo
+    ✔ limitar lo que se muestra en el grid de Lib-sysutil a 5 ojo @done(22-07-2020 17:24)
     ✔ generar GrafPrecioM sin fondo @done(12-07-2020 22:59)
     ✔ generar GrafPrecioOper con fondo @done(12-07-2020 22:59)
     ✔ generar GrafVolumenM @done(13-07-2020 00:24)
     ✔ generar GrafVolumenOper @done(13-07-2020 00:24)
     ✔ Monto del grid a la derecha @done(09-07-2020 15:59)
-    ☐ evento de refrescar en el logo tipo y en la barra de color
-    ☐ dame posturas propias nuevo
-    ☐ Crear menu de dameOperaciones damePosturasM damePosturas
+    ✔ evento de refrescar en el logo tipo y en la barra de color @done(22-07-2020 17:24)
+    ✔ dame posturas propias nuevo @done(22-07-2020 17:24)
+    ✔ Crear menu de dameOperaciones damePosturasM damePosturas @done(22-07-2020 17:24)
     ✔ Crear login @done(16-07-2020 18:20)
     ✔ albuscar cliente mostrar Dame_PosicionM_Ant Dame-Datos-M @done(09-07-2020 18:29)
     ✔ Mostrar MastranMtoDOP MastransadaDOP @done(09-07-2020 18:34)
@@ -55,10 +55,10 @@ Reunion con Luis y Vanessa 08/07/2020:
     ✔ MtodopM: 799.7530371899998 @done(21-07-2020 20:59)
     ✔ MtototM: 1435.2441907109096 @done(21-07-2020 20:59)
     ✔ MtousdM: 13398.788789999999 @done(21-07-2020 20:59)
-    ☐ tabladtanet 40px de ancho
-    ☐ tabladtanet padin de 16px
-    ☐ tabladtanet font 12px
-    ☐ separar el header
+    ✔ tabladtanet 40px de ancho @done(22-07-2020 17:24)
+    ✔ tabladtanet padin de 16px @done(22-07-2020 17:24)
+    ✔ tabladtanet font 12px @done(22-07-2020 17:24)
+    ✔ separar el header @done(22-07-2020 17:24)
 
       https://codepen.io/Shven/pen/chKqD
       https://codepen.io/suez/pen/vAais

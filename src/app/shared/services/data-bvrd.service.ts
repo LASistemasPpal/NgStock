@@ -14,7 +14,6 @@ export class DamePosturasP{
   ) { }
 
   consultar(numUser: string) {
-
     return new Promise((resolve, rejects) => {
       this.serverAPI.post_REST(this.conectorService.info.URL_REST, 'WdamePosturasPropias', '',
         false, { User: 'USUARIO' + numUser }, false).subscribe(

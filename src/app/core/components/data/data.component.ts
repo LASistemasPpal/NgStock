@@ -48,22 +48,31 @@ export class DataComponent implements OnInit {
 
   ngOnInit(): void {
 
+    swal.fire({
+      allowOutsideClick: false,
+      icon: 'info',
+      text: 'Procesando los Datos....',
+      title: 'Loading'
+    });
+    swal.showLoading();
+
     if (this.conectorService.info === undefined) {
-      swal.fire({
-        allowOutsideClick: false,
-        icon: 'info',
-        text: 'Procesando los Datos....',
-        title: 'Loading'
-      });
-      swal.showLoading();
 
       this.conectorService.getParametros().then(() => {
         this.dameTitulosAll.consultar(this.conectorService.info.URL_REST).then(() => {
-          this.procesarCalculos('', '', true);
+          this.dameCalendario.consultar(this.conectorService.info.URL_REST).then(() => {
+
+            this.procesarCalculos('', '', true);
+          });
         });
       });
     } else {
-      this.procesarCalculos('', '');
+      this.dameTitulosAll.consultar(this.conectorService.info.URL_REST).then(() => {
+        this.dameCalendario.consultar(this.conectorService.info.URL_REST).then(() => {
+
+          this.procesarCalculos('', '', true);
+        });
+      });
     }
   }
 
@@ -79,31 +88,24 @@ export class DataComponent implements OnInit {
       swal.showLoading();
     }
 
-    this.dameCalendario.consultar(this.conectorService.info.URL_REST).then(() => {
-      this.dameOperaciones.consultar(this.autenticaCli.CadOut.Usuariobv).then(() => {
-        this.damePosturasM.consultar(this.autenticaCli.CadOut.Usuariobv).then(() => {
-          this.damePosturasP.consultar(this.autenticaCli.CadOut.Usuariobv).then(() => {
+    this.dameOperaciones.consultar(this.autenticaCli.CadOut.Usuariobv).then(() => {
+      this.damePosturasM.consultar(this.autenticaCli.CadOut.Usuariobv).then(() => {
+        this.damePosturasP.consultar(this.autenticaCli.CadOut.Usuariobv).then(() => {
 
-            console.log('dameOperaciones ', this.dameOperaciones.operacionBvrd);
-            console.log('damePosturasM ', this.damePosturasM.posturasSiopel);
-            console.log('damePosturasP ', this.damePosturasP.posturasPropias);
+          this.calculosRD.calcular(codTitulo, codMoneda);
 
-            this.calculosRD.calcular(codTitulo, codMoneda);
+          swal.close();
 
-            swal.close();
+          const myChart = this.generaGraficoLinia1();
+          const myChart2 = this.generaGraficoLinia2();
+          const myChart3 = this.graficoDona('graficoMonTran', 'DOP. mm', this.calculosRD.estadisticas.canti.PorcdopM);
+          const myChart4 = this.graficoDona('graficoMonTran2', 'USD. m', this.calculosRD.estadisticas.canti.PorcusdM);
+          const myChart5 = this.graficoDona('graficoMonTran3', 'Total mm', this.calculosRD.estadisticas.canti.PorctotM);
 
-            const myChart = this.generaGraficoLinia1();
-            const myChart2 = this.generaGraficoLinia2();
-            const myChart3 = this.graficoDona('graficoMonTran', 'DOP. mm', this.calculosRD.estadisticas.canti.PorcdopM);
-            const myChart4 = this.graficoDona('graficoMonTran2', 'USD. m', this.calculosRD.estadisticas.canti.PorcusdM);
-            const myChart5 = this.graficoDona('graficoMonTran3', 'Total mm', this.calculosRD.estadisticas.canti.PorctotM);
-
-          }).catch((valor) => this.mensajeError('Posturas Propias', valor.Status, valor.Mensaje));
-        }).catch((valor) => this.mensajeError('Posturas Siopel', valor.Status, valor.Mensaje));
-      }).catch((valor) => this.mensajeError('Operaciones', valor.Status, valor.Mensaje));
-    }).catch(() => swal.close());
-
-    }
+        }).catch((valor) => this.mensajeError('Posturas Propias', valor.Status, valor.Mensaje));
+      }).catch((valor) => this.mensajeError('Posturas Siopel', valor.Status, valor.Mensaje));
+    }).catch((valor) => this.mensajeError('Operaciones', valor.Status, valor.Mensaje));
+  }
 
   generaGraficoLinia1() {
       return new Chart('graficoPrecio', {
