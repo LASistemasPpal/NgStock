@@ -130,7 +130,7 @@ POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/T
 POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/TView/WdamePosturasPropias
 
 {
-  "Json":"False",
+  "Json":"false",
   "param": {
     "User": "USUARIO1"
   }
@@ -157,4 +157,18 @@ POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/T
         "User": "USUARIO1"
     }
 }
+###
+
+
+GET http://52.206.163.34/apibvrdposturaspropias/laexcel/Zzr3ll4RNW
+
+###
+
+GET http://52.206.163.34/apibvrdoperacionespropias/laexcel/Zzr3ll4RNW
+
+###
+
+
+GET http://52.206.163.34/apibvrdposturassiopel/laexcel/Zzr3ll4RNW
+
 ###

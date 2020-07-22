@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { DameCalendario, AutenticaCli, DameTitulos } from '@laranda/lib-ultra-net';
+import { display_d, ConectorService } from '@laranda/lib-sysutil';
 import { Chart } from 'chart.js';
-import { DameCalendario, DameTitulos } from '@laranda/lib-ultra-net';
 import { CalculosRD } from './../../../shared/services/estadisticas.service';
 import { DamePosturasM, DamePosturasP, DameOperaciones } from './../../../shared/services/data-bvrd.service';
-import { display_d, ConectorService } from '@laranda/lib-sysutil';
-
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-data',
@@ -25,13 +25,16 @@ export class DataComponent implements OnInit {
     private damePosturasM: DamePosturasM,
     private damePosturasP: DamePosturasP,
     private dameOperaciones: DameOperaciones,
+    private autenticaCli: AutenticaCli,
     public dameCalendario: DameCalendario,
     public calculosRD: CalculosRD
   ) {
 
     this.dtColumnasEjemplo = [
       { title: 'Moneda', data: 'Moneda' },
-      { title: 'Monto', data: 'Monto', className: 'dt-body-right' },
+      { title: 'Monto', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
+        return display_d(data.Monto, 10, 2);
+      }},
       { title: 'Titulos', data: 'Cotitulo' },
       { title: 'Isin', data: 'Isin' },
       { title: 'Cantidad', data: 'Cant', className: 'dt-body-right' },
@@ -41,38 +44,82 @@ export class DataComponent implements OnInit {
 
 
   ngOnInit(): void {
+    // this.dameTitulos.ParamIn.Cotitulo = '';
+    // this.dameTitulos.ParamIn.Mrkt = 'P';
+    // this.dameTitulos.ParamIn.Vigencia = 1;
+    // this.dameTitulos.ParamIn.Moneda = -1;
+    // this.dameTitulos.consultar(this.conectorService.info.URL_REST).then(() => {
+    //   this.dameTitulos.CadOut.map((valor) => {
+    //     return {
+    //       Coregistro: valor.Coregistro,
+    //       Isin: valor.Isin
+    //     };
+    //   });
+
+    //   console.log('Will: ', this.dameTitulos.CadOut);
+    // });
+
 
     if (this.conectorService.info === undefined) {
+      swal.fire({
+        allowOutsideClick: false,
+        icon: 'info',
+        text: 'Procesando los Datos....',
+        title: 'Loading'
+      });
+      swal.showLoading();
+
       this.conectorService.getParametros().then(() => {
-        this.procesarCalculos('');
+        this.dameTitulos.ParamIn.Cotitulo = '';
+        this.dameTitulos.ParamIn.Mrkt = 'P';
+        this.dameTitulos.ParamIn.Vigencia = 1;
+        this.dameTitulos.ParamIn.Moneda = -1;
+
+        this.dameTitulos.consultar(this.conectorService.info.URL_REST).then(() => {
+          this.procesarCalculos('', true);
+        });
       });
     } else {
       this.procesarCalculos('');
     }
   }
 
-  procesarCalculos(codTitulo: string): void {
+  procesarCalculos(codTitulo: string, loading?: boolean): void {
+
+    if (loading === undefined) {
+      swal.fire({
+        allowOutsideClick: false,
+        icon: 'info',
+        text: 'Procesando los Datos....',
+        title: 'Loading'
+      });
+      swal.showLoading();
+    }
+
     this.dameCalendario.consultar(this.conectorService.info.URL_REST).then(() => {
+      this.dameOperaciones.consultar(this.autenticaCli.CadOut.Usuariobv).then(() => {
+        this.damePosturasM.consultar(this.autenticaCli.CadOut.Usuariobv).then(() => {
+          this.damePosturasP.consultar(this.autenticaCli.CadOut.Usuariobv).then(() => {
 
-      this.dameOperaciones.consultar();
-      this.damePosturasM.consultar();
-      this.damePosturasP.consultar();
-      this.calculosRD.calcular(codTitulo);
+            console.log('dameOperaciones ', this.dameOperaciones.operacionBvrd);
+            console.log('damePosturasM ', this.damePosturasM.posturasSiopel);
+            console.log('damePosturasP ', this.damePosturasP.posturasPropias);
 
-      this.dameTitulos.ParamIn.Cotitulo = this.calculosRD.estadisticas.emisiones[0];
-      this.dameTitulos.ParamIn.Mrkt = 'P';
-      this.dameTitulos.ParamIn.Vigencia = 0;
-      this.dameTitulos.ParamIn.Moneda = 99;
-      this.dameTitulos.consultar(this.conectorService.info.URL_REST)
-        .then(() => this.calculosRD.estadisticas.emisiones[0] = this.dameTitulos.CadOut.Coregistro);
+            this.calculosRD.calcular(codTitulo);
 
+            swal.close();
 
-      const myChart = this.generaGraficoLinia1();
-      const myChart2 = this.generaGraficoLinia2();
-      const myChart3 = this.graficoDona('graficoMonTran', 'DOP. mm', this.calculosRD.estadisticas.canti.PorcdopM);
-      const myChart4 = this.graficoDona('graficoMonTran2', 'USD. mm', this.calculosRD.estadisticas.canti.PorcusdM);
-      const myChart5 = this.graficoDona('graficoMonTran3', 'Total mm', this.calculosRD.estadisticas.canti.PorctotM);
+            const myChart = this.generaGraficoLinia1();
+            const myChart2 = this.generaGraficoLinia2();
+            const myChart3 = this.graficoDona('graficoMonTran', 'DOP. mm', this.calculosRD.estadisticas.canti.PorcdopM);
+            const myChart4 = this.graficoDona('graficoMonTran2', 'USD. m', this.calculosRD.estadisticas.canti.PorcusdM);
+            const myChart5 = this.graficoDona('graficoMonTran3', 'Total mm', this.calculosRD.estadisticas.canti.PorctotM);
+
+          });
+        });
+      });
     });
+
   }
 
   generaGraficoLinia1() {

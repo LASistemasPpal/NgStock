@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(
     public autenticaCli: AutenticaCli,
     private fb: FormBuilder,
-    private conectorService: ConectorService
+    private conectorService: ConectorService,
   ) {
     this.formLogin = this.fb.group({
       user: ['', [Validators.required, Validators.minLength(4)]],

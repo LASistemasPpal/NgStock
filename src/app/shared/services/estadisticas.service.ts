@@ -10,6 +10,7 @@ import {
 @Injectable()
 export class CalculosRD {
   estadisticas: Estadisticas = new Estadisticas();
+  visibleMovi: boolean;
 
   constructor(
     private bvrdPsot: DamePosturasP,
@@ -55,6 +56,7 @@ export class CalculosRD {
 
 
   calcular( codISIN: string) {
+    this.visibleMovi = false;
     this.estadisticas.isinsel = codISIN; //  DO1002220627
     this.estadisticas.monsel = '';
     this.estadisticas.canti.MarketMM = 0;
@@ -195,6 +197,7 @@ export class CalculosRD {
         } // si no esta vencida
       } //  no ERROR
     } // lectura de posturas
+    this.visibleMovi = true;
 
     // calculo porcentajes transados por moneda
     this.estadisticas.canti.PorcdopM = 0;
