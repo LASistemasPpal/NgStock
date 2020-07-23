@@ -100,7 +100,7 @@ export class DataComponent implements OnInit {
           const myChart2 = this.generaGraficoLinia2();
           const myChart3 = this.graficoDona('graficoMonTran', 'DOP. mm', this.calculosRD.estadisticas.canti.PorcdopM);
           const myChart4 = this.graficoDona('graficoMonTran2', 'USD. m', this.calculosRD.estadisticas.canti.PorcusdM);
-          const myChart5 = this.graficoDona('graficoMonTran3', 'Total mm', this.calculosRD.estadisticas.canti.PorctotM);
+          const myChart5 = this.graficoDona('graficoMonTran3', 'Tot DOP. mm', this.calculosRD.estadisticas.canti.PorctotM);
 
         }).catch((valor) => this.mensajeError('Posturas Propias', valor.Status, valor.Mensaje));
       }).catch((valor) => this.mensajeError('Posturas Siopel', valor.Status, valor.Mensaje));

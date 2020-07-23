@@ -132,7 +132,7 @@ POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/T
 {
   "Json":"false",
   "param": {
-    "User": "USUARIO1"
+    "User": "USUARIO9"
   }
 }
 ###
@@ -143,7 +143,7 @@ POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/T
 {
   "Json":"False",
   "param": {
-    "User": "USUARIO1"
+    "User": "USUARIO9"
   }
 }
 ###
@@ -154,7 +154,7 @@ POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/T
 {
     "Json":"False",
     "param": {
-        "User": "USUARIO1"
+        "User": "USUARIO9"
     }
 }
 ###
