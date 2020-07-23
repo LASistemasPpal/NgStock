@@ -1,3 +1,9 @@
+<div *ngIf="!dameDatosM.visible" class="d-flex justify-content-center mt-5">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
 <div class="conteiner-12 mx-5">
   <div class="row my-4 justify-content-center">
     <div *ngIf="dameDatosM.visible" class="card col-12 shadow">
@@ -11,9 +17,6 @@
           <p class="card-text col"><b>Ejecutivo:</b> {{ dameDatosM.CadOut.Ejecutivo }}</p>
           <p class="card-text col"><b>Direccion:</b> {{ dameDatosM.CadOut.Dirhabitacion1 + ' ' + dameDatosM.CadOut.Dirhabitacion2 + ' ' + dameDatosM.CadOut.Dirhabitacion3}} </p>
         </div>
-        <!-- <div class="row">
-
-        </div> -->
       </div>
     </div>
   </div>
