@@ -37,7 +37,7 @@ Ajustar:
 Reunion con Luis y Vanessa 08/07/2020:
     ✔ incorporar dame-titulos para el codigo LA @critical @done(10-07-2020 10:41)
     ✔ modificar a Dame-cordenX @critical @done(09-07-2020 16:30)
-    ☐ al dar click en el grafico mostrar un showModal del mismo
+    ✘ al dar click en el grafico mostrar un showModal del mismo @cancelled(23-07-2020 11:33)
     ✔ limitar lo que se muestra en el grid de Lib-sysutil a 5 ojo @done(22-07-2020 17:24)
     ✔ generar GrafPrecioM sin fondo @done(12-07-2020 22:59)
     ✔ generar GrafPrecioOper con fondo @done(12-07-2020 22:59)
@@ -59,6 +59,21 @@ Reunion con Luis y Vanessa 08/07/2020:
     ✔ tabladtanet padin de 16px @done(22-07-2020 17:24)
     ✔ tabladtanet font 12px @done(22-07-2020 17:24)
     ✔ separar el header @done(22-07-2020 17:24)
+
+reunion del dia 23/07/2020:
+    ☐ conpara calendario con el dia de hoy si son diferentes mostrar las dos fechas y una con fecha sistema
+    ☐ separadores del menu
+    ☐ eliminar los mensajes de no hay data
+    ☐ cambiar el mensaje del buscar cliente cuando el error es 82
+    ☐ minimo de caracteres 6 para el cliente y el titulo
+    ☐ invertir ls negrita del dame cliente
+    ☐ dame cliente los dos telefonos juntos
+    ☐ clientes de prueba  ALB001 ACO001 ALM001
+    ☐ montos transados a la derecha
+    ☐ cambiar nombre Posturas SIOPEL a Posturas Mercado
+    ☐ Ordenes del dia / Posturas propias / Posturas Mercado / Operaciones propias / Movimiento / se deben buscar por titulo el isin ojo
+    ☐ Montos Transados colocar el codigo del titulo cuando se filtre
+    ☐ cambiar el logo
 
       https://codepen.io/Shven/pen/chKqD
       https://codepen.io/suez/pen/vAais
