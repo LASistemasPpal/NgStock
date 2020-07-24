@@ -1,11 +1,11 @@
 <app-header *ngIf="dameCalendario.visible"  (codCliente)="consultarCliente($event)"></app-header>
 
 
-<div *ngIf="dameCalendario.visible" class="container-fluid bg-gris">
+<div *ngIf="dameCalendario.visible" class="container-12 bg-gris">
   <div class="container-12 mx-5">
     <div class="row">
 
-      <div class="col-5">
+      <div class="col-4">
         <div class="row">
           <div class="col pl-0">
             <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>{{ calculosRD.estadisticas.canti.PosturasM }}</strong></h1>
@@ -36,8 +36,19 @@
       <div class="col-2 pl-4 pt-2">
         <h3><i class="fas fa-calendar-day pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i> Hoy</h3>
 
-        <p class="mb-0">Feha</p>
-        <p *ngIf="dameCalendario.CadOut != undefined" [ngStyle]="dameCalendario['xcolor']"><strong> {{ dameCalendario.CadOut.Fecha }} </strong></p>
+        <div *ngIf="fechaActual === dameCalendario.CadOut.Fecha; else fechaDoble">
+          <p class="mb-0">Feha</p>
+          <p *ngIf="dameCalendario.CadOut != undefined" [ngStyle]="dameCalendario['xcolor']"><strong> {{ dameCalendario.CadOut.Fecha }} </strong></p>
+        </div>
+
+        <ng-template #fechaDoble>
+          <p class="mb-0">Feha</p>
+          <p *ngIf="dameCalendario.CadOut != undefined" [ngStyle]="dameCalendario['xcolor']"><strong> {{ fechaActual }} </strong></p>
+
+          <p class="mb-0">Feha Sistema</p>
+          <p *ngIf="dameCalendario.CadOut != undefined" [ngStyle]="dameCalendario['xcolor']"><strong> {{ dameCalendario.CadOut.Fecha }} </strong></p>
+        </ng-template>
+
 
         <p class="mb-0">Mas Transada DOP</p>
         <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastransadaDOP }} / {{ calculosRD.estadisticas.MastranMtoDOP | number:'.2-2' }}</strong></p>
@@ -52,7 +63,7 @@
         <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ dameCalendario.CadOut.Tcdolar }}</strong></p>
       </div>
 
-      <div class="col-5 pt-2">
+      <div class="col-6 pt-2">
         <h3 class="text-center"><i class="fas fa-money-bill-wave pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i>
           Movimiento</h3>
         <lsy-tabla-la *ngIf="calculosRD.visibleMovi" [columnas]="dtColumnasEjemplo" [datosX]="calculosRD.estadisticas.Movi" [filas]="5" class="tabla-font-12"></lsy-tabla-la>
@@ -73,21 +84,21 @@
           <div class="divchart-ss">
             <canvas id="graficoMonTran"></canvas>
           </div>
-          <h3 class="text-right" [ngStyle]="dameCalendario['xcolor']">{{ calculosRD.estadisticas.canti.MtodopM | number:'.2-2' }}</h3>
+          <h3 class="text-right ml-5 pl-2" [ngStyle]="dameCalendario['xcolor']">{{ calculosRD.estadisticas.canti.MtodopM | number:'.2-2' }}</h3>
         </div>
 
         <div class="col">
           <div class="divchart-ss">
             <canvas id="graficoMonTran2"></canvas>
           </div>
-          <h3 class="text-right" [ngStyle]="dameCalendario['xcolor']">{{ calculosRD.estadisticas.canti.MtousdM | number:'.2-2' }}</h3>
+          <h3 class="text-right ml-5 pl-2" [ngStyle]="dameCalendario['xcolor']">{{ calculosRD.estadisticas.canti.MtousdM | number:'.2-2' }}</h3>
         </div>
 
         <div class="col">
           <div class="divchart-ss">
             <canvas id="graficoMonTran3"></canvas>
           </div>
-          <h3 class="text-right" [ngStyle]="dameCalendario['xcolor']">{{ calculosRD.estadisticas.canti.MtototM | number:'.2-2' }}</h3>
+          <h3 class="text-right ml-5 pl-2" [ngStyle]="dameCalendario['xcolor']">{{ calculosRD.estadisticas.canti.MtototM | number:'.2-2' }}</h3>
         </div>
 
       </div>

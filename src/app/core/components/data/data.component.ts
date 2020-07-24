@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DameCalendario, AutenticaCli, DameTitulosAll } from '@laranda/lib-ultra-net';
-import { display_d, ConectorService } from '@laranda/lib-sysutil';
+import { display_d, ConectorService, fechaHoy } from '@laranda/lib-sysutil';
 import { Chart } from 'chart.js';
 import { CalculosRD } from './../../../shared/services/estadisticas.service';
 import { DamePosturasM, DamePosturasP, DameOperaciones } from './../../../shared/services/data-bvrd.service';
@@ -18,6 +18,7 @@ export class DataComponent implements OnInit {
   public codigoCliente = '';
   public codigoTitulo = '';
   public consultaTipo = '';
+  public fechaActual = fechaHoy();
   private codigoMoneda = '';
 
   constructor(
@@ -102,9 +103,9 @@ export class DataComponent implements OnInit {
           const myChart4 = this.graficoDona('graficoMonTran2', 'USD. m', this.calculosRD.estadisticas.canti.PorcusdM);
           const myChart5 = this.graficoDona('graficoMonTran3', 'Tot DOP. mm', this.calculosRD.estadisticas.canti.PorctotM);
 
-        }).catch((valor) => this.mensajeError('Posturas Propias', valor.Status, valor.Mensaje));
-      }).catch((valor) => this.mensajeError('Posturas Siopel', valor.Status, valor.Mensaje));
-    }).catch((valor) => this.mensajeError('Operaciones', valor.Status, valor.Mensaje));
+        }).catch(() => swal.close());
+      }).catch(() => swal.close());
+    }).catch(() => swal.close());
   }
 
   generaGraficoLinia1() {
@@ -249,11 +250,6 @@ export class DataComponent implements OnInit {
       if (this.consultaTipo === '3') {
       this.procesarCalculos(this.codigoTitulo, this.codigoMoneda);
     }
-  }
-
-  mensajeError(nomProceso: string, status: number, mensaje): void {
-    swal.close();
-    swal.fire(`Error Dame ${nomProceso}`, `Status: ${status} \n Mensaje: ${mensaje}`  , 'error');
   }
 
 }

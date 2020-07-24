@@ -61,16 +61,16 @@ Reunion con Luis y Vanessa 08/07/2020:
     ✔ separar el header @done(22-07-2020 17:24)
 
 reunion del dia 23/07/2020:
-    ☐ conpara calendario con el dia de hoy si son diferentes mostrar las dos fechas y una con fecha sistema
-    ☐ separadores del menu
-    ☐ eliminar los mensajes de no hay data
-    ☐ cambiar el mensaje del buscar cliente cuando el error es 82
-    ☐ minimo de caracteres 6 para el cliente y el titulo
-    ☐ invertir ls negrita del dame cliente
-    ☐ dame cliente los dos telefonos juntos
-    ☐ clientes de prueba  ALB001 ACO001 ALM001
-    ☐ montos transados a la derecha
-    ☐ cambiar nombre Posturas SIOPEL a Posturas Mercado
+    ✔ conpara calendario con el dia de hoy si son diferentes mostrar las dos fechas y una con fecha sistema @done(24-07-2020 07:50)
+    ✔ separadores del menu @done(24-07-2020 07:52)
+    ✔ eliminar los mensajes de no hay data @done(24-07-2020 07:54)
+    ✔ cambiar el mensaje del buscar cliente cuando el error es 82 @done(24-07-2020 08:30)
+    ✔ minimo de caracteres 6 para el cliente y el titulo @done(24-07-2020 08:32)
+    ✔ invertir las negrita del dame cliente @done(24-07-2020 08:35)
+    ✔ dame cliente los dos telefonos juntos @done(24-07-2020 08:39)
+    ✔ clientes de prueba  ALB001 ACO001 ALM001 @done(24-07-2020 08:58)
+    ✔ montos transados a la derecha @done(24-07-2020 12:49)
+    ✔ cambiar nombre Posturas SIOPEL a Posturas Mercado @done(24-07-2020 09:08)
     ☐ Ordenes del dia / Posturas propias / Posturas Mercado / Operaciones propias / Movimiento / se deben buscar por titulo el isin ojo
     ☐ Montos Transados colocar el codigo del titulo cuando se filtre
     ☐ cambiar el logo

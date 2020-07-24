@@ -11,11 +11,10 @@
         <h5 class="card-title text-center">{{ dameDatosM.CadOut.Apellido + ' ' + dameDatosM.CadOut.Nombre }}</h5>
         <hr>
         <div class="row">
-          <p class="card-text col"><b>Telefono1:</b> {{ dameDatosM.CadOut.Tlf1 | mask: '(000) 000-00-00' }}</p>
-          <p class="card-text col"><b>Telefono2:</b> {{ dameDatosM.CadOut.Tlf2 | mask: '(000) 000-00-00' }}</p>
-          <p class="card-text col"><b>Email:</b> {{ dameDatosM.CadOut.Email }}</p>
-          <p class="card-text col"><b>Ejecutivo:</b> {{ dameDatosM.CadOut.Ejecutivo }}</p>
-          <p class="card-text col"><b>Direccion:</b> {{ dameDatosM.CadOut.Dirhabitacion1 + ' ' + dameDatosM.CadOut.Dirhabitacion2 + ' ' + dameDatosM.CadOut.Dirhabitacion3}} </p>
+          <p class="card-text col">Telefono: <b>{{ dameDatosM.CadOut.Tlf1 | mask: '(000) 000-00-00' }}</b> <br> <b>{{ dameDatosM.CadOut.Tlf2 | mask: '(000) 000-00-00' }}</b></p>
+          <p class="card-text col">Email: <b>{{ dameDatosM.CadOut.Email }}</b></p>
+          <p class="card-text col">Ejecutivo: <b>{{ dameDatosM.CadOut.Ejecutivo }}</b></p>
+          <p class="card-text col">Direccion: <b>{{ dameDatosM.CadOut.Dirhabitacion1 + ' ' + dameDatosM.CadOut.Dirhabitacion2 + ' ' + dameDatosM.CadOut.Dirhabitacion3}}</b></p>
         </div>
       </div>
     </div>
