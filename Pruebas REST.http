@@ -49,12 +49,15 @@ POST  http://la2k12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/
 
 # CC0122
 # DO8013700828
+# HB0521 = USP3579EAH01
+# FB0424 = USP3579EAS65
+# CC0421 = DO1002212020
 POST  http://la2k12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/TView/WDame_Titulos
 
 {
 	"Json":"true",
 	"param": {
-    "Cotitulo": "DO1002220627",
+    "Cotitulo": "DO1002212020",
     "Mrkt": "",
     "Vigencia": 0,
     "Moneda": 99

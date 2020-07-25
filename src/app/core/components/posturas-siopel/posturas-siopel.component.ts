@@ -1,3 +1,4 @@
+import { CadJsons } from './../../../shared/classes/bvrdClass';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -8,8 +9,10 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PosturasSiopelComponent implements OnInit {
 
   dtColumnas: DataTables.ColumnSettings[] = [];
+  datosFiltrados: CadJsons[];
 
-  @Input() datos: any[];
+  @Input() datos: CadJsons[];
+  @Input() codISIN = '';
 
   constructor() {
     this.dtColumnas = [
@@ -40,6 +43,10 @@ export class PosturasSiopelComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    if (this.codISIN !== undefined) {
+      this.datosFiltrados = this.datos.filter((valor) => valor.ISIN === this.codISIN);
+    }
   }
 
 }

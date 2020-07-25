@@ -71,7 +71,13 @@ reunion del dia 23/07/2020:
     ✔ clientes de prueba  ALB001 ACO001 ALM001 @done(24-07-2020 08:58)
     ✔ montos transados a la derecha @done(24-07-2020 12:49)
     ✔ cambiar nombre Posturas SIOPEL a Posturas Mercado @done(24-07-2020 09:08)
-    ☐ Ordenes del dia / Posturas propias / Posturas Mercado / Operaciones propias / Movimiento / se deben buscar por titulo el isin ojo
+
+    ✔ "Ordenes del dia" se deben buscar por titulo el isin ojo @done(24-07-2020 15:44)
+    ✔ "Posturas propias" se deben buscar por titulo el isin ojo @done(24-07-2020 15:56)
+    ✔ "Posturas Mercado" se deben buscar por titulo el isin ojo @done(24-07-2020 20:17)
+    ✔ "Operaciones propias" se deben buscar por titulo el isin ojo @done(24-07-2020 20:17)
+    ☐ "Movimiento" se deben buscar por titulo el isin ojo
+
     ☐ Montos Transados colocar el codigo del titulo cuando se filtre
     ☐ cambiar el logo
 

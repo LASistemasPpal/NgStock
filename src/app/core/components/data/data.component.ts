@@ -3,6 +3,7 @@ import { DameCalendario, AutenticaCli, DameTitulosAll } from '@laranda/lib-ultra
 import { display_d, ConectorService, fechaHoy } from '@laranda/lib-sysutil';
 import { Chart } from 'chart.js';
 import { CalculosRD } from './../../../shared/services/estadisticas.service';
+import { Movimientos } from './../../../shared/classes/bvrdClass';
 import { DamePosturasM, DamePosturasP, DameOperaciones } from './../../../shared/services/data-bvrd.service';
 import swal from 'sweetalert2';
 
@@ -15,10 +16,11 @@ export class DataComponent implements OnInit {
 
   dtColumnasEjemplo: DataTables.ColumnSettings[] = [];
 
-  public codigoCliente = '';
-  public codigoTitulo = '';
-  public consultaTipo = '';
-  public fechaActual = fechaHoy();
+  codigoCliente = '';
+  codigoTitulo = '';
+  consultaTipo = '';
+  fechaActual = fechaHoy();
+  movimientos: Movimientos[];
   private codigoMoneda = '';
 
   constructor(
@@ -94,6 +96,15 @@ export class DataComponent implements OnInit {
         this.damePosturasP.consultar(this.autenticaCli.CadOut.Usuariobv).then(() => {
 
           this.calculosRD.calcular(codTitulo, codMoneda);
+
+
+          console.log('damePosturasP');
+          console.table(this.damePosturasP.posturasPropias[0].CadJson);
+          console.log('damePosturasM');
+          console.table(this.damePosturasM.posturasSiopel[0].CadJson);
+          console.log('dameOperaciones');
+          console.table(this.dameOperaciones.operacionBvrd[0].CadJson);
+
 
           swal.close();
 

@@ -61,7 +61,10 @@ export class HeaderComponent implements OnInit {
         this.codCliente.emit([this.dameIDMRif.CadOut.Rif, tipo, '', '']);
       });
 
-    } else if ((tipo === '2') || (tipo === '3')) {
+    } else if (tipo === '2') {
+      this.codCliente.emit(['', tipo, this.codgoTitulo.toUpperCase(), this.codgoMoneda.toUpperCase()]);
+
+    } else if ((tipo === '3') || (tipo === '4') || (tipo === '5') || (tipo === '6')) {
 
       this.dameTitulos.ParamIn.Cotitulo = this.codgoTitulo.toUpperCase();
       this.dameTitulos.ParamIn.Mrkt = '';
@@ -71,7 +74,6 @@ export class HeaderComponent implements OnInit {
       this.dameTitulos.consultar(this.conectorService.info.URL_REST).then(() => {
         this.codCliente.emit(['', tipo, this.dameTitulos.CadOut.Isin, this.codgoMoneda.toUpperCase()]);
       });
-
     } else {
       this.codCliente.emit(['', tipo, '', '']);
     }

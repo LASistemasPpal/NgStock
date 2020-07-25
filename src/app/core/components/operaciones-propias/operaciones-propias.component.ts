@@ -1,3 +1,4 @@
+import { CadJsonOpers } from './../../../shared/classes/bvrdClass';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -8,8 +9,10 @@ import { Component, OnInit, Input } from '@angular/core';
 export class OperacionesPropiasComponent implements OnInit {
 
   dtColumnas: DataTables.ColumnSettings[] = [];
+  datosFiltrados: CadJsonOpers[];
 
-  @Input() datos: any[];
+  @Input() datos: CadJsonOpers[];
+  @Input() codISIN = '';
 
   constructor() {
 
@@ -55,6 +58,9 @@ export class OperacionesPropiasComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.codISIN !== undefined) {
+      this.datosFiltrados = this.datos.filter((valor) => valor.CodigoISIN === this.codISIN);
+    }
   }
 
 }

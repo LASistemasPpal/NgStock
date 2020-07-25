@@ -62,6 +62,8 @@ export class CordenxComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('CordenX ', this.titulo);
+
     this.dameCOrdenX.ParamIn.Desde    = this.fecha.replace(/\//g, '-');
     this.dameCOrdenX.ParamIn.Hasta    = this.dameCOrdenX.ParamIn.Desde;
     this.dameCOrdenX.ParamIn.Nuorigen = 1;
