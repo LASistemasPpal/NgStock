@@ -60,26 +60,52 @@ Reunion con Luis y Vanessa 08/07/2020:
     ✔ tabladtanet font 12px @done(22-07-2020 17:24)
     ✔ separar el header @done(22-07-2020 17:24)
 
-reunion del dia 23/07/2020:
+Reunión del día 23/07/2020:
     ✔ conpara calendario con el dia de hoy si son diferentes mostrar las dos fechas y una con fecha sistema @done(24-07-2020 07:50)
-    ✔ separadores del menu @done(24-07-2020 07:52)
+    ✔ Separadores del menú @done(24-07-2020 07:52)
     ✔ eliminar los mensajes de no hay data @done(24-07-2020 07:54)
     ✔ cambiar el mensaje del buscar cliente cuando el error es 82 @done(24-07-2020 08:30)
-    ✔ minimo de caracteres 6 para el cliente y el titulo @done(24-07-2020 08:32)
+    ✔ Minimo de caracteres 6 para el cliente y el titulo @done(24-07-2020 08:32)
     ✔ invertir las negrita del dame cliente @done(24-07-2020 08:35)
     ✔ dame cliente los dos telefonos juntos @done(24-07-2020 08:39)
-    ✔ clientes de prueba  ALB001 ACO001 ALM001 @done(24-07-2020 08:58)
-    ✔ montos transados a la derecha @done(24-07-2020 12:49)
+    ✔ Clientes de prueba  ALB001 ACO001 ALM001 @done(24-07-2020 08:58)
+    ✔ Montos transados a la derecha @done(24-07-2020 12:49)
     ✔ cambiar nombre Posturas SIOPEL a Posturas Mercado @done(24-07-2020 09:08)
 
     ✔ "Ordenes del dia" se deben buscar por titulo el isin ojo @done(24-07-2020 15:44)
     ✔ "Posturas propias" se deben buscar por titulo el isin ojo @done(24-07-2020 15:56)
     ✔ "Posturas Mercado" se deben buscar por titulo el isin ojo @done(24-07-2020 20:17)
     ✔ "Operaciones propias" se deben buscar por titulo el isin ojo @done(24-07-2020 20:17)
-    ☐ "Movimiento" se deben buscar por titulo el isin ojo
+    ☐ "Movimiento" se deben buscar por titulo el ISIN ojo
 
     ☐ Montos Transados colocar el codigo del titulo cuando se filtre
     ☐ cambiar el logo
+
+COSAS NUEVAS:
+
+    ☐ necesitamos colocar una especie de switche en la parte superior.... BVRD  .... OTC ... por ahora siempre en BVRD
+    explicacion.... tendremos informacion del mercado OTC se hara un calculaRDOTC y los resultados seran los mismos y graficados igual
+    el switche deberia ser tipo apple
+
+MODIFICACIONES:
+
+    ☐ .recuerda el email del usuario pasarlo a la derecha para que todo esa info quede en una fila
+    ☐ . el grid de movimiento le falta precio... creo que no lo puse en el calcula .. queda pendiente cuando termine el calcula
+    ☐ . la palabra emision es emisiones. igual con la mas transada deberia tener el precio
+    ☐ . graficos... el precio deberia tener algun margen adicional para que la curva no quede pegada a los costados .. se entiende ?
+    ☐ . graficos ... volumen en cero debe ser un error del calcula porq eso no tiene sentido...
+
+COLUMNAS DE LOS GRIDS...solo indico las columnas a  quitar:
+
+    ☐ .- posturas propias.  duracion, horaultimamodificacion, nemotecnico, nominal unitario, secuencia, tasa cupon... las ultimas 4  columnas solo debes colocar las que tengan valor distinto de cero... Nominal (es en pesos o en dlares) valor transado (es en pesos o en dolares)
+    ☐ .- posturas mercado. horaultimamodificacion, nemotecnico, nominalunitario, nrooperacionvinculada, tasa cupon....las ultimas 4  columnas solo debes colocar las que tengan valor distinto de cero... Nominal (es en pesos o en dlares) valor transado (es en pesos o en dolares)
+    ☐ .- operaciones propias. fechaemision, fechaoperacion, fechavencimiento, nemotecnico, tasacupon, tipoinstrumento, yield....las ultimas 4  columnas solo debes colocar las que tengan valor distinto de cero... Nominal (es en pesos o en dlares) valor transado (es en pesos o en dolares)
+
+    ☐ faltan los comentarios para el dame_posicionM....
+
+
+    https://codepen.io/bbodine1/pen/novBm
+
 
       https://codepen.io/Shven/pen/chKqD
       https://codepen.io/suez/pen/vAais

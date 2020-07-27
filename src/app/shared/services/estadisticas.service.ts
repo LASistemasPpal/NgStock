@@ -284,6 +284,7 @@ export class CalculosRD {
     }
 
     // Willmer nuevo solo este if
+    debugger
     if (codISIN !== '') {
       this.estadisticas.Movi = this.estadisticas.Movi.filter((x) => x.Isin === codISIN);
     }
