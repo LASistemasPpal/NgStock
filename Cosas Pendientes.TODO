@@ -35,8 +35,8 @@ Ajustar:
     ✔ Segun lo conversado el grafico de Precios y Volumenes depende si esta filtrado por titulo @done(22-07-2020 17:24)
 
 Reunion con Luis y Vanessa 08/07/2020:
-    ✔ incorporar dame-titulos para el codigo LA @critical @done(10-07-2020 10:41)
-    ✔ modificar a Dame-cordenX @critical @done(09-07-2020 16:30)
+    ✔ incorporar dame-titulos para el codigo LA @done(10-07-2020 10:41)
+    ✔ modificar a Dame-cordenX @done(09-07-2020 16:30)
     ✘ al dar click en el grafico mostrar un showModal del mismo @cancelled(23-07-2020 11:33)
     ✔ limitar lo que se muestra en el grid de Lib-sysutil a 5 ojo @done(22-07-2020 17:24)
     ✔ generar GrafPrecioM sin fondo @done(12-07-2020 22:59)
@@ -79,7 +79,7 @@ Reunión del día 23/07/2020:
     ☐ "Movimiento" se deben buscar por titulo el ISIN ojo
 
     ☐ Montos Transados colocar el codigo del titulo cuando se filtre
-    ☐ cambiar el logo
+    ✔ cambiar el logo @done(28-07-2020 13:35)
 
 COSAS NUEVAS:
 
@@ -97,16 +97,16 @@ MODIFICACIONES:
 
 COLUMNAS DE LOS GRIDS...solo indico las columnas a  quitar:
 
-    ☐ .- posturas propias.  duracion, horaultimamodificacion, nemotecnico, nominal unitario, secuencia, tasa cupon... las ultimas 4  columnas solo debes colocar las que tengan valor distinto de cero... Nominal (es en pesos o en dlares) valor transado (es en pesos o en dolares) @critical
-    ☐ .- posturas mercado. horaultimamodificacion, nemotecnico, nominalunitario, nrooperacionvinculada, tasa cupon....las ultimas 4  columnas solo debes colocar las que tengan valor distinto de cero... Nominal (es en pesos o en dlares) valor transado (es en pesos o en dolares) @critical
-    ☐ .- operaciones propias. fechaemision, fechaoperacion, fechavencimiento, nemotecnico, tasacupon, tipoinstrumento, yield....las ultimas 4  columnas solo debes colocar las que tengan valor distinto de cero... Nominal (es en pesos o en dlares) valor transado (es en pesos o en dolares) @critical
+    ✔ .- posturas propias.  duracion, horaultimamodificacion, nemotecnico, nominal unitario, secuencia, tasa cupon... las ultimas 4  columnas solo debes colocar las que tengan valor distinto de cero... Nominal (es en pesos o en dlares) valor transado (es en pesos o en dolares) @critical @done(28-07-2020 13:20)
+    ✔ .- posturas mercado. horaultimamodificacion, nemotecnico, nominalunitario, nrooperacionvinculada, tasa cupon....las ultimas 4  columnas solo debes colocar las que tengan valor distinto de cero... Nominal (es en pesos o en dlares) valor transado (es en pesos o en dolares) @critical @done(28-07-2020 13:20)
+    ✔ .- operaciones propias. fechaemision, fechaoperacion, fechavencimiento, nemotecnico, tasacupon, tipoinstrumento, yield....las ultimas 4  columnas solo debes colocar las que tengan valor distinto de cero... Nominal (es en pesos o en dlares) valor transado (es en pesos o en dolares) @critical @done(28-07-2020 13:20)
 
     ✘ faltan los comentarios para el dame_posicionM.... @cancelled(28-07-2020 09:23)
 
 observaciones Vanessa:
     ✔ Corregir la palabra Fecha en ambas etiquetas @done(28-07-2020 08:34)
     ✔ Falta ajustar tamaño de fuente en el grid de Dame_PosicionM_Ant y Dame_CordenX @done(28-07-2020 08:46)
-    ☐ Incluir el scroll y eliminar el pagineo en todos los grids
+    ✔ Incluir el scroll y eliminar el pagineo en todos los grids @done(28-07-2020 13:35)
     ✔ Añadir un título en el grid de Ordenes del día @done(28-07-2020 08:47)
 
 

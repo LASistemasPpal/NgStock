@@ -282,12 +282,6 @@ export class CalculosRD {
         this.estadisticas.MaxGrafVolumen = graf.y;
       }
     }
-
-    // Willmer nuevo solo este if
-    debugger
-    if (codISIN !== '') {
-      this.estadisticas.Movi = this.estadisticas.Movi.filter((x) => x.Isin === codISIN);
-    }
   }
 
   getCodTituloLA(codISIN: string) {
