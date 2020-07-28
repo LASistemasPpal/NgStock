@@ -89,32 +89,24 @@ COSAS NUEVAS:
 
 MODIFICACIONES:
 
-    ☐ .recuerda el email del usuario pasarlo a la derecha para que todo esa info quede en una fila
-    ☐ . el grid de movimiento le falta precio... creo que no lo puse en el calcula .. queda pendiente cuando termine el calcula
-    ☐ . la palabra emision es emisiones. igual con la mas transada deberia tener el precio
+    ✔ .recuerda el email del usuario pasarlo a la derecha para que todo esa info quede en una fila @done(28-07-2020 08:10)
+    ✘ . el grid de movimiento le falta precio... creo que no lo puse en el calcula .. queda pendiente cuando termine el calcula @cancelled(28-07-2020 08:30)
+    ✔ . la palabra emision es emisiones. igual con la mas transada deberia tener el precio @done(28-07-2020 08:33)
     ☐ . graficos... el precio deberia tener algun margen adicional para que la curva no quede pegada a los costados .. se entiende ?
     ☐ . graficos ... volumen en cero debe ser un error del calcula porq eso no tiene sentido...
 
 COLUMNAS DE LOS GRIDS...solo indico las columnas a  quitar:
 
-    ☐ .- posturas propias.  duracion, horaultimamodificacion, nemotecnico, nominal unitario, secuencia, tasa cupon... las ultimas 4  columnas solo debes colocar las que tengan valor distinto de cero... Nominal (es en pesos o en dlares) valor transado (es en pesos o en dolares)
-    ☐ .- posturas mercado. horaultimamodificacion, nemotecnico, nominalunitario, nrooperacionvinculada, tasa cupon....las ultimas 4  columnas solo debes colocar las que tengan valor distinto de cero... Nominal (es en pesos o en dlares) valor transado (es en pesos o en dolares)
-    ☐ .- operaciones propias. fechaemision, fechaoperacion, fechavencimiento, nemotecnico, tasacupon, tipoinstrumento, yield....las ultimas 4  columnas solo debes colocar las que tengan valor distinto de cero... Nominal (es en pesos o en dlares) valor transado (es en pesos o en dolares)
+    ☐ .- posturas propias.  duracion, horaultimamodificacion, nemotecnico, nominal unitario, secuencia, tasa cupon... las ultimas 4  columnas solo debes colocar las que tengan valor distinto de cero... Nominal (es en pesos o en dlares) valor transado (es en pesos o en dolares) @critical
+    ☐ .- posturas mercado. horaultimamodificacion, nemotecnico, nominalunitario, nrooperacionvinculada, tasa cupon....las ultimas 4  columnas solo debes colocar las que tengan valor distinto de cero... Nominal (es en pesos o en dlares) valor transado (es en pesos o en dolares) @critical
+    ☐ .- operaciones propias. fechaemision, fechaoperacion, fechavencimiento, nemotecnico, tasacupon, tipoinstrumento, yield....las ultimas 4  columnas solo debes colocar las que tengan valor distinto de cero... Nominal (es en pesos o en dlares) valor transado (es en pesos o en dolares) @critical
 
-    ☐ faltan los comentarios para el dame_posicionM....
+    ✘ faltan los comentarios para el dame_posicionM.... @cancelled(28-07-2020 09:23)
 
 observaciones Vanessa:
-    ☐ Corregir la palabra Fecha en ambas etiquetas
-    ☐ Falta ajustar tamaño de fuente en el grid de Dame_PosicionM_Ant y Dame_CordenX
+    ✔ Corregir la palabra Fecha en ambas etiquetas @done(28-07-2020 08:34)
+    ✔ Falta ajustar tamaño de fuente en el grid de Dame_PosicionM_Ant y Dame_CordenX @done(28-07-2020 08:46)
     ☐ Incluir el scroll y eliminar el pagineo en todos los grids
-    ☐ Añadir un título en el grid de Ordenes del día
+    ✔ Añadir un título en el grid de Ordenes del día @done(28-07-2020 08:47)
 
 
-    https://codepen.io/bbodine1/pen/novBm
-
-
-      https://codepen.io/Shven/pen/chKqD
-      https://codepen.io/suez/pen/vAais
-      https://codepen.io/vivek3003/pen/jPzdZg
-      https://codepen.io/rickyeckhardt/pen/bEMJGX
-      https://codepen.io/Remling/pen/VMbzGr

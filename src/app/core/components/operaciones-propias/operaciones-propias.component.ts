@@ -24,13 +24,13 @@ export class OperacionesPropiasComponent implements OnInit {
       { title: 'ComisionVendedor', data: 'ComisionVendedor' },
       { title: 'DiasVencimiento', data: 'DiasVencimiento' },
       { title: 'Estatus', data: 'Estatus' },
-      { title: 'FechaEmision', data: 'FechaEmision' },
+      // { title: 'FechaEmision', data: 'FechaEmision' },
       { title: 'FechaLiquidacion', data: 'FechaLiquidacion' },
-      { title: 'FechaOperacion', data: 'FechaOperacion' },
-      { title: 'FechaVencimiento', data: 'FechaVencimiento' },
+      // { title: 'FechaOperacion', data: 'FechaOperacion' },
+      // { title: 'FechaVencimiento', data: 'FechaVencimiento' },
       { title: 'HoraOperacion', data: 'HoraOperacion' },
       { title: 'MonedaTransada', data: 'MonedaTransada' },
-      { title: 'NemoTecnico', data: 'NemoTecnico' },
+      // { title: 'NemoTecnico', data: 'NemoTecnico' },
       { title: 'NombreMercado', data: 'NombreMercado' },
       { title: 'NumeroOfertaCompra', data: 'NumeroOfertaCompra' },
       { title: 'NumeroOfertaVenta', data: 'NumeroOfertaVenta' },
@@ -39,10 +39,10 @@ export class OperacionesPropiasComponent implements OnInit {
       { title: 'PuestoComprador', data: 'PuestoComprador' },
       { title: 'PuestoVendedor', data: 'PuestoVendedor' },
       { title: 'TasaCompra', data: 'TasaCompra' },
-      { title: 'TasaCupon', data: 'TasaCupon' },
+      // { title: 'TasaCupon', data: 'TasaCupon' },
       { title: 'TasaVenta', data: 'TasaVenta' },
       { title: 'TipoMercado', data: 'TipoMercado' },
-      { title: 'Tipodeinstrumento', data: 'Tipodeinstrumento' },
+      // { title: 'Tipodeinstrumento', data: 'Tipodeinstrumento' },
       { title: 'ValorNominalDolares', data: 'ValorNominalDolares' },
       { title: 'ValorNominalEquivalenteDolares', data: 'ValorNominalEquivalenteDolares' },
       { title: 'ValorNominalEquivalentePesos', data: 'ValorNominalEquivalentePesos' },
@@ -53,7 +53,7 @@ export class OperacionesPropiasComponent implements OnInit {
       { title: 'ValorTransadoEquivalenteDolares', data: 'ValorTransadoEquivalenteDolares' },
       { title: 'ValorTransadoEquivalentePesos', data: 'ValorTransadoEquivalentePesos' },
       { title: 'ValorTransadoPesos', data: 'ValorTransadoPesos' },
-      { title: 'Yield', data: 'Yield' }
+      // { title: 'Yield', data: 'Yield' }
     ];
   }
 

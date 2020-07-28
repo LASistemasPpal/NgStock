@@ -37,15 +37,15 @@
         <h3><i class="fas fa-calendar-day pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i> Hoy</h3>
 
         <div *ngIf="fechaActual === dameCalendario.CadOut.Fecha; else fechaDoble">
-          <p class="mb-0">Feha</p>
+          <p class="mb-0">Fecha</p>
           <p *ngIf="dameCalendario.CadOut != undefined" [ngStyle]="dameCalendario['xcolor']"><strong> {{ dameCalendario.CadOut.Fecha }} </strong></p>
         </div>
 
         <ng-template #fechaDoble>
-          <p class="mb-0">Feha</p>
+          <p class="mb-0">Fecha</p>
           <p *ngIf="dameCalendario.CadOut != undefined" [ngStyle]="dameCalendario['xcolor']"><strong> {{ fechaActual }} </strong></p>
 
-          <p class="mb-0">Feha Sistema</p>
+          <p class="mb-0">Fecha Sistema</p>
           <p *ngIf="dameCalendario.CadOut != undefined" [ngStyle]="dameCalendario['xcolor']"><strong> {{ dameCalendario.CadOut.Fecha }} </strong></p>
         </ng-template>
 
@@ -56,7 +56,7 @@
         <p class="mb-0">Mas Transada USD</p>
         <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastransadaUSD }} / {{ calculosRD.estadisticas.MastranMtoUSD | number:'.2-2' }}</strong></p>
 
-        <p class="mb-0">Emision</p>
+        <p class="mb-0">Emisiones</p>
         <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.emisiones }}</strong></p>
 
         <p class="mb-0">Tipo de Cambio</p>
