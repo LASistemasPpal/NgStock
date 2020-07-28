@@ -103,6 +103,12 @@ COLUMNAS DE LOS GRIDS...solo indico las columnas a  quitar:
 
     ☐ faltan los comentarios para el dame_posicionM....
 
+observaciones Vanessa:
+    ☐ Corregir la palabra Fecha en ambas etiquetas
+    ☐ Falta ajustar tamaño de fuente en el grid de Dame_PosicionM_Ant y Dame_CordenX
+    ☐ Incluir el scroll y eliminar el pagineo en todos los grids
+    ☐ Añadir un título en el grid de Ordenes del día
+
 
     https://codepen.io/bbodine1/pen/novBm
 
