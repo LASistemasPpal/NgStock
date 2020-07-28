@@ -24,7 +24,7 @@
 	+ .tgl-btn {
 		outline: 0;
 		display: block;
-		width: 4em;
+		width: 7em;
 		height: 2em;
 		position: relative;
 		cursor: pointer;
@@ -33,7 +33,7 @@
     &:before {
 			position: relative;
 			display: block;
-			content: 'Hola';
+			content: 'BVRD';
 			width: 50%;
 			height: 100%;
 		}
@@ -48,7 +48,7 @@
 	}
 
 	&:checked + .tgl-btn:after {
-    content: 'fff';
+    content: 'OTC';
 		left: 50%;
 	}
 }
@@ -87,7 +87,7 @@
 	}
 
 	&:checked + .tgl-btn {
-    background: #007bff;
+    background: #6c757d;
     &:active {
       box-shadow: none;
       &:after {
