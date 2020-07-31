@@ -54,6 +54,7 @@ export class CordenxComponent implements OnInit {
       { title: 'Producto', data: 'Concepto' },
       { title: 'Cliente', data: 'Nombre' },
       { title: 'Hora', data: 'Hora' },
+      { title: 'User', data: 'User' },
       { title: 'Titulo', data: 'Producto' },
       { title: 'Cant./Monto', data: 'Camonto', className: 'dt-body-right' },
       { title: 'Prec/Rend/Venc', data: 'Precio1', className: 'dt-body-right' },
@@ -63,8 +64,6 @@ export class CordenxComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('CordenX ', this.titulo);
-
     this.dameCOrdenX.ParamIn.Desde    = this.fecha.replace(/\//g, '-');
     this.dameCOrdenX.ParamIn.Hasta    = this.dameCOrdenX.ParamIn.Desde;
     this.dameCOrdenX.ParamIn.Nuorigen = 1;

@@ -1,5 +1,6 @@
 LAsistemas
 CAR200
+Titulo = CC0820
 Ajustar:
     ✔ tabla Movimiento colocar isin, precio promedio y indicador de liquides @done(05-07-2020 19:20)
     ✔ en el header mostar la fecha del dame_calendario: @done(19-06-2020 07:40)
@@ -79,11 +80,11 @@ Reunión del día 23/07/2020:
     ✔ "Movimiento" se deben buscar por titulo el ISIN ojo @done(30-07-2020 12:32)
     ✔ Montos Transados colocar el codigo del titulo cuando se filtre @done(31-07-2020 14:18)
 
-    ☐ refrescAr los graficos
-    ☐ cordenx ordenar por clave
-    ☐ evitar multiples click al calcular
-    ☐ cosigo del cliente, titulo, moneda mas oscuro
-    ☐ Operaciones modificar por Operaciones Operac
+    ✔ refrescAr los graficos @done(31-07-2020 16:28)
+    ✔ cordenx ordenar por clave @done(31-07-2020 17:23)
+    ✘ evitar multiples click al calcular @cancelled(31-07-2020 15:29)
+    ✔ cosigo del cliente, titulo, moneda mas oscuro @done(31-07-2020 19:05)
+    ✘ Operaciones modificar por Operaciones Operac @cancelled(31-07-2020 18:48)
     ✔ cambiar el logo @done(28-07-2020 13:35)
 
 COSAS NUEVAS:
@@ -97,8 +98,8 @@ MODIFICACIONES:
     ✔ .recuerda el email del usuario pasarlo a la derecha para que todo esa info quede en una fila @done(28-07-2020 08:10)
     ✘ . el grid de movimiento le falta precio... creo que no lo puse en el calcula .. queda pendiente cuando termine el calcula @cancelled(28-07-2020 08:30)
     ✔ . la palabra emision es emisiones. igual con la mas transada deberia tener el precio @done(28-07-2020 08:33)
-    ☐ . graficos... el precio deberia tener algun margen adicional para que la curva no quede pegada a los costados .. se entiende ?
-    ☐ . graficos ... volumen en cero debe ser un error del calcula porq eso no tiene sentido...
+    ✔ . graficos... el precio deberia tener algun margen adicional para que la curva no quede pegada a los costados .. se entiende ? @done(31-07-2020 15:28)
+    ✔ . graficos ... volumen en cero debe ser un error del calcula porq eso no tiene sentido... @done(31-07-2020 15:28)
 
 COLUMNAS DE LOS GRIDS...solo indico las columnas a  quitar:
 
@@ -141,7 +142,7 @@ Posturas Mercado:
 
 Ordenes del Dia (para Vanessa):
     ✘ falta nombre y apellido .. mas el codigo del cliente @cancelled(30-07-2020 11:17)
-    ✘ falta la hora y el usuario que cargo la orden @cancelled(30-07-2020 11:17)
+    ✔ falta la hora y el usuario que cargo la orden @done(31-07-2020 15:54)
 
 
 Operaciones Propias:

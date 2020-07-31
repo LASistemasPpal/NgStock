@@ -112,53 +112,60 @@ export class DataComponent implements OnInit {
   }
 
   generaGraficoLinia1() {
-      return new Chart('graficoPrecio', {
-        type: 'line',
-        data: {
-          datasets: [
-            {
-              label: 'PrecioM',
-              fill: false,
-              backgroundColor: 'Blue',
-              borderColor: 'Blue',
-              data: this.calculosRD.estadisticas.GrafPrecioM
-            },
-            {
-              label: 'PrecioOper',
-              fill: true,
-              backgroundColor: 'rgba(255, 79, 9, 0.411)',
-              borderColor: 'rgba(255, 79, 9)',
-              data: this.calculosRD.estadisticas.GrafPrecioOper
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            xAxes: [{
-              ticks: {
-                min: new Date(`${this.calculosRD.estadisticas.hoy}09:00:00`),
-                max: new Date(`${this.calculosRD.estadisticas.hoy}13:00:00`)
-              },
-              type: 'time',
-              time: {
-                format: 'HH:mm:ss',
-                unit: 'hour',
-                unitStepSize: 1,
-                displayFormats: {
-                  // minute: 'mm',
-                  hour: 'hh:mm:ss a'
-                },
-                tooltipFormat: 'hh:mm:ss a'
-              },
-              gridLines: {
-                display: true
-              }
-            }],
+
+    return new Chart('graficoPrecio', {
+      type: 'line',
+      data: {
+        datasets: [
+          {
+            label: 'PrecioM',
+            fill: false,
+            backgroundColor: 'Blue',
+            borderColor: 'Blue',
+            data: this.calculosRD.estadisticas.GrafPrecioM
+          },
+          {
+            label: 'PrecioOper',
+            fill: true,
+            backgroundColor: 'rgba(255, 79, 9, 0.411)',
+            borderColor: 'rgba(255, 79, 9)',
+            data: this.calculosRD.estadisticas.GrafPrecioOper
           }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          xAxes: [{
+            ticks: {
+              min: new Date(`${this.calculosRD.estadisticas.hoy}09:00:00`),
+              max: new Date(`${this.calculosRD.estadisticas.hoy}13:00:00`)
+            },
+            type: 'time',
+            time: {
+              format: 'HH:mm:ss',
+              unit: 'hour',
+              unitStepSize: 1,
+              displayFormats: {
+                // minute: 'mm',
+                hour: 'hh:mm:ss a'
+              },
+              tooltipFormat: 'hh:mm:ss a'
+            },
+            gridLines: {
+              display: true
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              max: this.calculosRD.estadisticas.MaxGrafPrecio,
+              min: this.calculosRD.estadisticas.MinGrafPrecio
+            }
+        }]
         }
-      });
-    }
+      }
+    });
+  }
 
   generaGraficoLinia2() {
       return new Chart('graficoVolumen', {
@@ -186,6 +193,8 @@ export class DataComponent implements OnInit {
           scales: {
             yAxes: [{
               ticks: {
+                max: this.calculosRD.estadisticas.MaxGrafVolumen,
+                min: this.calculosRD.estadisticas.MinGrafVolumen,
                 beginAtZero: true,
                 callback: (value) => {
                   return display_x(value, 10, 2);
@@ -211,7 +220,7 @@ export class DataComponent implements OnInit {
               gridLines: {
                 display: true
               }
-            }],
+            }]
           },
           tooltips: {
             callbacks: {
