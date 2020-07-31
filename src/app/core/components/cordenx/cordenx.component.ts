@@ -53,6 +53,7 @@ export class CordenxComponent implements OnInit {
       { title: 'Nº Orden', data: 'Nordennew' },
       { title: 'Producto', data: 'Concepto' },
       { title: 'Cliente', data: 'Nombre' },
+      { title: 'Hora', data: 'Hora' },
       { title: 'Titulo', data: 'Producto' },
       { title: 'Cant./Monto', data: 'Camonto', className: 'dt-body-right' },
       { title: 'Prec/Rend/Venc', data: 'Precio1', className: 'dt-body-right' },

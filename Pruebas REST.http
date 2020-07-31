@@ -52,12 +52,13 @@ POST  http://la2k12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/
 # HB0521 = USP3579EAH01
 # FB0424 = USP3579EAS65
 # CC0421 = DO1002212020
+
 POST  http://la2k12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/TView/WDame_Titulos
 
 {
 	"Json":"true",
 	"param": {
-    "Cotitulo": "DO1002212020",
+    "Cotitulo": "DO8013700828",
     "Mrkt": "",
     "Vigencia": 0,
     "Moneda": 99
@@ -85,8 +86,8 @@ POST http://la2k12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/T
 {
   "Json": "true",
   "param": {
-    "Rif":"D0040222765857",
-    "Fechin":"15-03-2018"
+    "Rif":"D  00114138993",
+    "Fechin":"24-07-2020"
   }
 }
 ###
@@ -120,7 +121,7 @@ POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/T
 {
   "Json":"True",
   "param": {
-    "Id": "ACO001",
+    "Id": "ALM001",
     "Cual": "I"
   }
 }

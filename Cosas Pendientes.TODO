@@ -1,5 +1,5 @@
 LAsistemas
-ALO103
+CAR200
 Ajustar:
     ✔ tabla Movimiento colocar isin, precio promedio y indicador de liquides @done(05-07-2020 19:20)
     ✔ en el header mostar la fecha del dame_calendario: @done(19-06-2020 07:40)
@@ -76,9 +76,14 @@ Reunión del día 23/07/2020:
     ✔ "Posturas propias" se deben buscar por titulo el isin ojo @done(24-07-2020 15:56)
     ✔ "Posturas Mercado" se deben buscar por titulo el isin ojo @done(24-07-2020 20:17)
     ✔ "Operaciones propias" se deben buscar por titulo el isin ojo @done(24-07-2020 20:17)
-    ☐ "Movimiento" se deben buscar por titulo el ISIN ojo
+    ✔ "Movimiento" se deben buscar por titulo el ISIN ojo @done(30-07-2020 12:32)
 
     ☐ Montos Transados colocar el codigo del titulo cuando se filtre
+    ☐ refrescAr los graficos
+    ☐ cordenx ordenar por clave
+    ☐ evitar multiples click al calcular
+    ☐ cosigo del cliente, titulo, moneda mas oscuro
+    ☐ Operaciones modificar por Operaciones Operac
     ✔ cambiar el logo @done(28-07-2020 13:35)
 
 COSAS NUEVAS:
@@ -97,9 +102,9 @@ MODIFICACIONES:
 
 COLUMNAS DE LOS GRIDS...solo indico las columnas a  quitar:
 
-    ✔ .- posturas propias.  duracion, horaultimamodificacion, nemotecnico, nominal unitario, secuencia, tasa cupon... las ultimas 4  columnas solo debes colocar las que tengan valor distinto de cero... Nominal (es en pesos o en dlares) valor transado (es en pesos o en dolares) @critical @done(28-07-2020 13:20)
-    ✔ .- posturas mercado. horaultimamodificacion, nemotecnico, nominalunitario, nrooperacionvinculada, tasa cupon....las ultimas 4  columnas solo debes colocar las que tengan valor distinto de cero... Nominal (es en pesos o en dlares) valor transado (es en pesos o en dolares) @critical @done(28-07-2020 13:20)
-    ✔ .- operaciones propias. fechaemision, fechaoperacion, fechavencimiento, nemotecnico, tasacupon, tipoinstrumento, yield....las ultimas 4  columnas solo debes colocar las que tengan valor distinto de cero... Nominal (es en pesos o en dlares) valor transado (es en pesos o en dolares) @critical @done(28-07-2020 13:20)
+    ✔ .- posturas propias.  duracion, horaultimamodificacion, nemotecnico, nominal unitario, secuencia, tasa cupon... las ultimas 4  columnas solo debes colocar las que tengan valor distinto de cero... Nominal (es en pesos o en dlares) valor transado (es en pesos o en dolares) @done(28-07-2020 13:20)
+    ✔ .- posturas mercado. horaultimamodificacion, nemotecnico, nominalunitario, nrooperacionvinculada, tasa cupon....las ultimas 4  columnas solo debes colocar las que tengan valor distinto de cero... Nominal (es en pesos o en dlares) valor transado (es en pesos o en dolares) @done(28-07-2020 13:20)
+    ✔ .- operaciones propias. fechaemision, fechaoperacion, fechavencimiento, nemotecnico, tasacupon, tipoinstrumento, yield....las ultimas 4  columnas solo debes colocar las que tengan valor distinto de cero... Nominal (es en pesos o en dlares) valor transado (es en pesos o en dolares) @done(30-07-2020 11:52)
 
     ✘ faltan los comentarios para el dame_posicionM.... @cancelled(28-07-2020 09:23)
 
@@ -109,4 +114,50 @@ observaciones Vanessa:
     ✔ Incluir el scroll y eliminar el pagineo en todos los grids @done(28-07-2020 13:35)
     ✔ Añadir un título en el grid de Ordenes del día @done(28-07-2020 08:47)
 
+Posturas Propias:
+    ✔ copy(fechaliquidacion,6,5) solo queremos mes y dia @done(30-07-2020 11:44)
+    ajustar encabezados ....:
+      ✔ quitar la palabra fecha @done(30-07-2020 11:44)
+      ✔ dejar solo mon (moneda liquidacion) @done(30-07-2020 11:44)
+      ✔ NroOper Vinc @done(30-07-2020 13:08)
+      ✔ Ordenen firme (solo Nro Orden) @done(30-07-2020 11:44)
+      ✔ quitar valores transados @done(30-07-2020 11:44)
+      ✔ unificar nominal en una sola columna sin moneda @done(30-07-2020 11:44)
+      ✘ posicion compraventa NO debe decir postura @cancelled(30-07-2020 13:11)
+      ✔ nmominal a la derecha con puntos y comas @done(30-07-2020 11:44)
 
+
+Posturas Mercado:
+    ✔ copy(fechaliquidacion,6,5) solo queremos mes y dia @done(30-07-2020 11:34)
+    ajustar encabezados ....:
+      ✔ quitar la palabra fecha @done(30-07-2020 11:34)
+      ✔ dejar solo mon (moneda liquidacion) @done(30-07-2020 11:34)
+      ✔ NroOper Vinc @done(30-07-2020 11:34)
+      ✔ Ordenen firme (solo Nro Orden) @done(30-07-2020 11:34)
+      ✔ unificar nominal en una sola columna sin moneda @done(30-07-2020 11:34)
+      ✔ unificar  transados en una sola columna sin moneda @done(30-07-2020 11:34)
+      ✔ posicion compraventa NO debe decir postura @done(30-07-2020 11:34)
+      ✔ nominal y transado a la derecha con puntos y comas @done(30-07-2020 11:34)
+
+Ordenes del Dia (para Vanessa):
+    ✘ falta nombre y apellido .. mas el codigo del cliente @cancelled(30-07-2020 11:17)
+    ✘ falta la hora y el usuario que cargo la orden @cancelled(30-07-2020 11:17)
+
+
+Operaciones Propias:
+    ✔ copy(fechaliquidacion,6,5) solo queremos mes y dia @done(30-07-2020 11:15)
+    ✔ canttitulos y diasvencimiento ELIMInar @done(30-07-2020 11:15)
+    ✔ comision y dias alineado a la derecha y reducir encabezado @done(30-07-2020 11:15)
+    ✔ NroOferta C NroOferta V  unicamente @done(30-07-2020 11:15)
+    ✔ quitar puesto... dejar comprador y vendedor @done(30-07-2020 11:15)
+    ✔ quitar valores equivalentes @done(30-07-2020 11:15)
+    ✔ nominal y transado a la derecha con puntos y comas @done(30-07-2020 11:15)
+    ✔ unificar nominal en una sola columna sin moneda @done(30-07-2020 11:15)
+    ✔ unificar  transados en una sola columna sin moneda @done(30-07-2020 11:15)
+
+
+    render: (data: any, type: any, row: any, meta) => {
+      return data.Stat + ' ~ ' + data.Fechastatus;
+    }
+
+    className: 'dt-body-right'

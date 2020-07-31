@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DameCalendario, AutenticaCli, DameTitulosAll } from '@laranda/lib-ultra-net';
-import { display_d, ConectorService, fechaHoy } from '@laranda/lib-sysutil';
+import { ConectorService, fechaHoy, display_x } from '@laranda/lib-sysutil';
 import { Chart } from 'chart.js';
 import { CalculosRD } from './../../../shared/services/estadisticas.service';
 import { Movimientos } from './../../../shared/classes/bvrdClass';
@@ -38,7 +38,7 @@ export class DataComponent implements OnInit {
       { title: 'Moneda', data: 'Moneda' },
       {
         title: 'Monto', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
-          return display_d(data.Monto, 10, 2);
+          return display_x(data.Monto, 10, 2);
         }
       },
       { title: 'Titulos', data: 'Cotitulo' },
@@ -97,13 +97,8 @@ export class DataComponent implements OnInit {
 
           this.calculosRD.calcular(codTitulo, codMoneda);
 
+          console.log('Movi ', this.calculosRD.estadisticas.Movi);
 
-          console.log('damePosturasP');
-          console.table(this.damePosturasP.posturasPropias[0].CadJson);
-          console.log('damePosturasM');
-          console.table(this.damePosturasM.posturasSiopel[0].CadJson);
-          console.log('dameOperaciones');
-          console.table(this.dameOperaciones.operacionBvrd[0].CadJson);
 
 
           swal.close();
@@ -196,7 +191,7 @@ export class DataComponent implements OnInit {
               ticks: {
                 beginAtZero: true,
                 callback: (value) => {
-                  return display_d(value, 10, 2);
+                  return display_x(value, 10, 2);
                 }
               }
             }],
@@ -224,7 +219,7 @@ export class DataComponent implements OnInit {
           tooltips: {
             callbacks: {
               label: (tooltipItem, chart) => {
-                return `${chart.datasets[tooltipItem.datasetIndex].label}: ${display_d(tooltipItem.yLabel, 10, 2)}`;
+                return `${chart.datasets[tooltipItem.datasetIndex].label}: ${display_x(tooltipItem.yLabel, 10, 2)}`;
               }
             }
           }
@@ -259,6 +254,7 @@ export class DataComponent implements OnInit {
       this.codigoMoneda = codigo[3];
 
       if (this.consultaTipo === '3') {
+      this.calculosRD.visibleMovi = false;
       this.procesarCalculos(this.codigoTitulo, this.codigoMoneda);
     }
   }

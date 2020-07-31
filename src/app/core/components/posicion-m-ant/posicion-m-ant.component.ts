@@ -20,15 +20,93 @@ export class PosicionMAntComponent implements OnInit {
   ) {
 
     this.dtColumnas = [
-      { title: 'Producto', data: 'Producto1' },
+      { title: 'Producto', data: null, render: (data: any, type: any, row: any, meta) => {
+        let chara = data.Producto.substr(3, 100).trim();
+
+        if (data.Producto.substr(0, 2) === 'MM') {
+          chara = data.Titulo + ' ' + data.Producto.substr(3, 100).trim();
+        }
+
+        if ((data.Producto.substr(0, 2) === 'RF') || (data.Producto.substr(0, 2) === 'RV')) {
+          chara = data.Producto.substr(3, 100).trim() + ' ' + data.Cupon;
+        }
+
+        if ((data.Producto.substr(0, 2) === 'CV') || (data.Producto.substr(0, 2) === 'SB')) {
+          chara = `${data.Rend} ${data.Titulo} ${data.Tipocv} ${data.Producto.substr(3, 100).trim()}`;
+        }
+
+        if ((data.Producto.substr(0, 2) === 'MT') && (data.Tipo !== 'SIMPLE')) {
+          chara = `MT ${data.Titulo} ${data.Rend} ${data.Producto.substr(3, 100).trim()}`;
+        }
+
+        if ((data.Producto.substr(0, 2) === 'MT') && (data.Tipo === 'SIMPLE')) {
+          chara = `MS ${data.Titulo} ${data.Pcontraprest} ${data.Producto.substr(3, 100).trim()}`;
+        }
+
+        return chara;
+      }},
       { title: 'Moneda', data: 'Moneda_abrevia' },
-      { title: 'Saldo Fin', data: 'Saldofin', className: 'dt-body-right' },
-      { title: 'Fecha Ini', data: 'Ini' },
-      { title: 'Fecha Fin', data: 'Fin' },
-      { title: 'Precio', data: null, render: (data: any, type: any, row: any, meta) => {
-        return data.Producto.substr(0, 2) === 'MM' ? data.Rend : data.Mrkt;
+      { title: 'Saldo Ini', data: null, render: (data: any, type: any, row: any, meta) => {
+        let saldoX = data.Saldoini;
+
+        if ((data.Producto.substr(0, 2) === 'CV') || (data.Producto.substr(0, 2) === 'SB')) {
+          saldoX = data.Efecini;
+        }
+
+        if ((data.Producto.substr(0, 2) === 'MT') && (data.Tipo === 'SIMPLE')) {
+          saldoX = data.Intvcto;
+        }
+
+        if ((data.Producto.substr(0, 2) === 'MT') && (data.Tipo !== 'SIMPLE')) {
+          saldoX = data.Saldofin;
+        }
+
+        return saldoX;
       }, className: 'dt-body-right' },
-      { title: 'Efecfin', data: 'Efecfin', className: 'dt-body-right' },
+      { title: 'Fecha Ini', data: 'Ini' },
+      { title: 'Fecha Fin', data: null, render: (data: any, type: any, row: any, meta) => {
+        let fechaX = data.Ffin;
+
+        if ((data.Producto.substr(0, 2) === 'CV') || (data.Producto.substr(0, 2) === 'SB')) {
+          fechaX = data.Ffin;
+        }
+
+        if ((data.Producto.substr(0, 2) === 'MT') && (data.Tipo === 'SIMPLE')) {
+          fechaX = `${data.Tplazo} ${data.Ffin}`;
+        }
+
+        if ((data.Producto.substr(0, 2) === 'RV') || ((data.Producto.substr(0, 2) === 'MM') && (data.Rend === '0.00'))) {
+          fechaX = '';
+        }
+
+        return fechaX;
+      }},
+      { title: 'Precio', data: null, render: (data: any, type: any, row: any, meta) => {
+        let precioX = data.Mrkt;
+
+        if ((data.Producto.substr(0, 2) === 'MM') && (data.Rend === '0.00')) {
+          precioX = '';
+        }
+
+        if ((data.Producto.substr(0, 2) === 'MM') && (data.Rend !== '0.00')) {
+          precioX = data.Rend;
+        }
+
+
+        return precioX;
+
+      }, className: 'dt-body-right' },
+      { title: 'Saldo Final', data: null, render: (data: any, type: any, row: any, meta) => {
+
+        if ((data.Producto.substr(0, 2) === 'MT') && (data.Tipo === 'SIMPLE')) {
+          return data.Intvcto;
+        } else if ((data.Producto.substr(0, 2) === 'MT') && (data.Tipo !== 'SIMPLE'))  {
+          return data.Costofinh;
+        } else {
+          return data.Efecfin;
+        }
+
+      }, className: 'dt-body-right' },
       { title: 'Clave', data: 'Clave' }
     ];
   }

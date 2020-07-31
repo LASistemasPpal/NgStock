@@ -198,7 +198,6 @@ export class CalculosRD {
         } // si no esta vencida
       } //  no ERROR
     } // lectura de posturas
-    this.visibleMovi = true;
 
     // calculo porcentajes transados por moneda
     this.estadisticas.canti.PorcdopM = 0;
@@ -282,6 +281,15 @@ export class CalculosRD {
         this.estadisticas.MaxGrafVolumen = graf.y;
       }
     }
+
+    // Willmer nuevo filtro por titulos
+    console.log('calculo ', this.estadisticas.Movi);
+
+    if (codISIN !== '') {
+      this.estadisticas.Movi = this.estadisticas.Movi.filter((valor) => valor.Isin === codISIN);
+    }
+
+    this.visibleMovi = true;
   }
 
   getCodTituloLA(codISIN: string) {
