@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DameCalendario, AutenticaCli, DameTitulosAll } from '@laranda/lib-ultra-net';
+import { DameCalendario, AutenticaCli, DameTitulosAll, DameTitulos } from '@laranda/lib-ultra-net';
 import { ConectorService, fechaHoy, display_x } from '@laranda/lib-sysutil';
 import { Chart } from 'chart.js';
 import { CalculosRD } from './../../../shared/services/estadisticas.service';
@@ -27,6 +27,7 @@ export class DataComponent implements OnInit {
     private conectorService: ConectorService,
     private dameTitulosAll: DameTitulosAll,
     private autenticaCli: AutenticaCli,
+    public dameTitulos: DameTitulos,
     public damePosturasP: DamePosturasP,
     public damePosturasM: DamePosturasM,
     public dameOperaciones: DameOperaciones,
@@ -96,10 +97,6 @@ export class DataComponent implements OnInit {
         this.damePosturasP.consultar(this.autenticaCli.CadOut.Usuariobv).then(() => {
 
           this.calculosRD.calcular(codTitulo, codMoneda);
-
-          console.log('Movi ', this.calculosRD.estadisticas.Movi);
-
-
 
           swal.close();
 

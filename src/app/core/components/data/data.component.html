@@ -76,7 +76,7 @@
 <div *ngIf="dameCalendario.visible" class="container-12 mx-5 pt-1">
   <div class="row">
     <div class="col-4 pr-0">
-      <h3 class="text-center"><i class="fas fa-graduation-cap pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i> Montos Transados</h3>
+      <h3 class="text-center"><i class="fas fa-graduation-cap pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i> Montos Transados <i *ngIf="consultaTipo === '3'"> {{ dameTitulos.ParamIn.Cotitulo }} </i> </h3>
 
       <div class="row">
         <div class="col">

@@ -77,8 +77,8 @@ Reunión del día 23/07/2020:
     ✔ "Posturas Mercado" se deben buscar por titulo el isin ojo @done(24-07-2020 20:17)
     ✔ "Operaciones propias" se deben buscar por titulo el isin ojo @done(24-07-2020 20:17)
     ✔ "Movimiento" se deben buscar por titulo el ISIN ojo @done(30-07-2020 12:32)
+    ✔ Montos Transados colocar el codigo del titulo cuando se filtre @done(31-07-2020 14:18)
 
-    ☐ Montos Transados colocar el codigo del titulo cuando se filtre
     ☐ refrescAr los graficos
     ☐ cordenx ordenar por clave
     ☐ evitar multiples click al calcular

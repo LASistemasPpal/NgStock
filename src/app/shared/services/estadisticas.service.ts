@@ -283,9 +283,7 @@ export class CalculosRD {
     }
 
     // Willmer nuevo filtro por titulos
-    console.log('calculo ', this.estadisticas.Movi);
-
-    if (codISIN !== '') {
+    if ((codISIN !== '') && (codISIN !== undefined)) {
       this.estadisticas.Movi = this.estadisticas.Movi.filter((valor) => valor.Isin === codISIN);
     }
 
