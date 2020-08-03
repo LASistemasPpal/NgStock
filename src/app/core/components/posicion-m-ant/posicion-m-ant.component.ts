@@ -23,16 +23,19 @@ export class PosicionMAntComponent implements OnInit {
       { title: 'Producto', data: null, render: (data: any, type: any, row: any, meta) => {
         let chara = data.Producto.substr(3, 100).trim();
 
-        if (data.Producto.substr(0, 2) === 'MM') {
+        if (data.Producto.substr(0, 2) === 'MM') {         
           chara = data.Titulo + ' ' + data.Producto.substr(3, 100).trim();
         }
 
-        if ((data.Producto.substr(0, 2) === 'RF') || (data.Producto.substr(0, 2) === 'RV')) {
-          chara = data.Producto.substr(3, 100).trim() + ' ' + data.Cupon;
+        if (data.Producto.substr(0, 2) === 'RV') {
+          chara = data.Producto.substr(3, 100).trim();
+        }
+        if (data.Producto.substr(0, 2) === 'RF') {
+          chara = data.Producto.substr(3, 100).trim() + ' ' + data.Titulo;
         }
 
         if ((data.Producto.substr(0, 2) === 'CV') || (data.Producto.substr(0, 2) === 'SB')) {
-          chara = `${data.Rend} ${data.Titulo} ${data.Tipocv} ${data.Producto.substr(3, 100).trim()}`;
+          chara = `${data.Tipocv} ${data.Titulo} ${data.Rend} ${data.Producto.substr(3, 100).trim()}`;
         }
 
         if ((data.Producto.substr(0, 2) === 'MT') && (data.Tipo !== 'SIMPLE')) {
@@ -45,7 +48,7 @@ export class PosicionMAntComponent implements OnInit {
 
         return chara;
       }},
-      { title: 'Moneda', data: 'Moneda_abrevia' },
+      { title: 'Mon', data: 'Moneda_abrevia' },
       { title: 'Saldo Ini', data: null, render: (data: any, type: any, row: any, meta) => {
         let saldoX = data.Saldoini;
 
@@ -70,9 +73,12 @@ export class PosicionMAntComponent implements OnInit {
         if ((data.Producto.substr(0, 2) === 'CV') || (data.Producto.substr(0, 2) === 'SB')) {
           fechaX = data.Ffin;
         }
+        if (data.Producto.substr(0, 2) === 'RF')  {
+          fechaX = data.Fvencimiento;
+        }
 
         if ((data.Producto.substr(0, 2) === 'MT') && (data.Tipo === 'SIMPLE')) {
-          fechaX = `${data.Tplazo} ${data.Ffin}`;
+          fechaX = `${data.Tplazo.substr(0, 1)} ${data.Fin}`;
         }
 
         if ((data.Producto.substr(0, 2) === 'RV') || ((data.Producto.substr(0, 2) === 'MM') && (data.Rend === '0.00'))) {
@@ -91,8 +97,6 @@ export class PosicionMAntComponent implements OnInit {
         if ((data.Producto.substr(0, 2) === 'MM') && (data.Rend !== '0.00')) {
           precioX = data.Rend;
         }
-
-
         return precioX;
 
       }, className: 'dt-body-right' },

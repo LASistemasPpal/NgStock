@@ -17,16 +17,17 @@ export class PosturasSiopelComponent implements OnInit {
 
   constructor() {
     this.dtColumnas = [
-      { title: 'CODRUEDA', data: 'CODRUEDA' },
+      { title: 'Rueda', data: 'CODRUEDA' },
       { title: 'Duracion', data: 'Duracion' },
       { title: 'Estatus', data: 'Estatus' },
-      { title: 'Liquidacion', data: null, render: (data: any, type: any, row: any, meta) => {
-        return HTfech_a_fech(data.FechaLiquidacion).substr(0, 5);
+      { title: 'Postura', data: null, render: (data: any, type: any, row: any, meta) => {
+        return HTfech_a_fech(data.FechaPostura).substr(0, 10);
       }, className: 'dt-body-center' },
-
-
-      { title: 'Postura', data: 'FechaPostura' },
-      { title: 'Hora', data: 'HoraPostura' },
+    //  { title: 'Postura', data: 'FechaPostura' },
+     { title: 'Fecha Liq', data: null, render: (data: any, type: any, row: any, meta) => {
+        return HTfech_a_fech(data.FechaLiquidacion).substr(0, 10);
+      }, className: 'dt-body-center' },
+       { title: 'Hora', data: 'HoraPostura' },
       // { title: 'HoraUltimaModificacion', data: 'HoraUltimaModificacion' },
       { title: 'ISIN', data: 'ISIN' },
       { title: 'Mon', data: 'MonedaLiquidacion' },
@@ -34,25 +35,25 @@ export class PosturasSiopelComponent implements OnInit {
       // { title: 'NominalUnitario', data: 'NominalUnitario' },
       // { title: 'NroOperacionVinculada', data: 'NroOperacionVinculada' },
       { title: 'Nro Orden', data: 'OrdenesEnFirmeID' },
-      { title: 'PlazoLiquidacion', data: 'PlazoLiquidacion', className: 'dt-body-right' },
-      { title: 'CompraVenta', data: 'PosicionCompraVenta' },
+      { title: 'Plz Liq', data: 'PlazoLiquidacion', className: 'dt-body-right' },
+      { title: 'Comp /Vta', data: 'PosicionCompraVenta' },
       { title: 'Precio', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
         return display_x(data.Precio, 10, 4);
       } },
-      { title: 'Rendimiento', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
+      { title: 'Rend', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
         return display_x(data.Rendimiento, 10, 4);
       } },
-      { title: 'Secuencia', data: 'Secuencia', className: 'dt-body-right' },
+      { title: 'Sec', data: 'Secuencia', className: 'dt-body-right' },
       // { title: 'TasaCupon', data: 'TasaCupon' },
       // { title: 'ValorNominalDolares', data: 'ValorNominalDolares' },
       // { title: 'ValorNominalPesos', data: 'ValorNominalPesos' },
-      { title: 'ValorNominal', data: null, render: (data: any, type: any, row: any, meta) => {
-        return display_x(data.MonedaLiquidacion === 'DOP' ? data.ValorNominalPesos : data.ValorNominalDolares, 10, 2);
+      { title: 'Valor Nominal', data: null, render: (data: any, type: any, row: any, meta) => {
+        return display_x(data.MonedaLiquidacion === 'DOP' ? data.ValorNominalPesos : data.ValorNominalDolares, 14, 2);
       }, className: 'dt-body-right'},
       // { title: 'ValorTransadoDolares', data: 'ValorTransadoDolares' },
       // { title: 'ValorTransadoPesos', data: 'ValorTransadoPesos' }
-      { title: 'ValorTransado', data: null, render: (data: any, type: any, row: any, meta) => {
-        return display_x(data.MonedaLiquidacion === 'DOP' ? data.ValorTransadoPesos : data.ValorTransadoDolares, 10, 2);
+      { title: 'Valor Transado', data: null, render: (data: any, type: any, row: any, meta) => {
+        return display_x(data.MonedaLiquidacion === 'DOP' ? data.ValorTransadoPesos : data.ValorTransadoDolares, 14, 2);
       }, className: 'dt-body-right' }
     ];
   }
