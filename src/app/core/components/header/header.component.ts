@@ -1,7 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { DameCalendario, DameIDMRif, DameTitulos, AutenticaCli } from '@laranda/lib-ultra-net';
 import { ConectorService } from '@laranda/lib-sysutil';
-import { iif } from 'rxjs';
 
 declare let $: any;
 @Component({
