@@ -19,20 +19,20 @@ export class OperacionesPropiasComponent implements OnInit {
 
     this.dtColumnas = [
       // { title: 'CantidadTitulos', data: 'CantidadTitulos', className: 'dt-body-right' },
-      { title: 'CodEmisorBVRD', data: 'CodEmisorBVRD' },
-      { title: 'CodigoISIN', data: 'CodigoISIN' },
-      { title: 'ComisionComprador', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
-        return display_x(data.ComisionComprador, 10, 4);
+      { title: 'Emisor', data: 'CodEmisorBVRD' },
+      { title: 'ISIN', data: 'CodigoISIN' },
+      { title: 'Cmi Comp', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
+        return display_x(data.ComisionComprador, 8, 2);
       } },
-      { title: 'ComisionVendedor', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
-        return display_x(data.ComisionVendedor, 10, 4);
+      { title: 'Cmi Vend', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
+        return display_x(data.ComisionVendedor, 8, 2);
       }},
       // { title: 'DiasVencimiento', data: 'DiasVencimiento', className: 'dt-body-right' },
       { title: 'Estatus', data: 'Estatus' },
       // { title: 'FechaEmision', data: 'FechaEmision' },
-      { title: 'Liquidacion', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'Fecha Liq', data: null, render: (data: any, type: any, row: any, meta) => {
         // + '/' + data.FechaLiquidacion.getMonth()
-        return HTfech_a_fech(data.FechaLiquidacion).substr(0, 5);
+        return HTfech_a_fech(data.FechaLiquidacion).substr(0, 10);
       }, className: 'dt-body-center'},
       // { title: 'FechaOperacion', data: 'FechaOperacion' },
       // { title: 'FechaVencimiento', data: 'FechaVencimiento' },
@@ -43,29 +43,31 @@ export class OperacionesPropiasComponent implements OnInit {
       } },
       { title: 'Mon', data: 'MonedaTransada' },
       // { title: 'NemoTecnico', data: 'NemoTecnico' },
-      { title: 'NombreMercado', data: 'NombreMercado' },
-      { title: 'NroOferta C', data: 'NumeroOfertaCompra', className: 'dt-body-right' },
-      { title: 'NroOferta V', data: 'NumeroOfertaVenta', className: 'dt-body-right' },
+      { title: 'Mercado', data: 'NombreMercado' },
+      { title: 'Ofert C', data: 'NumeroOfertaCompra', className: 'dt-body-right' },
+      { title: 'Ofert V', data: 'NumeroOfertaVenta', className: 'dt-body-right' },
       { title: 'Nro Operacion', data: 'NumeroOperacion' },
-      { title: 'PrecioLimpio', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
+      { title: 'Precio', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
         return display_x(data.PrecioLimpio, 10, 4);
       } },
       { title: 'Comprador', data: 'PuestoComprador' },
       { title: 'Vendedor', data: 'PuestoVendedor' },
-      { title: 'TasaCompra', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
-        return display_x(data.TasaCompra, 10, 4);
+      // { title: 'TasaCompra', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
+      //   return display_x(data.TasaCompra, 10, 2);
+      // } },
+       { title: 'Cupon', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
+        return display_x(data.TasaCupon, 8, 2);
       } },
-      // { title: 'TasaCupon', data: 'TasaCupon' },
-      { title: 'TasaVenta', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
-        return display_x(data.TasaVenta, 10, 4);
-      } },
-      { title: 'TipoMercado', data: 'TipoMercado' },
+      // { title: 'TasaVenta', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
+      //   return display_x(data.TasaVenta, 10, 2);
+      // } },
+      // { title: 'Mercado', data: 'TipoMercado' },
       // { title: 'Tipodeinstrumento', data: 'Tipodeinstrumento' },
-      { title: 'ValorNominal', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
+      { title: 'Nominal', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
         if (data.MonedaTransada === 'DOP') {
-          return display_x(data.ValorNominalPesos, 10, 2);
+          return display_x(data.ValorNominalPesos, 14, 2);
         } else {
-          return display_x(data.ValorNominalDolares, 10, 2);
+          return display_x(data.ValorNominalDolares, 14, 2);
         }
       } },
       // { title: 'ValorNominalPesos', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
@@ -85,11 +87,11 @@ export class OperacionesPropiasComponent implements OnInit {
       // { title: 'ValorTransado', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
       //   return display_x(data.ValorTransado, 10, 2);
       // } },
-      { title: 'ValorTransado', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
+      { title: 'Transado', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
         if (data.MonedaTransada === 'DOP') {
-          return display_x(data.ValorTransadoPesos, 10, 2);
+          return display_x(data.ValorTransadoPesos, 14, 2);
         } else {
-          return display_x(data.ValorTransadoDolares, 10, 2);
+          return display_x(data.ValorTransadoDolares, 14, 2);
         }
 
       } },

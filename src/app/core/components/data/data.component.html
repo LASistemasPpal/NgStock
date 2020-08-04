@@ -21,7 +21,7 @@
           </div>
           <div class="col">
             <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>{{ calculosRD.estadisticas.canti.OperacionesM }}</strong></h1>
-            <p class="text-center">Operaciones {{ calculosRD.estadisticas.canti.OperacionesP }}</p>
+            <p class="text-center">Operac {{ calculosRD.estadisticas.canti.OperacionesP }}</p>
           </div>
         </div>
 
@@ -42,7 +42,6 @@
         </div>
 
         <ng-template #fechaDoble>
-          <p class="mb-0">Fecha</p>
           <p *ngIf="dameCalendario.CadOut != undefined" [ngStyle]="dameCalendario['xcolor']"><strong> {{ fechaActual }} </strong></p>
 
           <p class="mb-0">Fecha Sistema</p>
@@ -59,14 +58,14 @@
         <p class="mb-0">Emisiones</p>
         <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.emisiones }}</strong></p>
 
-        <p class="mb-0">Tipo de Cambio</p>
+        <p class="mb-0">T/Cambio</p>
         <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ dameCalendario.CadOut.Tcdolar }}</strong></p>
       </div>
 
       <div class="col-6 pt-2">
         <h3 class="text-center"><i class="fas fa-money-bill-wave pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i>
-          Movimiento</h3>
-        <lsy-tabla-la *ngIf="calculosRD.visibleMovi" [columnas]="dtColumnasEjemplo" [datosX]="calculosRD.estadisticas.Movi" class="tabla-font-12" [barraY]="'45vh'"></lsy-tabla-la>
+          Posturas</h3>
+        <lsy-tabla-la *ngIf="calculosRD.visibleMovi" [columnas]="dtColumnasEjemplo" [datosX]="calculosRD.estadisticas.Movi" class="tabla-font-12" [barraY]="'30vh'"></lsy-tabla-la>
       </div>
 
     </div>

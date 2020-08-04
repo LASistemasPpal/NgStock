@@ -314,10 +314,8 @@ export class Graficos {
   }
 
 export class Estadisticas{
-    GrafPrecioP: Graficos[] = [];
     GrafPrecioM: Graficos[] = [];
     GrafPrecioOper: Graficos[] = [];
-    GrafVolumenP: Graficos[] = [];
     GrafVolumenM: Graficos[] = [];
     GrafVolumenOper: Graficos[] = [];
     MinGrafPrecio: number;

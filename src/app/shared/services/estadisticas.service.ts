@@ -18,10 +18,10 @@ export class CalculosRD {
     private bvrdOper: DameOperaciones,
     private dameCalendario: DameCalendario,
     private dameTitulosAll: DameTitulosAll
-  ) { }
+  ) {}
 
   limpiarGraf(Gr: Graficos[], hasta: number) {
-    for (let tam = Gr.length; tam > hasta;) {
+    for (let tam = Gr.length; tam > hasta; ) {
       Gr.pop();
       tam = Gr.length;
     }
@@ -38,7 +38,7 @@ export class CalculosRD {
   }
 
   limpiarMovimientos(Mov: Movimientos[], hasta: number) {
-    for (let tam = Mov.length; tam > hasta;) {
+    for (let tam = Mov.length; tam > hasta; ) {
       Mov.pop();
       tam = Mov.length;
     }
@@ -54,9 +54,19 @@ export class CalculosRD {
     return j;
   }
 
-
-
-  calcular( codISIN: string, codMoneda: string) {
+  calcular(codISIN: string, codMoneda: string) {
+    if (codISIN === undefined) {
+      codISIN = '';
+    }
+    if (codMoneda === undefined) {
+      codMoneda = '';
+    }
+    if (codMoneda === '000') {
+      codMoneda = 'DOP';
+    }
+    if (codMoneda === '001') {
+      codMoneda = 'USD';
+    }
     this.visibleMovi = false;
     this.estadisticas.isinsel = codISIN; //  DO1002220627
     this.estadisticas.monsel = codMoneda;
@@ -76,10 +86,8 @@ export class CalculosRD {
     this.estadisticas.canti.PorctotM = 0;
     this.estadisticas.tpcambio = +this.dameCalendario.CadOut.Tcdolar;
     this.estadisticas.hoy = ''; //  '2020-06-30T';
-    this.limpiarGraf(this.estadisticas.GrafPrecioP, 0);
     this.limpiarGraf(this.estadisticas.GrafPrecioM, 0);
     this.limpiarGraf(this.estadisticas.GrafPrecioOper, 0);
-    this.limpiarGraf(this.estadisticas.GrafVolumenP, 0);
     this.limpiarGraf(this.estadisticas.GrafVolumenM, 0);
     this.limpiarGraf(this.estadisticas.GrafVolumenOper, 0);
 
@@ -88,21 +96,75 @@ export class CalculosRD {
     for (const bvrdMJson of this.bvrdPMkrt.posturasSiopel[0].CadJson) {
       if (this.estadisticas.hoy === '') {
         this.estadisticas.hoy = bvrdMJson.FechaPostura + 'T'; // busco la fecha del dia en la primera postura
-
       }
-      if (bvrdMJson.Estatus !== 'Cancelada') {
-        this.estadisticas.canti.PosturasM =
-          this.estadisticas.canti.PosturasM + 1;
-        //  primario y market makers
-        this.estadisticas.canti.MtodopM =
-          this.estadisticas.canti.MtodopM + bvrdMJson.ValorTransadoPesos / 1000000;
-        this.estadisticas.canti.MtousdM =
-          this.estadisticas.canti.MtousdM + bvrdMJson.ValorTransadoDolares / 1000;
-        this.estadisticas.canti.MtototM =
-          this.estadisticas.canti.MtototM +
-          bvrdMJson.ValorTransadoDolares * this.estadisticas.tpcambio / 1000000 +
-          bvrdMJson.ValorTransadoPesos / 1000000;
 
+      if (
+        bvrdMJson.ValorNominalDolares > 0.1 &&
+        bvrdMJson.ValorTransadoDolares < 0.1
+      ) {
+        if (bvrdMJson.TasaCupon > 0.01) {
+          bvrdMJson.ValorTransadoDolares =
+            bvrdMJson.ValorNominalDolares * bvrdMJson.Precio / 100.0;
+        } else {
+          bvrdMJson.ValorTransadoDolares =
+            (bvrdMJson.ValorNominalDolares * bvrdMJson.Precio);
+        }
+      }
+
+      if (
+        bvrdMJson.ValorNominalPesos > 0.1 &&
+        bvrdMJson.ValorTransadoPesos < 0.1
+      ) {
+        if (bvrdMJson.TasaCupon > 0.01) {
+          bvrdMJson.ValorTransadoPesos =
+            bvrdMJson.ValorNominalPesos * bvrdMJson.Precio / 100.0;
+        } else {
+          bvrdMJson.ValorTransadoPesos =
+            (bvrdMJson.ValorNominalPesos * bvrdMJson.Precio);
+        }
+      }
+
+      if (bvrdMJson.Estatus !== 'Cancelada') {
+        if ((bvrdMJson.MonedaLiquidacion === this.estadisticas.monsel) || (this.estadisticas.monsel === '')) {
+          if ((bvrdMJson.ISIN === this.estadisticas.isinsel) || (this.estadisticas.isinsel === '')) {
+            this.estadisticas.canti.PosturasM =
+          this.estadisticas.canti.PosturasM + 1;
+        }
+      }
+        //  primario y market makers
+
+        if (
+          bvrdMJson.Estatus !== 'Vencida' &&
+          bvrdMJson.PosicionCompraVenta === 'C'
+        ) {
+          if ((bvrdMJson.MonedaLiquidacion === this.estadisticas.monsel) || (this.estadisticas.monsel === '')) {
+            if (
+            bvrdMJson.ISIN === this.estadisticas.isinsel ||
+            this.estadisticas.isinsel === ''
+          ) {
+            this.estadisticas.canti.MtodopM =
+              this.estadisticas.canti.MtodopM +
+              bvrdMJson.ValorTransadoPesos / 1000000;
+            this.estadisticas.canti.MtousdM =
+              this.estadisticas.canti.MtousdM +
+              bvrdMJson.ValorTransadoDolares / 1000;
+            this.estadisticas.canti.MtototM =
+              this.estadisticas.canti.MtototM +
+              (bvrdMJson.ValorTransadoDolares * this.estadisticas.tpcambio) /
+                1000000 +
+              bvrdMJson.ValorTransadoPesos / 1000000;
+          }
+        }
+        }
+
+        if (bvrdMJson.Estatus === 'Calzada') {
+          if ((bvrdMJson.MonedaLiquidacion === this.estadisticas.monsel) || (this.estadisticas.monsel === '')) {
+            if ((bvrdMJson.ISIN === this.estadisticas.isinsel) || (this.estadisticas.isinsel === '')) {
+            this.estadisticas.canti.OperacionesM =
+            this.estadisticas.canti.OperacionesM + 1;
+          }
+         }
+        }      
         if (bvrdMJson.ISIN === this.estadisticas.isinsel) {
           // posturas de mercado
           this.estadisticas.GrafPrecioM.push({
@@ -115,22 +177,26 @@ export class CalculosRD {
             this.estadisticas.GrafVolumenM,
             new Date(this.estadisticas.hoy + `${bvrdMJson.HoraPostura}`)
           );
-          if (this.estadisticas.posi < 0) {
-            this.estadisticas.GrafVolumenM.push({
-              x: new Date(this.estadisticas.hoy + `${bvrdMJson.HoraPostura}`),
-              y: bvrdMJson.ValorNominalPesos + bvrdMJson.ValorNominalDolares,
-            });
-          } else {
-            this.estadisticas.GrafVolumenM[this.estadisticas.posi].y =
-              this.estadisticas.GrafVolumenM[this.estadisticas.posi].y +
-              bvrdMJson.ValorNominalPesos +
-              bvrdMJson.ValorNominalDolares;
+          if (
+            bvrdMJson.ValorNominalPesos + bvrdMJson.ValorNominalDolares >
+            0.01
+          ) {
+            if (this.estadisticas.posi < 0) {
+              this.estadisticas.GrafVolumenM.push({
+                x: new Date(this.estadisticas.hoy + `${bvrdMJson.HoraPostura}`),
+                y: bvrdMJson.ValorNominalPesos + bvrdMJson.ValorNominalDolares,
+              });
+            } else {
+              this.estadisticas.GrafVolumenM[this.estadisticas.posi].y =
+                this.estadisticas.GrafVolumenM[this.estadisticas.posi].y +
+                bvrdMJson.ValorNominalPesos +
+                bvrdMJson.ValorNominalDolares;
+            }
           }
 
           //  operaciones de mercado
           if (bvrdMJson.Estatus === 'Calzada') {
-            this.estadisticas.canti.OperacionesM =
-              this.estadisticas.canti.OperacionesM + 1;
+           
             this.estadisticas.GrafPrecioOper.push({
               x: new Date(this.estadisticas.hoy + `${bvrdMJson.HoraPostura}`),
               y: bvrdMJson.Precio,
@@ -140,22 +206,30 @@ export class CalculosRD {
               this.estadisticas.GrafVolumenOper,
               new Date(this.estadisticas.hoy + `${bvrdMJson.HoraPostura}`)
             );
-            if (this.estadisticas.posi < 0) {
-              this.estadisticas.GrafVolumenOper.push({
-                x: new Date(this.estadisticas.hoy + `${bvrdMJson.HoraPostura}`),
-                y: bvrdMJson.ValorNominalPesos + bvrdMJson.ValorNominalDolares,
-              });
-            } else {
-              this.estadisticas.GrafVolumenOper[this.estadisticas.posi].y =
-                this.estadisticas.GrafVolumenOper[this.estadisticas.posi].y +
-                bvrdMJson.ValorNominalPesos +
-                bvrdMJson.ValorNominalDolares;
+            if (
+              bvrdMJson.ValorNominalPesos + bvrdMJson.ValorNominalDolares >
+              0.01
+            ) {
+              if (this.estadisticas.posi < 0) {
+                this.estadisticas.GrafVolumenOper.push({
+                  x: new Date(
+                    this.estadisticas.hoy + `${bvrdMJson.HoraPostura}`
+                  ),
+                  y:
+                    bvrdMJson.ValorNominalPesos + bvrdMJson.ValorNominalDolares,
+                });
+              } else {
+                this.estadisticas.GrafVolumenOper[this.estadisticas.posi].y =
+                  this.estadisticas.GrafVolumenOper[this.estadisticas.posi].y +
+                  bvrdMJson.ValorNominalPesos +
+                  bvrdMJson.ValorNominalDolares;
+              }
             }
           }
-        } // seleccion por isin para graficos
+        } // seleccion por isin para graficos o por moneda    
 
-        if (bvrdMJson.Estatus !== 'Vigente') {
-          //  vigente cancelada y calzada
+        if (bvrdMJson.Estatus == 'Calzada') {
+          //  vigente cancelada y calzada  vencida
           this.estadisticas.posi = this.indexMovimientos(
             this.estadisticas.Movi,
             bvrdMJson.ISIN,
@@ -205,29 +279,27 @@ export class CalculosRD {
     this.estadisticas.canti.PorctotM = 100;
     if (this.estadisticas.canti.MtototM > 0.01) {
       this.estadisticas.canti.PorcdopM =
-        this.estadisticas.canti.MtodopM / this.estadisticas.canti.MtototM * 100;
+        (this.estadisticas.canti.MtodopM / this.estadisticas.canti.MtototM) *
+        100;
       this.estadisticas.canti.PorcusdM = 100 - this.estadisticas.canti.PorcdopM;
     }
 
     // recorrido  posturas propias
     for (const bvrdPJson of this.bvrdPsot.posturasPropias[0].CadJson) {
       if (bvrdPJson.Estatus !== 'Cancelada') {
-        this.estadisticas.canti.PosturasP =
+        if ((bvrdPJson.MonedaLiquidacion === this.estadisticas.monsel) || (this.estadisticas.monsel === '')) {
+          if ((bvrdPJson.ISIN === this.estadisticas.isinsel) || (this.estadisticas.isinsel === '')) {
+          this.estadisticas.canti.PosturasP =
           this.estadisticas.canti.PosturasP + 1;
-        if (bvrdPJson.ISIN === this.estadisticas.isinsel) {
-          this.estadisticas.GrafPrecioP.push({
-            x: new Date(this.estadisticas.hoy + `${bvrdPJson.HoraPostura}`),
-            y: bvrdPJson.Precio,
-          });
-          // tslint:disable-next-line: max-line-length
-          this.estadisticas.GrafVolumenP.push({
-            x: new Date(this.estadisticas.hoy + `${bvrdPJson.HoraPostura}`),
-            y: bvrdPJson.ValorNominalPesos + bvrdPJson.ValorNominalDolares,
-          });
         }
+      }
         if (bvrdPJson.Estatus === 'Calzada') {
-          this.estadisticas.canti.OperacionesP =
+          if ((bvrdPJson.MonedaLiquidacion === this.estadisticas.monsel) || (this.estadisticas.monsel === '')) {
+            if ((bvrdPJson.ISIN === this.estadisticas.isinsel) || (this.estadisticas.isinsel === '')) {
+            this.estadisticas.canti.OperacionesP =
             this.estadisticas.canti.OperacionesP + 1;
+          } 
+        }
         }
       }
     }
@@ -246,11 +318,19 @@ export class CalculosRD {
     this.estadisticas.MastranMtoDOP = 0;
     this.estadisticas.MastranMtoUSD = 0;
     for (const mov of this.estadisticas.Movi) {
-      if (mov.Moneda === 'USD' && mov.Monto > this.estadisticas.MastranMtoUSD && mov.c_v === 'C') {
+      if (
+        mov.Moneda === 'USD' &&
+        mov.Monto > this.estadisticas.MastranMtoUSD &&
+        mov.c_v === 'C'
+      ) {
         this.estadisticas.MastranMtoUSD = mov.Monto;
         this.estadisticas.MastransadaUSD = mov.Cotitulo;
       }
-      if (mov.Moneda === 'DOP' && mov.Monto > this.estadisticas.MastranMtoDOP && mov.c_v === 'C') {
+      if (
+        mov.Moneda === 'DOP' &&
+        mov.Monto > this.estadisticas.MastranMtoDOP &&
+        mov.c_v === 'C'
+      ) {
         this.estadisticas.MastranMtoDOP = mov.Monto;
         this.estadisticas.MastransadaDOP = mov.Cotitulo;
       }
@@ -260,9 +340,7 @@ export class CalculosRD {
     this.estadisticas.MaxGrafPrecio = 1;
     this.estadisticas.MinGrafVolumen = 1000000000000;
     this.estadisticas.MaxGrafVolumen = 0;
-    // GrafPrecioP.push({ Hora: 10.15, EjeY: 102.5975 });
-    // GrafPrecioP.push({ Hora: 11.3, EjeY: 102.58 });
-    for (const graf of this.estadisticas.GrafPrecioP) {
+    for (const graf of this.estadisticas.GrafPrecioM) {
       if (graf.y < this.estadisticas.MinGrafPrecio) {
         this.estadisticas.MinGrafPrecio = graf.y;
       }
@@ -273,7 +351,7 @@ export class CalculosRD {
 
     // GrafVolumenP.push({ Hora: 12.15, EjeY: 1030000.5 });
     // GrafVolumenP.push({ Hora: 12.3, EjeY: 3000.5 });
-    for (const graf of this.estadisticas.GrafVolumenP) {
+    for (const graf of this.estadisticas.GrafVolumenM) {
       if (graf.y < this.estadisticas.MinGrafVolumen) {
         this.estadisticas.MinGrafVolumen = graf.y;
       }
@@ -283,15 +361,19 @@ export class CalculosRD {
     }
 
     // Willmer nuevo filtro por titulos
-    if ((codISIN !== '') && (codISIN !== undefined)) {
-      this.estadisticas.Movi = this.estadisticas.Movi.filter((valor) => valor.Isin === codISIN);
+    if (codISIN !== '' && codISIN !== undefined) {
+      this.estadisticas.Movi = this.estadisticas.Movi.filter(
+        (valor) => valor.Isin === codISIN
+      );
     }
 
     this.visibleMovi = true;
   }
 
   getCodTituloLA(codISIN: string) {
-    const resultado = this.dameTitulosAll.CadOut.find((valor) => valor.Isin === codISIN);
+    const resultado = this.dameTitulosAll.CadOut.find(
+      (valor) => valor.Isin === codISIN
+    );
     return resultado !== undefined ? resultado.Coregistro : 'No Encontrado';
   }
 }
