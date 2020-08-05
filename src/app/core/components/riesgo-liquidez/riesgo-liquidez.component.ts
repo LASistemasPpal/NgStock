@@ -1,6 +1,6 @@
 import { display_x } from '@laranda/lib-sysutil';
 import { Component, OnInit } from '@angular/core';
-import { DameRiesgoLiquidez } from 'src/app/shared/services/data-bvrd.service';
+import { DameRiesgoLiquidezServer } from './../../../shared/services/data-bvrd.service';
 import { AutenticaCli, DameTitulosAll } from '@laranda/lib-ultra-net';
 
 @Component({
@@ -15,7 +15,7 @@ export class RiesgoLiquidezComponent implements OnInit {
   constructor(
     private autenticaCli: AutenticaCli,
     private dameTitulosAll: DameTitulosAll,
-    public dameRiesgoLiquidez: DameRiesgoLiquidez
+    public dameRiesgoLiquidezServer: DameRiesgoLiquidezServer
   ) {
     this.dtColumnas = [
       { title: 'isin', data: 'codigoisin' },
@@ -42,7 +42,6 @@ export class RiesgoLiquidezComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dameRiesgoLiquidez.consultar(this.autenticaCli.CadOut.Usuariobv);
+    this.dameRiesgoLiquidezServer.consultar(this.autenticaCli.CadOut.Usuariobv);
   }
-
 }

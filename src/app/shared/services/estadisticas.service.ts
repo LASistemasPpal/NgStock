@@ -285,21 +285,23 @@ export class CalculosRD {
     }
 
     // recorrido  posturas propias
-    for (const bvrdPJson of this.bvrdPsot.posturasPropias[0].CadJson) {
-      if (bvrdPJson.Estatus !== 'Cancelada') {
-        if ((bvrdPJson.MonedaLiquidacion === this.estadisticas.monsel) || (this.estadisticas.monsel === '')) {
-          if ((bvrdPJson.ISIN === this.estadisticas.isinsel) || (this.estadisticas.isinsel === '')) {
-          this.estadisticas.canti.PosturasP =
-          this.estadisticas.canti.PosturasP + 1;
-        }
-      }
-        if (bvrdPJson.Estatus === 'Calzada') {
+    if (this.bvrdPsot.posturasPropias[0] !== undefined) {
+      for (const bvrdPJson of this.bvrdPsot.posturasPropias[0].CadJson) {
+        if (bvrdPJson.Estatus !== 'Cancelada') {
           if ((bvrdPJson.MonedaLiquidacion === this.estadisticas.monsel) || (this.estadisticas.monsel === '')) {
             if ((bvrdPJson.ISIN === this.estadisticas.isinsel) || (this.estadisticas.isinsel === '')) {
-            this.estadisticas.canti.OperacionesP =
-            this.estadisticas.canti.OperacionesP + 1;
+            this.estadisticas.canti.PosturasP =
+            this.estadisticas.canti.PosturasP + 1;
           }
         }
+          if (bvrdPJson.Estatus === 'Calzada') {
+            if ((bvrdPJson.MonedaLiquidacion === this.estadisticas.monsel) || (this.estadisticas.monsel === '')) {
+              if ((bvrdPJson.ISIN === this.estadisticas.isinsel) || (this.estadisticas.isinsel === '')) {
+              this.estadisticas.canti.OperacionesP =
+              this.estadisticas.canti.OperacionesP + 1;
+            }
+          }
+          }
         }
       }
     }

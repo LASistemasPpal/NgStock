@@ -31,7 +31,9 @@ export class LoginComponent implements OnInit {
   }
 
   get usuarioNoValido() {
-    return (this.formLogin.get('user').invalid && this.formLogin.get('user').touched);
+
+    return (this.formLogin.get('user').invalid && this.formLogin.get('user').touched ||
+    (this.formLogin.get('user').value.indexOf('0') > -1) );
   }
 
   get passwordNoValido() {

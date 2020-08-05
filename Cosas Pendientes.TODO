@@ -1,5 +1,9 @@
-LAsistemas
-CAR200
+USUARIO    PASSWORD USUARIOBV
+LASISTEMAS CAR200   USUARIO2
+ADMIN      ADM100   USUARIO1
+VANTON8    123456   USUARIO3
+JFIGUERA   JCF200   USUARIO6
+
 Titulo = CC0820
 Ajustar:
     ✔ tabla Movimiento colocar isin, precio promedio y indicador de liquides @done(05-07-2020 19:20)
@@ -160,7 +164,7 @@ Email Luis Aranda cambios ngstock:
   ☐ ajustar el llamado a las promesas
   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled
 
-  ☐ inclui la moneda como filtro.... @critical  Probar ya esta listo
+  ✔ inclui la moneda como filtro.... @critical  Probar ya esta listo @done(05-08-2020 15:57)
     pero ahora hay que colocar ese filtro en los diferentes grids (solo esta en el recalculo)
 
   ✔ .- al momento de teclar un titulo o una moneda esta recalculando ?? solo deberia recalcular cuando el titulo tenga 6 digitos o la moneda tenga 3 digitos ... ANTES NO @done(04-08-2020 23:54)
@@ -168,4 +172,4 @@ Email Luis Aranda cambios ngstock:
   ✔ .- si coloco un cliente y no esta en la base de datos NO deberia hacer dame_posicion sino mandar mensaje de error @done(04-08-2020 23:54)
     y unicamente hacer el chequeo cuando el codigo tenga 6 digitos
 
-  ☐ hay que agregar el nuevo metodo riesgoliquidez y dameriesgoliquidez @critical  Probar ya esta listo
+  ✔ hay que agregar el nuevo metodo riesgoliquidez y dameriesgoliquidez @critical  Probar ya esta listo @done(05-08-2020 11:42)

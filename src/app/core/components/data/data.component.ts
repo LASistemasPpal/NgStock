@@ -92,9 +92,14 @@ export class DataComponent implements OnInit {
       swal.showLoading();
     }
 
+
     this.dameOperaciones.consultar(this.autenticaCli.CadOut.Usuariobv).then(() => {
       this.damePosturasM.consultar(this.autenticaCli.CadOut.Usuariobv).then(() => {
         this.damePosturasP.consultar(this.autenticaCli.CadOut.Usuariobv).then(() => {
+
+          console.log('dameOperaciones ', this.dameOperaciones.operacionBvrd);
+          console.log('damePosturasM ', this.damePosturasM.posturasSiopel);
+          console.log('damePosturasP ', this.damePosturasP.posturasPropias);
 
           this.calculosRD.calcular(codTitulo, codMoneda);
 
@@ -127,8 +132,8 @@ export class DataComponent implements OnInit {
           {
             label: 'PrecioOper',
             fill: true,
-            backgroundColor: 'rgba(255, 79, 9, 0.411)',
-            borderColor: 'rgba(255, 79, 9)',
+            backgroundColor: 'red',
+            borderColor: 'red',
             data: this.calculosRD.estadisticas.GrafPrecioOper
           }
         ]
@@ -159,8 +164,9 @@ export class DataComponent implements OnInit {
           yAxes: [{
             ticks: {
               // Luis aqui va el cambio
-              max: this.calculosRD.estadisticas.MaxGrafPrecio,
-              min: this.calculosRD.estadisticas.MinGrafPrecio
+              // stepSize: 0,
+              suggestedMax: this.calculosRD.estadisticas.MaxGrafPrecio,
+              suggestedMin: this.calculosRD.estadisticas.MinGrafPrecio
             }
         }]
         }
@@ -195,8 +201,9 @@ export class DataComponent implements OnInit {
             yAxes: [{
               ticks: {
                 // Luis aqui va el cambio
-                max: this.calculosRD.estadisticas.MaxGrafVolumen,
-                min: this.calculosRD.estadisticas.MinGrafVolumen,
+                // stepSize: 0,
+                suggestedMax: this.calculosRD.estadisticas.MaxGrafVolumen,
+                suggestedMin: this.calculosRD.estadisticas.MinGrafVolumen,
                 beginAtZero: true,
                 callback: (value) => {
                   return display_x(value, 10, 2);
@@ -256,6 +263,8 @@ export class DataComponent implements OnInit {
     }
 
   consultarCliente(codigo: string[]) {
+    console.log('codigo ', codigo);
+
 
     this.codigoCliente = codigo[0];
     this.consultaTipo = codigo[1];

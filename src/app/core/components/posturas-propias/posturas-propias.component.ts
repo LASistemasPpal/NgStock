@@ -62,10 +62,13 @@ export class PosturasPropiasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if ((this.codISIN !== undefined) ||  (this.codMoneda !== undefined)) {
+    console.log(this.codISIN);
+    console.log(this.codMoneda);
+
+    if ((this.codISIN !== '') ||  (this.codMoneda !== '')) {
       this.datosFiltrados = this.datos.filter((valor) => {
 
-        if (this.codISIN !== undefined) {
+        if (this.codISIN !== '') {
           return valor.ISIN === this.codISIN;
         } else {
           return valor.MonedaLiquidacion === this.codMoneda;

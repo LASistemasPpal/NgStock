@@ -68,14 +68,18 @@ export class HeaderComponent implements OnInit {
         (((this.codgoTitulo.length === 6) || (this.codgoTitulo.length === 0)) &&
         ((this.codgoMoneda.length === 3) || (this.codgoMoneda.length === 0)))) {
 
-      this.dameTitulos.ParamIn.Cotitulo = this.codgoTitulo.toUpperCase();
-      this.dameTitulos.ParamIn.Mrkt = '';
-      this.dameTitulos.ParamIn.Vigencia = 0;
-      this.dameTitulos.ParamIn.Moneda = 99;
+      if (this.codgoTitulo.length === 6) {
+        this.dameTitulos.ParamIn.Cotitulo = this.codgoTitulo.toUpperCase();
+        this.dameTitulos.ParamIn.Mrkt = '';
+        this.dameTitulos.ParamIn.Vigencia = 0;
+        this.dameTitulos.ParamIn.Moneda = 99;
 
-      this.dameTitulos.consultar(this.conectorService.info.URL_REST).then(() => {
-        this.codCliente.emit(['', tipo, this.dameTitulos.CadOut.Isin, this.codgoMoneda.toUpperCase()]);
-      });
+        this.dameTitulos.consultar(this.conectorService.info.URL_REST).then(() => {
+          this.codCliente.emit(['', tipo, this.dameTitulos.CadOut.Isin, this.codgoMoneda.toUpperCase()]);
+        });
+      } else {
+        this.codCliente.emit(['', tipo, this.codgoTitulo.toUpperCase(), this.codgoMoneda.toUpperCase()]);
+      }
     } else if ((tipo === '0') || (tipo === '7')){
       this.codCliente.emit(['', tipo, '', '']);
     }

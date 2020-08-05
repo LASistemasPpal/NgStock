@@ -1,4 +1,4 @@
-<div *ngIf="!dameRiesgoLiquidez.visible" class="d-flex justify-content-center mt-5">
+<div *ngIf="!dameRiesgoLiquidezServer.visible" class="d-flex justify-content-center mt-5">
   <div class="spinner-border" role="status">
     <span class="sr-only">Loading...</span>
   </div>
@@ -10,7 +10,7 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-12 mb-4">
-      <lsy-tabla-la [columnas]="dtColumnas" [datosX]="dameRiesgoLiquidez.riesgoLiquidez" [barraY]="'40vh'" [barraX]="true"></lsy-tabla-la>
+      <lsy-tabla-la *ngIf="dameRiesgoLiquidezServer.visible" [columnas]="dtColumnas" [datosX]="dameRiesgoLiquidezServer.riesgoLiquidez" [barraY]="'40vh'"></lsy-tabla-la>
     </div>
   </div>
 </div>
