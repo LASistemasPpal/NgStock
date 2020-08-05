@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ConectorService, APIRest } from '@laranda/lib-sysutil';
-import { BvrdPosturaP, BvrdPosturaM, BvrdOpers } from '../classes/bvrdClass';
+import { BvrdPosturaP, BvrdPosturaM, BvrdOpers, RiesgoLiquidez } from '../classes/bvrdClass';
 import { IbvrdPostura, IbvrdOper } from './../classes/bvrdClass';
-import { jsbvrdPosturasP, jsbvrdPosturasSiopel, jsbvrdOperacionesP } from './../data/bvrdData';
 
 @Injectable()
 export class DamePosturasP{
@@ -100,5 +99,38 @@ export class DameOperaciones{
     // for (const OperP of jsbvrdOperacionesP as IbvrdOper[]) {
     //   this.operacionBvrd.push(new BvrdOpers(OperP));
     // }
+  }
+}
+
+
+@Injectable()
+export class DameRiesgoLiquidez{
+  riesgoLiquidez: RiesgoLiquidez[] = [];
+  visible: boolean;
+
+  constructor(
+    private conectorService: ConectorService,
+    private serverAPI: APIRest
+  ) { }
+
+  consultar(numUser: string){
+
+    this.visible = false;
+
+    return new Promise((resolve, rejects) => {
+      this.serverAPI.post_REST(this.conectorService.info.URL_REST, 'WdameRiesgoLiquidez', '',
+        false, { User: 'USUARIO' + numUser }, false).subscribe(
+          datosX => {
+            if (datosX.Status === 0) {
+              this.riesgoLiquidez = datosX.CadJson;
+              resolve( this.riesgoLiquidez );
+            } else {
+              rejects( datosX );
+            }
+
+            this.visible = true;
+          }
+      );
+    });
   }
 }

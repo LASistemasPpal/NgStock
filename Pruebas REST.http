@@ -176,3 +176,14 @@ GET http://52.206.163.34/apibvrdoperacionespropias/laexcel/Zzr3ll4RNW
 GET http://52.206.163.34/apibvrdposturassiopel/laexcel/Zzr3ll4RNW
 
 ###
+
+
+POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/TView/WdameRiesgoLiquidez
+
+{
+  "Json":"False",
+  "param": {
+    "User": "USUARIO9"
+  }
+}
+###

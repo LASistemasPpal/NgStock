@@ -14,6 +14,7 @@ export class OperacionesPropiasComponent implements OnInit {
 
   @Input() datos: CadJsonOpers[];
   @Input() codISIN = '';
+  @Input() codMoneda = '';
 
   constructor() {
 
@@ -111,8 +112,15 @@ export class OperacionesPropiasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.codISIN !== undefined) {
-      this.datosFiltrados = this.datos.filter((valor) => valor.CodigoISIN === this.codISIN);
+    if ((this.codISIN !== undefined) ||  (this.codMoneda !== undefined)) {
+      this.datosFiltrados = this.datos.filter((valor) => {
+
+        if (this.codISIN !== undefined) {
+          return valor.CodigoISIN === this.codISIN;
+        } else {
+          return valor.MonedaTransada === this.codMoneda;
+        }
+      });
     }
   }
 

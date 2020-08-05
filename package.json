@@ -20,7 +20,7 @@
     "@angular/platform-browser-dynamic": "~9.1.6",
     "@angular/router": "~9.1.6",
     "@laranda/lib-sysutil": "^2.4.0",
-    "@laranda/lib-ultra-net": "^1.4.0",
+    "@laranda/lib-ultra-net": "^1.5.0",
     "@types/datatables.net": "^1.10.19",
     "@types/datatables.net-buttons": "^1.4.3",
     "@types/jquery": "^3.5.0",

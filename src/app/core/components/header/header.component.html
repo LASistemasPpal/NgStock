@@ -31,15 +31,15 @@
         <div class="row justify-content-center">
           <input type="text" class="form-control col-3 text-uppercase" placeholder="Titulo" data-toggle="tooltip"
             data-placement="top" title="Codigo del Titulo a Buscar" [(ngModel)]="codgoTitulo" maxlength="6"
-            minlength="6" (ngModelChange)="getConsultar('0')">
+            minlength="6" (focus)="getConsultar('0')">
 
           <input type="text" class="form-control col-3 ml-1 text-uppercase" placeholder="Moneda" data-toggle="tooltip"
             data-placement="top" title="Codigo de la Moneda a Buscar" [(ngModel)]="codgoMoneda" maxlength="3"
-            (ngModelChange)="getConsultar('0')">
+            (focus)="getConsultar('0')">
 
           <input type="text" class="form-control col-3 ml-1 text-uppercase" placeholder="Cliente" data-toggle="tooltip"
             data-placement="top" title="Codigo del Cliente a Buscar" [(ngModel)]="codgoCliente" maxlength="6"
-            minlength="6" (ngModelChange)="getConsultar('0')">
+            minlength="6" (focus)="getConsultar('0')">
 
           <div class="btn-group dropleft ml-2">
             <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"
@@ -60,6 +60,7 @@
                 Mercado</a>
               <a class="dropdown-item pointer" (click)="getConsultar('6')"><i class="fas mr-2 fa-bahai"></i>Operaciones
                 Propias</a>
+              <a class="dropdown-item pointer" (click)="getConsultar('7')"><i class="fab mr-2 fa-hotjar"></i>Riesgo Liquidez</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item pointer" (click)="autenticaCli.logOut()"><i
                   class="fas mr-2 fa-sign-in-alt"></i>Cerrar Sesión</a>

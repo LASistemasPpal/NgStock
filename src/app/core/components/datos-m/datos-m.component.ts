@@ -19,6 +19,7 @@ export class DatosMComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.dameDatosM.visible = false;
     this.dameDatosM.ParamIn.Status = 0;
     this.dameDatosM.ParamIn.Mensaje = ' ';

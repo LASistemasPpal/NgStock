@@ -14,6 +14,7 @@ export class PosturasSiopelComponent implements OnInit {
 
   @Input() datos: CadJsons[];
   @Input() codISIN = '';
+  @Input() codMoneda = '';
 
   constructor() {
     this.dtColumnas = [
@@ -60,8 +61,15 @@ export class PosturasSiopelComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if (this.codISIN !== undefined) {
-      this.datosFiltrados = this.datos.filter((valor) => valor.ISIN === this.codISIN);
+    if ((this.codISIN !== undefined) ||  (this.codMoneda !== undefined)) {
+      this.datosFiltrados = this.datos.filter((valor) => {
+
+        if (this.codISIN !== undefined) {
+          return valor.ISIN === this.codISIN;
+        } else {
+          return valor.MonedaLiquidacion === this.codMoneda;
+        }
+      });
     }
   }
 

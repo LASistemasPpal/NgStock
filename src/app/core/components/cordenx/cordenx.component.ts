@@ -45,7 +45,7 @@ export class CordenxComponent implements OnInit {
 
   constructor(
     public dameCOrdenX: DameCOrdenX,
-    private conectorService: ConectorService
+    private conectorService: ConectorService,
   ) {
 
     this.dtColumnasCOrdenX = [

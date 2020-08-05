@@ -164,7 +164,7 @@ export class CalculosRD {
             this.estadisticas.canti.OperacionesM + 1;
           }
          }
-        }      
+        }
         if (bvrdMJson.ISIN === this.estadisticas.isinsel) {
           // posturas de mercado
           this.estadisticas.GrafPrecioM.push({
@@ -196,7 +196,7 @@ export class CalculosRD {
 
           //  operaciones de mercado
           if (bvrdMJson.Estatus === 'Calzada') {
-           
+
             this.estadisticas.GrafPrecioOper.push({
               x: new Date(this.estadisticas.hoy + `${bvrdMJson.HoraPostura}`),
               y: bvrdMJson.Precio,
@@ -226,9 +226,9 @@ export class CalculosRD {
               }
             }
           }
-        } // seleccion por isin para graficos o por moneda    
+        } // seleccion por isin para graficos o por moneda
 
-        if (bvrdMJson.Estatus == 'Calzada') {
+        if (bvrdMJson.Estatus === 'Calzada') {
           //  vigente cancelada y calzada  vencida
           this.estadisticas.posi = this.indexMovimientos(
             this.estadisticas.Movi,
@@ -240,7 +240,7 @@ export class CalculosRD {
               this.estadisticas.Movi.push({
                 Moneda: 'USD',
                 Monto: bvrdMJson.ValorTransadoDolares,
-                Cotitulo: this.getCodTituloLA(bvrdMJson.ISIN),
+                Cotitulo: this.dameTitulosAll.getCodTituloLA(bvrdMJson.ISIN),
                 Isin: bvrdMJson.ISIN,
                 Cant: 1,
                 c_v: bvrdMJson.PosicionCompraVenta,
@@ -249,7 +249,7 @@ export class CalculosRD {
               this.estadisticas.Movi.push({
                 Moneda: 'DOP',
                 Monto: bvrdMJson.ValorTransadoPesos,
-                Cotitulo: this.getCodTituloLA(bvrdMJson.ISIN),
+                Cotitulo: this.dameTitulosAll.getCodTituloLA(bvrdMJson.ISIN),
                 Isin: bvrdMJson.ISIN,
                 Cant: 1,
                 c_v: bvrdMJson.PosicionCompraVenta,
@@ -298,7 +298,7 @@ export class CalculosRD {
             if ((bvrdPJson.ISIN === this.estadisticas.isinsel) || (this.estadisticas.isinsel === '')) {
             this.estadisticas.canti.OperacionesP =
             this.estadisticas.canti.OperacionesP + 1;
-          } 
+          }
         }
         }
       }
@@ -370,10 +370,4 @@ export class CalculosRD {
     this.visibleMovi = true;
   }
 
-  getCodTituloLA(codISIN: string) {
-    const resultado = this.dameTitulosAll.CadOut.find(
-      (valor) => valor.Isin === codISIN
-    );
-    return resultado !== undefined ? resultado.Coregistro : 'No Encontrado';
-  }
 }

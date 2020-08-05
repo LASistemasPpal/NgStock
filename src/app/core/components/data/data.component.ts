@@ -17,11 +17,11 @@ export class DataComponent implements OnInit {
   dtColumnasEjemplo: DataTables.ColumnSettings[] = [];
 
   codigoCliente = '';
-  codigoTitulo = '';
-  consultaTipo = '';
+  codigoTitulo  = '';
+  codigoMoneda  = '';
+  consultaTipo  = '';
   fechaActual = fechaHoy();
   movimientos: Movimientos[];
-  private codigoMoneda = '';
 
   constructor(
     private conectorService: ConectorService,
@@ -158,6 +158,7 @@ export class DataComponent implements OnInit {
           }],
           yAxes: [{
             ticks: {
+              // Luis aqui va el cambio
               max: this.calculosRD.estadisticas.MaxGrafPrecio,
               min: this.calculosRD.estadisticas.MinGrafPrecio
             }
@@ -193,6 +194,7 @@ export class DataComponent implements OnInit {
           scales: {
             yAxes: [{
               ticks: {
+                // Luis aqui va el cambio
                 max: this.calculosRD.estadisticas.MaxGrafVolumen,
                 min: this.calculosRD.estadisticas.MinGrafVolumen,
                 beginAtZero: true,
@@ -254,12 +256,13 @@ export class DataComponent implements OnInit {
     }
 
   consultarCliente(codigo: string[]) {
-      this.codigoCliente = codigo[0];
-      this.consultaTipo = codigo[1];
-      this.codigoTitulo = codigo[2];
-      this.codigoMoneda = codigo[3];
 
-      if (this.consultaTipo === '3') {
+    this.codigoCliente = codigo[0];
+    this.consultaTipo = codigo[1];
+    this.codigoTitulo = codigo[2];
+    this.codigoMoneda = codigo[3];
+
+    if (this.consultaTipo === '3') {
       this.calculosRD.visibleMovi = false;
       this.procesarCalculos(this.codigoTitulo, this.codigoMoneda);
     }

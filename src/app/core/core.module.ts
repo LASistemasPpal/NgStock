@@ -14,6 +14,10 @@ import { Error404Component } from './components/error404/error404.component';
 import { DataComponent } from './components/data/data.component';
 import { PosicionMAntComponent } from './components/posicion-m-ant/posicion-m-ant.component';
 import { DatosMComponent } from './components/datos-m/datos-m.component';
+import { PosturasPropiasComponent } from './components/posturas-propias/posturas-propias.component';
+import { OperacionesPropiasComponent } from './components/operaciones-propias/operaciones-propias.component';
+import { PosturasSiopelComponent } from './components/posturas-siopel/posturas-siopel.component';
+import { RiesgoLiquidezComponent } from './components/riesgo-liquidez/riesgo-liquidez.component';
 
 
 // Servicios LA
@@ -24,9 +28,6 @@ import { LoginComponent } from './components/login/login.component';
 
 // Rutas
 import { AppRoutingModule } from './../app-routing.module';
-import { PosturasPropiasComponent } from './components/posturas-propias/posturas-propias.component';
-import { OperacionesPropiasComponent } from './components/operaciones-propias/operaciones-propias.component';
-import { PosturasSiopelComponent } from './components/posturas-siopel/posturas-siopel.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { PosturasSiopelComponent } from './components/posturas-siopel/posturas-s
     LoginComponent,
     PosturasPropiasComponent,
     OperacionesPropiasComponent,
-    PosturasSiopelComponent
+    PosturasSiopelComponent,
+    RiesgoLiquidezComponent
   ],
   imports: [
     CommonModule,

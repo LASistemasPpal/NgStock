@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DamePosicionMAnt } from '@laranda/lib-ultra-net';
+import { DamePosicionMAnt, DameCalendario } from '@laranda/lib-ultra-net';
 import { ConectorService } from '@laranda/lib-sysutil';
 
 @Component({
@@ -16,14 +16,16 @@ export class PosicionMAntComponent implements OnInit {
 
   constructor(
     public damePosicionMAnt: DamePosicionMAnt,
-    private conectorService: ConectorService
+    private conectorService: ConectorService,
+    private dameCalendario: DameCalendario,
   ) {
 
     this.dtColumnas = [
-      { title: 'Producto', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: '<span style=color:' + this.dameCalendario.CadOut.Color + '>Producto</span>',
+        data: null, render: (data: any, type: any, row: any, meta) => {
         let chara = data.Producto.substr(3, 100).trim();
 
-        if (data.Producto.substr(0, 2) === 'MM') {         
+        if (data.Producto.substr(0, 2) === 'MM') {
           chara = data.Titulo + ' ' + data.Producto.substr(3, 100).trim();
         }
 

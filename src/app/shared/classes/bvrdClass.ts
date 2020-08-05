@@ -352,3 +352,21 @@ export class Estadisticas{
 
     constructor() {}
 }
+
+export class RiesgoLiquidez {
+  codigoisin: string;
+  margen: number;
+  nemotecnico: string;
+  precioppcompra: number;
+  precioppventa: number;
+  recorteregulatorio: number;
+
+  constructor() {
+    this.codigoisin         = '';
+    this.margen             = 0;
+    this.nemotecnico        = '';
+    this.precioppcompra     = 0;
+    this.precioppventa      = 0;
+    this.recorteregulatorio = 0;
+  }
+}

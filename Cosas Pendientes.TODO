@@ -156,9 +156,16 @@ Operaciones Propias:
     ✔ unificar nominal en una sola columna sin moneda @done(30-07-2020 11:15)
     ✔ unificar  transados en una sola columna sin moneda @done(30-07-2020 11:15)
 
+Email Luis Aranda cambios ngstock:
+  ☐ ajustar el llamado a las promesas
+  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled
 
-    render: (data: any, type: any, row: any, meta) => {
-      return data.Stat + ' ~ ' + data.Fechastatus;
-    }
+  ☐ inclui la moneda como filtro.... @critical  Probar ya esta listo
+    pero ahora hay que colocar ese filtro en los diferentes grids (solo esta en el recalculo)
 
-    className: 'dt-body-right'
+  ✔ .- al momento de teclar un titulo o una moneda esta recalculando ?? solo deberia recalcular cuando el titulo tenga 6 digitos o la moneda tenga 3 digitos ... ANTES NO @done(04-08-2020 23:54)
+
+  ✔ .- si coloco un cliente y no esta en la base de datos NO deberia hacer dame_posicion sino mandar mensaje de error @done(04-08-2020 23:54)
+    y unicamente hacer el chequeo cuando el codigo tenga 6 digitos
+
+  ☐ hay que agregar el nuevo metodo riesgoliquidez y dameriesgoliquidez @critical  Probar ya esta listo

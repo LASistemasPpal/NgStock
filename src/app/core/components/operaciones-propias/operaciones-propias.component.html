@@ -4,7 +4,7 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-12 mb-4">
-      <lsy-tabla-la [columnas]="dtColumnas" [datosX]="codISIN !== undefined ? datosFiltrados : datos" [barraY]="'40vh'" [barraX]="true"></lsy-tabla-la>
+      <lsy-tabla-la [columnas]="dtColumnas" [datosX]="((codISIN !== undefined) || (codMoneda !== undefined)) ? datosFiltrados : datos" [barraY]="'40vh'" [barraX]="true"></lsy-tabla-la>
     </div>
   </div>
 </div>
