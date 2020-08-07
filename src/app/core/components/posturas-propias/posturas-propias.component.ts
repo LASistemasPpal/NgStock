@@ -1,6 +1,6 @@
 import { CadJsons } from './../../../shared/classes/bvrdClass';
 import { Component, OnInit, Input } from '@angular/core';
-import { HTfech_a_fech, display_x } from '@laranda/lib-sysutil';
+import { HTfech_a_fech, display_x, ColorGrid } from '@laranda/lib-sysutil';
 
 @Component({
   selector: 'app-posturas-propias',
@@ -17,45 +17,38 @@ export class PosturasPropiasComponent implements OnInit {
   @Input() codMoneda = '';
 
 
-  constructor() {
+  constructor(
+    private colorGrid: ColorGrid) {
 
     this.dtColumnas = [
-      { title: 'Rueda', data: 'CODRUEDA' },
-      // { title: 'Duracion', data: 'Duracion' },
-      { title: 'Estatus', data: 'Estatus' },
-      { title: 'Postura', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  this.colorGrid.tablaH('Rueda'), data: 'CODRUEDA' },
+      { title:  this.colorGrid.tablaH('Estatus'), data: 'Estatus' },
+      { title:  this.colorGrid.tablaH('Postura'), data: null, render: (data: any, type: any, row: any, meta) => {
         return HTfech_a_fech(data.FechaPostura).substr(0, 10);
       }, className: 'dt-body-center' },
-     // { title: 'Postura', data: 'FechaPostura' },
-      { title: 'Fech Liq', data: null, render: (data: any, type: any, row: any, meta) => {
+     
+      { title:  this.colorGrid.tablaH('Fech Liq'), data: null, render: (data: any, type: any, row: any, meta) => {
         return HTfech_a_fech(data.FechaLiquidacion).substr(0, 10);
       }, className: 'dt-body-center' },
-      { title: 'Hora', data: 'HoraPostura' },
-      // { title: 'HoraUltimaModificacion', data: 'HoraUltimaModificacion' },
-      { title: 'ISIN', data: 'ISIN' },
-      { title: 'Mon', data: 'MonedaLiquidacion' },
-      // { title: 'Nemotecnico', data: 'Nemotecnico' },
-      // { title: 'NominalUnitario', data: 'NominalUnitario' },
-      { title: 'Oper Vinc', data: 'NroOperacionVinculada', className: 'dt-body-right' },
-      { title: 'Nro Orden', data: 'OrdenesEnFirmeID', className: 'dt-body-right' },
-      { title: 'Plz Liq', data: 'PlazoLiquidacion', className: 'dt-body-right' },
-      { title: 'Comp /Vta', data: 'PosicionCompraVenta' },
-      { title: 'Precio', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
+      { title:  this.colorGrid.tablaH('Hora'), data: 'HoraPostura' },
+      { title:  this.colorGrid.tablaH('ISIN'), data: 'ISIN' },
+      { title:  this.colorGrid.tablaH('Mon'), data: 'MonedaLiquidacion' },
+      { title:  this.colorGrid.tablaH('Oper Vinc'), data: 'NroOperacionVinculada', className: 'dt-body-right' },
+      { title:  this.colorGrid.tablaH('Nro Orden'), data: 'OrdenesEnFirmeID', className: 'dt-body-right' },
+      { title:  this.colorGrid.tablaH('Plz Liq'), data: 'PlazoLiquidacion', className: 'dt-body-right' },
+      { title:  this.colorGrid.tablaH('Comp /Vta'), data: 'PosicionCompraVenta' },
+      { title:  this.colorGrid.tablaH('Precio'), data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
         return display_x(data.Precio, 10, 8);
       } },
-      { title: 'Rend', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  this.colorGrid.tablaH('Rend'), data: null, render: (data: any, type: any, row: any, meta) => {
         return display_x(data.Rendimiento, 10, 2);
       }, className: 'dt-body-right' },
       // { title: 'Secuencia', data: 'Secuencia' },
       // { title: 'TasaCupon', data: 'TasaCupon' },
-      // { title: 'ValorNominalDolares', data: 'ValorNominalDolares' },
-      // { title: 'ValorNominalPesos', data: 'ValorNominalPesos' },
-      { title: 'Valor Nominal', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  this.colorGrid.tablaH('Valor Nominal'), data: null, render: (data: any, type: any, row: any, meta) => {
         return display_x(data.MonedaLiquidacion === 'DOP' ? data.ValorNominalPesos : data.ValorNominalDolares, 14, 2);
       }, className: 'dt-body-right'},
-      // { title: 'ValorTransadoDolares', data: 'ValorTransadoDolares' },
-      // { title: 'ValorTransadoPesos', data: 'ValorTransadoPesos' }
-      { title: 'Valor Transado', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  this.colorGrid.tablaH('Valor Transado'), data: null, render: (data: any, type: any, row: any, meta) => {
         return display_x(data.MonedaLiquidacion === 'DOP' ? data.ValorTransadoPesos : data.ValorTransadoDolares, 14, 2);
       }, className: 'dt-body-right' }
     ];

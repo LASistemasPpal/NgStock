@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { DameCalendario, DameIDMRif, DameTitulos, AutenticaCli } from '@laranda/lib-ultra-net';
-import { ConectorService } from '@laranda/lib-sysutil';
+import { ConectorService, ColorGrid } from '@laranda/lib-sysutil';
 
 declare let $: any;
 @Component({
@@ -21,11 +21,13 @@ export class HeaderComponent implements OnInit {
     public autenticaCli: AutenticaCli,
     private dameIDMRif: DameIDMRif,
     private dameTitulos: DameTitulos,
-    private conectorService: ConectorService
+    private conectorService: ConectorService,
+    private colorGrid: ColorGrid
   ) {
 
     if (this.dameCalendario.visible) {
       this.dameCalendario.CadOut.Fecha = this.dameCalendario.CadOut.Fecha.replace(/\//g, '-');
+      this.colorGrid.colorTablaH =  this.dameCalendario.CadOut.Color;
 
       Object.assign(this.dameCalendario, {
           xcolor : { color: this.dameCalendario.CadOut.Color },

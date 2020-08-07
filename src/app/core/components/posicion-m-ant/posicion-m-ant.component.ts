@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DamePosicionMAnt, DameCalendario } from '@laranda/lib-ultra-net';
-import { ConectorService } from '@laranda/lib-sysutil';
+import { ConectorService, ColorGrid } from '@laranda/lib-sysutil';
 
 @Component({
   selector: 'app-posicion-m-ant',
@@ -18,10 +18,11 @@ export class PosicionMAntComponent implements OnInit {
     public damePosicionMAnt: DamePosicionMAnt,
     private conectorService: ConectorService,
     private dameCalendario: DameCalendario,
+    private colorGrid: ColorGrid
   ) {
 
     this.dtColumnas = [
-      { title: '<span style=color:' + this.dameCalendario.CadOut.Color + '>Producto</span>',
+      { title:  this.colorGrid.tablaH('Producto'),
         data: null, render: (data: any, type: any, row: any, meta) => {
         let chara = data.Producto.substr(3, 100).trim();
 
@@ -50,8 +51,8 @@ export class PosicionMAntComponent implements OnInit {
 
         return chara;
       }},
-      { title: 'Mon', data: 'Moneda_abrevia' },
-      { title: 'Saldo Ini', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  this.colorGrid.tablaH('Mon'), data: 'Moneda_abrevia' },
+      { title:  this.colorGrid.tablaH('Saldo Ini'), data: null, render: (data: any, type: any, row: any, meta) => {
         let saldoX = data.Saldoini;
 
         if ((data.Producto.substr(0, 2) === 'CV') || (data.Producto.substr(0, 2) === 'SB')) {
@@ -68,8 +69,8 @@ export class PosicionMAntComponent implements OnInit {
 
         return saldoX;
       }, className: 'dt-body-right' },
-      { title: 'Fecha Ini', data: 'Ini' },
-      { title: 'Fecha Fin', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  this.colorGrid.tablaH('Fecha Ini'), data: 'Ini' },
+      { title:  this.colorGrid.tablaH('Fecha Fin'), data: null, render: (data: any, type: any, row: any, meta) => {
         let fechaX = data.Ffin;
 
         if ((data.Producto.substr(0, 2) === 'CV') || (data.Producto.substr(0, 2) === 'SB')) {
@@ -89,7 +90,7 @@ export class PosicionMAntComponent implements OnInit {
 
         return fechaX;
       }},
-      { title: 'Precio', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  this.colorGrid.tablaH('Precio'), data: null, render: (data: any, type: any, row: any, meta) => {
         let precioX = data.Mrkt;
 
         if ((data.Producto.substr(0, 2) === 'MM') && (data.Rend === '0.00')) {
@@ -102,7 +103,7 @@ export class PosicionMAntComponent implements OnInit {
         return precioX;
 
       }, className: 'dt-body-right' },
-      { title: 'Saldo Final', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  this.colorGrid.tablaH('Saldo Final'), data: null, render: (data: any, type: any, row: any, meta) => {
 
         if ((data.Producto.substr(0, 2) === 'MT') && (data.Tipo === 'SIMPLE')) {
           return data.Intvcto;
@@ -113,7 +114,7 @@ export class PosicionMAntComponent implements OnInit {
         }
 
       }, className: 'dt-body-right' },
-      { title: 'Clave', data: 'Clave' }
+      { title: this.colorGrid.tablaH('Clave'), data: 'Clave' }
     ];
   }
 

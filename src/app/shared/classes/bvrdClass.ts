@@ -285,17 +285,23 @@ export class Cantidades {
 export class Movimientos {
     Moneda: string;
     Monto: number;
+    Nominal: number;
     Cotitulo: string;
     Isin: string;
     Cant: number;
+    PrecioC: number;
+    PrecioV: number;
     // tslint:disable-next-line: variable-name
     c_v: string;
     constructor(Mov: Movimientos) {
       this.Moneda = Mov.Moneda;
       this.Monto = Mov.Monto;
+      this.Nominal = Mov.Nominal;
       this.Cotitulo = Mov.Cotitulo;
       this.Isin = Mov.Isin;
       this.Cant = Mov.Cant;
+      this.PrecioC = Mov.PrecioC;
+      this.PrecioV = Mov.PrecioV;
       this.c_v = Mov.c_v;
     }
   }
@@ -323,7 +329,7 @@ export class Estadisticas{
     MinGrafVolumen: number;
     MaxGrafVolumen: number;
     Movi: Movimientos[] = [];
-    emisiones: string[] = [];
+    Emisiones: string[] = [];
     MastransadaDOP = '';
     MastransadaUSD = '';
     MastranMtoDOP: number;

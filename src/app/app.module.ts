@@ -6,6 +6,7 @@ import { CoreModule } from './core/core.module';
 
 // Rutas
 import { AppRoutingModule } from './app-routing.module';
+import { ColorGrid } from '@laranda/lib-sysutil';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { AppRoutingModule } from './app-routing.module';
     CoreModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [ColorGrid ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
