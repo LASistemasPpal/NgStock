@@ -26,7 +26,7 @@ export class PosturasPropiasComponent implements OnInit {
       { title:  this.colorGrid.tablaH('Postura'), data: null, render: (data: any, type: any, row: any, meta) => {
         return HTfech_a_fech(data.FechaPostura).substr(0, 10);
       }, className: 'dt-body-center' },
-     
+
       { title:  this.colorGrid.tablaH('Fech Liq'), data: null, render: (data: any, type: any, row: any, meta) => {
         return HTfech_a_fech(data.FechaLiquidacion).substr(0, 10);
       }, className: 'dt-body-center' },
@@ -55,8 +55,6 @@ export class PosturasPropiasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.codISIN);
-    console.log(this.codMoneda);
 
     if ((this.codISIN !== '') ||  (this.codMoneda !== '')) {
       this.datosFiltrados = this.datos.filter((valor) => {

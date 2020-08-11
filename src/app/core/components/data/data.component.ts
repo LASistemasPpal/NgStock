@@ -8,7 +8,7 @@ import {
 import { ConectorService, fechaHoy, display_x, ColorGrid } from '@laranda/lib-sysutil';
 import { Chart } from 'chart.js';
 import { CalculosRD } from './../../../shared/services/estadisticas.service';
-import { Movimientos } from './../../../shared/classes/bvrdClass';
+import { Movimientos, RiesgoLiquidez } from './../../../shared/classes/bvrdClass';
 import {
   DamePosturasM,
   DamePosturasP,
@@ -45,7 +45,7 @@ export class DataComponent implements OnInit {
     public calculosRD: CalculosRD,
     private colorGrid: ColorGrid
   ) {
-    this.dtColumnasEjemplo = [    
+    this.dtColumnasEjemplo = [
       {
         title: this.colorGrid.tablaH('Mon.'),
         data: null,
@@ -54,7 +54,7 @@ export class DataComponent implements OnInit {
         },
       },
       {
-        title:  this.colorGrid.tablaH('Nominal'),
+        title: this.colorGrid.tablaH('Nominal'),
         data: null,
         className: 'dt-body-right',
         render: (data: any, type: any, row: any, meta) => {
@@ -62,23 +62,23 @@ export class DataComponent implements OnInit {
         },
       },
       {
-        title:  this.colorGrid.tablaH('Transado'),
+        title: this.colorGrid.tablaH('Transado'),
         data: null,
         className: 'dt-body-right',
         render: (data: any, type: any, row: any, meta) => {
           return display_x(data.Monto, 10, 2);
         },
       },
-      { title:  this.colorGrid.tablaH('Titulos'), data: 'Cotitulo' },
-      { title:  this.colorGrid.tablaH('Isin'), data: 'Isin' },
-     // { title: 'Cant', data: 'Cant' },
+      { title: this.colorGrid.tablaH('Titulos'), data: 'Cotitulo' },
+      { title: this.colorGrid.tablaH('Isin'), data: 'Isin' },
+      // { title: 'Cant', data: 'Cant' },
       //  { title: 'C / V', data: 'c_v' }
       {
-        title:  this.colorGrid.tablaH('Precio'),
+        title: this.colorGrid.tablaH('Precio'),
         data: null,
         className: 'dt-body-right',
         render: (data: any, type: any, row: any, meta) => {
-          return display_x(data.c_v = 'C' ? data.PrecioC : data.PrecioV, 5, 2);
+          return display_x(data.c_v === 'C' ? data.PrecioC : data.PrecioV, 5, 2);
         },
       },
     ];
@@ -142,38 +142,33 @@ export class DataComponent implements OnInit {
             this.damePosturasP
               .consultar(this.autenticaCli.CadOut.Usuariobv)
               .then(() => {
-                console.log(
-                  'dameOperaciones ',
-                  this.dameOperaciones.operacionBvrd
-                );
-                console.log(
-                  'damePosturasM ',
-                  this.damePosturasM.posturasSiopel
-                );
-                console.log(
-                  'damePosturasP ',
-                  this.damePosturasP.posturasPropias
-                );
 
-                this.calculosRD.calcular(codTitulo, codMoneda);
+                this.calculosRD.calcular(codTitulo, codMoneda).then(() => {
 
-                // willmer Git   
-                //  esto debe hacerse despues de calcular pero tambien debe llamarse al dameriesgoliquidez
-                //  como llena el grid enseguida entonces nunca muestra los precios (a menos que lo corra con debugger )
-                this.dameRiesgoLiquidezServer.consultar(this.autenticaCli.CadOut.Usuariobv).then((
-                ) => {
-                   for (const mov of this.calculosRD.estadisticas.Movi) {
-                     for (const pre of this.dameRiesgoLiquidezServer.riesgoLiquidez) {
-                       if (mov.Isin === pre.codigoisin) {
-                        if (mov.c_v === 'C')  {
-                          mov.PrecioC = pre.precioppcompra;
+                  // willmer Git Listo....!!!!
+                  //  esto debe hacerse despues de calcular pero tambien debe llamarse al dameriesgoliquidez
+                  //  como llena el grid enseguida entonces nunca muestra los precios (a menos que lo corra con debugger )
+                  this.dameRiesgoLiquidezServer.consultar(this.autenticaCli.CadOut.Usuariobv).then(() => {
+
+                    this.calculosRD.estadisticas.Movi.map((valor) => {
+
+                      let riesgoL: RiesgoLiquidez[];
+                      riesgoL = this.dameRiesgoLiquidezServer.riesgoLiquidez.filter((x) => x.codigoisin === valor.Isin);
+
+                      if (riesgoL[0] !== undefined) {
+                        if (valor.c_v === 'C') {
+                          valor.PrecioC = riesgoL[0].precioppcompra;
                         } else {
-                          mov.PrecioV = pre.precioppventa;
+                          valor.PrecioV = riesgoL[0].precioppventa;
                         }
-                       }
-                     }
-                   }
-                });
+                      }
+                    });
+
+
+                    this.calculosRD.visibleMovi = true;
+                  });
+                }).catch((e) => this.mensajeError('dameRiesgoLiquidez', e.Status, e.Mensaje));
+
 
                 swal.close();
 
@@ -195,11 +190,11 @@ export class DataComponent implements OnInit {
                   this.calculosRD.estadisticas.canti.PorctotM
                 );
               })
-              .catch(() => swal.close());
+              .catch((e) => this.mensajeError('damePosturasP', e.Status, e.Mensaje));
           })
-          .catch(() => swal.close());
+          .catch((e) => this.mensajeError('damePosturasM', e.Status, e.Mensaje));
       })
-      .catch(() => swal.close());
+      .catch((e) => this.mensajeError('dameOperaciones', e.Status, e.Mensaje));
   }
 
   generaGraficoLinia1() {
@@ -254,9 +249,9 @@ export class DataComponent implements OnInit {
                 // Luis aqui va el cambio
                 // stepSize: 0,
                 suggestedMax: this.calculosRD.estadisticas.MaxGrafPrecio +
-                             (this.calculosRD.estadisticas.MaxGrafPrecio - this.calculosRD.estadisticas.MinGrafPrecio) / 10,
+                  (this.calculosRD.estadisticas.MaxGrafPrecio - this.calculosRD.estadisticas.MinGrafPrecio) / 10,
                 suggestedMin: this.calculosRD.estadisticas.MinGrafPrecio -
-                             (this.calculosRD.estadisticas.MaxGrafPrecio - this.calculosRD.estadisticas.MinGrafPrecio) / 10,
+                  (this.calculosRD.estadisticas.MaxGrafPrecio - this.calculosRD.estadisticas.MinGrafPrecio) / 10,
               },
             },
           ],
@@ -267,9 +262,9 @@ export class DataComponent implements OnInit {
 
   generaGraficoLinia2() {
 
-    // willmer Git   
-     //  me esta graficando como que hubiera volumenes en cero
-     // ni el grafvolM ni P tienen ceros y tampoco los minimos  
+    // willmer Git
+    //  me esta graficando como que hubiera volumenes en cero
+    // ni el grafvolM ni P tienen ceros y tampoco los minimos
     return new Chart('graficoVolumen', {
       type: 'line',
       data: {
@@ -298,10 +293,10 @@ export class DataComponent implements OnInit {
               ticks: {
                 // Luis aqui va el cambio
                 // stepSize: 0,
-                suggestedMax: this.calculosRD.estadisticas.MaxGrafVolumen + 
-                        (this.calculosRD.estadisticas.MaxGrafVolumen - this.calculosRD.estadisticas.MinGrafVolumen) / 10,
-                suggestedMin: this.calculosRD.estadisticas.MinGrafVolumen - 
-                        (this.calculosRD.estadisticas.MaxGrafVolumen - this.calculosRD.estadisticas.MinGrafVolumen) / 10,
+                suggestedMax: this.calculosRD.estadisticas.MaxGrafVolumen +
+                  (this.calculosRD.estadisticas.MaxGrafVolumen - this.calculosRD.estadisticas.MinGrafVolumen) / 10,
+                suggestedMin: this.calculosRD.estadisticas.MinGrafVolumen -
+                  (this.calculosRD.estadisticas.MaxGrafVolumen - this.calculosRD.estadisticas.MinGrafVolumen) / 10,
                 beginAtZero: true,
                 callback: (value) => {
                   return display_x(value, 10, 2);
@@ -337,7 +332,7 @@ export class DataComponent implements OnInit {
             label: (tooltipItem, chart) => {
               return `${
                 chart.datasets[tooltipItem.datasetIndex].label
-              }: ${display_x(tooltipItem.yLabel, 10, 2)}`;
+                }: ${display_x(tooltipItem.yLabel, 10, 2)}`;
             },
           },
         },
@@ -366,7 +361,6 @@ export class DataComponent implements OnInit {
   }
 
   consultarCliente(codigo: string[]) {
-    console.log('codigo ', codigo);
 
     this.codigoCliente = codigo[0];
     this.consultaTipo = codigo[1];
@@ -377,5 +371,16 @@ export class DataComponent implements OnInit {
       this.calculosRD.visibleMovi = false;
       this.procesarCalculos(this.codigoTitulo, this.codigoMoneda);
     }
+  }
+
+  mensajeError(metodo: string, status: number, mensaje: string) {
+    swal.close();
+
+    swal.fire({
+      icon: 'error',
+      text: `Status: ${status} Mensaje: ${mensaje}`,
+      title: metodo
+    });
+
   }
 }

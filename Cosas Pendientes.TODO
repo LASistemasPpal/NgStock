@@ -4,7 +4,7 @@ ADMIN      ADM100   USUARIO1
 VANTON8    123456   USUARIO3
 JFIGUERA   JCF200   USUARIO6
 
-Titulo = CC0820
+Titulo = HB0524 HB0444 HB0521 HB0126 BO0140 BO0160
 Ajustar:
     ✔ tabla Movimiento colocar isin, precio promedio y indicador de liquides @done(05-07-2020 19:20)
     ✔ en el header mostar la fecha del dame_calendario: @done(19-06-2020 07:40)

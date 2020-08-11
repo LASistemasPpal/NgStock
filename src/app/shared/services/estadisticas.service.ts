@@ -60,7 +60,7 @@ export class CalculosRD {
     return j;
   }
 
-  calcular(codISIN: string, codMoneda: string) {
+  async calcular(codISIN: string, codMoneda: string) {
     if (codISIN === undefined) {
       codISIN = '';
     }
@@ -302,7 +302,7 @@ export class CalculosRD {
                 this.estadisticas.Movi[this.estadisticas.posi].Monto +=
                   bvrdMJson.ValorTransadoDolares;
                 this.estadisticas.Movi[this.estadisticas.posi].Nominal +=
-                  bvrdMJson.ValorNominalDolares;  
+                  bvrdMJson.ValorNominalDolares;
               } else {
                 this.estadisticas.Movi[this.estadisticas.posi].Monto +=
                   bvrdMJson.ValorTransadoPesos;
@@ -423,6 +423,6 @@ export class CalculosRD {
       );
     }
 
-    this.visibleMovi = true;
+    // this.visibleMovi = true;
   }
 }

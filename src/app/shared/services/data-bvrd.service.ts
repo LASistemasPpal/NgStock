@@ -128,6 +128,7 @@ export class DameRiesgoLiquidezServer{
       this.serverAPI.post_REST(this.conectorService.info.URL_REST, 'WdameRiesgoLiquidez', '',
         false, { User: 'USUARIO' + numUser }, false).subscribe(
           datosX => {
+
             if (datosX.Status === 0) {
               this.riesgoLiquidez = datosX.CadJson;
               resolve( this.riesgoLiquidez );
