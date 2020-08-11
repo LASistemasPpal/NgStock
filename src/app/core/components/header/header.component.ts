@@ -53,6 +53,7 @@ export class HeaderComponent implements OnInit {
   }
 
   getConsultar(tipo: string) {
+    this.dameTitulos.ParamIn.Cotitulo = '';
 
     if ((tipo === '1') && (this.codgoCliente.length === 6)) {
       this.dameIDMRif.ParamIn.Id = this.codgoCliente.toUpperCase();
