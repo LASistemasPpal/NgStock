@@ -132,6 +132,8 @@ export class DameRiesgoLiquidezServer{
             if (datosX.Status === 0) {
               this.riesgoLiquidez = datosX.CadJson;
               resolve( this.riesgoLiquidez );
+            } else if (datosX.Status === 1) {
+              resolve( this.riesgoLiquidez );
             } else {
               rejects( datosX );
             }
