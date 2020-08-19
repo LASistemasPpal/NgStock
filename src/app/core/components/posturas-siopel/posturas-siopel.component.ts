@@ -18,7 +18,7 @@ export class PosturasSiopelComponent implements OnInit {
   @Input() codMoneda = '';
 
   constructor( private dameTitulosAll: DameTitulosAll,
-    private colorGrid: ColorGrid)
+               private colorGrid: ColorGrid)
      {
     this.dtColumnas = [
       { title:  this.colorGrid.tablaH('Rueda'), data: 'CODRUEDA' },

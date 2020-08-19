@@ -11,10 +11,10 @@
         <h5 class="card-title text-center">{{ dameDatosM.CadOut.Apellido + ' ' + dameDatosM.CadOut.Nombre }}</h5>
         <hr>
         <div class="row">
-          <p class="card-text col">Telefono: <b>{{ dameDatosM.CadOut.Tlf1 | mask: '(000) 000-00-00' }}</b> <br> <b>{{ dameDatosM.CadOut.Tlf2 | mask: '(000) 000-00-00' }}</b></p>
-          <p class="card-text col">Email: <b>{{ dameDatosM.CadOut.Email }}</b></p>
-          <p class="card-text col">Ejecutivo: <b>{{ dameDatosM.CadOut.Ejecutivo }}</b></p>
-          <p class="card-text col">Direccion: <b>{{ dameDatosM.CadOut.Dirhabitacion1 + ' ' + dameDatosM.CadOut.Dirhabitacion2 + ' ' + dameDatosM.CadOut.Dirhabitacion3}}</b></p>
+          <p class="card-text col">Tlfs : <b>{{ dameDatosM.CadOut.Tlf1 | mask: '(000) 000-00-00' }}</b> <br> <b>{{ dameDatosM.CadOut.Tlf2 | mask: '(000) 000-00-00' }}</b></p>
+          <p class="card-text col">Email : <b>{{ dameDatosM.CadOut.Email }}</b> <br> Nacim : <b>{{ dameDatosM.CadOut.Nacimiento }}</b></p>
+          <p class="card-text col">Ejec : <b>{{ dameDatosM.CadOut.Ejecutivo }}</b> <br>  Cli Desde : <b>{{ dameDatosM.CadOut.Fecontrato }}</b></p>
+          <p class="card-text col">Direcc : <b>{{ dameDatosM.CadOut.Dirhabitacion1 + ' ' + dameDatosM.CadOut.Dirhabitacion2 + ' ' + dameDatosM.CadOut.Dirhabitacion3}}</b></p>
         </div>
       </div>
     </div>

@@ -47,7 +47,7 @@ export class DataComponent implements OnInit {
   ) {
     this.dtColumnasEjemplo = [
       {
-        title: this.colorGrid.tablaH('Mon.'),
+        title: this.colorGrid.tablaH('Mon Vol'),
         data: null,
         render: (data: any, type: any, row: any, meta) => {
           return data.Moneda + ' ' + data.c_v + '-' + data.Cant; // display_x(data.Cant,5,0) ;
@@ -132,14 +132,16 @@ export class DataComponent implements OnInit {
       });
       swal.showLoading();
     }
-
-    this.dameOperaciones
+    // this.damePosturasM.posturasSiopel = [];
+    // this.damePosturasP.posturasPropias = [];
+    // this.dameOperaciones.operacionBvrd = [];
+    this.damePosturasM
       .consultar(this.autenticaCli.CadOut.Usuariobv)
       .then(() => {
-        this.damePosturasM
+        this.damePosturasP
           .consultar(this.autenticaCli.CadOut.Usuariobv)
           .then(() => {
-            this.damePosturasP
+            this.dameOperaciones
               .consultar(this.autenticaCli.CadOut.Usuariobv)
               .then(() => {
 
@@ -360,7 +362,7 @@ export class DataComponent implements OnInit {
     });
   }
 
-  consultarCliente(codigo: string[]) {
+  consultarGeneral(codigo: string[]) {
 
     this.codigoCliente = codigo[0];
     this.consultaTipo = codigo[1];

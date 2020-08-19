@@ -1,3 +1,4 @@
+import  swal  from 'sweetalert2';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AutenticaCli } from '@laranda/lib-ultra-net';
@@ -53,7 +54,16 @@ export class LoginComponent implements OnInit {
       this.autenticaCli.ParamIn.Pass = this.formLogin.value.password;
 
       this.conectorService.getParametros().then(() => {
+        if (this.conectorService.info.NUCLI === 50) {
+         swal.fire({
+          icon: 'info',
+          text: 'Cuenta Inactiva....',
+          title: 'reintente',
+            });
+        }
+        else {
         this.autenticaCli.logIn(this.conectorService.info.URL_REST);
+        }
       });
     }
   }

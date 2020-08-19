@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
   codgoTitulo = '';
   codgoMoneda = '';
 
-  @Output() codCliente = new EventEmitter<string[]>();
+  @Output() codConsulta = new EventEmitter<string[]>();
 
   constructor(
     public dameCalendario: DameCalendario,
@@ -60,12 +60,12 @@ export class HeaderComponent implements OnInit {
       this.dameIDMRif.ParamIn.Cual = 'I';
 
       this.dameIDMRif.consultar(this.conectorService.info.URL_REST).then(() => {
-        this.codCliente.emit([this.dameIDMRif.CadOut.Rif, tipo, '', '']);
+        this.codConsulta.emit([this.dameIDMRif.CadOut.Rif, tipo, '', '']);
       }).catch(e => e);
 
     } else if ((tipo === '2') && (((this.codgoTitulo.length === 6) || (this.codgoTitulo.length === 0)) &&
       ((this.codgoMoneda.length === 3) || (this.codgoMoneda.length === 0)))) {
-      this.codCliente.emit(['', tipo, this.codgoTitulo.toUpperCase(), this.codgoMoneda.toUpperCase()]);
+      this.codConsulta.emit(['', tipo, this.codgoTitulo.toUpperCase(), this.codgoMoneda.toUpperCase()]);
 
     } else if (((tipo === '3') || (tipo === '4') || (tipo === '5') || (tipo === '6')) &&
         (((this.codgoTitulo.length === 6) || (this.codgoTitulo.length === 0)) &&
@@ -78,13 +78,13 @@ export class HeaderComponent implements OnInit {
         this.dameTitulos.ParamIn.Moneda = 99;
 
         this.dameTitulos.consultar(this.conectorService.info.URL_REST).then(() => {
-          this.codCliente.emit(['', tipo, this.dameTitulos.CadOut.Isin, this.codgoMoneda.toUpperCase()]);
+          this.codConsulta.emit(['', tipo, this.dameTitulos.CadOut.Isin, this.codgoMoneda.toUpperCase()]);
         });
       } else {
-        this.codCliente.emit(['', tipo, this.codgoTitulo.toUpperCase(), this.codgoMoneda.toUpperCase()]);
+        this.codConsulta.emit(['', tipo, this.codgoTitulo.toUpperCase(), this.codgoMoneda.toUpperCase()]);
       }
     } else if ((tipo === '0') || (tipo === '7')){
-      this.codCliente.emit(['', tipo, '', '']);
+      this.codConsulta.emit(['', tipo, '', '']);
     }
   }
 }

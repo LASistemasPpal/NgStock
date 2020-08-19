@@ -53,7 +53,7 @@ export class PosicionMAntComponent implements OnInit {
       }},
       { title:  this.colorGrid.tablaH('Mon'), data: 'Moneda_abrevia' },
       { title:  this.colorGrid.tablaH('Saldo Ini'), data: null, render: (data: any, type: any, row: any, meta) => {
-        let saldoX = data.Saldoini;
+        let saldoX = data.Saldofin;
 
         if ((data.Producto.substr(0, 2) === 'CV') || (data.Producto.substr(0, 2) === 'SB')) {
           saldoX = data.Efecini;
@@ -90,7 +90,7 @@ export class PosicionMAntComponent implements OnInit {
 
         return fechaX;
       }},
-      { title:  this.colorGrid.tablaH('Precio'), data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  this.colorGrid.tablaH('PrecMrkt'), data: null, render: (data: any, type: any, row: any, meta) => {
         let precioX = data.Mrkt;
 
         if ((data.Producto.substr(0, 2) === 'MM') && (data.Rend === '0.00')) {

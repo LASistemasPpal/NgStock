@@ -13,7 +13,7 @@ export class DamePosturasP{
   ) { }
 
   consultar(numUser: string) {
-
+    this.posturasPropias = [];
     return new Promise((resolve, rejects) => {
       this.serverAPI.post_REST(this.conectorService.info.URL_REST, 'WdamePosturasPropias', '',
         false, { User: 'USUARIO' + numUser }, false).subscribe(
@@ -33,9 +33,6 @@ export class DamePosturasP{
       );
     });
 
-    // for (const bvrdP of jsbvrdPosturasP as IbvrdPostura[]) {
-    //   this.posturasPropias.push(new BvrdPosturaP(bvrdP));
-    // }
   }
 }
 
@@ -49,12 +46,12 @@ export class DamePosturasM{
   ) { }
 
   consultar(numUser: string){
-
+    this.posturasSiopel = [];
     return new Promise((resolve, rejects) => {
       this.serverAPI.post_REST(this.conectorService.info.URL_REST, 'WdamePosturasSiopel', '',
         false, { User: 'USUARIO' + numUser }, false).subscribe(
           datosX => {
-
+            
             if (datosX.Status === 0) {
               for (const bvrdM of [datosX] as IbvrdPostura[]) {
                 this.posturasSiopel.push(new BvrdPosturaM(bvrdM));
@@ -85,7 +82,7 @@ export class DameOperaciones{
   ) { }
 
   consultar(numUser: string){
-
+    this.operacionBvrd = [];
     return new Promise((resolve, rejects) => {
       this.serverAPI.post_REST(this.conectorService.info.URL_REST, 'WdameOperacionesPropias', '',
         false, { User: 'USUARIO' + numUser }, false).subscribe(
@@ -123,7 +120,7 @@ export class DameRiesgoLiquidezServer{
 
   consultar(numUser: string){
     this.visible = false;
-
+    this.riesgoLiquidez = [];
     return new Promise((resolve, rejects) => {
       this.serverAPI.post_REST(this.conectorService.info.URL_REST, 'WdameRiesgoLiquidez', '',
         false, { User: 'USUARIO' + numUser }, false).subscribe(

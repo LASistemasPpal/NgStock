@@ -148,6 +148,7 @@ export class CalculosRD {
 
         if (
           bvrdMJson.Estatus !== 'Vencida' &&
+          bvrdMJson.Estatus !== 'Vigente' &&
           bvrdMJson.PosicionCompraVenta === 'C'
         ) {
           if (
