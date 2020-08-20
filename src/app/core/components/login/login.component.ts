@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AutenticaCli } from '@laranda/lib-ultra-net';
 import { ConectorService } from '@laranda/lib-sysutil';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -13,11 +14,25 @@ export class LoginComponent implements OnInit {
 
   formLogin: FormGroup;
   verPass: string;
+  ConfigCadout: any;
+  httpOptions = {
+    headers: new HttpHeaders({
+    'Content-Type': 'text/plain'
+    })
+    };
+    paramConfig = {
+      Json: true,
+      Param: {
+        Nucli: 1
+      }
+  };
+
 
   constructor(
     public autenticaCli: AutenticaCli,
     private fb: FormBuilder,
     private conectorService: ConectorService,
+    private http: HttpClient,
   ) {
     this.formLogin = this.fb.group({
       user: ['', [Validators.required, Validators.minLength(4)]],
@@ -29,6 +44,17 @@ export class LoginComponent implements OnInit {
     this.autenticaCli.ParamIn.User = '';
     this.autenticaCli.ParamIn.Pass = '';
     this.verPass = 'password';
+    //  para leer el nombre del cliente LA y ver si esta SUSPENDIDO
+    this.conectorService.getParametros().then(() => {
+      this.paramConfig.Param.Nucli = this.conectorService.info.NUCLI;
+      const obs = this.http.post(
+        this.conectorService.info.URL_RESTLA,
+        this.paramConfig, this.httpOptions);
+      obs.subscribe(res => {
+        this.ConfigCadout = res;
+     });
+    }
+     );
   }
 
   get usuarioNoValido() {
@@ -52,13 +78,20 @@ export class LoginComponent implements OnInit {
     if (this.formLogin.valid) {
       this.autenticaCli.ParamIn.User = this.formLogin.value.user;
       this.autenticaCli.ParamIn.Pass = this.formLogin.value.password;
-
       this.conectorService.getParametros().then(() => {
-        if (this.conectorService.info.NUCLI === 50) {
-         swal.fire({
+      //   this.paramForma.Param.Nucli = this.conectorService.info.NUCLI;
+      //   const obs = this.http.post(
+      //     this.conectorService.info.URL_RESTLA,
+      //     this.paramForma, this.httpOptions);
+      //   obs.subscribe(res => {
+      //     this.Cadout = res;
+      //  });
+      // if (this.conectorService.info.NUCLI === 50 || this.Cadout.CadJson.Nombre === 'AA') {
+        if (this.ConfigCadout.CadJson !== undefined && this.ConfigCadout.CadJson.Nombre.indexOf('SUSP') >= 0) {
+          swal.fire({
           icon: 'info',
           text: 'Cuenta Inactiva....',
-          title: 'reintente',
+          title: 'email soporte@lasistemas.com',
             });
         }
         else {

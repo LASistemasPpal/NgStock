@@ -61,6 +61,7 @@ export class CalculosRD {
   }
 
   async calcular(codISIN: string, codMoneda: string) {
+    let CodLA = '';
     if (codISIN === undefined) {
       codISIN = '';
     }
@@ -271,12 +272,20 @@ export class CalculosRD {
               bvrdMJson.PosicionCompraVenta
             );
             if (this.estadisticas.posi < 0) {
+              CodLA = this.dameTitulosAll.getCodTituloLA(bvrdMJson.ISIN);
+              if (CodLA.indexOf('No En') >= 0) {
+                if (bvrdMJson.ISIN === 'DO9016800110') {CodLA = 'FI0729'; }
+                if (bvrdMJson.ISIN === 'DO9015700121') {CodLA = 'FI0334'; }
+                if (bvrdMJson.ISIN === 'DO8016000127') {CodLA = 'FI0729'; }
+                if (bvrdMJson.ISIN === 'DO8013900121') {CodLA = 'JM2026'; }
+                if (bvrdMJson.ISIN === 'DO8018200121') {CodLA = 'JM2035'; }
+              }
               if (bvrdMJson.ValorTransadoDolares > 0) {
                 this.estadisticas.Movi.push({
                   Moneda: 'USD',
                   Monto: bvrdMJson.ValorTransadoDolares,
                   Nominal: bvrdMJson.ValorNominalDolares,
-                  Cotitulo: this.dameTitulosAll.getCodTituloLA(bvrdMJson.ISIN),
+                  Cotitulo: CodLA,
                   Isin: bvrdMJson.ISIN,
                   Cant: 1,
                   c_v: bvrdMJson.PosicionCompraVenta,
@@ -288,7 +297,7 @@ export class CalculosRD {
                   Moneda: 'DOP',
                   Monto: bvrdMJson.ValorTransadoPesos,
                   Nominal: bvrdMJson.ValorNominalPesos,
-                  Cotitulo: this.dameTitulosAll.getCodTituloLA(bvrdMJson.ISIN),
+                  Cotitulo: CodLA,
                   Isin: bvrdMJson.ISIN,
                   Cant: 1,
                   c_v: bvrdMJson.PosicionCompraVenta,
@@ -296,6 +305,7 @@ export class CalculosRD {
                   PrecioV: 0
                 });
               }
+              
             } //  si esta en Movi
             else {
               this.estadisticas.Movi[this.estadisticas.posi].Cant += 1;
