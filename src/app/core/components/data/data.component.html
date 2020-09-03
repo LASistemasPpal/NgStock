@@ -126,7 +126,7 @@
 </div>
 
 <app-datos-m *ngIf="consultaTipo === '1'" [codRif]="codigoCliente"></app-datos-m>
-<app-posicion-m-ant *ngIf="consultaTipo === '1'" [codRif]="codigoCliente" [fecha]="dameCalendario.CadOut.Fecha"></app-posicion-m-ant>
+<app-posicion-m-ant *ngIf="consultaTipo === '1'" [codRif]="codigoCliente" [fecha]="dameCalendario.CadOut.Fecha" [mov]="calculosRD.estadisticas.Movi"></app-posicion-m-ant>
 
 <app-cordenx *ngIf="consultaTipo === '2'" [codRif]="codigoCliente" [fecha]="dameCalendario.CadOut.Fecha" [titulo]="codigoTitulo"></app-cordenx>
 

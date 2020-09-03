@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ConectorService, APIRest } from '@laranda/lib-sysutil';
-import { BvrdPosturaP, BvrdPosturaM, BvrdOpers, RiesgoLiquidez } from '../classes/bvrdClass';
-import { IbvrdPostura, IbvrdOper } from './../classes/bvrdClass';
+import { BvrdPosturaP, BvrdPosturaM, BvrdOpers, RiesgoLiquidez, BvrdOperMrkts } from '../classes/bvrdClass';
+import { IbvrdPostura, IbvrdOper, IbvrdOperMrkt } from './../classes/bvrdClass';
 
 @Injectable()
 export class DamePosturasP{
@@ -51,7 +51,7 @@ export class DamePosturasM{
       this.serverAPI.post_REST(this.conectorService.info.URL_REST, 'WdamePosturasSiopel', '',
         false, { User: 'USUARIO' + numUser }, false).subscribe(
           datosX => {
-            
+
             if (datosX.Status === 0) {
               for (const bvrdM of [datosX] as IbvrdPostura[]) {
                 this.posturasSiopel.push(new BvrdPosturaM(bvrdM));
@@ -101,9 +101,39 @@ export class DameOperaciones{
       );
     });
 
-    // for (const OperP of jsbvrdOperacionesP as IbvrdOper[]) {
-    //   this.operacionBvrd.push(new BvrdOpers(OperP));
-    // }
+  }
+}
+
+
+@Injectable()
+export class DameOperacionesMrkt{
+  operacionBvrdMrkt: BvrdOperMrkts[] = [];
+
+  constructor(
+    private conectorService: ConectorService,
+    private serverAPI: APIRest
+  ) { }
+
+  consultar(numUser: string){
+    this.operacionBvrdMrkt = [];
+    return new Promise((resolve, rejects) => {
+      this.serverAPI.post_REST(this.conectorService.info.URL_REST, 'WdameOperacionesMercado', '',
+        false, { User: 'USUARIO' + numUser }, false).subscribe(
+          datosX => {
+            if (datosX.Status === 0) {
+              for (const OperP of [datosX] as IbvrdOperMrkt[]) {
+                this.operacionBvrdMrkt.push(new BvrdOperMrkts(OperP));
+              }
+              resolve( this.operacionBvrdMrkt );
+            } else if (datosX.Status === 1) {
+              resolve( this.operacionBvrdMrkt );
+            } else {
+              rejects( datosX );
+            }
+          }
+      );
+    });
+
   }
 }
 

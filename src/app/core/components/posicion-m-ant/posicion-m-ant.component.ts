@@ -1,3 +1,4 @@
+import { Movimientos } from './../../../shared/classes/bvrdClass';
 import { Component, OnInit, Input } from '@angular/core';
 import { DamePosicionMAnt, DameCalendario } from '@laranda/lib-ultra-net';
 import { ConectorService, ColorGrid } from '@laranda/lib-sysutil';
@@ -13,11 +14,11 @@ export class PosicionMAntComponent implements OnInit {
 
   @Input() codRif: string;
   @Input() fecha: string;
+  @Input() mov: Movimientos[] = [];
 
   constructor(
     public damePosicionMAnt: DamePosicionMAnt,
     private conectorService: ConectorService,
-    private dameCalendario: DameCalendario,
     private colorGrid: ColorGrid
   ) {
 
@@ -90,11 +91,31 @@ export class PosicionMAntComponent implements OnInit {
 
         return fechaX;
       }},
-      { title:  this.colorGrid.tablaH('PrecMrkt'), data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  this.colorGrid.tablaH('Prec Mrkt / Prom '), data: null, render: (data: any, type: any, row: any, meta) => {
         let precioX = data.Mrkt;
 
         if ((data.Producto.substr(0, 2) === 'MM') && (data.Rend === '0.00')) {
           precioX = '';
+        }
+
+        if (data.Clave.substr(0, 3) === 'FTE')  {
+          let pHoy = 0;
+          for (const M of this.mov) {
+              if (M.Cotitulo === data.Titulo) {
+                pHoy = M.UltPrecio;
+               }
+          }
+          if (pHoy > 0.1) {
+            if (pHoy < data.Preciopromedio) {
+              precioX = '<span style="color: orange">' + pHoy + ' / ' + data.Preciopromedio + '</span>'; }
+              else {
+                 precioX = '<span style="color: green">' + pHoy + ' / ' + data.Preciopromedio + '</span>'; }
+          } else
+          { if (precioX < data.Preciopromedio) {
+           precioX = '<span style="color: red">' + precioX + ' / ' + data.Preciopromedio + '</span>'; }
+           else {
+              precioX = '<span style="color: blue">' + precioX + ' / ' + data.Preciopromedio + '</span>'; }
+           }
         }
 
         if ((data.Producto.substr(0, 2) === 'MM') && (data.Rend !== '0.00')) {

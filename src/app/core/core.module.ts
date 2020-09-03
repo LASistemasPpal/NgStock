@@ -21,7 +21,7 @@ import { RiesgoLiquidezComponent } from './components/riesgo-liquidez/riesgo-liq
 
 
 // Servicios LA
-import { DameOperaciones, DamePosturasM, DamePosturasP, DameRiesgoLiquidezServer } from '../shared/services/data-bvrd.service';
+import { DameOperaciones, DamePosturasM, DamePosturasP, DameRiesgoLiquidezServer, DameOperacionesMrkt } from '../shared/services/data-bvrd.service';
 import { CalculosRD } from '../shared/services/estadisticas.service';
 import { CordenxComponent } from './components/cordenx/cordenx.component';
 import { LoginComponent } from './components/login/login.component';
@@ -53,6 +53,6 @@ import { AppRoutingModule } from './../app-routing.module';
     UltranetTablasModule,
     NgxMaskModule.forRoot()
   ],
-  providers: [ DameOperaciones, DamePosturasM, DamePosturasP, CalculosRD, DameRiesgoLiquidezServer ]
+  providers: [ DameOperaciones, DameOperacionesMrkt, DamePosturasM, DamePosturasP, CalculosRD, DameRiesgoLiquidezServer ]
 })
 export class CoreModule { }

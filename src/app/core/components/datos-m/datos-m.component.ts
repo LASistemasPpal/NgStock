@@ -19,15 +19,11 @@ export class DatosMComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.dameDatosM.visible = false;
     this.dameDatosM.ParamIn.Status = 0;
     this.dameDatosM.ParamIn.Mensaje = ' ';
-
     this.dameDatosM.ParamIn.Rif = this.codRif;
-
     this.dameDatosM.consultar(this.conectorService.info.URL_REST);
-
   }
 
 }

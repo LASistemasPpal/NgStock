@@ -248,6 +248,126 @@ export class BvrdOpers implements IbvrdOper{
     }
 }
 
+
+interface ICadJsonOperMrkt{
+  CantidadTitulos: number;
+  CodEmisorBVRD: string;
+  CodigoISIN: string;
+  DiasVencimiento: number;
+  Estatus: string;
+  FechaEmision: Date;
+  FechaLiquidacion: Date;
+  FechaOperacion: string;
+  FechaVencimiento: Date;
+  HoraOperacion: Date;
+  MonedaTransada: string;
+  NemoTecnico: string;
+  NombreMercado: string;
+  NumeroOperacion: number;
+  PrecioLimpio: number;
+  TasaCompra: number;
+  TasaCupon: number;
+  TasaVenta: number;
+  TipoMercado: string;
+  ValorNominalDolares: number;
+  ValorNominalEquivalenteDolares: number;
+  ValorNominalEquivalentePesos: number;
+  ValorNominalPesos: number;
+  ValorNominalTotal: number;
+  ValorTransado: number;
+  ValorTransadoDolares: number;
+  ValorTransadoEquivalenteDolares: number;
+  ValorTransadoEquivalentePesos: number;
+  ValorTransadoPesos: number;
+  Yield: number;
+}
+
+export class CadJsonOperMrkts implements ICadJsonOperMrkt{
+  CantidadTitulos: number;
+  CodEmisorBVRD: string;
+  CodigoISIN: string;
+  DiasVencimiento: number;
+  Estatus: string;
+  FechaEmision: Date;
+  FechaLiquidacion: Date;
+  FechaOperacion: string;
+  FechaVencimiento: Date;
+  HoraOperacion: Date;
+  MonedaTransada: string;
+  NemoTecnico: string;
+  NombreMercado: string;
+  NumeroOperacion: number;
+  PrecioLimpio: number;
+  TasaCompra: number;
+  TasaCupon: number;
+  TasaVenta: number;
+  TipoMercado: string;
+  ValorNominalDolares: number;
+  ValorNominalEquivalenteDolares: number;
+  ValorNominalEquivalentePesos: number;
+  ValorNominalPesos: number;
+  ValorNominalTotal: number;
+  ValorTransado: number;
+  ValorTransadoDolares: number;
+  ValorTransadoEquivalenteDolares: number;
+  ValorTransadoEquivalentePesos: number;
+  ValorTransadoPesos: number;
+  Yield: number;
+  constructor(CadJOperMrkt: CadJsonOperMrkts){
+      this.CantidadTitulos = CadJOperMrkt.CantidadTitulos;
+      this.CodEmisorBVRD = CadJOperMrkt.CodEmisorBVRD;
+      this.CodigoISIN = CadJOperMrkt.CodigoISIN;
+      this.DiasVencimiento = CadJOperMrkt.DiasVencimiento;
+      this.Estatus = CadJOperMrkt.Estatus;
+      this.FechaEmision = CadJOperMrkt.FechaEmision;
+      this.FechaLiquidacion = CadJOperMrkt.FechaLiquidacion;
+      this.FechaOperacion = CadJOperMrkt.FechaOperacion;
+      this.FechaVencimiento = CadJOperMrkt.FechaVencimiento;
+      this.HoraOperacion = CadJOperMrkt.HoraOperacion;
+      this.MonedaTransada = CadJOperMrkt.MonedaTransada;
+      this.NemoTecnico = CadJOperMrkt.NemoTecnico;
+      this.NombreMercado = CadJOperMrkt.NombreMercado;
+      this.NumeroOperacion = CadJOperMrkt.NumeroOperacion;
+      this.PrecioLimpio = CadJOperMrkt.PrecioLimpio;
+      this.TasaCompra = CadJOperMrkt.TasaCompra;
+      this.TasaCupon = CadJOperMrkt.TasaCupon;
+      this.TasaVenta = CadJOperMrkt.TasaVenta;
+      this.TipoMercado = CadJOperMrkt.TipoMercado;
+      this.ValorNominalDolares = CadJOperMrkt.ValorNominalDolares;
+      this.ValorNominalEquivalenteDolares = CadJOperMrkt.ValorNominalEquivalenteDolares;
+      this.ValorNominalEquivalentePesos = CadJOperMrkt.ValorNominalEquivalentePesos;
+      this.ValorNominalPesos = CadJOperMrkt.ValorNominalPesos;
+      this.ValorNominalTotal = CadJOperMrkt.ValorNominalTotal;
+      this.ValorTransado = CadJOperMrkt.ValorTransado;
+      this.ValorTransadoDolares = CadJOperMrkt.ValorTransadoDolares;
+      this.ValorTransadoEquivalenteDolares = CadJOperMrkt.ValorTransadoEquivalenteDolares;
+      this.ValorTransadoEquivalentePesos = CadJOperMrkt.ValorTransadoEquivalentePesos;
+      this.ValorTransadoPesos = CadJOperMrkt.ValorTransadoPesos;
+      this.Yield = CadJOperMrkt.Yield;
+      }
+}
+
+export interface IbvrdOperMrkt{
+  Status: number;
+  Mensaje: string;
+  CadJson: CadJsonOperMrkts[];
+}
+
+export class BvrdOperMrkts implements IbvrdOperMrkt{
+  Status: number;
+  Mensaje: string;
+  CadJson: CadJsonOperMrkts[];
+  constructor(bvrdOperMrkt: IbvrdOperMrkt){
+      this.Status = bvrdOperMrkt.Status;
+      this.Mensaje = bvrdOperMrkt.Mensaje;
+      this.CadJson = [];
+      for (const cadJ of bvrdOperMrkt.CadJson){
+          this.CadJson.push(new CadJsonOperMrkts(cadJ));
+      }
+  }
+}
+
+
 export class Cantidades {
     PosturasP: number;
     PosturasM: number;
@@ -284,25 +404,37 @@ export class Cantidades {
 
 export class Movimientos {
     Moneda: string;
-    Monto: number;
-    Nominal: number;
     Cotitulo: string;
     Isin: string;
     Cant: number;
+    MontoP: number;
+    NominalP: number;
+    MontoReal: number;
+    NominalReal: number;
     PrecioC: number;
     PrecioV: number;
+    UltPrecio: number;
+    PrecioProm: number;
+    UltNom: number;
+    NomOper: number;
     // tslint:disable-next-line: variable-name
     c_v: string;
     constructor(Mov: Movimientos) {
       this.Moneda = Mov.Moneda;
-      this.Monto = Mov.Monto;
-      this.Nominal = Mov.Nominal;
+      this.MontoP = Mov.MontoP;
+      this.NominalP = Mov.NominalP;
+      this.MontoReal = Mov.MontoReal;
+      this.NominalReal = Mov.NominalReal;
       this.Cotitulo = Mov.Cotitulo;
       this.Isin = Mov.Isin;
       this.Cant = Mov.Cant;
       this.PrecioC = Mov.PrecioC;
       this.PrecioV = Mov.PrecioV;
       this.c_v = Mov.c_v;
+      this.UltPrecio = Mov.UltPrecio;
+      this.PrecioProm = Mov.PrecioProm;
+      this.UltNom = Mov.UltNom;
+      this.NomOper = Mov.NomOper;
     }
   }
 

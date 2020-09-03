@@ -13,6 +13,7 @@ import {
   DamePosturasM,
   DamePosturasP,
   DameOperaciones,
+  DameOperacionesMrkt,
   DameRiesgoLiquidezServer,
 } from './../../../shared/services/data-bvrd.service';
 import swal from 'sweetalert2';
@@ -40,47 +41,51 @@ export class DataComponent implements OnInit {
     public damePosturasP: DamePosturasP,
     public damePosturasM: DamePosturasM,
     public dameOperaciones: DameOperaciones,
+    public dameOperacionesMrkt: DameOperacionesMrkt,
     public dameCalendario: DameCalendario,
     public dameRiesgoLiquidezServer: DameRiesgoLiquidezServer,
     public calculosRD: CalculosRD,
     private colorGrid: ColorGrid
   ) {
     this.dtColumnasEjemplo = [
+      { title: this.colorGrid.tablaH('Titulo'), data: 'Cotitulo' },
       {
-        title: this.colorGrid.tablaH('Mon Vol'),
+        title: this.colorGrid.tablaH('Mon'),
         data: null,
         render: (data: any, type: any, row: any, meta) => {
-          return data.Moneda + ' ' + data.c_v + '-' + data.Cant; // display_x(data.Cant,5,0) ;
+          return data.Moneda + ' ' + data.c_v + '-' + display_x(data.Cant,2,0) ;
         },
       },
       {
-        title: this.colorGrid.tablaH('Nominal'),
-        data: null,
-        className: 'dt-body-right',
-        render: (data: any, type: any, row: any, meta) => {
-          return display_x(data.Nominal, 10, 2);
-        },
-      },
-      {
-        title: this.colorGrid.tablaH('Transado'),
+        title: this.colorGrid.tablaH('Nom Posturas'),
         data: null,
         className: 'dt-body-right',
         render: (data: any, type: any, row: any, meta) => {
-          return display_x(data.Monto, 10, 2);
+          return (data.NominalP > data.NominalReal) ?
+             display_x(data.NominalP, 10, 2) + '<span style="color:red"> -></span>' + display_x(data.NominalReal, 10, 2) : 
+             display_x(data.NominalP, 10, 2);
+ //         return display_x(data.NominalP > data.NominalReal ? data.NominalReal : data.NominalP, 10, 2);
         },
       },
-      { title: this.colorGrid.tablaH('Titulos'), data: 'Cotitulo' },
+      {
+        title: this.colorGrid.tablaH('Efect Real'),
+        data: null,
+        className: 'dt-body-right',
+        render: (data: any, type: any, row: any, meta) => {
+          return display_x(data.MontoReal, 10, 2);
+        },
+      },
       { title: this.colorGrid.tablaH('Isin'), data: 'Isin' },
-      // { title: 'Cant', data: 'Cant' },
-      //  { title: 'C / V', data: 'c_v' }
       {
-        title: this.colorGrid.tablaH('Precio'),
+        title: this.colorGrid.tablaH('Ult Prec'),
         data: null,
         className: 'dt-body-right',
         render: (data: any, type: any, row: any, meta) => {
-          return display_x(data.c_v === 'C' ? data.PrecioC : data.PrecioV, 5, 2);
+//        return display_x(data.PrecioProm, 10, 4); /// uno inventado de las posturas
+          return display_x(data.UltPrecio, 5, 2);   //  viene de oper mercado         
         },
       },
+
     ];
   }
 
@@ -132,31 +137,23 @@ export class DataComponent implements OnInit {
       });
       swal.showLoading();
     }
-    // this.damePosturasM.posturasSiopel = [];
-    // this.damePosturasP.posturasPropias = [];
-    // this.dameOperaciones.operacionBvrd = [];
     this.damePosturasM
       .consultar(this.autenticaCli.CadOut.Usuariobv)
       .then(() => {
         this.damePosturasP
           .consultar(this.autenticaCli.CadOut.Usuariobv)
           .then(() => {
-            this.dameOperaciones
+            this.dameOperacionesMrkt
               .consultar(this.autenticaCli.CadOut.Usuariobv)
               .then(() => {
-
                 this.calculosRD.calcular(codTitulo, codMoneda).then(() => {
-
                   // willmer Git Listo....!!!!
                   //  esto debe hacerse despues de calcular pero tambien debe llamarse al dameriesgoliquidez
                   //  como llena el grid enseguida entonces nunca muestra los precios (a menos que lo corra con debugger )
                   this.dameRiesgoLiquidezServer.consultar(this.autenticaCli.CadOut.Usuariobv).then(() => {
-
                     this.calculosRD.estadisticas.Movi.map((valor) => {
-
                       let riesgoL: RiesgoLiquidez[];
                       riesgoL = this.dameRiesgoLiquidezServer.riesgoLiquidez.filter((x) => x.codigoisin === valor.Isin);
-
                       if (riesgoL[0] !== undefined) {
                         if (valor.c_v === 'C') {
                           valor.PrecioC = riesgoL[0].precioppcompra;
@@ -166,14 +163,10 @@ export class DataComponent implements OnInit {
                       }
                     });
 
-
                     this.calculosRD.visibleMovi = true;
                   });
                 }).catch((e) => this.mensajeError('dameRiesgoLiquidez', e.Status, e.Mensaje));
-
-
                 swal.close();
-
                 const myChart = this.generaGraficoLinia1();
                 const myChart2 = this.generaGraficoLinia2();
                 const myChart3 = this.graficoDona(
@@ -192,11 +185,11 @@ export class DataComponent implements OnInit {
                   this.calculosRD.estadisticas.canti.PorctotM
                 );
               })
-              .catch((e) => this.mensajeError('damePosturasP', e.Status, e.Mensaje));
+              .catch((e) => this.mensajeError('dameOperacionesMrkt ', e.Status, e.Mensaje));
           })
-          .catch((e) => this.mensajeError('damePosturasM', e.Status, e.Mensaje));
+          .catch((e) => this.mensajeError('damePosturasP', e.Status, e.Mensaje));
       })
-      .catch((e) => this.mensajeError('dameOperaciones', e.Status, e.Mensaje));
+      .catch((e) => this.mensajeError('damePosturasM', e.Status, e.Mensaje));
   }
 
   generaGraficoLinia1() {

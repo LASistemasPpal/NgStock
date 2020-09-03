@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
     this.conectorService.getParametros().then(() => {
       this.paramConfig.Param.Nucli = this.conectorService.info.NUCLI;
       const obs = this.http.post(
-        this.conectorService.info.URL_RESTLA,
+        this.conectorService.info.URL_RESTLA + 'WDame_cliente',
         this.paramConfig, this.httpOptions);
       obs.subscribe(res => {
         this.ConfigCadout = res;
@@ -79,14 +79,6 @@ export class LoginComponent implements OnInit {
       this.autenticaCli.ParamIn.User = this.formLogin.value.user;
       this.autenticaCli.ParamIn.Pass = this.formLogin.value.password;
       this.conectorService.getParametros().then(() => {
-      //   this.paramForma.Param.Nucli = this.conectorService.info.NUCLI;
-      //   const obs = this.http.post(
-      //     this.conectorService.info.URL_RESTLA,
-      //     this.paramForma, this.httpOptions);
-      //   obs.subscribe(res => {
-      //     this.Cadout = res;
-      //  });
-      // if (this.conectorService.info.NUCLI === 50 || this.Cadout.CadJson.Nombre === 'AA') {
         if (this.ConfigCadout.CadJson !== undefined && this.ConfigCadout.CadJson.Nombre.indexOf('SUSP') >= 0) {
           swal.fire({
           icon: 'info',
