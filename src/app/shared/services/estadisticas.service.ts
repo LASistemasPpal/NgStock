@@ -5,6 +5,7 @@ import {
   DamePosturasP,
   DamePosturasM,
   DameOperacionesMrkt,
+  DameOperaciones,
 } from './data-bvrd.service';
 
 @Injectable()
@@ -15,6 +16,7 @@ export class CalculosRD {
   constructor(
     private bvrdPsot: DamePosturasP,
     private bvrdPMkrt: DamePosturasM,
+    private bvrdOper: DameOperaciones,
     private bvrdOperMrkt: DameOperacionesMrkt,
     private dameCalendario: DameCalendario,
     private dameTitulosAll: DameTitulosAll
@@ -100,7 +102,7 @@ export class CalculosRD {
 
     this.limpiarMovimientos(this.estadisticas.Movi, 0);
     this.limpiarEmisiones(this.estadisticas.Emisiones, 0);
-    // recorrido  mercado posturas
+      // recorrido  mercado posturas
     for (const bvrdMJson of this.bvrdPMkrt.posturasSiopel[0].CadJson) {
       if (this.estadisticas.hoy === '') {
         this.estadisticas.hoy = bvrdMJson.FechaPostura + 'T'; // busco la fecha del dia en la primera postura
@@ -133,10 +135,8 @@ export class CalculosRD {
       }
 
       if (bvrdMJson.Estatus !== 'Cancelada') {
-        if (
-          bvrdMJson.MonedaLiquidacion === this.estadisticas.monsel ||
-          this.estadisticas.monsel === ''
-        ) {
+        if (bvrdMJson.MonedaLiquidacion === this.estadisticas.monsel ||
+          this.estadisticas.monsel === '') {
           if (
             bvrdMJson.ISIN === this.estadisticas.isinsel ||
             this.estadisticas.isinsel === ''
@@ -145,8 +145,6 @@ export class CalculosRD {
               this.estadisticas.canti.PosturasM + 1;
           }
         }
-        //  primario y market makers
-
         if (
           bvrdMJson.Estatus !== 'Vencida' &&
           bvrdMJson.Estatus !== 'Vigente' &&
@@ -176,25 +174,14 @@ export class CalculosRD {
         }
 
         if (bvrdMJson.Estatus === 'Calzada') {
-          if (
-            bvrdMJson.MonedaLiquidacion === this.estadisticas.monsel ||
-            this.estadisticas.monsel === ''
-          ) {
-            if (
-              bvrdMJson.ISIN === this.estadisticas.isinsel ||
-              this.estadisticas.isinsel === ''
-            ) {
-              this.estadisticas.canti.OperacionesM =
-                this.estadisticas.canti.OperacionesM + 1;
-
+          if (bvrdMJson.MonedaLiquidacion === this.estadisticas.monsel ||
+            this.estadisticas.monsel === '') {
+            if (bvrdMJson.ISIN === this.estadisticas.isinsel ||
+              this.estadisticas.isinsel === '') {
               if (bvrdMJson.CODRUEDA === 'LICI') {
                 this.estadisticas.canti.PrimarioM =
                   this.estadisticas.canti.PrimarioM + 1;
               }
-              // if (bvrdMJson.CODRUEDA === 'BL') {
-              //   this.estadisticas.canti.MarketMM =
-              //     this.estadisticas.canti.MarketMM + 1;
-              // }
             }
           }
         }
@@ -210,14 +197,11 @@ export class CalculosRD {
             this.estadisticas.GrafVolumenM,
             new Date(this.estadisticas.hoy + `${bvrdMJson.HoraPostura}`)
           );
-          if (
-            bvrdMJson.ValorNominalPesos + bvrdMJson.ValorNominalDolares >
-            0.01
-          ) {
+          if (bvrdMJson.ValorNominalPesos + bvrdMJson.ValorNominalDolares > 0.01) {
             if (this.estadisticas.posi < 0) {
               this.estadisticas.GrafVolumenM.push({
                 x: new Date(this.estadisticas.hoy + `${bvrdMJson.HoraPostura}`),
-                y: bvrdMJson.ValorNominalPesos + bvrdMJson.ValorNominalDolares,
+                y: bvrdMJson.ValorNominalPesos + bvrdMJson.ValorNominalDolares
               });
             } else {
               this.estadisticas.GrafVolumenM[this.estadisticas.posi].y =
@@ -238,17 +222,11 @@ export class CalculosRD {
               this.estadisticas.GrafVolumenOper,
               new Date(this.estadisticas.hoy + `${bvrdMJson.HoraPostura}`)
             );
-            if (
-              bvrdMJson.ValorNominalPesos + bvrdMJson.ValorNominalDolares >
-              0.01
-            ) {
+            if (bvrdMJson.ValorNominalPesos + bvrdMJson.ValorNominalDolares > 0.01) {
               if (this.estadisticas.posi < 0) {
                 this.estadisticas.GrafVolumenOper.push({
-                  x: new Date(
-                    this.estadisticas.hoy + `${bvrdMJson.HoraPostura}`
-                  ),
-                  y:
-                    bvrdMJson.ValorNominalPesos + bvrdMJson.ValorNominalDolares,
+                  x: new Date(this.estadisticas.hoy + `${bvrdMJson.HoraPostura}`),
+                  y: bvrdMJson.ValorNominalPesos + bvrdMJson.ValorNominalDolares
                 });
               } else {
                 this.estadisticas.GrafVolumenOper[this.estadisticas.posi].y =
@@ -348,17 +326,32 @@ export class CalculosRD {
         100;
       this.estadisticas.canti.PorcusdM = 100 - this.estadisticas.canti.PorcdopM;
     }
-    //  recorrido operaciones mercado
+   // recorrido  operaciones propias
+    if (this.bvrdOper.operacionBvrd[0] !== undefined) {
+    for (const bvrdJson of this.bvrdOper.operacionBvrd[0].CadJson) {
+      if (bvrdJson.CodigoISIN === this.estadisticas.isinsel ||
+        this.estadisticas.isinsel === '') {
+      if (bvrdJson.NombreMercado.substr(0,4) === 'Crea') {
+                 this.estadisticas.canti.MarketMP =
+                   this.estadisticas.canti.MarketMP + 1;
+               } else  {
+               this.estadisticas.canti.OperacionesP =
+                  this.estadisticas.canti.OperacionesP + 1; }
+      }
+     }
+    }
+
+  //  recorrido operaciones mercado
     if (this.bvrdOperMrkt.operacionBvrdMrkt[0] !== undefined) {
       for (const bvrdOperM of this.bvrdOperMrkt.operacionBvrdMrkt[0].CadJson) {
-        if (
-          bvrdOperM.CodigoISIN === this.estadisticas.isinsel ||
-          this.estadisticas.isinsel === ''
-        ) {
+        if (bvrdOperM.CodigoISIN === this.estadisticas.isinsel ||
+          this.estadisticas.isinsel === '') {
           if (bvrdOperM.NombreMercado.substr(0, 4) === 'Crea') {
-            this.estadisticas.canti.MarketMM =
-              this.estadisticas.canti.MarketMM + 1;
-          }
+            this.estadisticas.canti.MarketMM += 1;
+          } else {
+          this.estadisticas.canti.OperacionesM += 1;
+        }
+
           this.estadisticas.posi = this.indexMovimientos(
             this.estadisticas.Movi, bvrdOperM.CodigoISIN, 'C');
           if (this.estadisticas.posi >= 0) {
@@ -415,16 +408,11 @@ export class CalculosRD {
                 bvrdPJson.ISIN === this.estadisticas.isinsel ||
                 this.estadisticas.isinsel === ''
               ) {
-                this.estadisticas.canti.OperacionesP =
-                  this.estadisticas.canti.OperacionesP + 1;
                 if (bvrdPJson.CODRUEDA === 'LICI') {
                   this.estadisticas.canti.PrimarioP =
                     this.estadisticas.canti.PrimarioP + 1;
                 }
-                // if (bvrdPJson.CODRUEDA === 'BL') {
-                //   this.estadisticas.canti.MarketMP =
-                //     this.estadisticas.canti.MarketMP + 1;
-                // }
+                
               }
             }
           }

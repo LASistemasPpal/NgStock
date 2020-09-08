@@ -23,24 +23,20 @@ export class PosicionMAntComponent implements OnInit {
   ) {
 
     this.dtColumnas = [
+      { title: this.colorGrid.tablaH('Clave'), data: 'Clave' },
       { title:  this.colorGrid.tablaH('Producto'),
         data: null, render: (data: any, type: any, row: any, meta) => {
         let chara = data.Producto.substr(3, 100).trim();
-
         if (data.Producto.substr(0, 2) === 'MM') {
-          chara = data.Titulo + ' ' + data.Producto.substr(3, 100).trim();
-        }
+          chara = data.Titulo + ' ' + data.Producto.substr(3, 100).trim();}
 
         if (data.Producto.substr(0, 2) === 'RV') {
-          chara = data.Producto.substr(3, 100).trim();
-        }
+          chara = data.Producto.substr(3, 100).trim(); }
         if (data.Producto.substr(0, 2) === 'RF') {
-          chara = data.Producto.substr(3, 100).trim() + ' ' + data.Titulo;
-        }
+          chara = data.Producto.substr(3, 100).trim() + ' ' + data.Titulo; }
 
         if ((data.Producto.substr(0, 2) === 'CV') || (data.Producto.substr(0, 2) === 'SB')) {
-          chara = `${data.Tipocv} ${data.Titulo} ${data.Rend} ${data.Producto.substr(3, 100).trim()}`;
-        }
+          chara = `${data.Tipocv} ${data.Titulo} ${data.Rend} ${data.Producto.substr(3, 100).trim()}`; }
 
         if ((data.Producto.substr(0, 2) === 'MT') && (data.Tipo !== 'SIMPLE')) {
           chara = `MT ${data.Titulo} ${data.Rend} ${data.Producto.substr(3, 100).trim()}`;
@@ -49,7 +45,6 @@ export class PosicionMAntComponent implements OnInit {
         if ((data.Producto.substr(0, 2) === 'MT') && (data.Tipo === 'SIMPLE')) {
           chara = `MS ${data.Titulo} ${data.Pcontraprest} ${data.Producto.substr(3, 100).trim()}`;
         }
-
         return chara;
       }},
       { title:  this.colorGrid.tablaH('Mon'), data: 'Moneda_abrevia' },
@@ -133,9 +128,8 @@ export class PosicionMAntComponent implements OnInit {
         } else {
           return data.Efecfin;
         }
-
-      }, className: 'dt-body-right' },
-      { title: this.colorGrid.tablaH('Clave'), data: 'Clave' }
+      }, className: 'dt-body-right' }
+      
     ];
   }
 

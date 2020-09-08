@@ -143,6 +143,9 @@ export class DataComponent implements OnInit {
         this.damePosturasP
           .consultar(this.autenticaCli.CadOut.Usuariobv)
           .then(() => {
+            this.dameOperaciones
+              .consultar(this.autenticaCli.CadOut.Usuariobv)
+              .then(() => {
             this.dameOperacionesMrkt
               .consultar(this.autenticaCli.CadOut.Usuariobv)
               .then(() => {
@@ -150,6 +153,7 @@ export class DataComponent implements OnInit {
                   // willmer Git Listo....!!!!
                   //  esto debe hacerse despues de calcular pero tambien debe llamarse al dameriesgoliquidez
                   //  como llena el grid enseguida entonces nunca muestra los precios (a menos que lo corra con debugger )
+                  
                   this.dameRiesgoLiquidezServer.consultar(this.autenticaCli.CadOut.Usuariobv).then(() => {
                     this.calculosRD.estadisticas.Movi.map((valor) => {
                       let riesgoL: RiesgoLiquidez[];
@@ -186,6 +190,8 @@ export class DataComponent implements OnInit {
                 );
               })
               .catch((e) => this.mensajeError('dameOperacionesMrkt ', e.Status, e.Mensaje));
+            })
+            .catch((e) => this.mensajeError('dameOperaciones ', e.Status, e.Mensaje));
           })
           .catch((e) => this.mensajeError('damePosturasP', e.Status, e.Mensaje));
       })

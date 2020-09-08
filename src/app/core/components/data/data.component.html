@@ -136,4 +136,6 @@
 
 <app-operaciones-propias *ngIf="consultaTipo === '6'" [datos]="dameOperaciones.operacionBvrd[0].CadJson" [codISIN]="codigoTitulo" [codMoneda]="codigoMoneda" class="tabla-font-11"></app-operaciones-propias>
 
+<app-operacion-mrkt *ngIf="consultaTipo === '8'" [datos]="dameOperacionesMrkt.operacionBvrdMrkt[0].CadJson" [codISIN]="codigoTitulo" [codMoneda]="codigoMoneda" class="tabla-font-11"></app-operacion-mrkt>
+
 <app-riesgo-liquidez *ngIf="consultaTipo === '7'" class="tabla-font-11"></app-riesgo-liquidez>

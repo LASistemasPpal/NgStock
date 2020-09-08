@@ -67,7 +67,7 @@ export class HeaderComponent implements OnInit {
       ((this.codgoMoneda.length === 3) || (this.codgoMoneda.length === 0)))) {
       this.codConsulta.emit(['', tipo, this.codgoTitulo.toUpperCase(), this.codgoMoneda.toUpperCase()]);
 
-    } else if (((tipo === '3') || (tipo === '4') || (tipo === '5') || (tipo === '6')) &&
+    } else if (((tipo === '3') || (tipo === '4') || (tipo === '5') || (tipo === '6') || (tipo === '8')) &&
         (((this.codgoTitulo.length === 6) || (this.codgoTitulo.length === 0)) &&
         ((this.codgoMoneda.length === 3) || (this.codgoMoneda.length === 0)))) {
 
