@@ -62,7 +62,7 @@ export class DataComponent implements OnInit {
         className: 'dt-body-right',
         render: (data: any, type: any, row: any, meta) => {
           return (data.NominalP > data.NominalReal) ?
-             display_x(data.NominalP, 10, 2) + '<span style="color:red"> -></span>' + display_x(data.NominalReal, 10, 2) : 
+             display_x(data.NominalP, 10, 2) + '<span style="color:red"> -></span>' + display_x(data.NominalReal, 10, 2) :
              display_x(data.NominalP, 10, 2);
  //         return display_x(data.NominalP > data.NominalReal ? data.NominalReal : data.NominalP, 10, 2);
         },
@@ -82,7 +82,7 @@ export class DataComponent implements OnInit {
         className: 'dt-body-right',
         render: (data: any, type: any, row: any, meta) => {
 //        return display_x(data.PrecioProm, 10, 4); /// uno inventado de las posturas
-          return display_x(data.UltPrecio, 5, 2);   //  viene de oper mercado         
+          return display_x(data.UltPrecio, 5, 2);   //  viene de oper mercado
         },
       },
 
@@ -137,65 +137,53 @@ export class DataComponent implements OnInit {
       });
       swal.showLoading();
     }
-    this.damePosturasM
-      .consultar(this.autenticaCli.CadOut.Usuariobv)
-      .then(() => {
-        this.damePosturasP
-          .consultar(this.autenticaCli.CadOut.Usuariobv)
-          .then(() => {
-            this.dameOperaciones
-              .consultar(this.autenticaCli.CadOut.Usuariobv)
-              .then(() => {
-            this.dameOperacionesMrkt
-              .consultar(this.autenticaCli.CadOut.Usuariobv)
-              .then(() => {
-                this.calculosRD.calcular(codTitulo, codMoneda).then(() => {
-                  // willmer Git Listo....!!!!
-                  //  esto debe hacerse despues de calcular pero tambien debe llamarse al dameriesgoliquidez
-                  //  como llena el grid enseguida entonces nunca muestra los precios (a menos que lo corra con debugger )
-                  
-                  this.dameRiesgoLiquidezServer.consultar(this.autenticaCli.CadOut.Usuariobv).then(() => {
-                    this.calculosRD.estadisticas.Movi.map((valor) => {
-                      let riesgoL: RiesgoLiquidez[];
-                      riesgoL = this.dameRiesgoLiquidezServer.riesgoLiquidez.filter((x) => x.codigoisin === valor.Isin);
-                      if (riesgoL[0] !== undefined) {
-                        if (valor.c_v === 'C') {
-                          valor.PrecioC = riesgoL[0].precioppcompra;
-                        } else {
-                          valor.PrecioV = riesgoL[0].precioppventa;
-                        }
-                      }
-                    });
 
-                    this.calculosRD.visibleMovi = true;
-                  });
-                }).catch((e) => this.mensajeError('dameRiesgoLiquidez', e.Status, e.Mensaje));
-                swal.close();
-                const myChart = this.generaGraficoLinia1();
-                const myChart2 = this.generaGraficoLinia2();
-                const myChart3 = this.graficoDona(
-                  'graficoMonTran',
-                  'DOP. mm',
-                  this.calculosRD.estadisticas.canti.PorcdopM
-                );
-                const myChart4 = this.graficoDona(
-                  'graficoMonTran2',
-                  'USD. m',
-                  this.calculosRD.estadisticas.canti.PorcusdM
-                );
-                const myChart5 = this.graficoDona(
-                  'graficoMonTran3',
-                  'Tot DOP. mm',
-                  this.calculosRD.estadisticas.canti.PorctotM
-                );
-              })
-              .catch((e) => this.mensajeError('dameOperacionesMrkt ', e.Status, e.Mensaje));
-            })
-            .catch((e) => this.mensajeError('dameOperaciones ', e.Status, e.Mensaje));
-          })
-          .catch((e) => this.mensajeError('damePosturasP', e.Status, e.Mensaje));
+    this.damePosturasM.consultar(this.autenticaCli.CadOut.Usuariobv)
+      .then(() => this.damePosturasP.consultar(this.autenticaCli.CadOut.Usuariobv))
+      .then(() => this.dameOperaciones.consultar(this.autenticaCli.CadOut.Usuariobv))
+      .then(() => this.dameOperacionesMrkt.consultar(this.autenticaCli.CadOut.Usuariobv))
+      .then(() => this.calculosRD.calcular(codTitulo, codMoneda))
+      .then(() => this.dameRiesgoLiquidezServer.consultar(this.autenticaCli.CadOut.Usuariobv))
+      .then(() => {
+        this.calculosRD.estadisticas.Movi.map((valor) => {
+          let riesgoL: RiesgoLiquidez[];
+          riesgoL = this.dameRiesgoLiquidezServer.riesgoLiquidez.filter((x) => x.codigoisin === valor.Isin);
+          if (riesgoL[0] !== undefined) {
+            if (valor.c_v === 'C') {
+              valor.PrecioC = riesgoL[0].precioppcompra;
+            } else {
+              valor.PrecioV = riesgoL[0].precioppventa;
+            }
+          }
+        });
+
+        this.calculosRD.visibleMovi = true;
+        swal.close();
       })
-      .catch((e) => this.mensajeError('damePosturasM', e.Status, e.Mensaje));
+      .then(() => { const myChart = this.generaGraficoLinia1(); })
+      .then(() => { const myChart2 = this.generaGraficoLinia2(); })
+      .then(() => {
+        const myChart3 = this.graficoDona(
+          'graficoMonTran',
+          'DOP. mm',
+          this.calculosRD.estadisticas.canti.PorcdopM
+        );
+      })
+      .then(() => {
+        const myChart4 = this.graficoDona(
+          'graficoMonTran2',
+          'USD. m',
+          this.calculosRD.estadisticas.canti.PorcusdM
+        );
+      })
+      .then(() => {
+        const myChart5 = this.graficoDona(
+          'graficoMonTran3',
+          'Tot DOP. mm',
+          this.calculosRD.estadisticas.canti.PorctotM
+        );
+      })
+      .catch((e) => this.mensajeError('Error', e.Status, e.Mensaje));
   }
 
   generaGraficoLinia1() {
