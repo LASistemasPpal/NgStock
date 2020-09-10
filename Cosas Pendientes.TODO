@@ -161,7 +161,7 @@ Operaciones Propias:
     ✔ unificar  transados en una sola columna sin moneda @done(30-07-2020 11:15)
 
 Email Luis Aranda cambios ngstock:
-  ☐ ajustar el llamado a las promesas
+  ✔ ajustar el llamado a las promesas @done(10-09-2020 11:23)
   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled
 
   ✔ inclui la moneda como filtro.... @critical  Probar ya esta listo @done(05-08-2020 15:57)

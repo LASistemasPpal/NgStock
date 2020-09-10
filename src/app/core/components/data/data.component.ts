@@ -138,12 +138,14 @@ export class DataComponent implements OnInit {
       swal.showLoading();
     }
 
-    this.damePosturasM.consultar(this.autenticaCli.CadOut.Usuariobv)
-      .then(() => this.damePosturasP.consultar(this.autenticaCli.CadOut.Usuariobv))
-      .then(() => this.dameOperaciones.consultar(this.autenticaCli.CadOut.Usuariobv))
-      .then(() => this.dameOperacionesMrkt.consultar(this.autenticaCli.CadOut.Usuariobv))
+    Promise.allSettled([
+      this.damePosturasM.consultar(this.autenticaCli.CadOut.Usuariobv),
+      this.damePosturasP.consultar(this.autenticaCli.CadOut.Usuariobv),
+      this.dameOperaciones.consultar(this.autenticaCli.CadOut.Usuariobv),
+      this.dameOperacionesMrkt.consultar(this.autenticaCli.CadOut.Usuariobv),
+      this.dameRiesgoLiquidezServer.consultar(this.autenticaCli.CadOut.Usuariobv)
+    ])
       .then(() => this.calculosRD.calcular(codTitulo, codMoneda))
-      .then(() => this.dameRiesgoLiquidezServer.consultar(this.autenticaCli.CadOut.Usuariobv))
       .then(() => {
         this.calculosRD.estadisticas.Movi.map((valor) => {
           let riesgoL: RiesgoLiquidez[];
@@ -159,24 +161,19 @@ export class DataComponent implements OnInit {
 
         this.calculosRD.visibleMovi = true;
         swal.close();
-      })
-      .then(() => { const myChart = this.generaGraficoLinia1(); })
-      .then(() => { const myChart2 = this.generaGraficoLinia2(); })
-      .then(() => {
+
+        const myChart = this.generaGraficoLinia1();
+        const myChart2 = this.generaGraficoLinia2();
         const myChart3 = this.graficoDona(
           'graficoMonTran',
           'DOP. mm',
           this.calculosRD.estadisticas.canti.PorcdopM
         );
-      })
-      .then(() => {
         const myChart4 = this.graficoDona(
           'graficoMonTran2',
           'USD. m',
           this.calculosRD.estadisticas.canti.PorcusdM
         );
-      })
-      .then(() => {
         const myChart5 = this.graficoDona(
           'graficoMonTran3',
           'Tot DOP. mm',
