@@ -25,5 +25,4 @@ export class DatosMComponent implements OnInit {
     this.dameDatosM.ParamIn.Rif = this.codRif;
     this.dameDatosM.consultar(this.conectorService.info.URL_REST);
   }
-
-}
+  }

@@ -1,7 +1,8 @@
 import { Movimientos } from './../../../shared/classes/bvrdClass';
 import { Component, OnInit, Input } from '@angular/core';
-import { DamePosicionMAnt, DameCalendario } from '@laranda/lib-ultra-net';
+import { DamePosicionMAnt } from '@laranda/lib-ultra-net';
 import { ConectorService, ColorGrid } from '@laranda/lib-sysutil';
+
 
 @Component({
   selector: 'app-posicion-m-ant',
@@ -11,7 +12,7 @@ import { ConectorService, ColorGrid } from '@laranda/lib-sysutil';
 export class PosicionMAntComponent implements OnInit {
 
   dtColumnas: DataTables.ColumnSettings[] = [];
-
+  
   @Input() codRif: string;
   @Input() fecha: string;
   @Input() mov: Movimientos[] = [];
@@ -22,9 +23,10 @@ export class PosicionMAntComponent implements OnInit {
     private colorGrid: ColorGrid
   ) {
 
+
     this.dtColumnas = [
-      { title: this.colorGrid.tablaH('Clave'), data: 'Clave' },
-      { title:  this.colorGrid.tablaH('Producto'),
+        { title: this.colorGrid.tablaH('Clave'), data: 'Clave' },
+        { title:  this.colorGrid.tablaH('Producto'),
         data: null, render: (data: any, type: any, row: any, meta) => {
         let chara = data.Producto.substr(3, 100).trim();
         if (data.Producto.substr(0, 2) === 'MM') {
@@ -129,7 +131,6 @@ export class PosicionMAntComponent implements OnInit {
           return data.Efecfin;
         }
       }, className: 'dt-body-right' }
-      
     ];
   }
 
@@ -138,8 +139,6 @@ export class PosicionMAntComponent implements OnInit {
     this.damePosicionMAnt.visible = false;
     this.damePosicionMAnt.ParamIn.Rif = this.codRif;
     this.damePosicionMAnt.ParamIn.Fechin = this.fecha;
-
     this.damePosicionMAnt.consultar(this.conectorService.info.URL_REST);
-  }
-
+}
 }

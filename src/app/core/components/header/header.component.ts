@@ -63,6 +63,9 @@ export class HeaderComponent implements OnInit {
         this.codConsulta.emit([this.dameIDMRif.CadOut.Rif, tipo, '', '']);
       }).catch(e => e);
 
+    } else if (tipo === '9')  {  // && (this.codgoTitulo.length === 6))
+      this.codConsulta.emit(['', tipo, this.codgoTitulo.toUpperCase(), '']);
+
     } else if ((tipo === '2') && (((this.codgoTitulo.length === 6) || (this.codgoTitulo.length === 0)) &&
       ((this.codgoMoneda.length === 3) || (this.codgoMoneda.length === 0)))) {
       this.codConsulta.emit(['', tipo, this.codgoTitulo.toUpperCase(), this.codgoMoneda.toUpperCase()]);

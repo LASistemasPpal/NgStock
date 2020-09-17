@@ -1,3 +1,4 @@
+import { PospropiaService } from './../../../shared/services/pospropia.service';
 import { Component, OnInit } from '@angular/core';
 import {
   DameCalendario,

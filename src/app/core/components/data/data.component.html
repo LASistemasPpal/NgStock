@@ -125,7 +125,7 @@
   </div>
 </div>
 
-<app-datos-m *ngIf="consultaTipo === '1'" [codRif]="codigoCliente"></app-datos-m>
+<app-datos-m *ngIf="consultaTipo === '1' && codigoCliente !== ''" [codRif]="codigoCliente"></app-datos-m>
 <app-posicion-m-ant *ngIf="consultaTipo === '1'" [codRif]="codigoCliente" [fecha]="dameCalendario.CadOut.Fecha" [mov]="calculosRD.estadisticas.Movi"></app-posicion-m-ant>
 
 <app-cordenx *ngIf="consultaTipo === '2'" [codRif]="codigoCliente" [fecha]="dameCalendario.CadOut.Fecha" [titulo]="codigoTitulo"></app-cordenx>
@@ -137,5 +137,7 @@
 <app-operaciones-propias *ngIf="consultaTipo === '6'" [datos]="dameOperaciones.operacionBvrd[0].CadJson" [codISIN]="codigoTitulo" [codMoneda]="codigoMoneda" class="tabla-font-11"></app-operaciones-propias>
 
 <app-operacion-mrkt *ngIf="consultaTipo === '8'" [datos]="dameOperacionesMrkt.operacionBvrdMrkt[0].CadJson" [codISIN]="codigoTitulo" [codMoneda]="codigoMoneda" class="tabla-font-11"></app-operacion-mrkt>
+
+<app-posicion-propia *ngIf="consultaTipo === '9'"  [codISIN]="codigoTitulo" [mov]="calculosRD.estadisticas.Movi" class="tabla-font-11"></app-posicion-propia>
 
 <app-riesgo-liquidez *ngIf="consultaTipo === '7'" class="tabla-font-11"></app-riesgo-liquidez>
