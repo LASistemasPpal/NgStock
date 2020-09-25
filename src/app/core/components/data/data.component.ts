@@ -49,16 +49,18 @@ export class DataComponent implements OnInit {
     private colorGrid: ColorGrid
   ) {
     this.dtColumnasEjemplo = [
-      { title: this.colorGrid.tablaH('Titulo'), data: 'Cotitulo' },
+      { title: this.colorGrid.tablaH('Titulo'), data : null,
+      render: (data: any, type: any, row: any, meta) => {
+        return data.Cotitulo.substr(0,7) ;} },
       {
         title: this.colorGrid.tablaH('Mon'),
         data: null,
         render: (data: any, type: any, row: any, meta) => {
           return data.Moneda + ' ' + data.c_v + '-' + display_x(data.Cant,2,0) ;
-        },
+        }
       },
       {
-        title: this.colorGrid.tablaH('Nom Posturas'),
+        title: this.colorGrid.tablaH('Nom Posturas -> Transado'),
         data: null,
         className: 'dt-body-right',
         render: (data: any, type: any, row: any, meta) => {

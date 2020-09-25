@@ -1,7 +1,8 @@
-import { display_x, ColorGrid } from '@laranda/lib-sysutil';
+import  swal  from 'sweetalert2';
+import { display_x, ColorGrid, ConectorService } from '@laranda/lib-sysutil';
 import { Component, OnInit } from '@angular/core';
 import { DameRiesgoLiquidezServer } from './../../../shared/services/data-bvrd.service';
-import { AutenticaCli, DameTitulosAll } from '@laranda/lib-ultra-net';
+import { AutenticaCli, DameTitulosAll, CierreRiesgo } from '@laranda/lib-ultra-net';
 
 @Component({
   selector: 'app-riesgo-liquidez',
@@ -16,7 +17,9 @@ export class RiesgoLiquidezComponent implements OnInit {
     private autenticaCli: AutenticaCli,
     private dameTitulosAll: DameTitulosAll,
     public dameRiesgoLiquidezServer: DameRiesgoLiquidezServer,
-    private colorGrid: ColorGrid
+    private colorGrid: ColorGrid,
+    private cierreRiesgo: CierreRiesgo,
+    private conectorService: ConectorService
   ) {
     this.dtColumnas = [
       { title: this.colorGrid.tablaH('Isin'), data: 'codigoisin' },
@@ -46,5 +49,11 @@ export class RiesgoLiquidezComponent implements OnInit {
   
   ngOnInit(): void {
     this.dameRiesgoLiquidezServer.consultar(this.autenticaCli.CadOut.Usuariobv);
+    this.cierreRiesgo.ParamIn.Cadena = 1;
+    this.cierreRiesgo.consultar(this.conectorService.info.URL_REST);
+    // const cadena = 'cierreRiesgo';
+    // if (this.cierreRiesgo.CadOut.Status !== 0) {
+    //   swal.fire('Control de Acceso', 'Cierre Problem....'+this.cierreRiesgo.CadOut.Status+'  '+this.cierreRiesgo.CadOut.Mensaje+' '+cadena, 'info')
+    // }
   }
 }

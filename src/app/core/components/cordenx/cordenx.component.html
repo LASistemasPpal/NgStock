@@ -5,12 +5,18 @@
 </div>
 
 <div class="conteiner-12 mx-5">
-  <div class="row justify-content-center">
+  <div class="col pl-0 pt-4">
+    <div class="row justify-content-end">
+      <button class="btn LA-buttonColor" data-toggle="tooltip" data-placement="top" title="Enviar a la Bolsa"  (click)="setEnviar()"><i class="fas fa-chart-line"></i></button>
+      </div>        
+  </div>
+  <div class="row justify-content-center">    
     <h3 class="col text-center">Ordenes del día</h3>
   </div>
   <div class="row justify-content-center">
     <div class="col-12 my-4">
-      <lsy-tabla-la *ngIf="dameCOrdenX.visible" [columnas]="dtColumnasCOrdenX" [datosX]="dameCOrdenX.CadOut" class="my-4" class="tabla-font-12" [barraY]="'40vh'"></lsy-tabla-la>
+      <lsy-tabla-la *ngIf="dameCOrdenX.visible"  id="grdOrden" [columnas]="dtColumnasCOrdenX" [datosX]="dameCOrdenX.CadOut" class="my-4" class="tabla-font-12" [barraY]="'40vh'" [select]="true"></lsy-tabla-la>
     </div>
   </div>
+  
 </div>

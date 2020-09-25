@@ -9,19 +9,19 @@
         <div class="row">
           <div class="col pl-0">
             <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>{{ calculosRD.estadisticas.canti.PosturasM }}</strong></h1>
-            <p class="text-center">Posturas {{ calculosRD.estadisticas.canti.PosturasP }}</p>
+            <p class="text-nowrap">Posturas {{ calculosRD.estadisticas.canti.PosturasP }}</p>
           </div>
           <div class="col">
             <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>{{ calculosRD.estadisticas.canti.PrimarioM }}</strong></h1>
-            <p class="text-center">Primario {{ calculosRD.estadisticas.canti.PrimarioP }}</p>
+            <p class="text-nowrap">Primario {{ calculosRD.estadisticas.canti.PrimarioP }}</p>
           </div>
           <div class="col">
             <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>{{ calculosRD.estadisticas.canti.MarketMM }}</strong></h1>
-            <p class="text-center">MMakers {{ calculosRD.estadisticas.canti.MarketMP }}</p>
+            <p class="text-nowrap">MMakers {{ calculosRD.estadisticas.canti.MarketMP }}</p>
           </div>
           <div class="col">
             <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>{{ calculosRD.estadisticas.canti.OperacionesM }}</strong></h1>
-            <p class="text-center">Operac {{ calculosRD.estadisticas.canti.OperacionesP }}</p>
+            <p class="text-nowrap">Operac {{ calculosRD.estadisticas.canti.OperacionesP }}</p>
           </div>
         </div>
 
@@ -49,11 +49,11 @@
         </ng-template>
 
 
-        <p class="mb-0">Mas Transada DOP</p>
-        <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastransadaDOP }} / {{ calculosRD.estadisticas.MastranMtoDOP | number:'.2-2' }}</strong></p>
+        <p class="mb-0  ">Mas Transada DOP</p>
+        <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastransadaDOP }} / {{ calculosRD.estadisticas.MastranMtoDOP | number:'.0-0' }}</strong></p>   
 
         <p class="mb-0">Mas Transada USD</p>
-        <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastransadaUSD }} / {{ calculosRD.estadisticas.MastranMtoUSD | number:'.2-2' }}</strong></p>
+        <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastransadaUSD }} / {{ calculosRD.estadisticas.MastranMtoUSD | number:'.0-0' }}</strong></p>
 
         <p class="mb-0">Emisiones</p>
         <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.Emisiones }}</strong></p>
