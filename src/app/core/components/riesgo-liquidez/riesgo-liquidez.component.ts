@@ -46,10 +46,9 @@ export class RiesgoLiquidezComponent implements OnInit {
   }
 
 
-  
   ngOnInit(): void {
     this.dameRiesgoLiquidezServer.consultar(this.autenticaCli.CadOut.Usuariobv);
-    this.cierreRiesgo.ParamIn.Cadena = 1;
+    this.cierreRiesgo.ParamIn.Cadena = '1';
     this.cierreRiesgo.consultar(this.conectorService.info.URL_REST);
     // const cadena = 'cierreRiesgo';
     // if (this.cierreRiesgo.CadOut.Status !== 0) {

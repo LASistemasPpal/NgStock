@@ -4,7 +4,7 @@ import {
   DameCalendario,
   AutenticaCli,
   DameTitulosAll,
-  DameTitulos,
+  DameTitulos, DameCOrdenX
 } from '@laranda/lib-ultra-net';
 import { ConectorService, fechaHoy, display_x, ColorGrid } from '@laranda/lib-sysutil';
 import { Chart } from 'chart.js';
@@ -31,6 +31,7 @@ export class DataComponent implements OnInit {
   codigoTitulo = '';
   codigoMoneda = '';
   consultaTipo = '';
+  mecaOTC = false;
   fechaActual = fechaHoy();
   movimientos: Movimientos[];
 
@@ -46,7 +47,8 @@ export class DataComponent implements OnInit {
     public dameCalendario: DameCalendario,
     public dameRiesgoLiquidezServer: DameRiesgoLiquidezServer,
     public calculosRD: CalculosRD,
-    private colorGrid: ColorGrid
+    private colorGrid: ColorGrid,
+    public dameCOrdenX: DameCOrdenX
   ) {
     this.dtColumnasEjemplo = [
       { title: this.colorGrid.tablaH('Titulo'), data : null,
@@ -349,16 +351,38 @@ export class DataComponent implements OnInit {
     });
   }
 
+  consultarOrdenes(codigo: string[]) {
+    this.dameCOrdenX.visible = false;
+    this.dameCOrdenX.CadOut = [];
+    if (this.mecaOTC) {
+      this.dameCOrdenX.ParamIn.Nuorigen = 0;
+    } else {
+     this.dameCOrdenX.ParamIn.Nuorigen = 1;}
+//     this.dameCOrdenX.ParamIn.Desde    = this.fecha.replace(/\//g, '-');
+    this.dameCOrdenX.ParamIn.Desde    = this.dameCalendario.CadOut.Fecha.replace(/\//g, '-');
+
+    this.dameCOrdenX.ParamIn.Hasta    = this.dameCOrdenX.ParamIn.Desde;
+    this.dameCOrdenX.ParamIn.Rif      = codigo[0];
+    this.dameCOrdenX.ParamIn.Titulo   = codigo[2];
+    // this.dameCOrdenX.ParamIn.Rif      = this.codRif.toUpperCase();
+    // this.dameCOrdenX.ParamIn.Titulo   = this.titulo;
+    this.dameCOrdenX.consultar(this.conectorService.info.URL_REST);
+  }
+
   consultarGeneral(codigo: string[]) {
 
     this.codigoCliente = codigo[0];
     this.consultaTipo = codigo[1];
     this.codigoTitulo = codigo[2];
     this.codigoMoneda = codigo[3];
+    this.mecaOTC = codigo[4] === 'OTC';
 
+    if (this.consultaTipo === '2') {
+      this.consultarOrdenes(codigo);
+    }
     if (this.consultaTipo === '3') {
-      this.calculosRD.visibleMovi = false;
-      this.procesarCalculos(this.codigoTitulo, this.codigoMoneda);
+        this.calculosRD.visibleMovi = false;
+        this.procesarCalculos(this.codigoTitulo, this.codigoMoneda);
     }
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DameCOrdenX } from '@laranda/lib-ultra-net';
+import { DameCOrdenX, CierreRiesgo } from '@laranda/lib-ultra-net';
 import { ConectorService, display_d } from '@laranda/lib-sysutil';
 import swal from 'sweetalert2';
 
@@ -14,6 +14,7 @@ export class CordenxComponent implements OnInit {
   @Input() codRif: string;
   @Input() fecha: string;
   @Input() titulo: string;
+  @Input() mecaOTC: boolean;
 
   dtColumnasCOrdenX: DataTables.ColumnSettings[] = [];
 
@@ -48,6 +49,7 @@ export class CordenxComponent implements OnInit {
   constructor(
     public dameCOrdenX: DameCOrdenX,
     private conectorService: ConectorService,
+    private cierreRiesgo: CierreRiesgo
   ) {
 
     this.dtColumnasCOrdenX = [
@@ -59,22 +61,31 @@ export class CordenxComponent implements OnInit {
       { title: 'User', data: 'User' },
       { title: 'Titulo', data: 'Producto' },
       { title: 'Cant./Monto', data: 'Camonto', className: 'dt-body-right' },
-      { title: 'Prec/Rend/Venc', data: 'Precio1', className: 'dt-body-right' },
+      { title: 'Prec / Rend', data: 'Precio1', className: 'dt-body-right' },
       { title: 'Ejecutivo', data: 'Ejecutivo' },
-      { title: 'Observacion', data: 'Observacion' }
+      { title: 'Postura', data: 'Observacion2' },
+      { title: 'Observac', data: 'Observacion' }
     ];
   }
 
   ngOnInit(): void {
 
     $('[data-toggle="tooltip"]').tooltip();
-    this.dameCOrdenX.ParamIn.Desde    = this.fecha.replace(/\//g, '-');
-    this.dameCOrdenX.ParamIn.Hasta    = this.dameCOrdenX.ParamIn.Desde;
-    this.dameCOrdenX.ParamIn.Nuorigen = 1;
-    this.dameCOrdenX.ParamIn.Rif      = this.codRif.toUpperCase();
-    this.dameCOrdenX.ParamIn.Titulo   = this.titulo;
-    this.dameCOrdenX.consultar(this.conectorService.info.URL_REST);
+    //this.consultarOrdenes();
   }
+
+  // consultarOrdenes() {
+  //   this.dameCOrdenX.visible = false;
+  //   this.dameCOrdenX.ParamIn.Desde    = this.fecha.replace(/\//g, '-');
+  //   this.dameCOrdenX.ParamIn.Hasta    = this.dameCOrdenX.ParamIn.Desde;
+  //   if (this.mecaOTC) {
+  //     this.dameCOrdenX.ParamIn.Nuorigen = 0;
+  //   } else {
+  //    this.dameCOrdenX.ParamIn.Nuorigen = 1;}
+  //   this.dameCOrdenX.ParamIn.Rif      = this.codRif.toUpperCase();
+  //   this.dameCOrdenX.ParamIn.Titulo   = this.titulo;
+  //   this.dameCOrdenX.consultar(this.conectorService.info.URL_REST);
+  // }
 
   setEnviar() {
     const registro = document.querySelectorAll('#grdOrden>div>div.dataTables_scroll>div.dataTables_scrollBody>table>tbody>tr.selected>td:first-child');
@@ -132,9 +143,8 @@ export class CordenxComponent implements OnInit {
         confirmButtonText: 'Confirmar'
       }).then((result) => {
         if (result.value) {
-          // this.insertaBovim.ParamIn = resultado[0];
-          // this.insertaBovim.consultar(this.conectorService.info.URL_REST_LA)
-          //   .then(() => this.setRecalcula.emit(null));
+          this.cierreRiesgo.ParamIn.Cadena = '1/' + resultado[0].Numeroordennew;
+          this.cierreRiesgo.consultar(this.conectorService.info.URL_REST);
         }
       });
     }
