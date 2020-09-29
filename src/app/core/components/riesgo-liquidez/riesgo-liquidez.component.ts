@@ -52,7 +52,8 @@ export class RiesgoLiquidezComponent implements OnInit {
     this.cierreRiesgo.consultar(this.conectorService.info.URL_REST);
     // const cadena = 'cierreRiesgo';
     // if (this.cierreRiesgo.CadOut.Status !== 0) {
-    //   swal.fire('Control de Acceso', 'Cierre Problem....'+this.cierreRiesgo.CadOut.Status+'  '+this.cierreRiesgo.CadOut.Mensaje+' '+cadena, 'info')
+    //   swal.fire('Control de Acceso', 'Cierre Problem....'+this.cierreRiesgo.CadOut.Status+'  '+
+    //  this.cierreRiesgo.CadOut.Mensaje+' '+cadena, 'info')
     // }
   }
 }

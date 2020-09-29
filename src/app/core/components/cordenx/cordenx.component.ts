@@ -132,10 +132,6 @@ export class CordenxComponent implements OnInit {
                 <div class="col-8"><p class="m-0 text-left">${resultado[0].Precio}</p></div>
             </div>
           </div>`,
-            // <div class="row rounded-LA LA-borderFooter pt-2">
-            //     <div class="col-4 p-0 pl-2"><p class="m-0 text-left">Tipo de Cambio:</p></div>
-            //     <div class="col-8"><p class="m-0 text-left">${display_d(resultado[0].TasaDivisa, 10, 4)}</p></div>
-            // </div>
         icon: 'question',
         showCancelButton: true,
         cancelButtonText: 'Cancelar',

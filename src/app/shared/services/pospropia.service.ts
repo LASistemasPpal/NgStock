@@ -19,15 +19,15 @@ export class PospropiaService {
                 const param = {
                   Tabla: 'TS',
                   Bdtxt: 'B',
-                  Filtro: ` nu_mesa = 1 and sw_act_pas = 0  and mt_ts > 0 and tp_operac =  1 and co_titulo = \'${codigoTitulo}\'`
+                  Filtro: ` nu_mesa = 1 and sw_act_pas = 0  and mt_ts > 0 and co_titulo = \'${codigoTitulo}\'`
                 };
                 if (codigoTitulo === '')  {
-                  param.Filtro = ` nu_mesa = 1 and sw_act_pas = 0  and mt_ts > 0 and tp_operac =  1 `;
+                  param.Filtro = ` nu_mesa = 1 and sw_act_pas = 0  and mt_ts > 0 and tp_operac >=  1 and tp_operac <=  2  `;
                 }
             //  LE QUITA EL EL S EN TS .. PROBLEMA DE DAME GENERICO
                 return this.aPIRest.post_REST(this.conectorService.info.URL_REST, 'WDame_Generico', 'T', true, param);
               }
-            
+
               consultar(codigoTitulo: string) {
                 return new Promise(( resolve, reject ) => {
                   this.buscarPost_REST(codigoTitulo).subscribe((datosX) => {
@@ -42,5 +42,5 @@ export class PospropiaService {
                     }
                   });
                 });
-              }              
+              }
 }

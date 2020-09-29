@@ -78,6 +78,8 @@ export class LoginComponent implements OnInit {
     if (this.formLogin.valid) {
       this.autenticaCli.ParamIn.User = this.formLogin.value.user;
       this.autenticaCli.ParamIn.Pass = this.formLogin.value.password;
+      sessionStorage.setItem('nmcliente',JSON.stringify(this.ConfigCadout.CadJson.Nombre)); 
+      // sessionStorage.setItem('nmcliente',this.ConfigCadout.CadJson.Nombre);
       this.conectorService.getParametros().then(() => {
         if (this.ConfigCadout.CadJson !== undefined && this.ConfigCadout.CadJson.Nombre.indexOf('SUSP') >= 0) {
           swal.fire({
