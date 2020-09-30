@@ -61,7 +61,13 @@ export class CordenxComponent implements OnInit {
       { title: 'User', data: 'User' },
       { title: 'Titulo', data: 'Producto' },
       { title: 'Cant./Monto', data: 'Camonto', className: 'dt-body-right' },
-      { title: 'Prec / Rend', data: 'Precio1', className: 'dt-body-right' },
+      { title: 'Prec / Rend', data: null, render: (data: any, type: any, row: any, meta) => {
+        // let prec = '.';
+        // if (data.Concepto.substr(0, 1) === '0') {prec = data.Precio1;}
+        //    else {prec = data.Rend.trim(); }
+        // return prec; }, 
+         return (data.Concepto.substr(0, 1) === '0') ?  data.Precio1 : data.Rend.trim() + '00'; },
+         className: 'dt-body-right'},
       { title: 'Ejecutivo', data: 'Ejecutivo' },
       { title: 'Postura', data: 'Observacion2' },
       { title: 'Observac', data: 'Observacion' }
@@ -74,18 +80,18 @@ export class CordenxComponent implements OnInit {
     //this.consultarOrdenes();
   }
 
-  // consultarOrdenes() {
-  //   this.dameCOrdenX.visible = false;
-  //   this.dameCOrdenX.ParamIn.Desde    = this.fecha.replace(/\//g, '-');
-  //   this.dameCOrdenX.ParamIn.Hasta    = this.dameCOrdenX.ParamIn.Desde;
-  //   if (this.mecaOTC) {
-  //     this.dameCOrdenX.ParamIn.Nuorigen = 0;
-  //   } else {
-  //    this.dameCOrdenX.ParamIn.Nuorigen = 1;}
-  //   this.dameCOrdenX.ParamIn.Rif      = this.codRif.toUpperCase();
-  //   this.dameCOrdenX.ParamIn.Titulo   = this.titulo;
-  //   this.dameCOrdenX.consultar(this.conectorService.info.URL_REST);
-  // }
+  consultarOrdenes() {
+    this.dameCOrdenX.visible = false;
+    this.dameCOrdenX.ParamIn.Desde    = this.fecha.replace(/\//g, '-');
+    this.dameCOrdenX.ParamIn.Hasta    = this.dameCOrdenX.ParamIn.Desde;
+    if (this.mecaOTC) {
+      this.dameCOrdenX.ParamIn.Nuorigen = 0;
+    } else {
+     this.dameCOrdenX.ParamIn.Nuorigen = 1;}
+    this.dameCOrdenX.ParamIn.Rif      = this.codRif.toUpperCase();
+    this.dameCOrdenX.ParamIn.Titulo   = this.titulo;
+    this.dameCOrdenX.consultar(this.conectorService.info.URL_REST);
+  }
 
   setEnviar() {
     const registro = document.querySelectorAll('#grdOrden>div>div.dataTables_scroll>div.dataTables_scrollBody>table>tbody>tr.selected>td:first-child');
@@ -140,7 +146,9 @@ export class CordenxComponent implements OnInit {
       }).then((result) => {
         if (result.value) {
           this.cierreRiesgo.ParamIn.Cadena = '1/' + resultado[0].Numeroordennew;
-          this.cierreRiesgo.consultar(this.conectorService.info.URL_REST);
+          this.cierreRiesgo.consultar(this.conectorService.info.URL_REST)
+              .then (() => this.consultarOrdenes)
+              .catch((error) => console.log('%ccatch Error: %o', 'background-color: red; color: #fff; font-size: 16px', error));
         }
       });
     }
