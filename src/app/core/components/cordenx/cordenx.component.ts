@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DameCOrdenX } from '@laranda/lib-ultra-net';
+import { DameCOrdenX, CierreRiesgo } from '@laranda/lib-ultra-net';
 import { ConectorService, display_d } from '@laranda/lib-sysutil';
 import swal from 'sweetalert2';
 
@@ -14,6 +14,7 @@ export class CordenxComponent implements OnInit {
   @Input() codRif: string;
   @Input() fecha: string;
   @Input() titulo: string;
+  @Input() mecaOTC: boolean;
 
   dtColumnasCOrdenX: DataTables.ColumnSettings[] = [];
 
@@ -48,6 +49,7 @@ export class CordenxComponent implements OnInit {
   constructor(
     public dameCOrdenX: DameCOrdenX,
     private conectorService: ConectorService,
+    private cierreRiesgo: CierreRiesgo
   ) {
 
     this.dtColumnasCOrdenX = [
@@ -59,18 +61,33 @@ export class CordenxComponent implements OnInit {
       { title: 'User', data: 'User' },
       { title: 'Titulo', data: 'Producto' },
       { title: 'Cant./Monto', data: 'Camonto', className: 'dt-body-right' },
-      { title: 'Prec/Rend/Venc', data: 'Precio1', className: 'dt-body-right' },
+      { title: 'Prec / Rend', data: null, render: (data: any, type: any, row: any, meta) => {
+        // let prec = '.';
+        // if (data.Concepto.substr(0, 1) === '0') {prec = data.Precio1;}
+        //    else {prec = data.Rend.trim(); }
+        // return prec; }, 
+         return (data.Concepto.substr(0, 1) === '0') ?  data.Precio1 : data.Rend.trim() + '00'; },
+         className: 'dt-body-right'},
       { title: 'Ejecutivo', data: 'Ejecutivo' },
-      { title: 'Observacion', data: 'Observacion' }
+      { title: 'Postura', data: 'Observacion2' },
+      { title: 'Observac', data: 'Observacion' }
     ];
   }
 
   ngOnInit(): void {
 
     $('[data-toggle="tooltip"]').tooltip();
+    //this.consultarOrdenes();
+  }
+
+  consultarOrdenes() {
+    this.dameCOrdenX.visible = false;
     this.dameCOrdenX.ParamIn.Desde    = this.fecha.replace(/\//g, '-');
     this.dameCOrdenX.ParamIn.Hasta    = this.dameCOrdenX.ParamIn.Desde;
-    this.dameCOrdenX.ParamIn.Nuorigen = 1;
+    if (this.mecaOTC) {
+      this.dameCOrdenX.ParamIn.Nuorigen = 0;
+    } else {
+     this.dameCOrdenX.ParamIn.Nuorigen = 1;}
     this.dameCOrdenX.ParamIn.Rif      = this.codRif.toUpperCase();
     this.dameCOrdenX.ParamIn.Titulo   = this.titulo;
     this.dameCOrdenX.consultar(this.conectorService.info.URL_REST);
@@ -121,10 +138,6 @@ export class CordenxComponent implements OnInit {
                 <div class="col-8"><p class="m-0 text-left">${resultado[0].Precio}</p></div>
             </div>
           </div>`,
-            // <div class="row rounded-LA LA-borderFooter pt-2">
-            //     <div class="col-4 p-0 pl-2"><p class="m-0 text-left">Tipo de Cambio:</p></div>
-            //     <div class="col-8"><p class="m-0 text-left">${display_d(resultado[0].TasaDivisa, 10, 4)}</p></div>
-            // </div>
         icon: 'question',
         showCancelButton: true,
         cancelButtonText: 'Cancelar',
@@ -132,9 +145,10 @@ export class CordenxComponent implements OnInit {
         confirmButtonText: 'Confirmar'
       }).then((result) => {
         if (result.value) {
-          // this.insertaBovim.ParamIn = resultado[0];
-          // this.insertaBovim.consultar(this.conectorService.info.URL_REST_LA)
-          //   .then(() => this.setRecalcula.emit(null));
+          this.cierreRiesgo.ParamIn.Cadena = '1/' + resultado[0].Numeroordennew;
+          this.cierreRiesgo.consultar(this.conectorService.info.URL_REST)
+              .then (() => this.consultarOrdenes)
+              .catch((error) => console.log('%ccatch Error: %o', 'background-color: red; color: #fff; font-size: 16px', error));
         }
       });
     }

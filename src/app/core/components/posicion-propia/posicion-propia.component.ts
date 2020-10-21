@@ -13,12 +13,12 @@ import { Movimientos } from 'src/app/shared/classes/bvrdClass';
 export class PosicionPropiaComponent implements OnInit {
 
   dtColumnas: DataTables.ColumnSettings[] = [];
-  user : '';
+  user: '';
+  nmcliente: '';
 
-  
   @Input() codISIN: string;
   @Input() mov: Movimientos[] = [];
-  
+
   constructor(private conectorService: ConectorService,
               private colorGrid: ColorGrid,
               public pospropiaService: PospropiaService,
@@ -28,7 +28,9 @@ export class PosicionPropiaComponent implements OnInit {
                 this.dtColumnas = [
                   { title: this.colorGrid.tablaH('Nro Ts'), data: 'Numero' },
                   { title: this.colorGrid.tablaH('Moneda'), data: null, render: (data: any, type: any, row: any, meta) => {
-                     return ceros(lintstr(data.Moneda, 3)); }, className: 'dt-body-center'},
+                    let tp = 'RFij ';
+                    if (data.Tpoperac === '2') { tp = 'RVar '; } 
+                    return  tp + ceros(lintstr(data.Moneda, 3)); }, className: 'dt-body-center'},
                   { title: this.colorGrid.tablaH('Veh-Cart'),  data: null, render: (data: any, type: any, row: any, meta) => {
                      return ceros(lintstr(data.Vehiculo, 2)) + '-' + ceros(lintstr(data.Cartera, 2)); }, className: 'dt-body-center'},
                   { title: this.colorGrid.tablaH('Fec Compra'),  data: 'Apertura', className: 'dt-body-center'},
@@ -68,7 +70,9 @@ export class PosicionPropiaComponent implements OnInit {
   ngOnInit(): void {
     this.pospropiaService.Ts = [];
     this.pospropiaService.visible = false;
-    this.user = JSON.parse(sessionStorage.getItem('user'))
+    this.user = JSON.parse(sessionStorage.getItem('user'));
+    this.nmcliente = JSON.parse(sessionStorage.getItem('nmcliente'));
+    
     this.damePermisoUsuario.CadOut = [];
     this.damePermisoUsuario.visible = false;
     this.damePermisoUsuario.ParamIn.Codigo = 'BA011';

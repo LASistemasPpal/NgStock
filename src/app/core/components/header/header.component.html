@@ -48,22 +48,24 @@
             </button>
             <div class="dropdown-menu">
               <a class="dropdown-item pointer" (click)="getConsultar('1')"><i class="fas mr-2 fa-search"></i>Buscar Cliente</a>
-              <a class="dropdown-item pointer" (click)="getConsultar('2')"><i class="fas mr-2 fa-portrait"></i>Ordenes del dia</a>
+              <a *ngIf="!mecaOTC" class="dropdown-item pointer" (click)="getConsultar('2')"><i class="fas mr-2 fa-portrait"></i>Ordenes Bolsa</a>
+              <a *ngIf="mecaOTC" class="dropdown-item pointer" (click)="getConsultar('2')"><i class="fas mr-2 fa-portrait"></i>Ordenes OTC</a>
               <a class="dropdown-item pointer" (click)="getConsultar('9')"><i class="fas mr-2 fa-shower"></i>Posicion Propia</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item pointer" (click)="getConsultar('3')"><i class="fas mr-2 fa-sync"></i>Refrescar Datos</a>
-              <a class="dropdown-item pointer" (click)="getConsultar('4')"><i class="fas mr-2 fa-bezier-curve"></i>Posturas Propias</a>
-              <a class="dropdown-item pointer" (click)="getConsultar('5')"><i class="fas mr-2 fa-box-open"></i>Posturas Mercado</a>
-              <a class="dropdown-item pointer" (click)="getConsultar('6')"><i class="fas mr-2 fa-battery-quarter"></i>Operaciones Propias</a>
-              <a class="dropdown-item pointer" (click)="getConsultar('8')"><i class="fas mr-2 fa-battery-full"></i>Operaciones Mercado</a>
-              <a class="dropdown-item pointer" (click)="getConsultar('7')"><i class="fab mr-2 fa-hotjar"></i>Riesgo Liquidez</a>
+              <a *ngIf="!mecaOTC" class="dropdown-item pointer" (click)="getConsultar('4')"><i class="fas mr-2 fa-bezier-curve"></i>Posturas Propias</a>
+              <a *ngIf="!mecaOTC" class="dropdown-item pointer" (click)="getConsultar('5')"><i class="fas mr-2 fa-box-open"></i>Posturas Mercado</a>
+              <a *ngIf="!mecaOTC" class="dropdown-item pointer" (click)="getConsultar('6')"><i class="fas mr-2 fa-battery-quarter"></i>Operaciones Propias</a>
+              <a *ngIf="!mecaOTC" class="dropdown-item pointer" (click)="getConsultar('8')"><i class="fas mr-2 fa-battery-full"></i>Operaciones Mercado</a>
+              <a *ngIf="!mecaOTC" class="dropdown-item pointer" (click)="getConsultar('7')"><i class="fab mr-2 fa-hotjar"></i>Riesgo Liquidez</a>
+              <a *ngIf="mecaOTC" class="dropdown-item pointer" (click)="getConsultar('A')"><i class="fas mr-2 fa-battery-full"></i>Operaciones OTC</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item pointer" (click)="autenticaCli.logOut()"><i class="fas mr-2 fa-sign-in-alt"></i>Cerrar Sesión</a>
             </div>
           </div>
 
-          <div class="row mt-3">
-            <input type="checkbox" name="hola" id="cb1" class="tgl tgl-ios">
+          <div class="row mt-4">
+            <input type="checkbox" name="meca" id="cb1" class="tgl tgl-ios"  [(ngModel)]="mecaOTC">
             <label for="cb1" class="tgl-btn text-center"></label>
             <p class="ml-2 mt-1">Mercado </p>
           </div>

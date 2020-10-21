@@ -13,6 +13,8 @@ export class HeaderComponent implements OnInit {
   codgoCliente = '';
   codgoTitulo = '';
   codgoMoneda = '';
+  OTC = '';
+  mecaOTC = false;
 
   @Output() codConsulta = new EventEmitter<string[]>();
 
@@ -54,12 +56,14 @@ export class HeaderComponent implements OnInit {
 
   getConsultar(tipo: string) {
     this.dameTitulos.ParamIn.Cotitulo = '';
+    this.OTC = '';
+    if (this.mecaOTC) {this.OTC = 'OTC'; }
 
     if ((tipo === '1') && (this.codgoCliente.length === 6)) {
       this.dameIDMRif.ParamIn.Id = this.codgoCliente.toUpperCase();
       this.dameIDMRif.ParamIn.Cual = 'I';
       this.dameIDMRif.consultar(this.conectorService.info.URL_REST).then(() => {
-        this.codConsulta.emit([this.dameIDMRif.CadOut.Rif, tipo, '', '']);
+        this.codConsulta.emit([this.dameIDMRif.CadOut.Rif, tipo, '', '', '']);
       }).catch(e => e);
 
     } else if (tipo === '9')  {  
@@ -69,19 +73,35 @@ export class HeaderComponent implements OnInit {
         this.dameTitulos.ParamIn.Vigencia = 0;
         this.dameTitulos.ParamIn.Moneda = 99;
         this.dameTitulos.consultar(this.conectorService.info.URL_REST).then(() => {
-          this.codConsulta.emit(['', tipo, this.codgoTitulo.toUpperCase(), '']);
+          this.codConsulta.emit(['', tipo, this.codgoTitulo.toUpperCase(), '', '']);
         });
       }
        else {
-      this.codConsulta.emit(['', tipo, this.codgoTitulo.toUpperCase(), ''])};
+      this.codConsulta.emit(['', tipo, this.codgoTitulo.toUpperCase(), '', ''])};
 
     } 
     else if ((tipo === '2') && (((this.codgoTitulo.length === 6) || (this.codgoTitulo.length === 0)) &&
       ((this.codgoMoneda.length === 3) || (this.codgoMoneda.length === 0)))) {
-      this.codConsulta.emit(['', tipo, this.codgoTitulo.toUpperCase(), this.codgoMoneda.toUpperCase()]);
+      this.codConsulta.emit(['', tipo, this.codgoTitulo.toUpperCase(), this.codgoMoneda.toUpperCase(), this.OTC]);
 
     } 
-    else if (((tipo === '3') || (tipo === '4') || (tipo === '5') || (tipo === '6') || (tipo === '8')) &&
+    else
+     if (tipo === 'A') {  // OTC
+      if (this.codgoTitulo.length === 6) {
+        this.dameTitulos.ParamIn.Cotitulo = this.codgoTitulo.toUpperCase();
+        this.dameTitulos.ParamIn.Mrkt = '';
+        this.dameTitulos.ParamIn.Vigencia = 0;
+        this.dameTitulos.ParamIn.Moneda = 99;
+
+        this.dameTitulos.consultar(this.conectorService.info.URL_REST).then(() => {
+          this.codConsulta.emit(['', tipo, this.dameTitulos.CadOut.Isin, this.codgoMoneda.toUpperCase(), '']);
+        });
+      } else {
+        this.codConsulta.emit(['', tipo, this.codgoTitulo.toUpperCase(), this.codgoMoneda.toUpperCase(), '']);
+      }
+
+     } else { //   bolsa de valores
+     if (((tipo === '3') || (tipo === '4') || (tipo === '5') || (tipo === '6') || (tipo === '8')) &&
         (((this.codgoTitulo.length === 6) || (this.codgoTitulo.length === 0)) &&
         ((this.codgoMoneda.length === 3) || (this.codgoMoneda.length === 0)))) {
 
@@ -92,14 +112,15 @@ export class HeaderComponent implements OnInit {
         this.dameTitulos.ParamIn.Moneda = 99;
 
         this.dameTitulos.consultar(this.conectorService.info.URL_REST).then(() => {
-          this.codConsulta.emit(['', tipo, this.dameTitulos.CadOut.Isin, this.codgoMoneda.toUpperCase()]);
+          this.codConsulta.emit(['', tipo, this.dameTitulos.CadOut.Isin, this.codgoMoneda.toUpperCase(), '']);
         });
       } else {
-        this.codConsulta.emit(['', tipo, this.codgoTitulo.toUpperCase(), this.codgoMoneda.toUpperCase()]);
+        this.codConsulta.emit(['', tipo, this.codgoTitulo.toUpperCase(), this.codgoMoneda.toUpperCase(), '']);
       }
-    } else 
+    } else
     if ((tipo === '0') || (tipo === '7')){
-      this.codConsulta.emit(['', tipo, '', '']);
+      this.codConsulta.emit(['', tipo, '', '', '']);
     }
+  }
   }
 }

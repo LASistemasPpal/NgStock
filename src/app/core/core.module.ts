@@ -30,6 +30,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AppRoutingModule } from './../app-routing.module';
 import { OperacionMrktComponent } from './components/operacion-mrkt/operacion-mrkt.component';
 import { PosicionPropiaComponent } from './components/posicion-propia/posicion-propia.component';
+import { OperacionesOtcComponent } from './components/operaciones-otc/operaciones-otc.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { PosicionPropiaComponent } from './components/posicion-propia/posicion-p
     PosturasSiopelComponent,
     RiesgoLiquidezComponent,
     OperacionMrktComponent,
-    PosicionPropiaComponent
+    PosicionPropiaComponent,
+    OperacionesOtcComponent
   ],
   imports: [
     CommonModule,
