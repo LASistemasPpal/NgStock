@@ -267,7 +267,7 @@ export class CalculosRD {
         this.estadisticas.posi = this.indexMovimientos(
           this.estadisticas.Movi,
           bvrdOperM.CodigoISIN,
-          'C' //bvrdOperM.PosicionCompraVenta
+          'C' // bvrdOperM.PosicionCompraVenta
         );
         if (this.estadisticas.posi < 0) {
           CodLA = this.dameTitulosAll.getCodTituloLA(bvrdOperM.CodigoISIN);
