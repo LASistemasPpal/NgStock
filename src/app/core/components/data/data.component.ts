@@ -371,19 +371,20 @@ export class DataComponent implements OnInit {
 
   consultarGeneral(codigo: string[]) {
 
-    this.codigoCliente = codigo[0];
-    this.consultaTipo = codigo[1];
-    this.codigoTitulo = codigo[2];
-    this.codigoMoneda = codigo[3];
-    this.mecaOTC = codigo[4] === 'OTC';
-
-    if (this.consultaTipo === '2') {
-      this.consultarOrdenes(codigo);
-    }
-    if (this.consultaTipo === '3') {
-        this.calculosRD.visibleMovi = false;
-        this.procesarCalculos(this.codigoTitulo, this.codigoMoneda);
-    }
+      this.codigoCliente = codigo[0];
+      if (codigo[1] !== '0'  && codigo[1] !== '')  {
+           this.consultaTipo = codigo[1];
+           }
+      this.codigoTitulo = codigo[2];
+      this.codigoMoneda = codigo[3];
+      this.mecaOTC = codigo[4] === 'OTC';
+      if (this.consultaTipo === '2') {
+        this.consultarOrdenes(codigo);
+      }
+      if (this.consultaTipo === '3') {
+          this.calculosRD.visibleMovi = false;
+          this.procesarCalculos(this.codigoTitulo, this.codigoMoneda);
+      }
   }
 
   mensajeError(metodo: string, status: number, mensaje: string) {
