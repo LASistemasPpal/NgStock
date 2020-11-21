@@ -66,7 +66,7 @@ export class HeaderComponent implements OnInit {
         this.codConsulta.emit([this.dameIDMRif.CadOut.Rif, tipo, '', '', '']);
       }).catch(e => e);
 
-    } else if (tipo === '9')  {  
+    } else if (tipo === '9')  {
       if (this.codgoTitulo.length === 6) {
         this.dameTitulos.ParamIn.Cotitulo = this.codgoTitulo.toUpperCase();
         this.dameTitulos.ParamIn.Mrkt = '';
@@ -77,14 +77,14 @@ export class HeaderComponent implements OnInit {
         });
       }
        else {
-      this.codConsulta.emit(['', tipo, this.codgoTitulo.toUpperCase(), '', ''])};
+      this.codConsulta.emit(['', tipo, this.codgoTitulo.toUpperCase(), '', '']); }
 
-    } 
+    }
     else if ((tipo === '2') && (((this.codgoTitulo.length === 6) || (this.codgoTitulo.length === 0)) &&
       ((this.codgoMoneda.length === 3) || (this.codgoMoneda.length === 0)))) {
       this.codConsulta.emit(['', tipo, this.codgoTitulo.toUpperCase(), this.codgoMoneda.toUpperCase(), this.OTC]);
 
-    } 
+    }
     else
      if (tipo === 'A') {  // OTC
       if (this.codgoTitulo.length === 6) {

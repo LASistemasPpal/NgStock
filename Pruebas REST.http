@@ -188,3 +188,14 @@ POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/T
   }
 }
 ###
+
+POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/TView/WRestDame_cliente
+
+{
+  "Josn": "True",
+  "Param": {
+    "Nucli": 329,
+    "Url": "http://laverserver.eastus.cloudapp.azure.com:8089/Pview/PViewISAPI.dll/la/rest/TView/WDame_cliente"
+  }
+}
+###

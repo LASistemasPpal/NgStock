@@ -65,7 +65,7 @@ export class CordenxComponent implements OnInit {
         // let prec = '.';
         // if (data.Concepto.substr(0, 1) === '0') {prec = data.Precio1;}
         //    else {prec = data.Rend.trim(); }
-        // return prec; }, 
+        // return prec; },
          return (data.Concepto.substr(0, 1) === '0') ?  data.Precio1 : data.Rend.trim() + '00'; },
          className: 'dt-body-right'},
       { title: 'Ejecutivo', data: 'Ejecutivo' },
@@ -77,7 +77,7 @@ export class CordenxComponent implements OnInit {
   ngOnInit(): void {
 
     $('[data-toggle="tooltip"]').tooltip();
-    //this.consultarOrdenes();
+    // this.consultarOrdenes();
   }
 
   consultarOrdenes() {
@@ -87,7 +87,7 @@ export class CordenxComponent implements OnInit {
     if (this.mecaOTC) {
       this.dameCOrdenX.ParamIn.Nuorigen = 0;
     } else {
-     this.dameCOrdenX.ParamIn.Nuorigen = 1;}
+     this.dameCOrdenX.ParamIn.Nuorigen = 1; }
     this.dameCOrdenX.ParamIn.Rif      = this.codRif.toUpperCase();
     this.dameCOrdenX.ParamIn.Titulo   = this.titulo;
     this.dameCOrdenX.consultar(this.conectorService.info.URL_REST);

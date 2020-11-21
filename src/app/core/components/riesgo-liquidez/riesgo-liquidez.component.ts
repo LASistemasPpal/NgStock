@@ -1,4 +1,4 @@
-import  swal  from 'sweetalert2';
+import swal from 'sweetalert2';
 import { display_x, ColorGrid, ConectorService } from '@laranda/lib-sysutil';
 import { Component, OnInit } from '@angular/core';
 import { DameRiesgoLiquidezServer } from './../../../shared/services/data-bvrd.service';
@@ -12,7 +12,7 @@ import { AutenticaCli, DameTitulosAll, CierreRiesgo } from '@laranda/lib-ultra-n
 export class RiesgoLiquidezComponent implements OnInit {
 
   dtColumnas: DataTables.ColumnSettings[] = [];
-  
+
   constructor(
     private autenticaCli: AutenticaCli,
     private dameTitulosAll: DameTitulosAll,

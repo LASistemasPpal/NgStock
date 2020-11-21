@@ -150,7 +150,7 @@ export class CalculosRD {
         //   bvrdMJson.Estatus !== 'Vigente' &&
         //   bvrdMJson.PosicionCompraVenta === 'C'
         // ) {
-          
+
         // }
 
         if (bvrdMJson.Estatus === 'Calzada') {
@@ -219,13 +219,13 @@ export class CalculosRD {
         } // seleccion por isin para graficos o por moneda
       }
     } // lectura de posturas mercado
-    
+
    // recorrido  operaciones propias
     if (this.bvrdOper.operacionBvrd[0] !== undefined) {
     for (const bvrdJson of this.bvrdOper.operacionBvrd[0].CadJson) {
       if (bvrdJson.CodigoISIN === this.estadisticas.isinsel ||
         this.estadisticas.isinsel === '') {
-      if (bvrdJson.NombreMercado.substr(0,4) === 'Crea') {
+      if (bvrdJson.NombreMercado.substr(0, 4) === 'Crea') {
                  this.estadisticas.canti.MarketMP =
                    this.estadisticas.canti.MarketMP + 1;
                } else  {
@@ -414,7 +414,7 @@ export class CalculosRD {
                   this.estadisticas.canti.PrimarioP =
                     this.estadisticas.canti.PrimarioP + 1;
                 }
-                
+
               }
             }
           }

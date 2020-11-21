@@ -23,7 +23,7 @@ export class OperacionesPropiasComponent implements OnInit {
       // { title: 'CantidadTitulos', data: 'CantidadTitulos', className: 'dt-body-right' },
       { title:  this.colorGrid.tablaH('ISIN'), data: 'CodigoISIN' },
   //    { title:  this.colorGrid.tablaH('Emisor'), data: 'CodEmisorBVRD' },
-      
+
       { title:  this.colorGrid.tablaH('Estatus'), data: 'Estatus' },
       { title:  this.colorGrid.tablaH('Fecha Liq'), data: null, render: (data: any, type: any, row: any, meta) => {
         return HTfech_a_fech(data.FechaLiquidacion).substr(0, 10);
@@ -46,7 +46,7 @@ export class OperacionesPropiasComponent implements OnInit {
       // { title: 'TasaCompra', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
       //   return display_x(data.TasaCompra, 10, 2);
       // } }
-      { title:  this.colorGrid.tablaH('Nominal'), data: null, className: 'dt-body-right',  
+      { title:  this.colorGrid.tablaH('Nominal'), data: null, className: 'dt-body-right',
       render: (data: any, type: any, row: any, meta) => {
         if (data.MonedaTransada === 'DOP') {
           return display_x(data.ValorNominalPesos, 14, 2);
@@ -54,7 +54,7 @@ export class OperacionesPropiasComponent implements OnInit {
           return display_x(data.ValorNominalDolares, 14, 2);
         }
       } },
-      { title:  this.colorGrid.tablaH('Efectivo'), data: null, className: 'dt-body-right',  
+      { title:  this.colorGrid.tablaH('Efectivo'), data: null, className: 'dt-body-right',
       render: (data: any, type: any, row: any, meta) => {
         if (data.MonedaTransada === 'DOP') {
           return display_x(data.ValorTransadoPesos, 14, 2);
@@ -63,11 +63,11 @@ export class OperacionesPropiasComponent implements OnInit {
         }
 
       } },
-      { title:  this.colorGrid.tablaH('Cmi Comp'), data: null, className: 'dt-body-right', 
+      { title:  this.colorGrid.tablaH('Cmi Comp'), data: null, className: 'dt-body-right',
       render: (data: any, type: any, row: any, meta) => {
         return display_x(data.ComisionComprador, 8, 2);
       } },
-      { title:  this.colorGrid.tablaH('Cmi Vend'), data: null, className: 'dt-body-right', 
+      { title:  this.colorGrid.tablaH('Cmi Vend'), data: null, className: 'dt-body-right',
       render: (data: any, type: any, row: any, meta) => {
         return display_x(data.ComisionVendedor, 8, 2);
       }}

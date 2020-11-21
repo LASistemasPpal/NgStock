@@ -10,7 +10,7 @@ import { DameTitulosAll } from '@laranda/lib-ultra-net';
 export class OperacionesOtcComponent implements OnInit {
   dtColumnas: DataTables.ColumnSettings[] = [];
 
-  @Input() datos: [] = []
+  @Input() datos: [] = [];
   @Input() codISIN = '';
   @Input() codMoneda = '';
 
@@ -33,7 +33,7 @@ export class OperacionesOtcComponent implements OnInit {
          render: (data: any, type: any, row: any, meta) => {
         return display_x(data.ValorNominalTotal, 22, 2);
       } },
-      ]
+      ];
 
      }
 

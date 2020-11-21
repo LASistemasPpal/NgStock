@@ -53,12 +53,12 @@ export class DataComponent implements OnInit {
     this.dtColumnasEjemplo = [
       { title: this.colorGrid.tablaH('Titulo'), data : null,
       render: (data: any, type: any, row: any, meta) => {
-        return data.Cotitulo.substr(0,7) ;} },
+        return data.Cotitulo.substr(0, 7); } },
       {
         title: this.colorGrid.tablaH('Mon'),
         data: null,
         render: (data: any, type: any, row: any, meta) => {
-          return data.Moneda + ' ' + data.c_v + '-' + display_x(data.Cant,2,0) ;
+          return data.Moneda + ' ' + data.c_v + '-' + display_x(data.Cant, 2, 0) ;
         }
       },
       {
@@ -357,7 +357,7 @@ export class DataComponent implements OnInit {
     if (this.mecaOTC) {
       this.dameCOrdenX.ParamIn.Nuorigen = 0;
     } else {
-     this.dameCOrdenX.ParamIn.Nuorigen = 1;}
+     this.dameCOrdenX.ParamIn.Nuorigen = 1; }
 //     this.dameCOrdenX.ParamIn.Desde    = this.fecha.replace(/\//g, '-');
     this.dameCOrdenX.ParamIn.Desde    = this.dameCalendario.CadOut.Fecha.replace(/\//g, '-');
 

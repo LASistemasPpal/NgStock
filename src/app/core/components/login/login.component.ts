@@ -1,7 +1,7 @@
-import  swal  from 'sweetalert2';
+import swal from 'sweetalert2';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AutenticaCli } from '@laranda/lib-ultra-net';
+import { AutenticaCli, RestDameCliente } from '@laranda/lib-ultra-net';
 import { ConectorService } from '@laranda/lib-sysutil';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private conectorService: ConectorService,
     private http: HttpClient,
+    private restDameCliente: RestDameCliente
   ) {
     this.formLogin = this.fb.group({
       user: ['', [Validators.required, Validators.minLength(4)]],
@@ -46,13 +47,18 @@ export class LoginComponent implements OnInit {
     this.verPass = 'password';
     //  para leer el nombre del cliente LA y ver si esta SUSPENDIDO
     this.conectorService.getParametros().then(() => {
-      this.paramConfig.Param.Nucli = this.conectorService.info.NUCLI;
-      const obs = this.http.post(
-        this.conectorService.info.URL_RESTLA + 'WDame_cliente',
-        this.paramConfig, this.httpOptions);
-      obs.subscribe(res => {
-        this.ConfigCadout = res;
-     });
+      this.restDameCliente.ParamIn.Nucli = this.conectorService.info.NUCLI;
+      this.restDameCliente.ParamIn.Url = this.conectorService.info.URL_RESTLA + 'WDame_cliente';
+      this.restDameCliente.consultar(this.conectorService.info.URL_REST).then(() => console.log(this.restDameCliente.CadOut)
+      );
+
+    //   this.paramConfig.Param.Nucli = this.conectorService.info.NUCLI;
+    //   const obs = this.http.post(
+    //     this.conectorService.info.URL_RESTLA + 'WDame_cliente',
+    //     this.paramConfig, this.httpOptions);
+    //   obs.subscribe(res => {
+    //     this.ConfigCadout = res;
+    //  });
     }
      );
   }
@@ -78,10 +84,12 @@ export class LoginComponent implements OnInit {
     if (this.formLogin.valid) {
       this.autenticaCli.ParamIn.User = this.formLogin.value.user;
       this.autenticaCli.ParamIn.Pass = this.formLogin.value.password;
-      sessionStorage.setItem('nmcliente',JSON.stringify(this.ConfigCadout.CadJson.Nombre)); 
+      sessionStorage.setItem('nmcliente', JSON.stringify(this.restDameCliente.CadOut.Nombre));
+      // sessionStorage.setItem('nmcliente',JSON.stringify(this.ConfigCadout.CadJson.Nombre));
       // sessionStorage.setItem('nmcliente',this.ConfigCadout.CadJson.Nombre);
       this.conectorService.getParametros().then(() => {
-        if (this.ConfigCadout.CadJson !== undefined && this.ConfigCadout.CadJson.Nombre.indexOf('SUSP') >= 0) {
+        if (this.restDameCliente.CadOut !== undefined && this.restDameCliente.CadOut.Nombre.indexOf('SUSP') >= 0) {
+        // if (this.ConfigCadout.CadJson !== undefined && this.ConfigCadout.CadJson.Nombre.indexOf('SUSP') >= 0) {
           swal.fire({
           icon: 'info',
           text: 'Cuenta Inactiva....',
