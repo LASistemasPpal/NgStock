@@ -26,7 +26,7 @@ export class PosicionPropiaComponent implements OnInit {
               private damePermisoUsuario: DamePermisoUsuario) {
 
                 this.dtColumnas = [
-                  { title: this.colorGrid.tablaH('Nro Ts'), data: 'Numero' },
+                  { title: this.colorGrid.tablaH('Nro Ts'), data: 'Ts' },
                   { title: this.colorGrid.tablaH('Moneda'), data: null, render: (data: any, type: any, row: any, meta) => {
                     let tp = 'RFij ';
                     if (data.Tpoperac === '2') { tp = 'RVar '; }

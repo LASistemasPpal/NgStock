@@ -9,12 +9,38 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class OperacionesPropiasComponent implements OnInit {
 
+  private priFiltro: string[] = [];
+  visible = true;
+
   dtColumnas: DataTables.ColumnSettings[] = [];
   datosFiltrados: CadJsonOpers[];
 
   @Input() datos: CadJsonOpers[];
-  @Input() codISIN = '';
-  @Input() codMoneda = '';
+  @Input()
+    get filtros(): string {
+      return this.priFiltro.toString();
+    }
+    set filtros(texto: string) {
+      this.priFiltro = texto.split(';');
+      this.visible = false;
+
+      // this.priFiltro[0] ===> codMoneda
+      // this.priFiltro[1] ===> codISIN
+      setTimeout(() => {
+        if ((this.priFiltro[1] !== '') ||  (this.priFiltro[0] !== '')) {
+          this.datosFiltrados = this.datos.filter((valor) => {
+
+            if (this.priFiltro[1] !== '') {
+              return valor.CodigoISIN === this.priFiltro[1];
+            } else {
+              return valor.MonedaTransada === this.priFiltro[0];
+            }
+          });
+        }
+
+        this.visible = true;
+      }, 500);
+    }
 
   constructor(
     private colorGrid: ColorGrid) {
@@ -74,17 +100,6 @@ export class OperacionesPropiasComponent implements OnInit {
         ];
   }
 
-  ngOnInit(): void {
-    if ((this.codISIN !== '') ||  (this.codMoneda !== '')) {
-      this.datosFiltrados = this.datos.filter((valor) => {
-
-        if (this.codISIN !== '') {
-          return valor.CodigoISIN === this.codISIN;
-        } else {
-          return valor.MonedaTransada === this.codMoneda;
-        }
-      });
-    }
-  }
+  ngOnInit(): void { }
 
 }

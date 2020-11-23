@@ -370,7 +370,6 @@ export class DataComponent implements OnInit {
   }
 
   consultarGeneral(codigo: string[]) {
-
       this.codigoCliente = codigo[0];
       if (codigo[1] !== '0'  && codigo[1] !== '')  {
            this.consultaTipo = codigo[1];

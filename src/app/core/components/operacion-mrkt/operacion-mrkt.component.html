@@ -4,7 +4,7 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-12 mb-4">
-        <lsy-tabla-la [columnas]="dtColumnas" [datosX]="((codISIN !== '') || (codMoneda !== '')) ? datosFiltrados : datos"  [barraY]="'60vh'"></lsy-tabla-la>
+        <lsy-tabla-la *ngIf="visible" [columnas]="dtColumnas" [datosX]="filtros.length > 1 ? datosFiltrados : datos"  [barraY]="'60vh'"></lsy-tabla-la>
       </div>
     </div>
   </div>
