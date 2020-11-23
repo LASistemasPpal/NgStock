@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AutenticaCli, RestDameCliente } from '@laranda/lib-ultra-net';
 import { ConectorService } from '@laranda/lib-sysutil';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -14,25 +13,12 @@ export class LoginComponent implements OnInit {
 
   formLogin: FormGroup;
   verPass: string;
-  ConfigCadout: any;
-  httpOptions = {
-    headers: new HttpHeaders({
-    'Content-Type': 'text/plain'
-    })
-    };
-    paramConfig = {
-      Json: true,
-      Param: {
-        Nucli: 1
-      }
-  };
 
 
   constructor(
     public autenticaCli: AutenticaCli,
     private fb: FormBuilder,
     private conectorService: ConectorService,
-    private http: HttpClient,
     private restDameCliente: RestDameCliente
   ) {
     this.formLogin = this.fb.group({
@@ -49,16 +35,7 @@ export class LoginComponent implements OnInit {
     this.conectorService.getParametros().then(() => {
       this.restDameCliente.ParamIn.Nucli = this.conectorService.info.NUCLI;
       this.restDameCliente.ParamIn.Url = this.conectorService.info.URL_RESTLA + 'WDame_cliente';
-      this.restDameCliente.consultar(this.conectorService.info.URL_REST).then(() => console.log(this.restDameCliente.CadOut)
-      );
-
-    //   this.paramConfig.Param.Nucli = this.conectorService.info.NUCLI;
-    //   const obs = this.http.post(
-    //     this.conectorService.info.URL_RESTLA + 'WDame_cliente',
-    //     this.paramConfig, this.httpOptions);
-    //   obs.subscribe(res => {
-    //     this.ConfigCadout = res;
-    //  });
+      this.restDameCliente.consultar(this.conectorService.info.URL_REST);
     }
      );
   }
@@ -89,7 +66,6 @@ export class LoginComponent implements OnInit {
       // sessionStorage.setItem('nmcliente',this.ConfigCadout.CadJson.Nombre);
       this.conectorService.getParametros().then(() => {
         if (this.restDameCliente.CadOut !== undefined && this.restDameCliente.CadOut.Nombre.indexOf('SUSP') >= 0) {
-        // if (this.ConfigCadout.CadJson !== undefined && this.ConfigCadout.CadJson.Nombre.indexOf('SUSP') >= 0) {
           swal.fire({
           icon: 'info',
           text: 'Cuenta Inactiva....',
