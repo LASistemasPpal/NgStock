@@ -18,6 +18,10 @@ import { PosturasPropiasComponent } from './components/posturas-propias/posturas
 import { OperacionesPropiasComponent } from './components/operaciones-propias/operaciones-propias.component';
 import { PosturasSiopelComponent } from './components/posturas-siopel/posturas-siopel.component';
 import { RiesgoLiquidezComponent } from './components/riesgo-liquidez/riesgo-liquidez.component';
+import { OperacionMrktComponent } from './components/operacion-mrkt/operacion-mrkt.component';
+import { PosicionPropiaComponent } from './components/posicion-propia/posicion-propia.component';
+import { OperacionesOtcComponent } from './components/operaciones-otc/operaciones-otc.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 // Servicios LA
@@ -28,9 +32,6 @@ import { LoginComponent } from './components/login/login.component';
 
 // Rutas
 import { AppRoutingModule } from './../app-routing.module';
-import { OperacionMrktComponent } from './components/operacion-mrkt/operacion-mrkt.component';
-import { PosicionPropiaComponent } from './components/posicion-propia/posicion-propia.component';
-import { OperacionesOtcComponent } from './components/operaciones-otc/operaciones-otc.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { OperacionesOtcComponent } from './components/operaciones-otc/operacione
     RiesgoLiquidezComponent,
     OperacionMrktComponent,
     PosicionPropiaComponent,
-    OperacionesOtcComponent
+    OperacionesOtcComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
