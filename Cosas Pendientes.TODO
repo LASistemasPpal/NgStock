@@ -175,3 +175,4 @@ Email Luis Aranda cambios ngstock:
   ✔ hay que agregar el nuevo metodo riesgoliquidez y dameriesgoliquidez @critical  Probar ya esta listo @done(05-08-2020 11:42)
 
 ✔ agregando el Footer al proyecto @done(03-12-2020 12:04)
+✔ ajustar el parametro URL_RESTLA a URL_REST_LA @done(10-12-2020 12:08)

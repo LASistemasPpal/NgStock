@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     //  para leer el nombre del cliente LA y ver si esta SUSPENDIDO
     this.conectorService.getParametros().then(() => {
       this.restDameCliente.ParamIn.Nucli = this.conectorService.info.NUCLI;
-      this.restDameCliente.ParamIn.Url = this.conectorService.info.URL_RESTLA + 'WDame_cliente';
+      this.restDameCliente.ParamIn.Url = this.conectorService.info.URL_REST_LA + 'WDame_cliente';
       this.restDameCliente.consultar(this.conectorService.info.URL_REST);
     }
      );
