@@ -134,7 +134,7 @@ export class HeaderComponent implements OnInit {
 
   logOut() {
     this.insertaPolicia.consultar(this.conectorService.info.URL_REST, this.conectorService.info.NUCLI,
-      'Saliendo del sistema', 'NgStock', 'C', 1);
+      'Saliendo del sistema', 'NgStock', 'C', 99);
 
     this.autenticaCli.logOut();
   }
@@ -189,6 +189,6 @@ export class HeaderComponent implements OnInit {
     }
 
     this.insertaPolicia.consultar(this.conectorService.info.URL_REST, this.conectorService.info.NUCLI,
-      texto, 'NgStock', 'C', 1);
+      texto, 'NgStock', 'C', 99);
   }
 }

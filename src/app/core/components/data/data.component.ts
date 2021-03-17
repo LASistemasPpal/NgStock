@@ -95,7 +95,7 @@ export class DataComponent implements OnInit {
 
     if (this.conectorService.info !== undefined) {
       this.insertaPolicia.consultar(this.conectorService.info.URL_REST, this.conectorService.info.NUCLI,
-        'Ingresando al sistema', 'NgStock', 'C', 1);
+        'Ingresando al sistema', 'NgStock', 'C', 99);
     }
   }
 
