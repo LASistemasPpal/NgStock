@@ -76,7 +76,9 @@ export class CordenxComponent implements OnInit {
 
   ngOnInit(): void {
 
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip({
+      trigger: 'hover'
+    });
     // this.consultarOrdenes();
   }
 

@@ -1,10 +1,9 @@
-import { PospropiaService } from './../../../shared/services/pospropia.service';
 import { Component, OnInit } from '@angular/core';
 import {
   DameCalendario,
   AutenticaCli,
   DameTitulosAll,
-  DameTitulos, DameCOrdenX
+  DameTitulos, DameCOrdenX, InsertaPolicia
 } from '@laranda/lib-ultra-net';
 import { ConectorService, fechaHoy, display_x, ColorGrid } from '@laranda/lib-sysutil';
 import { Chart } from 'chart.js';
@@ -39,6 +38,7 @@ export class DataComponent implements OnInit {
     private conectorService: ConectorService,
     private dameTitulosAll: DameTitulosAll,
     private autenticaCli: AutenticaCli,
+    private insertaPolicia: InsertaPolicia,
     public dameTitulos: DameTitulos,
     public damePosturasP: DamePosturasP,
     public damePosturasM: DamePosturasM,
@@ -92,6 +92,11 @@ export class DataComponent implements OnInit {
       },
 
     ];
+
+    if (this.conectorService.info !== undefined) {
+      this.insertaPolicia.consultar(this.conectorService.info.URL_REST, this.conectorService.info.NUCLI,
+        'Ingresando al sistema', 'NgStock', 'C', 1);
+    }
   }
 
   ngOnInit(): void {

@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
             });
         }
         else {
-        this.autenticaCli.logIn(this.conectorService.info.URL_REST);
+          this.autenticaCli.logIn(this.conectorService.info.URL_REST);
         }
       });
     }

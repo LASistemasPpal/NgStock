@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { DameCalendario, DameIDMRif, DameTitulos, AutenticaCli } from '@laranda/lib-ultra-net';
+import { DameCalendario, DameIDMRif, DameTitulos, AutenticaCli, InsertaPolicia } from '@laranda/lib-ultra-net';
 import { ConectorService, ColorGrid } from '@laranda/lib-sysutil';
 
 declare let $: any;
@@ -20,11 +20,12 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     public dameCalendario: DameCalendario,
-    public autenticaCli: AutenticaCli,
+    private autenticaCli: AutenticaCli,
     private dameIDMRif: DameIDMRif,
     private dameTitulos: DameTitulos,
     private conectorService: ConectorService,
-    private colorGrid: ColorGrid
+    private colorGrid: ColorGrid,
+    private insertaPolicia: InsertaPolicia
   ) {
 
     if (this.dameCalendario.visible) {
@@ -51,10 +52,17 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip({
+      trigger: 'hover'
+    });
   }
 
   getConsultar(tipo: string) {
+
+    if (tipo !== '0') {
+      this.guardaPolicia(tipo);
+    }
+
     this.dameTitulos.ParamIn.Cotitulo = '';
     this.OTC = '';
     if (this.mecaOTC) {this.OTC = 'OTC'; }
@@ -101,26 +109,86 @@ export class HeaderComponent implements OnInit {
       }
 
      } else { //   bolsa de valores
-     if (((tipo === '3') || (tipo === '4') || (tipo === '5') || (tipo === '6') || (tipo === '8')) &&
-        (((this.codgoTitulo.length === 6) || (this.codgoTitulo.length === 0)) &&
-        ((this.codgoMoneda.length === 3) || (this.codgoMoneda.length === 0)))) {
+      if (((tipo === '3') || (tipo === '4') || (tipo === '5') || (tipo === '6') || (tipo === '8')) &&
+          (((this.codgoTitulo.length === 6) || (this.codgoTitulo.length === 0)) &&
+          ((this.codgoMoneda.length === 3) || (this.codgoMoneda.length === 0)))) {
 
-      if (this.codgoTitulo.length === 6) {
-        this.dameTitulos.ParamIn.Cotitulo = this.codgoTitulo.toUpperCase();
-        this.dameTitulos.ParamIn.Mrkt = '';
-        this.dameTitulos.ParamIn.Vigencia = 0;
-        this.dameTitulos.ParamIn.Moneda = 99;
+        if (this.codgoTitulo.length === 6) {
+          this.dameTitulos.ParamIn.Cotitulo = this.codgoTitulo.toUpperCase();
+          this.dameTitulos.ParamIn.Mrkt = '';
+          this.dameTitulos.ParamIn.Vigencia = 0;
+          this.dameTitulos.ParamIn.Moneda = 99;
 
-        this.dameTitulos.consultar(this.conectorService.info.URL_REST).then(() => {
-          this.codConsulta.emit(['', tipo, this.dameTitulos.CadOut.Isin, this.codgoMoneda.toUpperCase(), '']);
-        });
-      } else {
-        this.codConsulta.emit(['', tipo, this.codgoTitulo.toUpperCase(), this.codgoMoneda.toUpperCase(), '']);
+          this.dameTitulos.consultar(this.conectorService.info.URL_REST).then(() => {
+            this.codConsulta.emit(['', tipo, this.dameTitulos.CadOut.Isin, this.codgoMoneda.toUpperCase(), '']);
+          });
+        } else {
+          this.codConsulta.emit(['', tipo, this.codgoTitulo.toUpperCase(), this.codgoMoneda.toUpperCase(), '']);
+        }
+      } else
+      if ((tipo === '0') || (tipo === '7')){
+        this.codConsulta.emit(['', tipo, '', '', '']);
       }
-    } else
-    if ((tipo === '0') || (tipo === '7')){
-      this.codConsulta.emit(['', tipo, '', '', '']);
     }
   }
+
+  logOut() {
+    this.insertaPolicia.consultar(this.conectorService.info.URL_REST, this.conectorService.info.NUCLI,
+      'Saliendo del sistema', 'NgStock', 'C', 1);
+
+    this.autenticaCli.logOut();
+  }
+
+  guardaPolicia(tipo) {
+    let texto = '';
+
+    switch (tipo) {
+      case '1':
+        texto = 'Buscar Cliente';
+        break;
+
+      case '2':
+        if (!this.mecaOTC) {
+          texto = 'Ordenes Bolsa';
+        } else {
+          texto = 'Ordenes OTC';
+        }
+        break;
+
+      case '3':
+        texto = 'Refrescar Datos';
+        break;
+
+      case '4':
+        texto = 'Posturas Propias';
+        break;
+
+      case '5':
+        texto = 'Posturas Mercado';
+        break;
+
+      case '6':
+        texto = 'Operaciones Propias';
+        break;
+
+      case '7':
+        texto = 'Riesgo Liquidez';
+        break;
+
+      case '8':
+        texto = 'Operaciones Mercado';
+        break;
+
+      case '9':
+        texto = 'Posicion Propia';
+        break;
+
+      case 'A':
+        texto = 'Operaciones OTC';
+        break;
+    }
+
+    this.insertaPolicia.consultar(this.conectorService.info.URL_REST, this.conectorService.info.NUCLI,
+      texto, 'NgStock', 'C', 1);
   }
 }

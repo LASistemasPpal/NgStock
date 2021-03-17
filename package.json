@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "~9.1.6",
     "@angular/router": "~9.1.6",
     "@laranda/lib-sysutil": "^2.9.1",
-    "@laranda/lib-ultra-net": "^1.9.5",
+    "@laranda/lib-ultra-net": "^1.10.1",
     "@ng-bootstrap/ng-bootstrap": "^6.2.0",
     "@types/datatables.net": "^1.10.19",
     "@types/datatables.net-buttons": "^1.4.3",

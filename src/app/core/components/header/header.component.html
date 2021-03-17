@@ -73,7 +73,7 @@
               <a *ngIf="!mecaOTC" class="dropdown-item pointer" (click)="getConsultar('7')"><i class="fab mr-2 fa-hotjar"></i>Riesgo Liquidez</a>
               <a *ngIf="mecaOTC" class="dropdown-item pointer" (click)="getConsultar('A')"><i class="fas mr-2 fa-battery-full"></i>Operaciones OTC</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item pointer" (click)="autenticaCli.logOut()"><i class="fas mr-2 fa-sign-in-alt"></i>Cerrar Sesión</a>
+              <a class="dropdown-item pointer" (click)="logOut()"><i class="fas mr-2 fa-sign-in-alt"></i>Cerrar Sesión</a>
             </div>
           </div>
 
