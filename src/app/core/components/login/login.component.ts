@@ -35,6 +35,9 @@ export class LoginComponent implements OnInit {
     this.conectorService.getParametros().then(() => {
       this.restDameCliente.ParamIn.Nucli = this.conectorService.info.NUCLI;
       this.restDameCliente.ParamIn.Url = this.conectorService.info.URL_REST_LA + 'WDame_cliente';
+      this.restDameCliente.ParamIn.Proxy.Usarproxy = this.conectorService.info.PROXY.USARPROXY;
+      this.restDameCliente.ParamIn.Proxy.Server = this.conectorService.info.PROXY.SERVER;
+      this.restDameCliente.ParamIn.Proxy.Puerto = this.conectorService.info.PROXY.PUERTO;
       this.restDameCliente.consultar(this.conectorService.info.URL_REST);
     }
      );
