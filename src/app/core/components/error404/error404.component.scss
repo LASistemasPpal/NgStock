@@ -1,10 +1,14 @@
 .error .clip .shadow
 {
     height: 180px;  /*Contrall*/
+    overflow: hidden;
 }
 .error .clip:nth-of-type(2) .shadow
 {
     width: 130px;   /*Contrall play with javascript*/
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 20px 0px 20px -15px rgba(150, 150, 150,0.8), 20px 0px 20px -15px rgba(150, 150, 150,0.8);
 }
 .error .clip:nth-of-type(1) .shadow, .error .clip:nth-of-type(3) .shadow
 {
@@ -17,10 +21,20 @@
     line-height: 150px; /*Contrall*/
     font-size: 120px;
     font-weight: bold;
+    position: relative;
+    top: 8%;
+    color: white;
+    background: #07B3F9;
+    border-radius: 50%;
+    display: inline-block;
+    transform: skew(45deg);
 }
 .error h2   /*Contrall*/
 {
     font-size: 32px;
+    color: #A2A2A2;
+    font-weight: bold;
+    padding-bottom: 20px;
 }
 .error .msg /*Contrall*/
 {
@@ -30,6 +44,13 @@
     height: 80px;
     line-height: 80px;
     font-size: 32px;
+    position: relative;
+    z-index: 9999;
+    display: block;
+    background: #535353;
+    color: #A2A2A2;
+    border-radius: 50%;
+    font-style: italic;
 }
 .error span.triangle    /*Contrall*/
 {
@@ -53,17 +74,6 @@
     display: inline-block;
     transform: skew(-45deg);
 }
-.error .clip .shadow
-{
-
-    overflow: hidden;
-}
-.error .clip:nth-of-type(2) .shadow
-{
-    overflow: hidden;
-    position: relative;
-    box-shadow: inset 20px 0px 20px -15px rgba(150, 150, 150,0.8), 20px 0px 20px -15px rgba(150, 150, 150,0.8);
-}
 
 .error .clip:nth-of-type(3) .shadow:after, .error .clip:nth-of-type(1) .shadow:after
 {
@@ -81,16 +91,6 @@
 {
     left: -8px;
 }
-.error .digit
-{
-    position: relative;
-    top: 8%;
-    color: white;
-    background: #07B3F9;
-    border-radius: 50%;
-    display: inline-block;
-    transform: skew(45deg);
-}
 .error .clip:nth-of-type(2) .digit
 {
     left: -10%;
@@ -101,22 +101,6 @@
 }.error .clip:nth-of-type(3) .digit
 {
     left: -20%;
-}
-.error h2
-{
-    color: #A2A2A2;
-    font-weight: bold;
-    padding-bottom: 20px;
-}
-.error .msg
-{
-    position: relative;
-    z-index: 9999;
-    display: block;
-    background: #535353;
-    color: #A2A2A2;
-    border-radius: 50%;
-    font-style: italic;
 }
 .error .triangle
 {
