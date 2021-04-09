@@ -179,14 +179,14 @@ Email Luis Aranda cambios ngstock:
 
 Segurida Eliminar archivos SCSS en blanco:
   ✔ ./src/app/app.component.scss @done(08-04-2021 23:33)
-  ☐ ./src/app/core/components/cordenx/cordenx.component.scss
-  ☐ ./src/app/core/components/datos-m/datos-m.component.scss
-  ☐ ./src/app/core/components/footer/footer.component.scss
-  ☐ ./src/app/core/components/operacion-mrkt/operacion-mrkt.component.scss
-  ☐ ./src/app/core/components/operaciones-otc/operaciones-otc.component.scss
-  ☐ ./src/app/core/components/operaciones-propias/operaciones-propias.component.scss
-  ☐ ./src/app/core/components/posicion-m-ant/posicion-m-ant.component.scss
-  ☐ ./src/app/core/components/posicion-propia/posicion-propia.component.scss
-  ☐ ./src/app/core/components/posturas-propias/posturas-propias.component.scss
-  ☐ ./src/app/core/components/posturas-siopel/posturas-siopel.component.scss
-  ☐ ./src/app/core/components/riesgo-liquidez/riesgo-liquidez.component.scss
+  ✔ ./src/app/core/components/cordenx/cordenx.component.scss @done(08-04-2021 23:58)
+  ✔ ./src/app/core/components/datos-m/datos-m.component.scss @done(08-04-2021 23:58)
+  ✔ ./src/app/core/components/footer/footer.component.scss @done(08-04-2021 23:58)
+  ✔ ./src/app/core/components/operacion-mrkt/operacion-mrkt.component.scss @done(08-04-2021 23:58)
+  ✔ ./src/app/core/components/operaciones-otc/operaciones-otc.component.scss @done(08-04-2021 23:58)
+  ✔ ./src/app/core/components/operaciones-propias/operaciones-propias.component.scss @done(08-04-2021 23:58)
+  ✔ ./src/app/core/components/posicion-m-ant/posicion-m-ant.component.scss @done(08-04-2021 23:58)
+  ✔ ./src/app/core/components/posicion-propia/posicion-propia.component.scss @done(08-04-2021 23:58)
+  ✔ ./src/app/core/components/posturas-propias/posturas-propias.component.scss @done(08-04-2021 23:58)
+  ✔ ./src/app/core/components/posturas-siopel/posturas-siopel.component.scss @done(08-04-2021 23:58)
+  ✔ ./src/app/core/components/riesgo-liquidez/riesgo-liquidez.component.scss @done(08-04-2021 23:58)
