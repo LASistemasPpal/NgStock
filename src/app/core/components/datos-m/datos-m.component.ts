@@ -4,8 +4,7 @@ import { ConectorService } from '@laranda/lib-sysutil';
 
 @Component({
   selector: 'app-datos-m',
-  templateUrl: './datos-m.component.html',
-  styleUrls: ['./datos-m.component.scss']
+  templateUrl: './datos-m.component.html'
 })
 export class DatosMComponent implements OnInit {
 

@@ -176,3 +176,17 @@ Email Luis Aranda cambios ngstock:
 
 ✔ agregando el Footer al proyecto @done(03-12-2020 12:04)
 ✔ ajustar el parametro URL_RESTLA a URL_REST_LA @done(10-12-2020 12:08)
+
+Segurida Eliminar archivos SCSS en blanco:
+  ✔ ./src/app/app.component.scss @done(08-04-2021 23:33)
+  ☐ ./src/app/core/components/cordenx/cordenx.component.scss
+  ☐ ./src/app/core/components/datos-m/datos-m.component.scss
+  ☐ ./src/app/core/components/footer/footer.component.scss
+  ☐ ./src/app/core/components/operacion-mrkt/operacion-mrkt.component.scss
+  ☐ ./src/app/core/components/operaciones-otc/operaciones-otc.component.scss
+  ☐ ./src/app/core/components/operaciones-propias/operaciones-propias.component.scss
+  ☐ ./src/app/core/components/posicion-m-ant/posicion-m-ant.component.scss
+  ☐ ./src/app/core/components/posicion-propia/posicion-propia.component.scss
+  ☐ ./src/app/core/components/posturas-propias/posturas-propias.component.scss
+  ☐ ./src/app/core/components/posturas-siopel/posturas-siopel.component.scss
+  ☐ ./src/app/core/components/riesgo-liquidez/riesgo-liquidez.component.scss

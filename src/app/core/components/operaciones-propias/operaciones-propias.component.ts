@@ -4,8 +4,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-operaciones-propias',
-  templateUrl: './operaciones-propias.component.html',
-  styleUrls: ['./operaciones-propias.component.scss']
+  templateUrl: './operaciones-propias.component.html'
 })
 export class OperacionesPropiasComponent implements OnInit {
 

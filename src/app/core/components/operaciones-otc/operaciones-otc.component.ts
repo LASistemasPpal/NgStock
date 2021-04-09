@@ -4,8 +4,7 @@ import { DameTitulosAll } from '@laranda/lib-ultra-net';
 
 @Component({
   selector: 'app-operaciones-otc',
-  templateUrl: './operaciones-otc.component.html',
-  styleUrls: ['./operaciones-otc.component.scss']
+  templateUrl: './operaciones-otc.component.html'
 })
 export class OperacionesOtcComponent implements OnInit {
   dtColumnas: DataTables.ColumnSettings[] = [];

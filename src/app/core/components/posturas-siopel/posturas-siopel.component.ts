@@ -5,8 +5,7 @@ import { DameTitulosAll } from '@laranda/lib-ultra-net';
 
 @Component({
   selector: 'app-posturas-siopel',
-  templateUrl: './posturas-siopel.component.html',
-  styleUrls: ['./posturas-siopel.component.scss']
+  templateUrl: './posturas-siopel.component.html'
 })
 export class PosturasSiopelComponent implements OnInit {
 

@@ -4,8 +4,7 @@ import { HTfech_a_fech, display_x, ColorGrid } from '@laranda/lib-sysutil';
 
 @Component({
   selector: 'app-posturas-propias',
-  templateUrl: './posturas-propias.component.html',
-  styleUrls: ['./posturas-propias.component.scss']
+  templateUrl: './posturas-propias.component.html'
 })
 export class PosturasPropiasComponent implements OnInit {
 

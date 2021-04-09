@@ -6,8 +6,7 @@ import { ConectorService, ColorGrid } from '@laranda/lib-sysutil';
 
 @Component({
   selector: 'app-posicion-m-ant',
-  templateUrl: './posicion-m-ant.component.html',
-  styleUrls: ['./posicion-m-ant.component.scss']
+  templateUrl: './posicion-m-ant.component.html'
 })
 export class PosicionMAntComponent implements OnInit {
 

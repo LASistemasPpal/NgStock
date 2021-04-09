@@ -6,8 +6,7 @@ import swal from 'sweetalert2';
 declare let $: any;
 @Component({
   selector: 'app-cordenx',
-  templateUrl: './cordenx.component.html',
-  styleUrls: ['./cordenx.component.scss']
+  templateUrl: './cordenx.component.html'
 })
 export class CordenxComponent implements OnInit {
 

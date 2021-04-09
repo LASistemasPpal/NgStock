@@ -5,8 +5,7 @@ import { DameTitulosAll } from '@laranda/lib-ultra-net';
 
 @Component({
   selector: 'app-operacion-mrkt',
-  templateUrl: './operacion-mrkt.component.html',
-  styleUrls: ['./operacion-mrkt.component.scss']
+  templateUrl: './operacion-mrkt.component.html'
 })
 export class OperacionMrktComponent implements OnInit {
 

@@ -7,8 +7,7 @@ import { Movimientos } from 'src/app/shared/classes/bvrdClass';
 
 @Component({
   selector: 'app-posicion-propia',
-  templateUrl: './posicion-propia.component.html',
-  styleUrls: ['./posicion-propia.component.scss']
+  templateUrl: './posicion-propia.component.html'
 })
 export class PosicionPropiaComponent implements OnInit {
 

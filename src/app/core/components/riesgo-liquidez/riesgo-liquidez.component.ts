@@ -6,8 +6,7 @@ import { AutenticaCli, DameTitulosAll, CierreRiesgo } from '@laranda/lib-ultra-n
 
 @Component({
   selector: 'app-riesgo-liquidez',
-  templateUrl: './riesgo-liquidez.component.html',
-  styleUrls: ['./riesgo-liquidez.component.scss']
+  templateUrl: './riesgo-liquidez.component.html'
 })
 export class RiesgoLiquidezComponent implements OnInit {
 
