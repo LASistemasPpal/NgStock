@@ -6,5 +6,9 @@
     "USARPROXY": "N",
     "SERVER": "",
     "PUERTO": 85
-  }
+  },
+  "HORA_INICIO": "19:30",
+  "HORA_FIN": "19:40",
+  "MINUTOS": 2
+
 }

@@ -1,6 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { DameCalendario, DameIDMRif, DameTitulos, AutenticaCli, InsertaPolicia } from '@laranda/lib-ultra-net';
 import { ConectorService, ColorGrid } from '@laranda/lib-sysutil';
+import { DameRiesgoLiquidezServer } from './../../../shared/services/data-bvrd.service';
 
 declare let $: any;
 @Component({
@@ -8,13 +9,17 @@ declare let $: any;
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   codgoCliente = '';
   codgoTitulo = '';
   codgoMoneda = '';
   OTC = '';
   mecaOTC = false;
+  actualizaLiquidez = true;
+  numInterval: any;
+  horaIni = 0;
+  horaFin = 0;
 
   @Output() codConsulta = new EventEmitter<string[]>();
 
@@ -25,7 +30,8 @@ export class HeaderComponent implements OnInit {
     private dameTitulos: DameTitulos,
     private conectorService: ConectorService,
     private colorGrid: ColorGrid,
-    private insertaPolicia: InsertaPolicia
+    private insertaPolicia: InsertaPolicia,
+    private dameRiesgoLiquidezServer: DameRiesgoLiquidezServer
   ) {
 
     if (this.dameCalendario.visible) {
@@ -55,6 +61,41 @@ export class HeaderComponent implements OnInit {
     $('[data-toggle="tooltip"]').tooltip({
       trigger: 'hover'
     });
+
+    this.horaIni = this.stringToTime(this.conectorService.info.HORA_INICIO);
+    this.horaFin = this.stringToTime(this.conectorService.info.HORA_FIN);
+    console.log(this.horaIni);
+
+
+    this.numInterval = setInterval(() => {
+      if (this.actualizaLiquidez) {
+        const tiempo = new Date();
+
+        if (tiempo.getTime() >= this.horaIni && tiempo.getTime() <= this.horaFin ) {
+          console.log(tiempo);
+          // this.dameRiesgoLiquidezServer.consultar(this.autenticaCli.CadOut.Usuariobv);
+        } else {
+          if (tiempo.getTime() > this.horaFin) {
+            this.actualizaLiquidez = false;
+          }
+        }
+      }
+    }, (60000 * this.conectorService.info.MINUTOS));
+  }
+
+  stringToTime(hora: string): number {
+    const auxHora = new Date();
+
+    auxHora.setSeconds(0);
+    auxHora.setMilliseconds(0);
+    auxHora.setHours(+hora.substr(0, 2));
+    auxHora.setMinutes(+hora.substr(3, 2));
+
+    return auxHora.getTime();
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.numInterval);
   }
 
   getConsultar(tipo: string) {

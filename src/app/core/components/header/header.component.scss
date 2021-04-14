@@ -51,11 +51,42 @@
     content: 'OTC';
 		left: 50%;
 	}
+
+	+ .tgl-btn2 {
+		outline: 2;
+		display: block;
+		width: 5em;
+		height: 2em;
+		position: relative;
+		cursor: pointer;
+    user-select: none;
+		&:after,
+    &:before {
+			position: relative;
+			display: block;
+			content: 'OFF';
+			width: 50%;
+			height: 100%;
+		}
+
+		&:after {
+      left: 0;
+		}
+
+		&:before {
+			display: none;
+		}
+	}
+
+	&:checked + .tgl-btn2:after {
+    content: 'ON';
+		left: 50%;
+	}
 }
 
 // themes
 .tgl-ios {
-	+ .tgl-btn {
+	+ .tgl-btn, + .tgl-btn2 {
 		background: #fbfbfb;
 		border-radius: 2em;
 		padding: 2px;
@@ -86,7 +117,7 @@
 		}
 	}
 
-	&:checked + .tgl-btn {
+	&:checked + .tgl-btn, &:checked + .tgl-btn2 {
     background: #6c757d;
     &:active {
       box-shadow: none;
