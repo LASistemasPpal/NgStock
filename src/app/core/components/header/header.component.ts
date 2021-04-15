@@ -64,16 +64,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.horaIni = this.stringToTime(this.conectorService.info.HORA_INICIO);
     this.horaFin = this.stringToTime(this.conectorService.info.HORA_FIN);
-    console.log(this.horaIni);
 
 
     this.numInterval = setInterval(() => {
+
       if (this.actualizaLiquidez) {
         const tiempo = new Date();
 
         if (tiempo.getTime() >= this.horaIni && tiempo.getTime() <= this.horaFin ) {
+          this.dameRiesgoLiquidezServer.consultar(this.autenticaCli.CadOut.Usuariobv);
           console.log(tiempo);
-          // this.dameRiesgoLiquidezServer.consultar(this.autenticaCli.CadOut.Usuariobv);
         } else {
           if (tiempo.getTime() > this.horaFin) {
             this.actualizaLiquidez = false;
@@ -90,6 +90,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     auxHora.setMilliseconds(0);
     auxHora.setHours(+hora.substr(0, 2));
     auxHora.setMinutes(+hora.substr(3, 2));
+
 
     return auxHora.getTime();
   }
