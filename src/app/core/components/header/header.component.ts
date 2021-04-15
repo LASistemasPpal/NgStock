@@ -73,7 +73,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
         if (tiempo.getTime() >= this.horaIni && tiempo.getTime() <= this.horaFin ) {
           this.dameRiesgoLiquidezServer.consultar(this.autenticaCli.CadOut.Usuariobv);
-          console.log(tiempo);
         } else {
           if (tiempo.getTime() > this.horaFin) {
             this.actualizaLiquidez = false;
