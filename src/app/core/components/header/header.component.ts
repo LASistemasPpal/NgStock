@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/cor
 import { DameCalendario, DameIDMRif, DameTitulos, AutenticaCli, InsertaPolicia } from '@laranda/lib-ultra-net';
 import { ConectorService, ColorGrid } from '@laranda/lib-sysutil';
 import { DameRiesgoLiquidezServer } from './../../../shared/services/data-bvrd.service';
+import { TranslateService } from '@ngx-translate/core';
 
 declare let $: any;
 @Component({
@@ -25,6 +26,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     public dameCalendario: DameCalendario,
+    public translate: TranslateService,
     private autenticaCli: AutenticaCli,
     private dameIDMRif: DameIDMRif,
     private dameTitulos: DameTitulos,
@@ -55,15 +57,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
     }
 
+    translate.addLangs(['es', 'en']);
+    translate.setDefaultLang('es');
+
+    const browserLang = translate.getBrowserLang();
+    this.modificarIdioma(browserLang.match(/es|en/) ? browserLang : 'es');
   }
+
 
   ngOnInit() {
     $('[data-toggle="tooltip"]').tooltip({
-      trigger: 'hover'
+      trigger: 'hover',
+      html: true
     });
 
-    this.horaIni = this.stringToTime(this.conectorService.info.HORA_INICIO);
-    this.horaFin = this.stringToTime(this.conectorService.info.HORA_FIN);
+    this.horaIni = this.stringToTime(this.conectorService.info.ROBOT_LIQUIDEZ.HORA_INICIO);
+    this.horaFin = this.stringToTime(this.conectorService.info.ROBOT_LIQUIDEZ.HORA_FIN);
 
 
     this.numInterval = setInterval(() => {
@@ -79,7 +88,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           }
         }
       }
-    }, (60000 * this.conectorService.info.MINUTOS));
+    }, (60000 * this.conectorService.info.ROBOT_LIQUIDEZ.MINUTOS));
   }
 
   stringToTime(hora: string): number {
@@ -231,5 +240,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.insertaPolicia.consultar(this.conectorService.info.URL_REST, this.conectorService.info.NUCLI,
       texto, 'NgStock', 'C', 99);
+  }
+
+  modificarIdioma(tipo: string) {
+    this.translate.use(tipo);
+
+    this.translate.get('CODIGO_TITULO_BUSCAR').subscribe(x => {
+      document.querySelector('#buscarTitulo').setAttribute('data-original-title', x);
+    });
+
+    this.translate.get('CODIGO_MONEDA_BUSCAR').subscribe(x => {
+      document.querySelector('#buscarMoneda').setAttribute('data-original-title', x);
+    });
+
+    this.translate.get('CODIGO_CLIENTE_BUSCAR').subscribe(x => {
+      document.querySelector('#buscarCliente').setAttribute('data-original-title', x);
+    });
   }
 }

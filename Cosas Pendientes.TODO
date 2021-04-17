@@ -190,3 +190,5 @@ Segurida Eliminar archivos SCSS en blanco:
   ✔ ./src/app/core/components/posturas-propias/posturas-propias.component.scss @done(08-04-2021 23:58)
   ✔ ./src/app/core/components/posturas-siopel/posturas-siopel.component.scss @done(08-04-2021 23:58)
   ✔ ./src/app/core/components/riesgo-liquidez/riesgo-liquidez.component.scss @done(08-04-2021 23:58)
+
+  ☐ stringToTime para el lib_sysutil

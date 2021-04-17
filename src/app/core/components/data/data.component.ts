@@ -39,6 +39,7 @@ export class DataComponent implements OnInit {
     private dameTitulosAll: DameTitulosAll,
     private autenticaCli: AutenticaCli,
     private insertaPolicia: InsertaPolicia,
+    private colorGrid: ColorGrid,
     public dameTitulos: DameTitulos,
     public damePosturasP: DamePosturasP,
     public damePosturasM: DamePosturasM,
@@ -47,7 +48,6 @@ export class DataComponent implements OnInit {
     public dameCalendario: DameCalendario,
     public dameRiesgoLiquidezServer: DameRiesgoLiquidezServer,
     public calculosRD: CalculosRD,
-    private colorGrid: ColorGrid,
     public dameCOrdenX: DameCOrdenX
   ) {
     this.dtColumnasEjemplo = [

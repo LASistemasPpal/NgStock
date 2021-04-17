@@ -7,8 +7,10 @@
     "SERVER": "",
     "PUERTO": 85
   },
-  "HORA_INICIO": "09:00",
-  "HORA_FIN": "13:00",
-  "MINUTOS": 2
+  "ROBOT_LIQUIDEZ": {
+    "HORA_INICIO": "09:00",
+    "HORA_FIN": "13:00",
+    "MINUTOS": 2
+  }
 
 }

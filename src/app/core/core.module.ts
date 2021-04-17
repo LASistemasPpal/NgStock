@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgxMaskModule } from 'ngx-mask';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
 // Librerías LA
@@ -33,6 +36,11 @@ import { LoginComponent } from './components/login/login.component';
 // Rutas
 import { AppRoutingModule } from './../app-routing.module';
 
+// AoT requiere una función exportada para fábricas
+export function HttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
+}
+
 
 @NgModule({
   declarations: [
@@ -59,7 +67,16 @@ import { AppRoutingModule } from './../app-routing.module';
     SysutilModule,
     AppRoutingModule,
     UltranetTablasModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
+
   ],
   providers: [ DameOperaciones, DameOperacionesMrkt, DamePosturasM, DamePosturasP, CalculosRD, DameRiesgoLiquidezServer ]
 })
