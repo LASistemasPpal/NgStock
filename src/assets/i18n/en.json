@@ -35,6 +35,10 @@
   "MOVIMIENTO_TITULO": "Movement by ",
   "MONTOS_TRANSADOS": "Amounts Traded",
   "PRECIOS": "Prices",
-  "VOLUMENES": "Volumes"
-
+  "VOLUMENES": "Volumes",
+  "USUARIO": "User",
+  "USUARIO_VALIDO": "Enter a Valid User",
+  "CONTRASEÑA": "Password",
+  "CONTRASEÑA_VALIDA": "The Password must be greater than 4 characters",
+  "ENTRAR": "Log In"
 }

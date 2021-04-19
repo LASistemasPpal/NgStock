@@ -35,5 +35,10 @@
   "MOVIMIENTO_POR": "Movimiento por ",
   "MONTOS_TRANSADOS": "Montos Transados",
   "PRECIOS": "Precios",
-  "VOLUMENES": "Volumenes"
+  "VOLUMENES": "Volumenes",
+  "USUARIO": "Usuario",
+  "USUARIO_VALIDO": "Ingrese un Usuario Valido",
+  "CONTRASEÑA": "Contraseña",
+  "CONTRASEÑA_VALIDA": "El Password debe ser mayor de 4 caracteres",
+  "ENTRAR": "Entrar"
 }

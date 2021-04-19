@@ -17,6 +17,7 @@ import {
   DameRiesgoLiquidezServer,
 } from './../../../shared/services/data-bvrd.service';
 import swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-data',
@@ -40,6 +41,7 @@ export class DataComponent implements OnInit {
     private autenticaCli: AutenticaCli,
     private insertaPolicia: InsertaPolicia,
     private colorGrid: ColorGrid,
+    private translate: TranslateService,
     public dameTitulos: DameTitulos,
     public damePosturasP: DamePosturasP,
     public damePosturasM: DamePosturasM,
@@ -51,9 +53,12 @@ export class DataComponent implements OnInit {
     public dameCOrdenX: DameCOrdenX
   ) {
     this.dtColumnasEjemplo = [
-      { title: this.colorGrid.tablaH('Titulo'), data : null,
-      render: (data: any, type: any, row: any, meta) => {
-        return data.Cotitulo.substr(0, 7); } },
+      {
+        title: this.translate.get('TITULO').subscribe(x => this.colorGrid.tablaH(x)),
+        data : null,
+        render: (data: any, type: any, row: any, meta) => {
+          return data.Cotitulo.substr(0, 7); }
+      },
       {
         title: this.colorGrid.tablaH('Mon'),
         data: null,

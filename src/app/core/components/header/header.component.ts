@@ -57,8 +57,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
     }
 
-    translate.addLangs(['es', 'en']);
-    translate.setDefaultLang('es');
+    // translate.addLangs(['es', 'en']);
+    // translate.setDefaultLang('es');
 
     const browserLang = translate.getBrowserLang();
     this.modificarIdioma(browserLang.match(/es|en/) ? browserLang : 'es');
