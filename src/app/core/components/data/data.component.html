@@ -1,4 +1,4 @@
-<app-header *ngIf="dameCalendario.visible"  (codConsulta)="consultarGeneral($event)" (idioma)="defineColumnas()"></app-header>
+<app-header *ngIf="dameCalendario.visible"  (codConsulta)="consultarGeneral($event)" (idioma)="defineColumnas($event)"></app-header>
 
 
 <div *ngIf="dameCalendario.visible" class="container-12 bg-gris">
@@ -29,7 +29,9 @@
           <div class="col-12 pl-0">
             <h3><i class="fas fa-user pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i> {{ 'QUE_PASO' | translate }}?</h3>
           </div>
-          <p *ngIf="dameCalendario.CadOut != undefined" class="tabla-font-12">{{ dameCalendario.CadOut.Comentarios }}</p>
+          <p *ngIf="quePaso != undefined" class="tabla-font-12">
+            {{ quePaso }}
+          </p>
         </div>
       </div>
 

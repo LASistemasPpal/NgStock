@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   horaFin = 0;
 
   @Output() codConsulta = new EventEmitter<string[]>();
-  @Output() idioma = new EventEmitter();
+  @Output() idioma = new EventEmitter<string>();
 
   constructor(
     public dameCalendario: DameCalendario,
@@ -250,7 +250,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.busca_title('CODIGO_MONEDA_BUSCAR', '#buscarMoneda');
     this.busca_title('CODIGO_CLIENTE_BUSCAR', '#buscarCliente');
 
-    this.idioma.emit();
+    this.idioma.emit(tipo);
   }
 
   busca_title(etiqueta: string, id: string) {

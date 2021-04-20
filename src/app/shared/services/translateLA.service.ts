@@ -1,11 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { ITranslate } from '../interface/ITranslate';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TranslateService {
+export class TranslateLAService {
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -27,6 +27,6 @@ export class TranslateService {
 
     const url = 'https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to=' + idioma;
 
-    return this.http.post(url, body, this.httpOptions).pipe( map(datos => datos[0].translations.text)[0]);
+    return this.http.post<ITranslate>(url, body, this.httpOptions);
   }
 }

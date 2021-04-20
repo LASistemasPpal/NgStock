@@ -8,6 +8,7 @@ import {
 import { ConectorService, fechaHoy, display_x, ColorGrid } from '@laranda/lib-sysutil';
 import { Chart } from 'chart.js';
 import { CalculosRD } from './../../../shared/services/estadisticas.service';
+import { TranslateLAService } from './../../../shared/services/translateLA.service';
 import { Movimientos, RiesgoLiquidez } from './../../../shared/classes/bvrdClass';
 import {
   DamePosturasM,
@@ -34,6 +35,8 @@ export class DataComponent implements OnInit {
   mecaOTC = false;
   fechaActual = fechaHoy();
   movimientos: Movimientos[];
+  tipoIdioma = 'es';
+  quePaso = '';
 
   constructor(
     private conectorService: ConectorService,
@@ -42,6 +45,7 @@ export class DataComponent implements OnInit {
     private insertaPolicia: InsertaPolicia,
     private colorGrid: ColorGrid,
     private translate: TranslateService,
+    private translateLAService: TranslateLAService,
     public dameTitulos: DameTitulos,
     public damePosturasP: DamePosturasP,
     public damePosturasM: DamePosturasM,
@@ -57,6 +61,8 @@ export class DataComponent implements OnInit {
       this.insertaPolicia.consultar(this.conectorService.info.URL_REST, this.conectorService.info.NUCLI,
         'Ingresando al sistema', 'NgStock', 'C', 99);
     }
+
+    this.tipoIdioma = this.translate.getBrowserLang();
   }
 
   ngOnInit(): void {
@@ -116,7 +122,7 @@ export class DataComponent implements OnInit {
       this.dameRiesgoLiquidezServer.consultar(this.autenticaCli.CadOut.Usuariobv)
     ])
       .then(() => this.calculosRD.calcular(codTitulo, codMoneda))
-      .then(() => this.defineColumnas())
+      .then(() => this.defineColumnas(this.tipoIdioma))
       .then(() => {
         this.calculosRD.estadisticas.Movi.map((valor) => {
           let riesgoL: RiesgoLiquidez[];
@@ -366,20 +372,20 @@ export class DataComponent implements OnInit {
 
   }
 
-  traductor(campo: string): string {
-
-    let texto = '';
+  defineColumnas(tipo: string) {
+    this.tipoIdioma = tipo;
     this.calculosRD.visibleMovi = false;
 
-    this.translate.get(campo).subscribe(x => {
-      texto = x;
-    });
+    this.quePaso = this.dameCalendario.CadOut.Comentarios;
 
-    return texto;
-  }
-
-  defineColumnas() {
-    this.calculosRD.visibleMovi = false;
+    if (tipo !== 'es') {
+      setTimeout(() => {
+        this.translateLAService.traducirTexto(this.dameCalendario.CadOut.Comentarios, tipo)
+          .subscribe(x => {
+            this.quePaso = x[0].translations[0].text;
+          });
+      });
+    }
 
     this.dtColumnasEjemplo = [
       {
