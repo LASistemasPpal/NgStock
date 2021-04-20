@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   horaFin = 0;
 
   @Output() codConsulta = new EventEmitter<string[]>();
+  @Output() idioma = new EventEmitter();
 
   constructor(
     public dameCalendario: DameCalendario,
@@ -245,16 +246,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   modificarIdioma(tipo: string) {
     this.translate.use(tipo);
 
-    this.translate.get('CODIGO_TITULO_BUSCAR').subscribe(x => {
-      document.querySelector('#buscarTitulo').setAttribute('data-original-title', x);
-    });
+    this.busca_title('CODIGO_TITULO_BUSCAR', '#buscarTitulo');
+    this.busca_title('CODIGO_MONEDA_BUSCAR', '#buscarMoneda');
+    this.busca_title('CODIGO_CLIENTE_BUSCAR', '#buscarCliente');
 
-    this.translate.get('CODIGO_MONEDA_BUSCAR').subscribe(x => {
-      document.querySelector('#buscarMoneda').setAttribute('data-original-title', x);
-    });
+    this.idioma.emit();
+  }
 
-    this.translate.get('CODIGO_CLIENTE_BUSCAR').subscribe(x => {
-      document.querySelector('#buscarCliente').setAttribute('data-original-title', x);
+  busca_title(etiqueta: string, id: string) {
+    this.translate.get(etiqueta).subscribe(x => {
+      setTimeout(() => {
+        document.querySelector(id).setAttribute('data-original-title', x);
+      });
     });
   }
 }

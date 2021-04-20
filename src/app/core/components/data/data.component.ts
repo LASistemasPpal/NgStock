@@ -52,51 +52,6 @@ export class DataComponent implements OnInit {
     public calculosRD: CalculosRD,
     public dameCOrdenX: DameCOrdenX
   ) {
-    this.dtColumnasEjemplo = [
-      {
-        title: this.translate.get('TITULO').subscribe(x => this.colorGrid.tablaH(x)),
-        data : null,
-        render: (data: any, type: any, row: any, meta) => {
-          return data.Cotitulo.substr(0, 7); }
-      },
-      {
-        title: this.colorGrid.tablaH('Mon'),
-        data: null,
-        render: (data: any, type: any, row: any, meta) => {
-          return data.Moneda + ' ' + data.c_v + '-' + display_x(data.Cant, 2, 0) ;
-        }
-      },
-      {
-        title: this.colorGrid.tablaH('Nom Posturas -> Transado'),
-        data: null,
-        className: 'dt-body-right',
-        render: (data: any, type: any, row: any, meta) => {
-          return (data.NominalP > data.NominalReal) ?
-             display_x(data.NominalP, 10, 2) + '<span style="color:red"> -></span>' + display_x(data.NominalReal, 10, 2) :
-             display_x(data.NominalP, 10, 2);
- //         return display_x(data.NominalP > data.NominalReal ? data.NominalReal : data.NominalP, 10, 2);
-        },
-      },
-      {
-        title: this.colorGrid.tablaH('Efect Real'),
-        data: null,
-        className: 'dt-body-right',
-        render: (data: any, type: any, row: any, meta) => {
-          return display_x(data.MontoReal, 10, 2);
-        },
-      },
-      { title: this.colorGrid.tablaH('Isin'), data: 'Isin' },
-      {
-        title: this.colorGrid.tablaH('Ult Prec'),
-        data: null,
-        className: 'dt-body-right',
-        render: (data: any, type: any, row: any, meta) => {
-//        return display_x(data.PrecioProm, 10, 4); /// uno inventado de las posturas
-          return display_x(data.UltPrecio, 5, 2);   //  viene de oper mercado
-        },
-      },
-
-    ];
 
     if (this.conectorService.info !== undefined) {
       this.insertaPolicia.consultar(this.conectorService.info.URL_REST, this.conectorService.info.NUCLI,
@@ -161,6 +116,7 @@ export class DataComponent implements OnInit {
       this.dameRiesgoLiquidezServer.consultar(this.autenticaCli.CadOut.Usuariobv)
     ])
       .then(() => this.calculosRD.calcular(codTitulo, codMoneda))
+      .then(() => this.defineColumnas())
       .then(() => {
         this.calculosRD.estadisticas.Movi.map((valor) => {
           let riesgoL: RiesgoLiquidez[];
@@ -408,5 +364,76 @@ export class DataComponent implements OnInit {
       title: metodo
     });
 
+  }
+
+  traductor(campo: string): string {
+
+    let texto = '';
+    this.calculosRD.visibleMovi = false;
+
+    this.translate.get(campo).subscribe(x => {
+      texto = x;
+    });
+
+    return texto;
+  }
+
+  defineColumnas() {
+    this.calculosRD.visibleMovi = false;
+
+    this.dtColumnasEjemplo = [
+      {
+        title: 'TITULO',
+        data : null,
+        render: (data: any, type: any, row: any, meta) => {
+          return data.Cotitulo.substr(0, 7); }
+      },
+      {
+        title: 'MON',
+        data: null,
+        render: (data: any, type: any, row: any, meta) => {
+          return data.Moneda + ' ' + data.c_v + '-' + display_x(data.Cant, 2, 0) ;
+        }
+      },
+      {
+        title: 'Nom_Posturas_Transado',
+        data: null,
+        className: 'dt-body-right',
+        render: (data: any, type: any, row: any, meta) => {
+          return (data.NominalP > data.NominalReal) ?
+            display_x(data.NominalP, 10, 2) + '<span style="color:red"> -></span>' + display_x(data.NominalReal, 10, 2) :
+            display_x(data.NominalP, 10, 2);
+//         return display_x(data.NominalP > data.NominalReal ? data.NominalReal : data.NominalP, 10, 2);
+        },
+      },
+      {
+        title: 'EFECT_REAL',
+        data: null,
+        className: 'dt-body-right',
+        render: (data: any, type: any, row: any, meta) => {
+          return display_x(data.MontoReal, 10, 2);
+        },
+      },
+      { title: 'Isin', data: 'Isin' },
+      {
+        title: 'ULT_PREC',
+        data: null,
+        className: 'dt-body-right',
+        render: (data: any, type: any, row: any, meta) => {
+//        return display_x(data.PrecioProm, 10, 4); /// uno inventado de las posturas
+          return display_x(data.UltPrecio, 5, 2);   //  viene de oper mercado
+        },
+      },
+    ];
+
+    setTimeout(() => {
+      this.dtColumnasEjemplo.map(x => {
+        this.translate.get(x.title).subscribe(j => {
+          x.title = this.colorGrid.tablaH(j);
+        });
+      });
+
+      this.calculosRD.visibleMovi = true;
+    });
   }
 }

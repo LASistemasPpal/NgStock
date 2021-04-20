@@ -32,7 +32,7 @@
   "MAS_TRANSADA": "Most Transacted",
   "EMISIONES": "Emissions",
   "T_Cambio": "Exchange Rate",
-  "MOVIMIENTO_TITULO": "Movement by ",
+  "MOVIMIENTO_POR": "Movement by ",
   "MONTOS_TRANSADOS": "Amounts Traded",
   "PRECIOS": "Prices",
   "VOLUMENES": "Volumes",
@@ -40,5 +40,9 @@
   "USUARIO_VALIDO": "Enter a Valid User",
   "CONTRASEÑA": "Password",
   "CONTRASEÑA_VALIDA": "The Password must be greater than 4 characters",
-  "ENTRAR": "Log In"
+  "ENTRAR": "Log In",
+  "MON": "Curr",
+  "Nom_Posturas_Transado": "Nom Positions -> Traded",
+  "EFECT_REAL":"Real Cash",
+  "ULT_PREC": "Last Price"
 }

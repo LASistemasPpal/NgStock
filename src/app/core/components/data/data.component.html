@@ -1,4 +1,4 @@
-<app-header *ngIf="dameCalendario.visible"  (codConsulta)="consultarGeneral($event)"></app-header>
+<app-header *ngIf="dameCalendario.visible"  (codConsulta)="consultarGeneral($event)" (idioma)="defineColumnas()"></app-header>
 
 
 <div *ngIf="dameCalendario.visible" class="container-12 bg-gris">
