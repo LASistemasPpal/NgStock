@@ -134,17 +134,12 @@ export class PosicionMAntComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.scrollTo(0, document.body.scrollHeight);
+
     this.damePosicionMAnt.CadOut = [];
     this.damePosicionMAnt.visible = false;
     this.damePosicionMAnt.ParamIn.Rif = this.codRif;
     this.damePosicionMAnt.ParamIn.Fechin = this.fecha;
     this.damePosicionMAnt.consultar(this.conectorService.info.URL_REST);
-
-    window.scrollTo(0, document.body.scrollHeight);
-  }
-
-  ejemplo() {
-    console.log('Hola');
-
   }
 }
