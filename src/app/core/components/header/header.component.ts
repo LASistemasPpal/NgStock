@@ -1,7 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { DameCalendario, DameIDMRif, DameTitulos, AutenticaCli, InsertaPolicia } from '@laranda/lib-ultra-net';
+import { DameCalendario, DameIDMRif, DameTitulos, AutenticaCli, InsertaPolicia, CierreRiesgo } from '@laranda/lib-ultra-net';
 import { ConectorService, ColorGrid } from '@laranda/lib-sysutil';
-import { DameRiesgoLiquidezServer } from './../../../shared/services/data-bvrd.service';
 
 declare let $: any;
 @Component({
@@ -31,7 +30,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private conectorService: ConectorService,
     private colorGrid: ColorGrid,
     private insertaPolicia: InsertaPolicia,
-    private dameRiesgoLiquidezServer: DameRiesgoLiquidezServer
+    private cierreRiesgo: CierreRiesgo
   ) {
 
     if (this.dameCalendario.visible) {
@@ -72,7 +71,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
         const tiempo = new Date();
 
         if (tiempo.getTime() >= this.horaIni && tiempo.getTime() <= this.horaFin ) {
-          this.dameRiesgoLiquidezServer.consultar(this.autenticaCli.CadOut.Usuariobv);
+          this.cierreRiesgo.ParamIn.Cadena = '1';
+          this.cierreRiesgo.consultar(this.conectorService.info.URL_REST);
         } else {
           if (tiempo.getTime() > this.horaFin) {
             this.actualizaLiquidez = false;
