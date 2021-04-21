@@ -139,5 +139,12 @@ export class PosicionMAntComponent implements OnInit {
     this.damePosicionMAnt.ParamIn.Rif = this.codRif;
     this.damePosicionMAnt.ParamIn.Fechin = this.fecha;
     this.damePosicionMAnt.consultar(this.conectorService.info.URL_REST);
-}
+
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+
+  ejemplo() {
+    console.log('Hola');
+
+  }
 }
