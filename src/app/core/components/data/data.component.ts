@@ -5,7 +5,7 @@ import {
   DameTitulosAll,
   DameTitulos, DameCOrdenX, InsertaPolicia
 } from '@laranda/lib-ultra-net';
-import { ConectorService, fechaHoy, display_x, ColorGrid } from '@laranda/lib-sysutil';
+import { ConectorService, fechaHoy, display_x } from '@laranda/lib-sysutil';
 import { Chart } from 'chart.js';
 import { CalculosRD } from './../../../shared/services/estadisticas.service';
 import { TranslateLAService } from './../../../shared/services/translateLA.service';
@@ -43,7 +43,6 @@ export class DataComponent implements OnInit {
     private dameTitulosAll: DameTitulosAll,
     private autenticaCli: AutenticaCli,
     private insertaPolicia: InsertaPolicia,
-    private colorGrid: ColorGrid,
     private translate: TranslateService,
     private translateLAService: TranslateLAService,
     public dameTitulos: DameTitulos,
@@ -433,13 +432,7 @@ export class DataComponent implements OnInit {
     ];
 
     setTimeout(() => {
-      this.dtColumnasEjemplo.map(x => {
-        this.translate.get(x.title).subscribe(j => {
-          x.title = this.colorGrid.tablaH(j);
-        });
-      });
-
-      this.calculosRD.visibleMovi = true;
+      this.calculosRD.visibleMovi = this.translateLAService.traducirColumnas(this.dtColumnasEjemplo);
     });
   }
 }

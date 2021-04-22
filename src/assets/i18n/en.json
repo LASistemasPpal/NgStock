@@ -45,5 +45,17 @@
   "Nom_Posturas_Transado": "Nom Positions -> Traded",
   "EFECT_REAL":"Real Cash",
   "ULT_PREC": "Last Price",
-  "TODOS_DERECHOS_RESERVADOS": "All rights reserved."
+  "TODOS_DERECHOS_RESERVADOS": "All rights reserved.",
+  "TELEFONO": "Phone",
+  "NACIMIENTO": "Birth",
+  "EJECUTIVO": "Executive",
+  "CLI_DESDE": "Customer From",
+  "DIRECC": "Direction",
+  "CLAVE": "Key",
+  "PRODUCTO": "Product",
+  "SALDO_INI": "Init balance",
+  "SALDO_FINAL": "Final balance",
+  "FECHA_INI": "Init date",
+  "FECHA_FIN": "End date",
+  "PREC_MRKT_PROM": "Pric Mrkt / ave"
 }

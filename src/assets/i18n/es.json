@@ -45,5 +45,17 @@
   "Nom_Posturas_Transado": "Nom Posturas -> Transado",
   "EFECT_REAL": "Efect Real",
   "ULT_PREC": "Ult Prec",
-  "TODOS_DERECHOS_RESERVADOS": "Todos los Derechos Reservados."
+  "TODOS_DERECHOS_RESERVADOS": "Todos los Derechos Reservados.",
+  "TELEFONO": "Tlfs",
+  "NACIMIENTO": "Nacim",
+  "EJECUTIVO": "Ejec",
+  "CLI_DESDE": "Cli Desde",
+  "DIRECC": "Direcc",
+  "CLAVE": "Clave",
+  "PRODUCTO": "Producto",
+  "SALDO_INI": "Saldo Ini",
+  "SALDO_FINAL": "Saldo Final",
+  "FECHA_INI": "Fecha Ini",
+  "FECHA_FIN": "Fecha Fin",
+  "PREC_MRKT_PROM": "Prec Mrkt / Prom"
 }
