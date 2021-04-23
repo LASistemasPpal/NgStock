@@ -151,7 +151,8 @@ export class PosicionMAntComponent implements OnInit {
     ];
 
     setTimeout(() => {
-      this.visibleColumnas = this.translateLAService.traducirColumnas(this.dtColumnas);
+      this.translateLAService.traducirColumnas(this.dtColumnas)
+        .then(x => this.visibleColumnas = x);
     });
   }
 }

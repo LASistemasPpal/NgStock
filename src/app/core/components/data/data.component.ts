@@ -123,6 +123,7 @@ export class DataComponent implements OnInit {
       .then(() => this.calculosRD.calcular(codTitulo, codMoneda))
       .then(() => this.defineColumnas(this.tipoIdioma))
       .then(() => {
+
         this.calculosRD.estadisticas.Movi.map((valor) => {
           let riesgoL: RiesgoLiquidez[];
           riesgoL = this.dameRiesgoLiquidezServer.riesgoLiquidez.filter((x) => x.codigoisin === valor.Isin);
@@ -432,7 +433,8 @@ export class DataComponent implements OnInit {
     ];
 
     setTimeout(() => {
-      this.calculosRD.visibleMovi = this.translateLAService.traducirColumnas(this.dtColumnasEjemplo);
+      this.translateLAService.traducirColumnas(this.dtColumnasEjemplo)
+        .then(x => this.calculosRD.visibleMovi = x);
     });
   }
 }

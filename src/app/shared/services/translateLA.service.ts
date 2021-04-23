@@ -38,8 +38,8 @@ export class TranslateLAService {
     window.scrollTo(0, document.body.scrollHeight);
   }
 
-  traducirColumnas(columnas: DataTables.ColumnSettings[]): boolean {
-    columnas.map(x => {
+  async traducirColumnas(columnas: DataTables.ColumnSettings[]): Promise<boolean> {
+    await columnas.map(x => {
       this.translate.get(x.title).subscribe(j => {
         x.title = this.colorGrid.tablaH(j);
       });
