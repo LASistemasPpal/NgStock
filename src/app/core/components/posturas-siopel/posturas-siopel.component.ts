@@ -1,6 +1,7 @@
+import { TranslateLAService } from './../../../shared/services/translateLA.service';
 import { CadJsons } from './../../../shared/classes/bvrdClass';
 import { Component, OnInit, Input } from '@angular/core';
-import { HTfech_a_fech, display_x, ColorGrid } from '@laranda/lib-sysutil';
+import { HTfech_a_fech, display_x } from '@laranda/lib-sysutil';
 import { DameTitulosAll } from '@laranda/lib-ultra-net';
 
 @Component({
@@ -14,6 +15,7 @@ export class PosturasSiopelComponent implements OnInit {
 
   dtColumnas: DataTables.ColumnSettings[] = [];
   datosFiltrados: CadJsons[];
+  visibleColumnas = true;
 
   @Input() datos: CadJsons[];
   @Input()
@@ -39,51 +41,66 @@ export class PosturasSiopelComponent implements OnInit {
         }
 
         this.visible = true;
+        this.translateLAService.scrollFin();
       }, 500);
     }
+  @Input() set tipIdioma(tipo: string) {
+    this.defineColumnas();
+  }
 
-  constructor( private dameTitulosAll: DameTitulosAll,
-               private colorGrid: ColorGrid)
-     {
+  constructor(
+    private dameTitulosAll: DameTitulosAll,
+    private translateLAService: TranslateLAService
+  )
+     { }
+
+  defineColumnas() {
+    this.visibleColumnas = false;
+
     this.dtColumnas = [
-      { title:  this.colorGrid.tablaH('Rueda'), data: 'CODRUEDA' },
-      { title:  this.colorGrid.tablaH('Duracion'), data: 'Duracion' },
-      { title:  this.colorGrid.tablaH('Estatus'), data: 'Estatus' },
-      { title:  this.colorGrid.tablaH('Postura'), data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  'RUEDA', data: 'CODRUEDA' },
+      { title:  'DURACION', data: 'Duracion' },
+      { title:  'ESTATUS', data: 'Estatus' },
+      { title:  'POSTURAS', data: null, render: (data: any, type: any, row: any, meta) => {
         return HTfech_a_fech(data.FechaPostura).substr(0, 10);
       }, className: 'dt-body-center' },
     //  { title: 'Postura', data: 'FechaPostura' },
-     { title:  this.colorGrid.tablaH('Fecha Liq'), data: null, render: (data: any, type: any, row: any, meta) => {
+     { title: 'FECH_LIQ', data: null, render: (data: any, type: any, row: any, meta) => {
         return HTfech_a_fech(data.FechaLiquidacion).substr(0, 10);
       }, className: 'dt-body-center' },
-       { title:  this.colorGrid.tablaH('Hora'), data: 'HoraPostura' },
-      { title:  this.colorGrid.tablaH('ISIN'), data: 'ISIN' },
-      { title:  this.colorGrid.tablaH('Mon'), data: 'MonedaLiquidacion' },
+       { title:  'HORA', data: 'HoraPostura' },
+      { title:  'ISIN', data: 'ISIN' },
+      { title:  'MON', data: 'MonedaLiquidacion' },
       // { title: 'NroOperacionVinculada', data: 'NroOperacionVinculada' },
-      { title:  this.colorGrid.tablaH('Nro Orden'), data: 'OrdenesEnFirmeID' },
+      { title: 'N_ORDEN', data: 'OrdenesEnFirmeID' },
       // { title: 'Plz Liq', data: 'PlazoLiquidacion', className: 'dt-body-right' },
-      { title:  this.colorGrid.tablaH('Plz Liq'), data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  'PLZ_LIQ', data: null, render: (data: any, type: any, row: any, meta) => {
         return display_x(data.PlazoLiquidacion, 4, 0);
       }},
-      { title:  this.colorGrid.tablaH('Comp /Vta'), data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'COMP_VTA', data: null, render: (data: any, type: any, row: any, meta) => {
         return data.PosicionCompraVenta + ' / ' + this.dameTitulosAll.getCodTituloLA(data.ISIN);
       }},
 
-      { title:  this.colorGrid.tablaH('Precio'), data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
+      { title: 'PRECIO', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
         return display_x(data.Precio, 10, 4);
       } },
-      { title:  this.colorGrid.tablaH('Rend'), data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
+      { title: 'REND', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
         return display_x(data.Rendimiento, 10, 4);
       } },
-      { title:  this.colorGrid.tablaH('Sec'), data: 'Secuencia', className: 'dt-body-right' },
+      { title: 'SEC', data: 'Secuencia', className: 'dt-body-right' },
       // { title: 'TasaCupon', data: 'TasaCupon' },
-      { title: this.colorGrid.tablaH('Valor Nominal'), data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'VALOR_NOMINAL', data: null, render: (data: any, type: any, row: any, meta) => {
         return display_x(data.MonedaLiquidacion === 'DOP' ? data.ValorNominalPesos : data.ValorNominalDolares, 14, 2);
       }, className: 'dt-body-right'},
-      { title:  this.colorGrid.tablaH('Valor Transado'), data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'VALOR_TRANSADO', data: null, render: (data: any, type: any, row: any, meta) => {
         return display_x(data.MonedaLiquidacion === 'DOP' ? data.ValorTransadoPesos : data.ValorTransadoDolares, 14, 2);
       }, className: 'dt-body-right' }
     ];
+
+    setTimeout(() => {
+      this.translateLAService.traducirColumnas(this.dtColumnas)
+        .then(x => this.visibleColumnas = x);
+    });
   }
 
   ngOnInit(): void { }

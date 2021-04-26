@@ -138,18 +138,18 @@
 
 <app-cordenx *ngIf="consultaTipo === '2'" [codRif]="codigoCliente" [fecha]="dameCalendario.CadOut.Fecha" [titulo]="codigoTitulo"  [mecaOTC]="mecaOTC" [tipIdioma]="tipoIdioma"></app-cordenx>
 
-<app-posturas-propias *ngIf="consultaTipo === '4'" [datos]="!damePosturasP.posturasPropias[0] ? [] : damePosturasP.posturasPropias[0].CadJson" [filtros]="codigoMoneda + ';' + codigoTitulo" class="tabla-font-11"></app-posturas-propias>
+<app-posturas-propias *ngIf="consultaTipo === '4'" [datos]="!damePosturasP.posturasPropias[0] ? [] : damePosturasP.posturasPropias[0].CadJson" [filtros]="codigoMoneda + ';' + codigoTitulo" class="tabla-font-11" [tipIdioma]="tipoIdioma"></app-posturas-propias>
 
-<app-posturas-siopel *ngIf="consultaTipo === '5'" [datos]="damePosturasM.posturasSiopel[0].CadJson" [filtros]="codigoMoneda + ';' + codigoTitulo" class="tabla-font-11"></app-posturas-siopel>
+<app-posturas-siopel *ngIf="consultaTipo === '5'" [datos]="!damePosturasM.posturasSiopel[0] ? [] : damePosturasM.posturasSiopel[0].CadJson" [filtros]="codigoMoneda + ';' + codigoTitulo" class="tabla-font-11" [tipIdioma]="tipoIdioma"></app-posturas-siopel>
 
-<app-operaciones-propias *ngIf="consultaTipo === '6'" [datos]="dameOperaciones.operacionBvrd[0].CadJson" [filtros]="codigoMoneda + ';' + codigoTitulo" class="tabla-font-11"></app-operaciones-propias>
+<app-operaciones-propias *ngIf="consultaTipo === '6'" [datos]="!dameOperaciones.operacionBvrd[0] ? [] : dameOperaciones.operacionBvrd[0].CadJson" [filtros]="codigoMoneda + ';' + codigoTitulo" class="tabla-font-11" [tipIdioma]="tipoIdioma"></app-operaciones-propias>
 
-<app-operacion-mrkt *ngIf="consultaTipo === '8'" [datos]="dameOperacionesMrkt.operacionBvrdMrkt[0].CadJson" [filtros]="codigoMoneda + ';' + codigoTitulo" class="tabla-font-11"></app-operacion-mrkt>
+<app-operacion-mrkt *ngIf="consultaTipo === '8'" [datos]="!dameOperacionesMrkt.operacionBvrdMrkt[0] ? [] : dameOperacionesMrkt.operacionBvrdMrkt[0].CadJson" [filtros]="codigoMoneda + ';' + codigoTitulo" class="tabla-font-11" [tipIdioma]="tipoIdioma"></app-operacion-mrkt>
 
 <app-operaciones-otc *ngIf="consultaTipo === 'A'" [datos]="dameOperacionesMrkt.operacionBvrdMrkt[0].CadJson" [codISIN]="codigoTitulo" [codMoneda]="codigoMoneda" class="tabla-font-11"></app-operaciones-otc>
 
 <app-posicion-propia *ngIf="consultaTipo === '9'"  [codISIN]="codigoTitulo" [mov]="calculosRD.estadisticas.Movi" class="tabla-font-11" [tipIdioma]="tipoIdioma"></app-posicion-propia>
 
-<app-riesgo-liquidez *ngIf="consultaTipo === '7'" class="tabla-font-11"></app-riesgo-liquidez>
+<app-riesgo-liquidez *ngIf="consultaTipo === '7'" class="tabla-font-11" [tipIdioma]="tipoIdioma"></app-riesgo-liquidez>
 
 <app-footer *ngIf="dameCalendario.visible"></app-footer>

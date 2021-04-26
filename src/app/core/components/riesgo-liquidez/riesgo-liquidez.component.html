@@ -6,11 +6,11 @@
 
 <div class="conteiner-12 mx-5 mt-4 pt-4">
   <div class="row justify-content-center">
-    <h3 class="col text-center">Riesgo Liquidez</h3>
+    <h3 class="col text-center">{{ 'RIESGO_LIQUIDEZ' | translate }}</h3>
   </div>
   <div class="row justify-content-center">
-    <div class="col-12 mb-4">
-      <lsy-tabla-la *ngIf="dameRiesgoLiquidezServer.visible" [columnas]="dtColumnas" [datosX]="dameRiesgoLiquidezServer.riesgoLiquidez" [barraY]="'80vh'"></lsy-tabla-la>
+    <div class="col-12 mb-4" *ngIf="dameRiesgoLiquidezServer.visible">
+      <lsy-tabla-la *ngIf="visibleColumnas" [columnas]="dtColumnas" [datosX]="dameRiesgoLiquidezServer.riesgoLiquidez" [barraY]="'80vh'"></lsy-tabla-la>
     </div>
   </div>
 </div>

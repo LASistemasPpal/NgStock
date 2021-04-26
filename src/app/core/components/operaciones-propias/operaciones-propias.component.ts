@@ -1,4 +1,5 @@
-import { display_x, HTfech_a_fech, ColorGrid } from '@laranda/lib-sysutil';
+import { TranslateLAService } from './../../../shared/services/translateLA.service';
+import { display_x, HTfech_a_fech } from '@laranda/lib-sysutil';
 import { CadJsonOpers } from './../../../shared/classes/bvrdClass';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -10,6 +11,7 @@ export class OperacionesPropiasComponent implements OnInit {
 
   private priFiltro: string[] = [];
   visible = true;
+  visibleColumnas = true;
 
   dtColumnas: DataTables.ColumnSettings[] = [];
   datosFiltrados: CadJsonOpers[];
@@ -38,40 +40,51 @@ export class OperacionesPropiasComponent implements OnInit {
         }
 
         this.visible = true;
+        this.translateLAService.scrollFin();
       }, 500);
     }
+  @Input() set tipIdioma(tipo: string) {
+    this.defineColumnas();
+  }
+
 
   constructor(
-    private colorGrid: ColorGrid) {
+    private translateLAService: TranslateLAService
+  ) { }
+
+  ngOnInit(): void { }
+
+  defineColumnas() {
+    this.visibleColumnas = false;
 
     this.dtColumnas = [
       // { title: 'CantidadTitulos', data: 'CantidadTitulos', className: 'dt-body-right' },
-      { title:  this.colorGrid.tablaH('ISIN'), data: 'CodigoISIN' },
+      { title: 'ISIN', data: 'CodigoISIN' },
   //    { title:  this.colorGrid.tablaH('Emisor'), data: 'CodEmisorBVRD' },
 
-      { title:  this.colorGrid.tablaH('Estatus'), data: 'Estatus' },
-      { title:  this.colorGrid.tablaH('Fecha Liq'), data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  'ESTATUS', data: 'Estatus' },
+      { title:  'FECH_LIQ', data: null, render: (data: any, type: any, row: any, meta) => {
         return HTfech_a_fech(data.FechaLiquidacion).substr(0, 10);
       }, className: 'dt-body-center'},
-      { title:  this.colorGrid.tablaH('Hora'), data: 'HoraOperacion'},
+      { title:  'HORA', data: 'HoraOperacion'},
       // { title:  this.colorGrid.tablaH('Hora'), data: null, render: (data: any, type: any, row: any, meta) => {
       //   const fechaX = new Date(data.HoraOperacion);
       //   return fechaX.getHours() + ':' + fechaX.getMinutes();
       // } },
-       { title:  this.colorGrid.tablaH('Mon'), data: 'MonedaTransada' },
-      { title:  this.colorGrid.tablaH('Mercado'), data: 'NombreMercado' },
-      { title:  this.colorGrid.tablaH('Ofert Comp'), data: 'NumeroOfertaCompra', className: 'dt-body-right' },
-      { title:  this.colorGrid.tablaH('Ofert Vend'), data: 'NumeroOfertaVenta', className: 'dt-body-right' },
-      { title:  this.colorGrid.tablaH('Nro Operac'), data: 'NumeroOperacion' },
-      { title: this.colorGrid.tablaH('Precio'), data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
+       { title: 'MON', data: 'MonedaTransada' },
+      { title: 'MERCADO', data: 'NombreMercado' },
+      { title: 'OFERT_COMP', data: 'NumeroOfertaCompra', className: 'dt-body-right' },
+      { title: 'OFERT_VEND', data: 'NumeroOfertaVenta', className: 'dt-body-right' },
+      { title: 'N_OPERAC', data: 'NumeroOperacion' },
+      { title: 'PRECIO', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
         return display_x(data.PrecioLimpio, 10, 4);
       } },
-      { title: this.colorGrid.tablaH('Comprador'), data: 'PuestoComprador' },
-      { title:  this.colorGrid.tablaH('Vendedor'), data: 'PuestoVendedor' },
+      { title: 'COMPRADOR', data: 'PuestoComprador' },
+      { title: 'VENDEDOR', data: 'PuestoVendedor' },
       // { title: 'TasaCompra', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
       //   return display_x(data.TasaCompra, 10, 2);
       // } }
-      { title:  this.colorGrid.tablaH('Nominal'), data: null, className: 'dt-body-right',
+      { title:  'Nominal', data: null, className: 'dt-body-right',
       render: (data: any, type: any, row: any, meta) => {
         if (data.MonedaTransada === 'DOP') {
           return display_x(data.ValorNominalPesos, 14, 2);
@@ -79,7 +92,7 @@ export class OperacionesPropiasComponent implements OnInit {
           return display_x(data.ValorNominalDolares, 14, 2);
         }
       } },
-      { title:  this.colorGrid.tablaH('Efectivo'), data: null, className: 'dt-body-right',
+      { title:  'EFECTIVO', data: null, className: 'dt-body-right',
       render: (data: any, type: any, row: any, meta) => {
         if (data.MonedaTransada === 'DOP') {
           return display_x(data.ValorTransadoPesos, 14, 2);
@@ -88,17 +101,20 @@ export class OperacionesPropiasComponent implements OnInit {
         }
 
       } },
-      { title:  this.colorGrid.tablaH('Cmi Comp'), data: null, className: 'dt-body-right',
+      { title:  'CMI_COMP', data: null, className: 'dt-body-right',
       render: (data: any, type: any, row: any, meta) => {
         return display_x(data.ComisionComprador, 8, 2);
       } },
-      { title:  this.colorGrid.tablaH('Cmi Vend'), data: null, className: 'dt-body-right',
+      { title: 'CMI_VEND', data: null, className: 'dt-body-right',
       render: (data: any, type: any, row: any, meta) => {
         return display_x(data.ComisionVendedor, 8, 2);
       }}
-        ];
-  }
+    ];
 
-  ngOnInit(): void { }
+    setTimeout(() => {
+      this.translateLAService.traducirColumnas(this.dtColumnas)
+        .then(x => this.visibleColumnas = x);
+    });
+  }
 
 }

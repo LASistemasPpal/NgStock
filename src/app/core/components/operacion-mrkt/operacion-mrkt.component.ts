@@ -1,3 +1,4 @@
+import { TranslateLAService } from './../../../shared/services/translateLA.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { CadJsonOperMrkts } from 'src/app/shared/classes/bvrdClass';
 import { ColorGrid, display_x, HTfech_a_fech } from '@laranda/lib-sysutil';
@@ -11,6 +12,7 @@ export class OperacionMrktComponent implements OnInit {
 
   private priFiltro: string[] = [];
   visible = true;
+  visibleColumnas = true;
 
   dtColumnas: DataTables.ColumnSettings[] = [];
   datosFiltrados: CadJsonOperMrkts[];
@@ -39,46 +41,61 @@ export class OperacionMrktComponent implements OnInit {
         }
 
         this.visible = true;
+        this.translateLAService.scrollFin();
       }, 500);
     }
+  @Input() set tipIdioma(tipo: string) {
+    this.defineColumnas();
+  }
 
 
-  constructor(private dameTitulosAll: DameTitulosAll,
-              private colorGrid: ColorGrid) {
+  constructor(
+    private dameTitulosAll: DameTitulosAll,
+    private translateLAService: TranslateLAService
+  ) {  }
+
+  ngOnInit(): void { }
+
+  defineColumnas() {
+    this.visibleColumnas = false;
+
     this.dtColumnas = [
       // { title: 'CantidadTitulos', data: 'CantidadTitulos', className: 'dt-body-right' },
-      { title:  this.colorGrid.tablaH('ISIN'), data: 'CodigoISIN' },
-      { title:  this.colorGrid.tablaH('Titulo'), data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'ISIN', data: 'CodigoISIN' },
+      { title: 'TITULO', data: null, render: (data: any, type: any, row: any, meta) => {
         return  this.dameTitulosAll.getCodTituloLA(data.CodigoISIN);
       }},
-      { title:  this.colorGrid.tablaH('Estatus'), data: 'Estatus' },
-      { title:  this.colorGrid.tablaH('Fecha Liq'), data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'ESTATUS', data: 'Estatus' },
+      { title: 'FECH_LIQ', data: null, render: (data: any, type: any, row: any, meta) => {
         return HTfech_a_fech(data.FechaLiquidacion).substr(0, 10);
       }, className: 'dt-body-center'},
-      { title:  this.colorGrid.tablaH('Hora'), data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'HORA', data: null, render: (data: any, type: any, row: any, meta) => {
         const fechaX = new Date(data.HoraOperacion);
         return fechaX.getHours() + ':' + fechaX.getMinutes();
       } },
-      { title:  this.colorGrid.tablaH('Mon'), data: 'MonedaTransada' },
-      { title:  this.colorGrid.tablaH('Mercado'), data: 'NombreMercado' },
-      { title:  this.colorGrid.tablaH('Nro Operacion'), data: 'NumeroOperacion' },
-      { title: this.colorGrid.tablaH('Precio'), data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
+      { title: 'MON', data: 'MonedaTransada' },
+      { title: 'MERCADO', data: 'NombreMercado' },
+      { title: 'N_OPERAC', data: 'NumeroOperacion' },
+      { title: 'PRECIO', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
         return display_x(data.PrecioLimpio, 14, 8);
       } },
-       { title:  this.colorGrid.tablaH('Cupon'), data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
+       { title: 'CUPON', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
         return display_x(data.TasaCupon, 8, 2);
       } },
-      { title:  this.colorGrid.tablaH('Nominal'), data: null, className: 'dt-body-right',
+      { title: 'Nominal', data: null, className: 'dt-body-right',
          render: (data: any, type: any, row: any, meta) => {
         return display_x(data.ValorNominalTotal, 22, 2);
       } },
-      { title:  this.colorGrid.tablaH('Monto Efectivo'), data: null, className: 'dt-body-right',
+      { title: 'MONTO_EFECTIVO', data: null, className: 'dt-body-right',
          render: (data: any, type: any, row: any, meta) => {
         return display_x(data.ValorTransado, 22, 2);
       } }
     ];
-   }
 
-  ngOnInit(): void { }
+    setTimeout(() => {
+      this.translateLAService.traducirColumnas(this.dtColumnas)
+        .then(x => this.visibleColumnas = x);
+    });
+  }
 
 }
