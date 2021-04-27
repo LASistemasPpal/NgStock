@@ -17,11 +17,13 @@ export class CordenxComponent implements OnInit {
   @Input() titulo: string;
   @Input() mecaOTC: boolean;
   @Input() set tipIdioma(tipo: string) {
+    this.tIdioma = tipo;
     this.defineColumnas();
   }
 
   dtColumnasCOrdenX: DataTables.ColumnSettings[] = [];
   visibleColumnas = true;
+  tIdioma = '';
 
   IconCOrden: DataTables.FunctionColumnRender = (data, type, row, meta) => {
     let clase: string;

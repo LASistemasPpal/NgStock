@@ -13,6 +13,7 @@ export class OperacionMrktComponent implements OnInit {
   private priFiltro: string[] = [];
   visible = true;
   visibleColumnas = true;
+  tIdioma = '';
 
   dtColumnas: DataTables.ColumnSettings[] = [];
   datosFiltrados: CadJsonOperMrkts[];
@@ -45,6 +46,7 @@ export class OperacionMrktComponent implements OnInit {
       }, 500);
     }
   @Input() set tipIdioma(tipo: string) {
+    this.tIdioma = tipo;
     this.defineColumnas();
   }
 

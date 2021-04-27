@@ -12,8 +12,10 @@ export class RiesgoLiquidezComponent implements OnInit {
 
   dtColumnas: DataTables.ColumnSettings[] = [];
   visibleColumnas = true;
+  tIdioma = '';
 
   @Input() set tipIdioma(tipo: string) {
+    this.tIdioma = tipo;
     this.defineColumnas();
   }
 
@@ -42,7 +44,7 @@ export class RiesgoLiquidezComponent implements OnInit {
   }
 
   defineColumnas() {
-    this.visibleColumnas = true;
+    this.visibleColumnas = false;
 
     this.dtColumnas = [
       { title: 'Isin', data: 'codigoisin' },

@@ -13,11 +13,13 @@ export class PosicionMAntComponent implements OnInit {
 
   dtColumnas: DataTables.ColumnSettings[] = [];
   visibleColumnas = true;
+  tIdioma = '';
 
   @Input() codRif: string;
   @Input() fecha: string;
   @Input() mov: Movimientos[] = [];
   @Input() set tipIdioma(tipo: string) {
+    this.tIdioma = tipo;
     this.defineColumnas();
   }
 

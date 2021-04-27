@@ -68,7 +68,7 @@
         <h3 class="text-center"><i class="fas fa-money-bill-wave pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i>
           {{ 'MOVIMIENTO_POR' | translate}} {{ 'TITULO' | translate }}
         </h3>
-        <lsy-tabla-la *ngIf="calculosRD.visibleMovi" [columnas]="dtColumnasEjemplo" [datosX]="calculosRD.estadisticas.Movi" class="tabla-font-12" [botones]="false" [barraY]="'30vh'"></lsy-tabla-la>
+        <lsy-tabla-la *ngIf="calculosRD.visibleMovi" [columnas]="dtColumnasEjemplo" [datosX]="calculosRD.estadisticas.Movi" class="tabla-font-12" [botones]="false" [barraY]="'30vh'" [idioma]="tipoIdioma"></lsy-tabla-la>
       </div>
 
     </div>
@@ -146,7 +146,7 @@
 
 <app-operacion-mrkt *ngIf="consultaTipo === '8'" [datos]="!dameOperacionesMrkt.operacionBvrdMrkt[0] ? [] : dameOperacionesMrkt.operacionBvrdMrkt[0].CadJson" [filtros]="codigoMoneda + ';' + codigoTitulo" class="tabla-font-11" [tipIdioma]="tipoIdioma"></app-operacion-mrkt>
 
-<app-operaciones-otc *ngIf="consultaTipo === 'A'" [datos]="dameOperacionesMrkt.operacionBvrdMrkt[0].CadJson" [codISIN]="codigoTitulo" [codMoneda]="codigoMoneda" class="tabla-font-11"></app-operaciones-otc>
+<app-operaciones-otc *ngIf="consultaTipo === 'A'" [datos]="!dameOperacionesMrkt.operacionBvrdMrkt[0] ? [] : dameOperacionesMrkt.operacionBvrdMrkt[0].CadJson" [codISIN]="codigoTitulo" [codMoneda]="codigoMoneda" class="tabla-font-11" [tipIdioma]="tipoIdioma"></app-operaciones-otc>
 
 <app-posicion-propia *ngIf="consultaTipo === '9'"  [codISIN]="codigoTitulo" [mov]="calculosRD.estadisticas.Movi" class="tabla-font-11" [tipIdioma]="tipoIdioma"></app-posicion-propia>
 

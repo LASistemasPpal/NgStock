@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { DameCalendario, DameIDMRif, DameTitulos, AutenticaCli, InsertaPolicia, CierreRiesgo } from '@laranda/lib-ultra-net';
-import { ConectorService, ColorGrid } from '@laranda/lib-sysutil';
+import { ConectorService, ColorGrid, stringToTime } from '@laranda/lib-sysutil';
 import { TranslateService } from '@ngx-translate/core';
 
 declare let $: any;
@@ -71,8 +71,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       html: true
     });
 
-    this.horaIni = this.stringToTime(this.conectorService.info.ROBOT_LIQUIDEZ.HORA_INICIO);
-    this.horaFin = this.stringToTime(this.conectorService.info.ROBOT_LIQUIDEZ.HORA_FIN);
+    this.horaIni = stringToTime(this.conectorService.info.ROBOT_LIQUIDEZ.HORA_INICIO);
+    this.horaFin = stringToTime(this.conectorService.info.ROBOT_LIQUIDEZ.HORA_FIN);
 
 
     this.numInterval = setInterval(() => {
@@ -90,18 +90,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       }
     }, (60000 * this.conectorService.info.ROBOT_LIQUIDEZ.MINUTOS));
-  }
-
-  stringToTime(hora: string): number {
-    const auxHora = new Date();
-
-    auxHora.setSeconds(0);
-    auxHora.setMilliseconds(0);
-    auxHora.setHours(+hora.substr(0, 2));
-    auxHora.setMinutes(+hora.substr(3, 2));
-
-
-    return auxHora.getTime();
   }
 
   ngOnDestroy() {

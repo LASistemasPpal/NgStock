@@ -16,10 +16,12 @@ export class PosicionPropiaComponent implements OnInit {
   user: '';
   nmcliente: '';
   visibleColumnas = true;
+  tIdioma = '';
 
   @Input() codISIN: string;
   @Input() mov: Movimientos[] = [];
   @Input() set tipIdioma(tipo: string) {
+    this.tIdioma = tipo;
     this.defineColumnas();
   }
 

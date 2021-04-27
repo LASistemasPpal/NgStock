@@ -16,6 +16,7 @@ export class PosturasSiopelComponent implements OnInit {
   dtColumnas: DataTables.ColumnSettings[] = [];
   datosFiltrados: CadJsons[];
   visibleColumnas = true;
+  tIdioma = '';
 
   @Input() datos: CadJsons[];
   @Input()
@@ -45,6 +46,7 @@ export class PosturasSiopelComponent implements OnInit {
       }, 500);
     }
   @Input() set tipIdioma(tipo: string) {
+    this.tIdioma = tipo;
     this.defineColumnas();
   }
 
