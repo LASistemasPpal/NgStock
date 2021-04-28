@@ -100,5 +100,6 @@
   "PRECIO_COMPRA": "Purchase Price",
   "PRECIO_VENTA": "Sale price",
   "MARGEN": "Margin",
-  "RECORTE": "Cutout"
+  "RECORTE": "Cutout",
+  "PROCESANDO_LOS_DATOS": "Processing the Data"
 }

@@ -100,5 +100,6 @@
   "PRECIO_COMPRA": "Precio Compra",
   "PRECIO_VENTA": "Precio Venta",
   "MARGEN": "Margen",
-  "RECORTE": "Recorte"
+  "RECORTE": "Recorte",
+  "PROCESANDO_LOS_DATOS": "Procesando los Datos"
 }

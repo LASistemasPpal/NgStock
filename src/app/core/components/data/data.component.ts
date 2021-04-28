@@ -65,13 +65,16 @@ export class DataComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Procesando los Datos....',
-      title: 'Loading',
+
+    this.translate.get('PROCESANDO_LOS_DATOS').subscribe(x => {
+      swal.fire({
+        allowOutsideClick: false,
+        icon: 'info',
+        text: x + '....',
+        title: 'Loading',
+      });
+      swal.showLoading();
     });
-    swal.showLoading();
 
     if (this.conectorService.info === undefined) {
       this.conectorService.getParametros().then(() => {
@@ -104,13 +107,15 @@ export class DataComponent implements OnInit {
     loading?: boolean
   ): void {
     if (loading === undefined) {
-      swal.fire({
-        allowOutsideClick: false,
-        icon: 'info',
-        text: 'Procesando los Datos....',
-        title: 'Loading',
+      this.translate.get('PROCESANDO_LOS_DATOS').subscribe(x => {
+        swal.fire({
+          allowOutsideClick: false,
+          icon: 'info',
+          text: x + '....',
+          title: 'Loading',
+        });
+        swal.showLoading();
       });
-      swal.showLoading();
     }
 
     Promise.allSettled([
@@ -139,8 +144,8 @@ export class DataComponent implements OnInit {
         this.calculosRD.visibleMovi = true;
         swal.close();
 
-        const myChart = this.generaGraficoLinia1();
-        const myChart2 = this.generaGraficoLinia2();
+        const myChart = this.generaGraficoLinia1(this.tipoIdioma);
+        const myChart2 = this.generaGraficoLinia2(this.tipoIdioma);
         const myChart3 = this.graficoDona(
           'graficoMonTran',
           'DOP. mm',
@@ -160,20 +165,30 @@ export class DataComponent implements OnInit {
       .catch((e) => this.mensajeError('Error', e.Status, e.Mensaje));
   }
 
-  generaGraficoLinia1() {
+  generaGraficoLinia1(tipo: string) {
+    let PrecioM = 'PrecioM';
+    let PrecioOper = 'PrecioOper';
+
+    if (tipo !== 'es') {
+      this.translate.get('PRECIO').subscribe(x => {
+        PrecioM = 'M' + x;
+        PrecioOper = 'Oper' + x;
+      });
+    }
+
     return new Chart('graficoPrecio', {
       type: 'line',
       data: {
         datasets: [
           {
-            label: 'PrecioM',
+            label: PrecioM,
             fill: false,
             backgroundColor: 'Blue',
             borderColor: 'Blue',
             data: this.calculosRD.estadisticas.GrafPrecioM,
           },
           {
-            label: 'PrecioOper',
+            label: PrecioOper,
             fill: true,
             backgroundColor: 'red',
             borderColor: 'red',
@@ -223,7 +238,16 @@ export class DataComponent implements OnInit {
     });
   }
 
-  generaGraficoLinia2() {
+  generaGraficoLinia2(tipo: string) {
+    let VolumenM = 'VolumenM';
+    let VolumenOper = 'VolumenOper';
+
+    if (tipo !== 'es') {
+      this.translate.get('VOLUMENES').subscribe(x => {
+        VolumenM = 'M' + x;
+        VolumenOper = 'Oper' + x;
+      });
+    }
 
     // willmer Git
     //  me esta graficando como que hubiera volumenes en cero
@@ -233,14 +257,14 @@ export class DataComponent implements OnInit {
       data: {
         datasets: [
           {
-            label: 'VolumenM',
+            label: VolumenM,
             fill: false,
             backgroundColor: 'Blue',
             borderColor: 'Blue',
             data: this.calculosRD.estadisticas.GrafVolumenM,
           },
           {
-            label: 'VolumenOper',
+            label: VolumenOper,
             fill: false,
             backgroundColor: 'red',
             borderColor: 'red',
@@ -370,6 +394,15 @@ export class DataComponent implements OnInit {
       title: metodo
     });
 
+  }
+
+  setIdioma(tipo: string) {
+    this.defineColumnas(tipo);
+
+    setTimeout(() => {
+      const myChart = this.generaGraficoLinia1(tipo);
+      const myChart2 = this.generaGraficoLinia2(tipo);
+    });
   }
 
   defineColumnas(tipo: string) {
