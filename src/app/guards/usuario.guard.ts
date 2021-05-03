@@ -12,7 +12,9 @@ export class UsuarioGuard implements CanActivate {
     private autenticaCli: AutenticaCli,
     private router: Router
 
-  ) { }
+  ) {
+    this.autenticaCli.getUsuarioActivo();
+  }
 
   canActivate(): boolean {
 
