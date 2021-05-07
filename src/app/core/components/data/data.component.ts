@@ -471,6 +471,6 @@ export class DataComponent implements OnInit {
           console.log('tipoIdioma ', this.tipoIdioma);
           console.log(this.dtColumnasEjemplo);
         });
-    }, 500);
+    });
   }
 }
