@@ -1,10 +1,10 @@
 <div class="conteiner-12 mx-5 mt-4 pt-4">
     <div class="row justify-content-center">
-      <h3 class="col text-center">Operaciones OTC</h3>
+      <h3 class="col text-center">{{ 'OPERACIONES_OTC' | translate }}</h3>
     </div>
     <div class="row justify-content-center">
       <div class="col-12 mb-4">
-        <lsy-tabla-la [columnas]="dtColumnas" [datosX]="((codISIN !== '') || (codMoneda !== '')) ? datos : datos" [barraY]="'60vh'"></lsy-tabla-la>
+        <lsy-tabla-la *ngIf="visibleColumnas" [columnas]="dtColumnas" [datosX]="((codISIN !== '') || (codMoneda !== '')) ? datos : datos" [barraY]="'60vh'" [idioma]="tIdioma" [colorTH]="dameCalendario.CadOut.Color"></lsy-tabla-la>
       </div>
     </div>
   </div>

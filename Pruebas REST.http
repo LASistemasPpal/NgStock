@@ -225,3 +225,19 @@ POST http://la2K12.eastus.cloudapp.azure.com:8079/Pview/PViewISAPI.dll/la/rest/T
   }
 }
 ###
+
+POST https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to=es
+Ocp-Apim-Subscription-Key: 284333ad2cd3435890c5718df56a6977
+Ocp-Apim-Subscription-Region: eastus
+Content-Type: application/json
+
+[
+  {
+    "Text": "Hello, what is your name?"
+  },
+  {
+    "Text": "Welcome to my website"
+  }
+]
+###
+

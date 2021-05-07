@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { DameCalendario, DameIDMRif, DameTitulos, AutenticaCli, InsertaPolicia, CierreRiesgo } from '@laranda/lib-ultra-net';
-import { ConectorService, ColorGrid } from '@laranda/lib-sysutil';
+import { ConectorService, ColorGrid, stringToTime, TranslateLAService } from '@laranda/lib-sysutil';
+import { TranslateService } from '@ngx-translate/core';
 
 declare let $: any;
 @Component({
@@ -21,9 +22,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   horaFin = 0;
 
   @Output() codConsulta = new EventEmitter<string[]>();
+  @Output() idioma = new EventEmitter<string>();
 
   constructor(
     public dameCalendario: DameCalendario,
+    public translate: TranslateService,
+    private translateLAService: TranslateLAService,
     private autenticaCli: AutenticaCli,
     private dameIDMRif: DameIDMRif,
     private dameTitulos: DameTitulos,
@@ -54,15 +58,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
     }
 
+    // translate.addLangs(['es', 'en']);
+    // translate.setDefaultLang('es');
   }
+
 
   ngOnInit() {
     $('[data-toggle="tooltip"]').tooltip({
-      trigger: 'hover'
+      trigger: 'hover',
+      html: true
     });
 
-    this.horaIni = this.stringToTime(this.conectorService.info.HORA_INICIO);
-    this.horaFin = this.stringToTime(this.conectorService.info.HORA_FIN);
+    this.horaIni = stringToTime(this.conectorService.info.ROBOT_LIQUIDEZ.HORA_INICIO);
+    this.horaFin = stringToTime(this.conectorService.info.ROBOT_LIQUIDEZ.HORA_FIN);
 
 
     this.numInterval = setInterval(() => {
@@ -79,19 +87,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
           }
         }
       }
-    }, (60000 * this.conectorService.info.MINUTOS));
-  }
+    }, (60000 * this.conectorService.info.ROBOT_LIQUIDEZ.MINUTOS));
 
-  stringToTime(hora: string): number {
-    const auxHora = new Date();
-
-    auxHora.setSeconds(0);
-    auxHora.setMilliseconds(0);
-    auxHora.setHours(+hora.substr(0, 2));
-    auxHora.setMinutes(+hora.substr(3, 2));
-
-
-    return auxHora.getTime();
+    const browserLang = this.translate.getBrowserLang();
+    this.modificarIdioma(browserLang.match(/es|en/) ? browserLang : 'es');
   }
 
   ngOnDestroy() {
@@ -231,5 +230,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.insertaPolicia.consultar(this.conectorService.info.URL_REST, this.conectorService.info.NUCLI,
       texto, 'NgStock', 'C', 99);
+  }
+
+  modificarIdioma(tipo: string) {
+    this.translate.use(tipo);
+
+    this.translateLAService.busca_title('CODIGO_TITULO_BUSCAR', 'buscarTitulo');
+    this.translateLAService.busca_title('CODIGO_MONEDA_BUSCAR', 'buscarMoneda');
+    this.translateLAService.busca_title('CODIGO_CLIENTE_BUSCAR', 'buscarCliente');
+
+    this.idioma.emit(tipo);
   }
 }

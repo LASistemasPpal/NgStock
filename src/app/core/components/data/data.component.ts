@@ -5,7 +5,7 @@ import {
   DameTitulosAll,
   DameTitulos, DameCOrdenX, InsertaPolicia
 } from '@laranda/lib-ultra-net';
-import { ConectorService, fechaHoy, display_x, ColorGrid } from '@laranda/lib-sysutil';
+import { ConectorService, fechaHoy, display_x, TranslateLAService } from '@laranda/lib-sysutil';
 import { Chart } from 'chart.js';
 import { CalculosRD } from './../../../shared/services/estadisticas.service';
 import { Movimientos, RiesgoLiquidez } from './../../../shared/classes/bvrdClass';
@@ -17,6 +17,7 @@ import {
   DameRiesgoLiquidezServer,
 } from './../../../shared/services/data-bvrd.service';
 import swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-data',
@@ -33,12 +34,16 @@ export class DataComponent implements OnInit {
   mecaOTC = false;
   fechaActual = fechaHoy();
   movimientos: Movimientos[];
+  tipoIdioma = 'es';
+  quePaso = '';
 
   constructor(
     private conectorService: ConectorService,
     private dameTitulosAll: DameTitulosAll,
     private autenticaCli: AutenticaCli,
     private insertaPolicia: InsertaPolicia,
+    private translate: TranslateService,
+    private translateLAService: TranslateLAService,
     public dameTitulos: DameTitulos,
     public damePosturasP: DamePosturasP,
     public damePosturasM: DamePosturasM,
@@ -47,66 +52,28 @@ export class DataComponent implements OnInit {
     public dameCalendario: DameCalendario,
     public dameRiesgoLiquidezServer: DameRiesgoLiquidezServer,
     public calculosRD: CalculosRD,
-    private colorGrid: ColorGrid,
     public dameCOrdenX: DameCOrdenX
   ) {
-    this.dtColumnasEjemplo = [
-      { title: this.colorGrid.tablaH('Titulo'), data : null,
-      render: (data: any, type: any, row: any, meta) => {
-        return data.Cotitulo.substr(0, 7); } },
-      {
-        title: this.colorGrid.tablaH('Mon'),
-        data: null,
-        render: (data: any, type: any, row: any, meta) => {
-          return data.Moneda + ' ' + data.c_v + '-' + display_x(data.Cant, 2, 0) ;
-        }
-      },
-      {
-        title: this.colorGrid.tablaH('Nom Posturas -> Transado'),
-        data: null,
-        className: 'dt-body-right',
-        render: (data: any, type: any, row: any, meta) => {
-          return (data.NominalP > data.NominalReal) ?
-             display_x(data.NominalP, 10, 2) + '<span style="color:red"> -></span>' + display_x(data.NominalReal, 10, 2) :
-             display_x(data.NominalP, 10, 2);
- //         return display_x(data.NominalP > data.NominalReal ? data.NominalReal : data.NominalP, 10, 2);
-        },
-      },
-      {
-        title: this.colorGrid.tablaH('Efect Real'),
-        data: null,
-        className: 'dt-body-right',
-        render: (data: any, type: any, row: any, meta) => {
-          return display_x(data.MontoReal, 10, 2);
-        },
-      },
-      { title: this.colorGrid.tablaH('Isin'), data: 'Isin' },
-      {
-        title: this.colorGrid.tablaH('Ult Prec'),
-        data: null,
-        className: 'dt-body-right',
-        render: (data: any, type: any, row: any, meta) => {
-//        return display_x(data.PrecioProm, 10, 4); /// uno inventado de las posturas
-          return display_x(data.UltPrecio, 5, 2);   //  viene de oper mercado
-        },
-      },
-
-    ];
 
     if (this.conectorService.info !== undefined) {
       this.insertaPolicia.consultar(this.conectorService.info.URL_REST, this.conectorService.info.NUCLI,
         'Ingresando al sistema', 'NgStock', 'C', 99);
     }
+
+    this.tipoIdioma = this.translate.getBrowserLang();
   }
 
   ngOnInit(): void {
-    swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Procesando los Datos....',
-      title: 'Loading',
+
+    this.translate.get('PROCESANDO_LOS_DATOS').subscribe(x => {
+      swal.fire({
+        allowOutsideClick: false,
+        icon: 'info',
+        text: x + '....',
+        title: 'Loading',
+      });
+      swal.showLoading();
     });
-    swal.showLoading();
 
     if (this.conectorService.info === undefined) {
       this.conectorService.getParametros().then(() => {
@@ -139,13 +106,15 @@ export class DataComponent implements OnInit {
     loading?: boolean
   ): void {
     if (loading === undefined) {
-      swal.fire({
-        allowOutsideClick: false,
-        icon: 'info',
-        text: 'Procesando los Datos....',
-        title: 'Loading',
+      this.translate.get('PROCESANDO_LOS_DATOS').subscribe(x => {
+        swal.fire({
+          allowOutsideClick: false,
+          icon: 'info',
+          text: x + '....',
+          title: 'Loading',
+        });
+        swal.showLoading();
       });
-      swal.showLoading();
     }
 
     Promise.allSettled([
@@ -157,6 +126,7 @@ export class DataComponent implements OnInit {
     ])
       .then(() => this.calculosRD.calcular(codTitulo, codMoneda))
       .then(() => {
+
         this.calculosRD.estadisticas.Movi.map((valor) => {
           let riesgoL: RiesgoLiquidez[];
           riesgoL = this.dameRiesgoLiquidezServer.riesgoLiquidez.filter((x) => x.codigoisin === valor.Isin);
@@ -172,8 +142,8 @@ export class DataComponent implements OnInit {
         this.calculosRD.visibleMovi = true;
         swal.close();
 
-        const myChart = this.generaGraficoLinia1();
-        const myChart2 = this.generaGraficoLinia2();
+        const myChart = this.generaGraficoLinia1(this.tipoIdioma);
+        const myChart2 = this.generaGraficoLinia2(this.tipoIdioma);
         const myChart3 = this.graficoDona(
           'graficoMonTran',
           'DOP. mm',
@@ -190,23 +160,34 @@ export class DataComponent implements OnInit {
           this.calculosRD.estadisticas.canti.PorctotM
         );
       })
+      .then(() => this.defineColumnas(this.tipoIdioma))
       .catch((e) => this.mensajeError('Error', e.Status, e.Mensaje));
   }
 
-  generaGraficoLinia1() {
+  generaGraficoLinia1(tipo: string) {
+    let PrecioM = 'PrecioM';
+    let PrecioOper = 'PrecioOper';
+
+    if (tipo !== 'es') {
+      this.translate.get('PRECIO').subscribe(x => {
+        PrecioM = 'M' + x;
+        PrecioOper = 'Oper' + x;
+      });
+    }
+
     return new Chart('graficoPrecio', {
       type: 'line',
       data: {
         datasets: [
           {
-            label: 'PrecioM',
+            label: PrecioM,
             fill: false,
             backgroundColor: 'Blue',
             borderColor: 'Blue',
             data: this.calculosRD.estadisticas.GrafPrecioM,
           },
           {
-            label: 'PrecioOper',
+            label: PrecioOper,
             fill: true,
             backgroundColor: 'red',
             borderColor: 'red',
@@ -256,7 +237,16 @@ export class DataComponent implements OnInit {
     });
   }
 
-  generaGraficoLinia2() {
+  generaGraficoLinia2(tipo: string) {
+    let VolumenM = 'VolumenM';
+    let VolumenOper = 'VolumenOper';
+
+    if (tipo !== 'es') {
+      this.translate.get('VOLUMENES').subscribe(x => {
+        VolumenM = 'M' + x;
+        VolumenOper = 'Oper' + x;
+      });
+    }
 
     // willmer Git
     //  me esta graficando como que hubiera volumenes en cero
@@ -266,14 +256,14 @@ export class DataComponent implements OnInit {
       data: {
         datasets: [
           {
-            label: 'VolumenM',
+            label: VolumenM,
             fill: false,
             backgroundColor: 'Blue',
             borderColor: 'Blue',
             data: this.calculosRD.estadisticas.GrafVolumenM,
           },
           {
-            label: 'VolumenOper',
+            label: VolumenOper,
             fill: false,
             backgroundColor: 'red',
             borderColor: 'red',
@@ -403,5 +393,84 @@ export class DataComponent implements OnInit {
       title: metodo
     });
 
+  }
+
+  setIdioma(tipo: string) {
+    this.defineColumnas(tipo);
+
+    setTimeout(() => {
+      const myChart = this.generaGraficoLinia1(tipo);
+      const myChart2 = this.generaGraficoLinia2(tipo);
+    });
+  }
+
+  defineColumnas(tipo: string) {
+    this.tipoIdioma = tipo;
+    this.calculosRD.visibleMovi = false;
+
+    this.quePaso = this.dameCalendario.CadOut.Comentarios;
+
+    if (tipo !== 'es') {
+      setTimeout(() => {
+        this.translateLAService.traducirTexto(this.dameCalendario.CadOut.Comentarios, tipo)
+          .subscribe(x => {
+            this.quePaso = x[0].translations[0].text;
+          });
+      });
+    }
+
+    this.dtColumnasEjemplo = [
+      {
+        title: 'TITULO',
+        data : null,
+        render: (data: any, type: any, row: any, meta) => {
+          return data.Cotitulo.substr(0, 7); }
+      },
+      {
+        title: 'MON',
+        data: null,
+        render: (data: any, type: any, row: any, meta) => {
+          return data.Moneda + ' ' + data.c_v + '-' + display_x(data.Cant, 2, 0) ;
+        }
+      },
+      {
+        title: 'Nom_Posturas_Transado',
+        data: null,
+        className: 'dt-body-right',
+        render: (data: any, type: any, row: any, meta) => {
+          return (data.NominalP > data.NominalReal) ?
+            display_x(data.NominalP, 10, 2) + '<span style="color:red"> -></span>' + display_x(data.NominalReal, 10, 2) :
+            display_x(data.NominalP, 10, 2);
+//         return display_x(data.NominalP > data.NominalReal ? data.NominalReal : data.NominalP, 10, 2);
+        },
+      },
+      {
+        title: 'EFECT_REAL',
+        data: null,
+        className: 'dt-body-right',
+        render: (data: any, type: any, row: any, meta) => {
+          return display_x(data.MontoReal, 10, 2);
+        },
+      },
+      { title: 'Isin', data: 'Isin' },
+      {
+        title: 'ULT_PREC',
+        data: null,
+        className: 'dt-body-right',
+        render: (data: any, type: any, row: any, meta) => {
+//        return display_x(data.PrecioProm, 10, 4); /// uno inventado de las posturas
+          return display_x(data.UltPrecio, 5, 2);   //  viene de oper mercado
+        },
+      },
+    ];
+
+    setTimeout(() => {
+      this.translateLAService.traducirColumnas(this.dtColumnasEjemplo)
+        .then(x => {
+          this.calculosRD.visibleMovi = x;
+          console.log('tipoIdioma ', this.tipoIdioma);
+          console.log(this.dtColumnasEjemplo);
+        });
+    });
   }
 }

@@ -6,6 +6,8 @@ import { CoreModule } from './core/core.module';
 
 // Rutas
 import { AppRoutingModule } from './app-routing.module';
+
+// Librerías
 import { ColorGrid } from '@laranda/lib-sysutil';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 

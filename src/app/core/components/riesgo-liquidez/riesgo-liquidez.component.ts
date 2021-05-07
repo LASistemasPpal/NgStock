@@ -1,8 +1,7 @@
-import swal from 'sweetalert2';
-import { display_x, ColorGrid, ConectorService } from '@laranda/lib-sysutil';
-import { Component, OnInit } from '@angular/core';
+import { display_x, ConectorService, TranslateLAService } from '@laranda/lib-sysutil';
+import { Component, Input, OnInit } from '@angular/core';
 import { DameRiesgoLiquidezServer } from './../../../shared/services/data-bvrd.service';
-import { AutenticaCli, DameTitulosAll, CierreRiesgo } from '@laranda/lib-ultra-net';
+import { AutenticaCli, DameTitulosAll, CierreRiesgo, DameCalendario } from '@laranda/lib-ultra-net';
 
 @Component({
   selector: 'app-riesgo-liquidez',
@@ -11,38 +10,24 @@ import { AutenticaCli, DameTitulosAll, CierreRiesgo } from '@laranda/lib-ultra-n
 export class RiesgoLiquidezComponent implements OnInit {
 
   dtColumnas: DataTables.ColumnSettings[] = [];
+  visibleColumnas = true;
+  tIdioma = '';
+
+  @Input() set tipIdioma(tipo: string) {
+    this.tIdioma = tipo;
+    this.defineColumnas();
+  }
+
 
   constructor(
+    public dameRiesgoLiquidezServer: DameRiesgoLiquidezServer,
+    public dameCalendario: DameCalendario,
     private autenticaCli: AutenticaCli,
     private dameTitulosAll: DameTitulosAll,
-    public dameRiesgoLiquidezServer: DameRiesgoLiquidezServer,
-    private colorGrid: ColorGrid,
     private cierreRiesgo: CierreRiesgo,
-    private conectorService: ConectorService
-  ) {
-    this.dtColumnas = [
-      { title: this.colorGrid.tablaH('Isin'), data: 'codigoisin' },
-      { title: this.colorGrid.tablaH('Codigo LA'), data: null, render: (data: any, type: any, row: any, meta) => {
-        return this.dameTitulosAll.getCodTituloLA(data.codigoisin);
-      }},
-
-      { title: this.colorGrid.tablaH('Precio Compra'), data: null, render: (data: any, type: any, row: any, meta) => {
-        return display_x(data.precioppcompra, 14, 8);
-      }, className: 'dt-body-right' },
-
-      { title: this.colorGrid.tablaH('Precio Venta'), data: null, render: (data: any, type: any, row: any, meta) => {
-        return display_x(data.precioppventa, 14, 8);
-      }, className: 'dt-body-right' },
-
-      { title: this.colorGrid.tablaH('Margen '), data: null, render: (data: any, type: any, row: any, meta) => {
-        return display_x(data.margen, 12, 8);
-      }, className: 'dt-body-right' },
-
-      { title: this.colorGrid.tablaH('Recorte'), data: null, render: (data: any, type: any, row: any, meta) => {
-        return display_x(data.recorteregulatorio, 12, 8);
-      }, className: 'dt-body-right' }
-    ];
-  }
+    private conectorService: ConectorService,
+    private translateLAService: TranslateLAService
+  ) { }
 
 
   ngOnInit(): void {
@@ -54,5 +39,39 @@ export class RiesgoLiquidezComponent implements OnInit {
     //   swal.fire('Control de Acceso', 'Cierre Problem....'+this.cierreRiesgo.CadOut.Status+'  '+
     //  this.cierreRiesgo.CadOut.Mensaje+' '+cadena, 'info')
     // }
+
+    this.translateLAService.scrollFin();
+  }
+
+  defineColumnas() {
+    this.visibleColumnas = false;
+
+    this.dtColumnas = [
+      { title: 'Isin', data: 'codigoisin' },
+      { title: 'CODIGO_LA', data: null, render: (data: any, type: any, row: any, meta) => {
+        return this.dameTitulosAll.getCodTituloLA(data.codigoisin);
+      }},
+
+      { title: 'PRECIO_COMPRA', data: null, render: (data: any, type: any, row: any, meta) => {
+        return display_x(data.precioppcompra, 14, 8);
+      }, className: 'dt-body-right' },
+
+      { title: 'PRECIO_VENTA', data: null, render: (data: any, type: any, row: any, meta) => {
+        return display_x(data.precioppventa, 14, 8);
+      }, className: 'dt-body-right' },
+
+      { title: 'MARGEN', data: null, render: (data: any, type: any, row: any, meta) => {
+        return display_x(data.margen, 12, 8);
+      }, className: 'dt-body-right' },
+
+      { title: 'RECORTE', data: null, render: (data: any, type: any, row: any, meta) => {
+        return display_x(data.recorteregulatorio, 12, 8);
+      }, className: 'dt-body-right' }
+    ];
+
+    setTimeout(() => {
+      this.translateLAService.traducirColumnas(this.dtColumnas)
+        .then(x => this.visibleColumnas = x);
+    });
   }
 }

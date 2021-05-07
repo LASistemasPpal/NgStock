@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AutenticaCli, RestDameCliente } from '@laranda/lib-ultra-net';
 import { ConectorService } from '@laranda/lib-sysutil';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public autenticaCli: AutenticaCli,
+    public translate: TranslateService,
     private fb: FormBuilder,
     private conectorService: ConectorService,
     private restDameCliente: RestDameCliente
@@ -25,6 +27,12 @@ export class LoginComponent implements OnInit {
       user: ['', [Validators.required, Validators.minLength(4)]],
       password: ['', [Validators.required, Validators.minLength(4)]]
     });
+
+    translate.addLangs(['es', 'en']);
+    translate.setDefaultLang('es');
+
+    const browserLang = translate.getBrowserLang();
+    this.translate.use(browserLang.match(/es|en/) ? browserLang : 'es');
   }
 
   ngOnInit(): void {
@@ -88,5 +96,4 @@ export class LoginComponent implements OnInit {
   claveOculta() {
     this.verPass = 'password';
   }
-
 }

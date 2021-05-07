@@ -7,8 +7,13 @@
     "SERVER": "",
     "PUERTO": 85
   },
-  "HORA_INICIO": "09:00",
-  "HORA_FIN": "13:00",
-  "MINUTOS": 2
-
+  "ROBOT_LIQUIDEZ": {
+    "HORA_INICIO": "09:00",
+    "HORA_FIN": "13:00",
+    "MINUTOS": 2
+  },
+  "TRANSLATE": {
+    "URLTRANSLATE": "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to=",
+    "IDTRANSLATE": "284333ad2cd3435890c5718df56a6977"
+  }
 }

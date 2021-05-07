@@ -10,17 +10,17 @@
 
         <form autocomplete="off" class="login-content" [formGroup]="formLogin" (ngSubmit)="onLogin()">
           <div class="col-12 form-group">
-            <label><i class="fa fa-user"></i> Usuario</label>
-            <input class="form-control" type="text" formControlName="user" placeholder="Usuario"
+            <label><i class="fa fa-user"></i> {{ 'USUARIO' | translate }} </label>
+            <input class="form-control" type="text" formControlName="user" placeholder="{{ 'USUARIO' | translate }}"
               [class.is-invalid]="usuarioNoValido">
 
             <small *ngIf="usuarioNoValido" class="form-text text-danger">
-              Ingrese un Usuario Valido
+              {{ 'USUARIO_VALIDO' | translate }}
             </small>
           </div>
 
           <div class="col-12 form-group">
-            <label> <i class="fa fa-unlock-alt"></i> Contraseña</label>
+            <label> <i class="fa fa-unlock-alt"></i> {{ 'CONTRASEÑA' | translate }}</label>
             <div class="password input-group">
               <input class="form-control" [type]="verPass" formControlName="password" placeholder="Password"
                 [class.is-invalid]="passwordNoValido">
@@ -30,13 +30,13 @@
               </button>
 
               <small *ngIf="passwordNoValido" class="form-text text-danger">
-                El Password debe ser mayor de 4 caracteres
+                {{ 'CONTRASEÑA_VALIDA' | translate }}
               </small>
             </div>
           </div>
 
           <div class="col-12 form-group text-center pb-2">
-            <button type="submit" class="form-control btn-primary">Entrar</button>
+            <button type="submit" class="form-control btn-primary">{{ 'ENTRAR' | translate }}</button>
           </div>
         </form>
       </div>

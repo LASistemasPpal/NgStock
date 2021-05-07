@@ -8,16 +8,16 @@
   <div class="col pl-0 pt-4">
     <div class="row justify-content-end">
       <button class="btn LA-buttonColor" data-toggle="tooltip" data-placement="top" title="Enviar a la Bolsa"  (click)="setEnviar()"><i class="fas fa-chart-line"></i></button>
-      </div>        
-  </div>
-  <div class="row justify-content-center">    
-    <h3 *ngIf="mecaOTC" class="col text-center">Ordenes OTC</h3>
-    <h3 *ngIf="!mecaOTC" class="col text-center">Ordenes Bolsa</h3>
+      </div>
   </div>
   <div class="row justify-content-center">
-    <div class="col-12 my-4">
-      <lsy-tabla-la *ngIf="dameCOrdenX.visible"  id="grdOrden" [columnas]="dtColumnasCOrdenX" [datosX]="dameCOrdenX.CadOut" class="my-4" class="tabla-font-12" [barraY]="'40vh'" [select]="true"></lsy-tabla-la>
+    <h3 *ngIf="mecaOTC" class="col text-center">{{ 'ORDENES_OTC' | translate }}</h3>
+    <h3 *ngIf="!mecaOTC" class="col text-center">{{ 'ORDENES_BOLSA' | translate }}</h3>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12 my-4" *ngIf="dameCOrdenX.visible">
+      <lsy-tabla-la *ngIf="visibleColumnas" id="grdOrden" [columnas]="dtColumnasCOrdenX" [datosX]="dameCOrdenX.CadOut" class="my-4" class="tabla-font-12" [barraY]="'40vh'" [select]="true" [idioma]="tIdioma" [colorTH]="dameCalendario.CadOut.Color"></lsy-tabla-la>
     </div>
   </div>
-  
+
 </div>

@@ -8,9 +8,14 @@
 
       <div class="col-xl-6 align-self-end pl-4 pr-0">
 
-        <h1 class="mb-0">BVRD </h1>
+        <h1 class="mb-0">BVRD
+          <img src="../../../../assets/img/spain_flags_flag_17068.png" alt="idioma" style="width: 2rem; height: 2rem;" data-toggle="tooltip" title="Idioma Español" class="pointer" (click)="modificarIdioma('es')">
+
+          <img src="../../../../assets/img/united_states_flags_flag_17080.png" alt="Ethereum" style="width: 2rem; height: 2rem;" data-toggle="tooltip" title="English language" class="pointer" (click)="modificarIdioma('en')">
+        </h1>
+
         <h4 *ngIf="dameCalendario.CadOut != undefined" [ngStyle]="dameCalendario['xborde2']" class="pl-2 py-1 pointer"
-          (click)="getConsultar('3')">{{ dameCalendario.CadOut.Vehiculo }} -           Visor de Mercado</h4>
+          (click)="getConsultar('3')">{{ dameCalendario.CadOut.Vehiculo }} - {{ 'VISOR_DE_MERCADO' | translate }}</h4>
 
         <div class="row ml-1" *ngIf="dameCalendario.CadOut != undefined">
           <p class=""><i class="fas fa-phone-alt pr-1"
@@ -29,12 +34,12 @@
         <div class="row">
           <div class="col-9 px-0">
             <h5 class="text-center"><i class="fas fa-flag pr-1 rounded-circle p-2"
-                [ngStyle]="dameCalendario['xbgColor']"></i> Seleccion</h5>
+                [ngStyle]="dameCalendario['xbgColor']"></i> {{ 'SELECCION' | translate }}</h5>
           </div>
 
           <div class="col-3 px-0 pb-2">
             <a class="col-1 p-0 pb-1" href="https://lasistemas.com/" target="_blank" rel="noopener noreferrer">
-              <img src="../../../../assets/cropped-logo-la-instagram.jpg" alt="Ethereum" style="width: 3rem; height: 3rem;" data-toggle="tooltip" title="LA Sistemas">
+              <img src="../../../../assets/cropped-logo-la-instagram.jpg" alt="LASistemas" style="width: 3rem; height: 3rem;" data-toggle="tooltip" title="LA Sistemas">
             </a>
 
             <img src="../../../../assets/LOGO ETHEREUM.png" alt="Ethereum" style="width: 3rem; height: 3rem;" data-toggle="tooltip" title="Ethereum">
@@ -42,51 +47,75 @@
         </div>
 
         <div class="row justify-content-center">
-          <input type="text" class="form-control col-3 text-uppercase" placeholder="Titulo" data-toggle="tooltip"
-            data-placement="top" title="Codigo del Titulo a Buscar" [(ngModel)]="codgoTitulo" maxlength="6"
+          <input id="buscarTitulo" type="text" class="form-control col-3 text-uppercase" placeholder="{{ 'TITULO' | translate }}" data-toggle="tooltip"
+            data-placement="top" [(ngModel)]="codgoTitulo" maxlength="6"
             minlength="6" (focus)="getConsultar('0')">
 
-          <input type="text" class="form-control col-3 ml-1 text-uppercase" placeholder="Moneda" data-toggle="tooltip"
-            data-placement="top" title="Codigo de la Moneda a Buscar" [(ngModel)]="codgoMoneda" maxlength="3"
+          <input id="buscarMoneda" type="text" class="form-control col-3 ml-1 text-uppercase" placeholder="{{ 'MONEDA' | translate }}" data-toggle="tooltip"
+            data-placement="top" [(ngModel)]="codgoMoneda" maxlength="3"
             (focus)="getConsultar('0')">
 
-          <input type="text" class="form-control col-3 ml-1 text-uppercase" placeholder="Cliente" data-toggle="tooltip"
-            data-placement="top" title="Codigo del Cliente a Buscar" [(ngModel)]="codgoCliente" maxlength="6"
+          <input id="buscarCliente" type="text" class="form-control col-3 ml-1 text-uppercase" placeholder="{{ 'CLIENTE' | translate }}" data-toggle="tooltip"
+            data-placement="top" [(ngModel)]="codgoCliente" maxlength="6"
             minlength="6" (focus)="getConsultar('0')">
 
           <div class="btn-group dropleft ml-2">
             <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
-              Menu
+              {{ 'MENU' | translate }}
             </button>
             <div class="dropdown-menu">
-              <a class="dropdown-item pointer" (click)="getConsultar('1')"><i class="fas mr-2 fa-search"></i>Buscar Cliente</a>
-              <a *ngIf="!mecaOTC" class="dropdown-item pointer" (click)="getConsultar('2')"><i class="fas mr-2 fa-portrait"></i>Ordenes Bolsa</a>
-              <a *ngIf="mecaOTC" class="dropdown-item pointer" (click)="getConsultar('2')"><i class="fas mr-2 fa-portrait"></i>Ordenes OTC</a>
-              <a class="dropdown-item pointer" (click)="getConsultar('9')"><i class="fas mr-2 fa-shower"></i>Posicion Propia</a>
+              <a class="dropdown-item pointer" (click)="getConsultar('1')"><i class="fas mr-2 fa-search"></i>
+                {{ 'BUSCAR_CLIENTE' | translate }}
+              </a>
+              <a *ngIf="!mecaOTC" class="dropdown-item pointer" (click)="getConsultar('2')"><i class="fas mr-2 fa-portrait"></i>
+                {{ 'ORDENES_BOLSA' | translate }}
+              </a>
+              <a *ngIf="mecaOTC" class="dropdown-item pointer" (click)="getConsultar('2')"><i class="fas mr-2 fa-portrait"></i>
+                {{ 'ORDENES_OTC' | translate }}
+              </a>
+              <a class="dropdown-item pointer" (click)="getConsultar('9')"><i class="fas mr-2 fa-shower"></i>
+                {{ 'POSICION_PROPIA' | translate }}
+              </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item pointer" (click)="getConsultar('3')"><i class="fas mr-2 fa-sync"></i>Refrescar Datos</a>
-              <a *ngIf="!mecaOTC" class="dropdown-item pointer" (click)="getConsultar('4')"><i class="fas mr-2 fa-bezier-curve"></i>Posturas Propias</a>
-              <a *ngIf="!mecaOTC" class="dropdown-item pointer" (click)="getConsultar('5')"><i class="fas mr-2 fa-box-open"></i>Posturas Mercado</a>
-              <a *ngIf="!mecaOTC" class="dropdown-item pointer" (click)="getConsultar('6')"><i class="fas mr-2 fa-battery-quarter"></i>Operaciones Propias</a>
-              <a *ngIf="!mecaOTC" class="dropdown-item pointer" (click)="getConsultar('8')"><i class="fas mr-2 fa-battery-full"></i>Operaciones Mercado</a>
-              <a *ngIf="!mecaOTC" class="dropdown-item pointer" (click)="getConsultar('7')"><i class="fab mr-2 fa-hotjar"></i>Riesgo Liquidez</a>
-              <a *ngIf="mecaOTC" class="dropdown-item pointer" (click)="getConsultar('A')"><i class="fas mr-2 fa-battery-full"></i>Operaciones OTC</a>
+              <a class="dropdown-item pointer" (click)="getConsultar('3')"><i class="fas mr-2 fa-sync"></i>
+                {{ 'REFRESCAR_DATOS' | translate }}
+              </a>
+              <a *ngIf="!mecaOTC" class="dropdown-item pointer" (click)="getConsultar('4')"><i class="fas mr-2 fa-bezier-curve"></i>
+                {{ 'POSTURAS_PROPIAS' | translate }}
+              </a>
+              <a *ngIf="!mecaOTC" class="dropdown-item pointer" (click)="getConsultar('5')"><i class="fas mr-2 fa-box-open"></i>
+                {{ 'POSTURAS_MERCADO' | translate }}
+              </a>
+              <a *ngIf="!mecaOTC" class="dropdown-item pointer" (click)="getConsultar('6')"><i class="fas mr-2 fa-battery-quarter"></i>
+                {{ 'OPERACIONES_PROPIAS' | translate }}
+              </a>
+              <a *ngIf="!mecaOTC" class="dropdown-item pointer" (click)="getConsultar('8')"><i class="fas mr-2 fa-battery-full"></i>
+                {{ 'OPERACIONES_MERCADO' | translate }}
+              </a>
+              <a *ngIf="!mecaOTC" class="dropdown-item pointer" (click)="getConsultar('7')"><i class="fab mr-2 fa-hotjar"></i>
+                {{ 'RIESGO_LIQUIDEZ' | translate }}
+              </a>
+              <a *ngIf="mecaOTC" class="dropdown-item pointer" (click)="getConsultar('A')"><i class="fas mr-2 fa-battery-full"></i>
+                {{ 'OPERACIONES_OTC' | translate }}
+              </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item pointer" (click)="logOut()"><i class="fas mr-2 fa-sign-in-alt"></i>Cerrar Sesión</a>
+              <a class="dropdown-item pointer" (click)="logOut()"><i class="fas mr-2 fa-sign-in-alt"></i>
+                {{ 'CERRAR_SESION' | translate }}
+              </a>
             </div>
           </div>
 
           <div class="row mt-4">
             <input type="checkbox" name="meca" id="cb1" class="tgl tgl-ios"  [(ngModel)]="mecaOTC">
             <label for="cb1" class="tgl-btn text-center"></label>
-            <p class="ml-2 mt-1">Mercado </p>
+            <p class="ml-2 mt-1">{{ 'MERCADO' | translate }}</p>
           </div>
 
           <div class="row ml-5 mt-4">
             <input type="checkbox" name="meca2" id="cb2" class="tgl tgl-ios"  [(ngModel)]="actualizaLiquidez">
             <label for="cb2" class="tgl-btn2 text-center"></label>
-            <p class="ml-2 mt-1">Actualizar Liquidez </p>
+            <p class="ml-2 mt-1">{{ 'ACTUALIZAR_LIQUIDEZ' | translate }}</p>
           </div>
 
         </div>

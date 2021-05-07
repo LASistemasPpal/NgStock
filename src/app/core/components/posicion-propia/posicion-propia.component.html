@@ -3,16 +3,15 @@
       <span class="sr-only">Loading...</span>
     </div>
   </div>
-  
- 
+
+
   <div class="conteiner-12 mx-5 mt-4 pt-4">
     <div class="row justify-content-center">
-      <h3 class="col text-center">Posicion Propia. {{nmcliente}} </h3>
+      <h3 class="col text-center">{{ 'POSICION_PROPIA' | translate }}. {{nmcliente}} </h3>
     </div>
     <div class="row justify-content-center">
-      <div class="col-12 my-4">
-        <lsy-tabla-la *ngIf="pospropiaService.visible" [columnas]="dtColumnas" [datosX]="pospropiaService.Ts" class="tabla-font-12" [barraY]="'40vh'" [orden]="[0, 'asc']"></lsy-tabla-la>
+      <div class="col-12 my-4" *ngIf="pospropiaService.visible">
+        <lsy-tabla-la *ngIf="visibleColumnas" [columnas]="dtColumnas" [datosX]="pospropiaService.Ts" class="tabla-font-12" [barraY]="'40vh'" [orden]="[0, 'asc']" [idioma]="tIdioma" [colorTH]="dameCalendario.CadOut.Color"></lsy-tabla-la>
       </div>
     </div>
   </div>
-  

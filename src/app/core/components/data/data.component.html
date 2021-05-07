@@ -1,4 +1,4 @@
-<app-header *ngIf="dameCalendario.visible"  (codConsulta)="consultarGeneral($event)"></app-header>
+<app-header *ngIf="dameCalendario.visible"  (codConsulta)="consultarGeneral($event)" (idioma)="setIdioma($event)"></app-header>
 
 
 <div *ngIf="dameCalendario.visible" class="container-12 bg-gris">
@@ -9,11 +9,11 @@
         <div class="row">
           <div class="col pl-0">
             <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>{{ calculosRD.estadisticas.canti.PosturasM }}</strong></h1>
-            <p class="text-nowrap">Posturas {{ calculosRD.estadisticas.canti.PosturasP }}</p>
+            <p class="text-nowrap">{{ 'POSTURAS' | translate }} {{ calculosRD.estadisticas.canti.PosturasP }}</p>
           </div>
           <div class="col">
             <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>{{ calculosRD.estadisticas.canti.PrimarioM }}</strong></h1>
-            <p class="text-nowrap">Primario {{ calculosRD.estadisticas.canti.PrimarioP }}</p>
+            <p class="text-nowrap">{{ 'PRIMARIO' | translate }} {{ calculosRD.estadisticas.canti.PrimarioP }}</p>
           </div>
           <div class="col">
             <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>{{ calculosRD.estadisticas.canti.MarketMM }}</strong></h1>
@@ -21,50 +21,54 @@
           </div>
           <div class="col">
             <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>{{ calculosRD.estadisticas.canti.OperacionesM }}</strong></h1>
-            <p class="text-nowrap">Operac {{ calculosRD.estadisticas.canti.OperacionesP }}</p>
+            <p class="text-nowrap">{{ 'OPERAC' | translate}} {{ calculosRD.estadisticas.canti.OperacionesP }}</p>
           </div>
         </div>
 
         <div class="row">
           <div class="col-12 pl-0">
-            <h3><i class="fas fa-user pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i> Que paso?</h3>
+            <h3><i class="fas fa-user pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i> {{ 'QUE_PASO' | translate }}?</h3>
           </div>
-          <p *ngIf="dameCalendario.CadOut != undefined" class="tabla-font-12">{{ dameCalendario.CadOut.Comentarios }}</p>
+          <p *ngIf="quePaso != undefined" class="tabla-font-12">
+            {{ quePaso }}
+          </p>
         </div>
       </div>
 
       <div class="col-2 pl-4 pt-2">
-        <h3><i class="fas fa-calendar-day pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i> Hoy</h3>
+        <h3><i class="fas fa-calendar-day pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i> {{ 'HOY' | translate}}</h3>
 
         <div *ngIf="fechaActual === dameCalendario.CadOut.Fecha; else fechaDoble">
-          <p class="mb-0">Fecha</p>
+          <p class="mb-0">{{ 'FECHA' | translate}}</p>
           <p *ngIf="dameCalendario.CadOut != undefined" [ngStyle]="dameCalendario['xcolor']"><strong> {{ dameCalendario.CadOut.Fecha }} </strong></p>
         </div>
 
         <ng-template #fechaDoble>
           <p *ngIf="dameCalendario.CadOut != undefined" [ngStyle]="dameCalendario['xcolor']"><strong> {{ fechaActual }} </strong></p>
 
-          <p class="mb-0">Fecha Sistema</p>
+          <p class="mb-0">{{ 'FECHA_SISTEMA' | translate }}</p>
           <p *ngIf="dameCalendario.CadOut != undefined" [ngStyle]="dameCalendario['xcolor']"><strong> {{ dameCalendario.CadOut.Fecha }} </strong></p>
         </ng-template>
 
 
-        <p class="mb-0  ">Mas Transada DOP</p>
+        <p class="mb-0  ">{{ 'MAS_TRANSADA' | translate }} PDO</p>
         <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastransadaDOP }} / {{ calculosRD.estadisticas.MastranMtoDOP | number:'.0-0' }}</strong></p>
 
-        <p class="mb-0">Mas Transada USD</p>
+        <p class="mb-0">{{ 'MAS_TRANSADA' | translate }} USD</p>
         <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastransadaUSD }} / {{ calculosRD.estadisticas.MastranMtoUSD | number:'.0-0' }}</strong></p>
 
-        <p class="mb-0">Emisiones</p>
+        <p class="mb-0">{{ 'EMISIONES' | translate }}</p>
         <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.Emisiones }}</strong></p>
 
-        <p class="mb-0">T/Cambio</p>
+        <p class="mb-0">{{ 'T_Cambio' | translate }}</p>
         <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ dameCalendario.CadOut.Tcdolar }}</strong></p>
       </div>
 
       <div class="col-6 pt-2">
-        <h3 class="text-center"><i class="fas fa-money-bill-wave pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i> Movimiento por Titulo</h3>
-        <lsy-tabla-la *ngIf="calculosRD.visibleMovi" [columnas]="dtColumnasEjemplo" [datosX]="calculosRD.estadisticas.Movi" class="tabla-font-12" [botones]="false" [barraY]="'30vh'"></lsy-tabla-la>
+        <h3 class="text-center"><i class="fas fa-money-bill-wave pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i>
+          {{ 'MOVIMIENTO_POR' | translate}} {{ 'TITULO' | translate }}
+        </h3>
+        <lsy-tabla-la *ngIf="calculosRD.visibleMovi" [columnas]="dtColumnasEjemplo" [datosX]="calculosRD.estadisticas.Movi" class="tabla-font-12" [botones]="false" [barraY]="'30vh'" [idioma]="tipoIdioma" [colorTH]="dameCalendario.CadOut.Color"></lsy-tabla-la>
       </div>
 
     </div>
@@ -74,7 +78,9 @@
 <div *ngIf="dameCalendario.visible" class="container-12 mx-5 pt-1">
   <div class="row">
     <div class="col-4 pr-0">
-      <h3 class="text-center"><i class="fas fa-graduation-cap pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i> Montos Transados <i *ngIf="consultaTipo === '3'"> {{ dameTitulos.ParamIn.Cotitulo }} </i> </h3>
+      <h3 class="text-center"><i class="fas fa-graduation-cap pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i>
+        {{ 'MONTOS_TRANSADOS' | translate }} <i *ngIf="consultaTipo === '3'"> {{ dameTitulos.ParamIn.Cotitulo }} </i>
+      </h3>
 
       <div class="row">
         <div class="col">
@@ -103,7 +109,8 @@
 
     <div class="col-4">
       <h3 class="text-center"><i class="fas fa-comments-dollar pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i>
-        Precios</h3>
+        {{ 'PRECIOS' | translate }}
+      </h3>
 
       <div class="row justify-content-center">
         <div class="divchart">
@@ -113,7 +120,8 @@
     </div>
 
     <div class="col-4">
-      <h3 class="text-center"><i class="fas fa-briefcase pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i> Volumenes
+      <h3 class="text-center"><i class="fas fa-briefcase pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i>
+        {{ 'VOLUMENES' | translate}}
       </h3>
 
       <div class="row justify-content-center">
@@ -126,22 +134,22 @@
 </div>
 
 <app-datos-m *ngIf="consultaTipo === '1' && codigoCliente !== ''" [codRif]="codigoCliente"></app-datos-m>
-<app-posicion-m-ant *ngIf="consultaTipo === '1'" [codRif]="codigoCliente" [fecha]="dameCalendario.CadOut.Fecha" [mov]="calculosRD.estadisticas.Movi"></app-posicion-m-ant>
+<app-posicion-m-ant *ngIf="consultaTipo === '1'" [codRif]="codigoCliente" [fecha]="dameCalendario.CadOut.Fecha" [mov]="calculosRD.estadisticas.Movi" [tipIdioma]="tipoIdioma"></app-posicion-m-ant>
 
-<app-cordenx *ngIf="consultaTipo === '2'" [codRif]="codigoCliente" [fecha]="dameCalendario.CadOut.Fecha" [titulo]="codigoTitulo"  [mecaOTC]="mecaOTC"></app-cordenx>
+<app-cordenx *ngIf="consultaTipo === '2'" [codRif]="codigoCliente" [fecha]="dameCalendario.CadOut.Fecha" [titulo]="codigoTitulo"  [mecaOTC]="mecaOTC" [tipIdioma]="tipoIdioma"></app-cordenx>
 
-<app-posturas-propias *ngIf="consultaTipo === '4'" [datos]="damePosturasP.posturasPropias[0].CadJson" [filtros]="codigoMoneda + ';' + codigoTitulo" class="tabla-font-11"></app-posturas-propias>
+<app-posturas-propias *ngIf="consultaTipo === '4'" [datos]="!damePosturasP.posturasPropias[0] ? [] : damePosturasP.posturasPropias[0].CadJson" [filtros]="codigoMoneda + ';' + codigoTitulo" class="tabla-font-11" [tipIdioma]="tipoIdioma"></app-posturas-propias>
 
-<app-posturas-siopel *ngIf="consultaTipo === '5'" [datos]="damePosturasM.posturasSiopel[0].CadJson" [filtros]="codigoMoneda + ';' + codigoTitulo" class="tabla-font-11"></app-posturas-siopel>
+<app-posturas-siopel *ngIf="consultaTipo === '5'" [datos]="!damePosturasM.posturasSiopel[0] ? [] : damePosturasM.posturasSiopel[0].CadJson" [filtros]="codigoMoneda + ';' + codigoTitulo" class="tabla-font-11" [tipIdioma]="tipoIdioma"></app-posturas-siopel>
 
-<app-operaciones-propias *ngIf="consultaTipo === '6'" [datos]="dameOperaciones.operacionBvrd[0].CadJson" [filtros]="codigoMoneda + ';' + codigoTitulo" class="tabla-font-11"></app-operaciones-propias>
+<app-operaciones-propias *ngIf="consultaTipo === '6'" [datos]="!dameOperaciones.operacionBvrd[0] ? [] : dameOperaciones.operacionBvrd[0].CadJson" [filtros]="codigoMoneda + ';' + codigoTitulo" class="tabla-font-11" [tipIdioma]="tipoIdioma"></app-operaciones-propias>
 
-<app-operacion-mrkt *ngIf="consultaTipo === '8'" [datos]="dameOperacionesMrkt.operacionBvrdMrkt[0].CadJson" [filtros]="codigoMoneda + ';' + codigoTitulo" class="tabla-font-11"></app-operacion-mrkt>
+<app-operacion-mrkt *ngIf="consultaTipo === '8'" [datos]="!dameOperacionesMrkt.operacionBvrdMrkt[0] ? [] : dameOperacionesMrkt.operacionBvrdMrkt[0].CadJson" [filtros]="codigoMoneda + ';' + codigoTitulo" class="tabla-font-11" [tipIdioma]="tipoIdioma"></app-operacion-mrkt>
 
-<app-operaciones-otc *ngIf="consultaTipo === 'A'" [datos]="dameOperacionesMrkt.operacionBvrdMrkt[0].CadJson" [codISIN]="codigoTitulo" [codMoneda]="codigoMoneda" class="tabla-font-11"></app-operaciones-otc>
+<app-operaciones-otc *ngIf="consultaTipo === 'A'" [datos]="!dameOperacionesMrkt.operacionBvrdMrkt[0] ? [] : dameOperacionesMrkt.operacionBvrdMrkt[0].CadJson" [codISIN]="codigoTitulo" [codMoneda]="codigoMoneda" class="tabla-font-11" [tipIdioma]="tipoIdioma"></app-operaciones-otc>
 
-<app-posicion-propia *ngIf="consultaTipo === '9'"  [codISIN]="codigoTitulo" [mov]="calculosRD.estadisticas.Movi" class="tabla-font-11"></app-posicion-propia>
+<app-posicion-propia *ngIf="consultaTipo === '9'"  [codISIN]="codigoTitulo" [mov]="calculosRD.estadisticas.Movi" class="tabla-font-11" [tipIdioma]="tipoIdioma"></app-posicion-propia>
 
-<app-riesgo-liquidez *ngIf="consultaTipo === '7'" class="tabla-font-11"></app-riesgo-liquidez>
+<app-riesgo-liquidez *ngIf="consultaTipo === '7'" class="tabla-font-11" [tipIdioma]="tipoIdioma"></app-riesgo-liquidez>
 
 <app-footer *ngIf="dameCalendario.visible"></app-footer>
