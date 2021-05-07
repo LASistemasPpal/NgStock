@@ -1,9 +1,8 @@
-import { TranslateLAService } from './../../../shared/services/translateLA.service';
 import swal from 'sweetalert2';
-import { DameTitulos, DamePermisoUsuario } from '@laranda/lib-ultra-net';
+import { DameTitulos, DamePermisoUsuario, DameCalendario } from '@laranda/lib-ultra-net';
 import { PospropiaService } from './../../../shared/services/pospropia.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { ConectorService, ColorGrid, display_x, lintstr, ceros } from '@laranda/lib-sysutil';
+import { ConectorService, TranslateLAService, lintstr, ceros } from '@laranda/lib-sysutil';
 import { Movimientos } from 'src/app/shared/classes/bvrdClass';
 
 @Component({
@@ -27,8 +26,9 @@ export class PosicionPropiaComponent implements OnInit {
 
 
   constructor(
-    private conectorService: ConectorService,
     public pospropiaService: PospropiaService,
+    public dameCalendario: DameCalendario,
+    private conectorService: ConectorService,
     private dameTitulos: DameTitulos,
     private damePermisoUsuario: DamePermisoUsuario,
     private translateLAService: TranslateLAService

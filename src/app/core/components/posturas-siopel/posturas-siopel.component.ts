@@ -1,8 +1,7 @@
-import { TranslateLAService } from './../../../shared/services/translateLA.service';
 import { CadJsons } from './../../../shared/classes/bvrdClass';
 import { Component, OnInit, Input } from '@angular/core';
-import { HTfech_a_fech, display_x } from '@laranda/lib-sysutil';
-import { DameTitulosAll } from '@laranda/lib-ultra-net';
+import { HTfech_a_fech, display_x, TranslateLAService } from '@laranda/lib-sysutil';
+import { DameCalendario, DameTitulosAll } from '@laranda/lib-ultra-net';
 
 @Component({
   selector: 'app-posturas-siopel',
@@ -52,7 +51,8 @@ export class PosturasSiopelComponent implements OnInit {
 
   constructor(
     private dameTitulosAll: DameTitulosAll,
-    private translateLAService: TranslateLAService
+    private translateLAService: TranslateLAService,
+    public dameCalendario: DameCalendario
   )
      { }
 

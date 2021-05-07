@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DamePosicionMAnt } from '@laranda/lib-ultra-net';
-import { ConectorService, ColorGrid } from '@laranda/lib-sysutil';
-import { TranslateLAService } from './../../../shared/services/translateLA.service';
+import { DameCalendario, DamePosicionMAnt } from '@laranda/lib-ultra-net';
+import { ConectorService, TranslateLAService } from '@laranda/lib-sysutil';
 import { Movimientos } from './../../../shared/classes/bvrdClass';
 
 
@@ -25,6 +24,7 @@ export class PosicionMAntComponent implements OnInit {
 
   constructor(
     public damePosicionMAnt: DamePosicionMAnt,
+    public dameCalendario: DameCalendario,
     private conectorService: ConectorService,
     private translateLAService: TranslateLAService
   ) {}

@@ -1,7 +1,7 @@
-import { TranslateLAService } from './../../../shared/services/translateLA.service';
-import { display_x, HTfech_a_fech } from '@laranda/lib-sysutil';
+import { display_x, HTfech_a_fech, TranslateLAService } from '@laranda/lib-sysutil';
 import { CadJsonOpers } from './../../../shared/classes/bvrdClass';
 import { Component, OnInit, Input } from '@angular/core';
+import { DameCalendario } from '@laranda/lib-ultra-net';
 
 @Component({
   selector: 'app-operaciones-propias',
@@ -51,7 +51,8 @@ export class OperacionesPropiasComponent implements OnInit {
 
 
   constructor(
-    private translateLAService: TranslateLAService
+    private translateLAService: TranslateLAService,
+    public dameCalendario: DameCalendario
   ) { }
 
   ngOnInit(): void { }

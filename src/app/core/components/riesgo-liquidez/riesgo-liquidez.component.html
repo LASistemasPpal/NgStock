@@ -10,7 +10,7 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-12 mb-4" *ngIf="dameRiesgoLiquidezServer.visible">
-      <lsy-tabla-la *ngIf="visibleColumnas" [columnas]="dtColumnas" [datosX]="dameRiesgoLiquidezServer.riesgoLiquidez" [barraY]="'80vh'" [idioma]="tIdioma"></lsy-tabla-la>
+      <lsy-tabla-la *ngIf="visibleColumnas" [columnas]="dtColumnas" [datosX]="dameRiesgoLiquidezServer.riesgoLiquidez" [barraY]="'80vh'" [idioma]="tIdioma" [colorTH]="dameCalendario.CadOut.Color"></lsy-tabla-la>
     </div>
   </div>
 </div>

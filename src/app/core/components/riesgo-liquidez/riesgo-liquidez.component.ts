@@ -1,8 +1,7 @@
-import { TranslateLAService } from './../../../shared/services/translateLA.service';
-import { display_x, ConectorService } from '@laranda/lib-sysutil';
+import { display_x, ConectorService, TranslateLAService } from '@laranda/lib-sysutil';
 import { Component, Input, OnInit } from '@angular/core';
 import { DameRiesgoLiquidezServer } from './../../../shared/services/data-bvrd.service';
-import { AutenticaCli, DameTitulosAll, CierreRiesgo } from '@laranda/lib-ultra-net';
+import { AutenticaCli, DameTitulosAll, CierreRiesgo, DameCalendario } from '@laranda/lib-ultra-net';
 
 @Component({
   selector: 'app-riesgo-liquidez',
@@ -21,9 +20,10 @@ export class RiesgoLiquidezComponent implements OnInit {
 
 
   constructor(
+    public dameRiesgoLiquidezServer: DameRiesgoLiquidezServer,
+    public dameCalendario: DameCalendario,
     private autenticaCli: AutenticaCli,
     private dameTitulosAll: DameTitulosAll,
-    public dameRiesgoLiquidezServer: DameRiesgoLiquidezServer,
     private cierreRiesgo: CierreRiesgo,
     private conectorService: ConectorService,
     private translateLAService: TranslateLAService

@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { DameCalendario, DameIDMRif, DameTitulos, AutenticaCli, InsertaPolicia, CierreRiesgo } from '@laranda/lib-ultra-net';
-import { ConectorService, ColorGrid, stringToTime } from '@laranda/lib-sysutil';
+import { ConectorService, ColorGrid, stringToTime, TranslateLAService } from '@laranda/lib-sysutil';
 import { TranslateService } from '@ngx-translate/core';
 
 declare let $: any;
@@ -27,6 +27,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     public dameCalendario: DameCalendario,
     public translate: TranslateService,
+    private translateLAService: TranslateLAService,
     private autenticaCli: AutenticaCli,
     private dameIDMRif: DameIDMRif,
     private dameTitulos: DameTitulos,
@@ -59,9 +60,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     // translate.addLangs(['es', 'en']);
     // translate.setDefaultLang('es');
-
-    const browserLang = translate.getBrowserLang();
-    this.modificarIdioma(browserLang.match(/es|en/) ? browserLang : 'es');
   }
 
 
@@ -90,6 +88,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       }
     }, (60000 * this.conectorService.info.ROBOT_LIQUIDEZ.MINUTOS));
+
+    const browserLang = this.translate.getBrowserLang();
+    this.modificarIdioma(browserLang.match(/es|en/) ? browserLang : 'es');
   }
 
   ngOnDestroy() {
@@ -234,18 +235,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   modificarIdioma(tipo: string) {
     this.translate.use(tipo);
 
-    this.busca_title('CODIGO_TITULO_BUSCAR', '#buscarTitulo');
-    this.busca_title('CODIGO_MONEDA_BUSCAR', '#buscarMoneda');
-    this.busca_title('CODIGO_CLIENTE_BUSCAR', '#buscarCliente');
+    this.translateLAService.busca_title('CODIGO_TITULO_BUSCAR', 'buscarTitulo');
+    this.translateLAService.busca_title('CODIGO_MONEDA_BUSCAR', 'buscarMoneda');
+    this.translateLAService.busca_title('CODIGO_CLIENTE_BUSCAR', 'buscarCliente');
 
     this.idioma.emit(tipo);
-  }
-
-  busca_title(etiqueta: string, id: string) {
-    this.translate.get(etiqueta).subscribe(x => {
-      setTimeout(() => {
-        document.querySelector(id).setAttribute('data-original-title', x);
-      });
-    });
   }
 }

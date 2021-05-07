@@ -1,7 +1,6 @@
-import { TranslateLAService } from './../../../shared/services/translateLA.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { display_x } from '@laranda/lib-sysutil';
-import { DameTitulosAll } from '@laranda/lib-ultra-net';
+import { display_x, TranslateLAService } from '@laranda/lib-sysutil';
+import { DameCalendario, DameTitulosAll } from '@laranda/lib-ultra-net';
 
 @Component({
   selector: 'app-operaciones-otc',
@@ -23,7 +22,8 @@ export class OperacionesOtcComponent implements OnInit {
 
   constructor(
     private dameTitulosAll: DameTitulosAll,
-    private translateLAService: TranslateLAService
+    private translateLAService: TranslateLAService,
+    public dameCalendario: DameCalendario
   ) { }
 
   ngOnInit(): void {

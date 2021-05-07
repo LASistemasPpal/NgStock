@@ -11,7 +11,7 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-12 my-4" *ngIf="pospropiaService.visible">
-        <lsy-tabla-la *ngIf="visibleColumnas" [columnas]="dtColumnas" [datosX]="pospropiaService.Ts" class="tabla-font-12" [barraY]="'40vh'" [orden]="[0, 'asc']" [idioma]="tIdioma"></lsy-tabla-la>
+        <lsy-tabla-la *ngIf="visibleColumnas" [columnas]="dtColumnas" [datosX]="pospropiaService.Ts" class="tabla-font-12" [barraY]="'40vh'" [orden]="[0, 'asc']" [idioma]="tIdioma" [colorTH]="dameCalendario.CadOut.Color"></lsy-tabla-la>
       </div>
     </div>
   </div>

@@ -4,7 +4,7 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-12 mb-4" *ngIf="visible">
-      <lsy-tabla-la *ngIf="visibleColumnas" [columnas]="dtColumnas" [datosX]="filtros.length > 1 ? datosFiltrados : datos" [barraY]="'40vh'" [barraX]="true" [idioma]="tIdioma"></lsy-tabla-la>
+      <lsy-tabla-la *ngIf="visibleColumnas" [columnas]="dtColumnas" [datosX]="filtros.length > 1 ? datosFiltrados : datos" [barraY]="'40vh'" [barraX]="true" [idioma]="tIdioma" [colorTH]="dameCalendario.CadOut.Color"></lsy-tabla-la>
     </div>
   </div>
 </div>

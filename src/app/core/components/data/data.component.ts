@@ -5,10 +5,9 @@ import {
   DameTitulosAll,
   DameTitulos, DameCOrdenX, InsertaPolicia
 } from '@laranda/lib-ultra-net';
-import { ConectorService, fechaHoy, display_x } from '@laranda/lib-sysutil';
+import { ConectorService, fechaHoy, display_x, TranslateLAService } from '@laranda/lib-sysutil';
 import { Chart } from 'chart.js';
 import { CalculosRD } from './../../../shared/services/estadisticas.service';
-import { TranslateLAService } from './../../../shared/services/translateLA.service';
 import { Movimientos, RiesgoLiquidez } from './../../../shared/classes/bvrdClass';
 import {
   DamePosturasM,
@@ -126,7 +125,6 @@ export class DataComponent implements OnInit {
       this.dameRiesgoLiquidezServer.consultar(this.autenticaCli.CadOut.Usuariobv)
     ])
       .then(() => this.calculosRD.calcular(codTitulo, codMoneda))
-      .then(() => this.defineColumnas(this.tipoIdioma))
       .then(() => {
 
         this.calculosRD.estadisticas.Movi.map((valor) => {
@@ -162,6 +160,7 @@ export class DataComponent implements OnInit {
           this.calculosRD.estadisticas.canti.PorctotM
         );
       })
+      .then(() => this.defineColumnas(this.tipoIdioma))
       .catch((e) => this.mensajeError('Error', e.Status, e.Mensaje));
   }
 
@@ -467,7 +466,11 @@ export class DataComponent implements OnInit {
 
     setTimeout(() => {
       this.translateLAService.traducirColumnas(this.dtColumnasEjemplo)
-        .then(x => this.calculosRD.visibleMovi = x);
-    });
+        .then(x => {
+          this.calculosRD.visibleMovi = x;
+          console.log('tipoIdioma ', this.tipoIdioma);
+          console.log(this.dtColumnasEjemplo);
+        });
+    }, 500);
   }
 }

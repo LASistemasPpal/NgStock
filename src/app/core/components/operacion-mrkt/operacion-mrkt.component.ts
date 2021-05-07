@@ -1,8 +1,7 @@
-import { TranslateLAService } from './../../../shared/services/translateLA.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { CadJsonOperMrkts } from 'src/app/shared/classes/bvrdClass';
-import { ColorGrid, display_x, HTfech_a_fech } from '@laranda/lib-sysutil';
-import { DameTitulosAll } from '@laranda/lib-ultra-net';
+import { TranslateLAService, display_x, HTfech_a_fech } from '@laranda/lib-sysutil';
+import { DameCalendario, DameTitulosAll } from '@laranda/lib-ultra-net';
 
 @Component({
   selector: 'app-operacion-mrkt',
@@ -53,7 +52,8 @@ export class OperacionMrktComponent implements OnInit {
 
   constructor(
     private dameTitulosAll: DameTitulosAll,
-    private translateLAService: TranslateLAService
+    private translateLAService: TranslateLAService,
+    public dameCalendario: DameCalendario
   ) {  }
 
   ngOnInit(): void { }

@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DameCOrdenX, CierreRiesgo } from '@laranda/lib-ultra-net';
-import { ConectorService, display_d } from '@laranda/lib-sysutil';
+import { DameCOrdenX, CierreRiesgo, DameCalendario } from '@laranda/lib-ultra-net';
+import { ConectorService, TranslateLAService } from '@laranda/lib-sysutil';
 import swal from 'sweetalert2';
-import { TranslateLAService } from './../../../shared/services/translateLA.service';
 import { TranslateService } from '@ngx-translate/core';
 
 declare let $: any;
@@ -23,7 +22,7 @@ export class CordenxComponent implements OnInit {
 
   dtColumnasCOrdenX: DataTables.ColumnSettings[] = [];
   visibleColumnas = true;
-  tIdioma = '';
+  tIdioma = 'es';
 
   IconCOrden: DataTables.FunctionColumnRender = (data, type, row, meta) => {
     let clase: string;
@@ -55,10 +54,11 @@ export class CordenxComponent implements OnInit {
 
   constructor(
     public dameCOrdenX: DameCOrdenX,
+    public dameCalendario: DameCalendario,
     private conectorService: ConectorService,
     private cierreRiesgo: CierreRiesgo,
     private translateLAService: TranslateLAService,
-    private translate: TranslateService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
