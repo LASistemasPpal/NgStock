@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CadJsonOperMrkts } from 'src/app/shared/classes/bvrdClass';
-import { TranslateLAService, display_x, HTfech_a_fech } from '@laranda/lib-sysutil';
+import { display_x, HTfech_a_fech, scrollFin } from '@laranda/lib-sysutil';
 import { DameCalendario, DameTitulosAll } from '@laranda/lib-ultra-net';
+import { TranslateLAVIService } from '@laranda/lib-visual';
 
 @Component({
   selector: 'app-operacion-mrkt',
@@ -10,6 +11,7 @@ import { DameCalendario, DameTitulosAll } from '@laranda/lib-ultra-net';
 export class OperacionMrktComponent implements OnInit {
 
   private priFiltro: string[] = [];
+  private scrollFinLA = scrollFin;
   visible = true;
   visibleColumnas = true;
   tIdioma = '';
@@ -41,7 +43,7 @@ export class OperacionMrktComponent implements OnInit {
         }
 
         this.visible = true;
-        this.translateLAService.scrollFin();
+        this.scrollFinLA();
       }, 500);
     }
   @Input() set tipIdioma(tipo: string) {
@@ -52,7 +54,7 @@ export class OperacionMrktComponent implements OnInit {
 
   constructor(
     private dameTitulosAll: DameTitulosAll,
-    private translateLAService: TranslateLAService,
+    private translateLAVIService: TranslateLAVIService,
     public dameCalendario: DameCalendario
   ) {  }
 
@@ -64,38 +66,38 @@ export class OperacionMrktComponent implements OnInit {
     this.dtColumnas = [
       // { title: 'CantidadTitulos', data: 'CantidadTitulos', className: 'dt-body-right' },
       { title: 'ISIN', data: 'CodigoISIN' },
-      { title: 'TITULO', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'Titulo', data: null, render: (data: any, type: any, row: any, meta) => {
         return  this.dameTitulosAll.getCodTituloLA(data.CodigoISIN);
       }},
-      { title: 'ESTATUS', data: 'Estatus' },
-      { title: 'FECH_LIQ', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'Estatus', data: 'Estatus' },
+      { title: 'Fech Liq', data: null, render: (data: any, type: any, row: any, meta) => {
         return HTfech_a_fech(data.FechaLiquidacion).substr(0, 10);
       }, className: 'dt-body-center'},
-      { title: 'HORA', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'Hora', data: null, render: (data: any, type: any, row: any, meta) => {
         const fechaX = new Date(data.HoraOperacion);
         return fechaX.getHours() + ':' + fechaX.getMinutes();
       } },
-      { title: 'MON', data: 'MonedaTransada' },
-      { title: 'MERCADO', data: 'NombreMercado' },
-      { title: 'N_OPERAC', data: 'NumeroOperacion' },
-      { title: 'PRECIO', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
+      { title: 'Mon', data: 'MonedaTransada' },
+      { title: 'Mercado', data: 'NombreMercado' },
+      { title: 'Nro Operac', data: 'NumeroOperacion' },
+      { title: 'Precio', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
         return display_x(data.PrecioLimpio, 14, 8);
       } },
-       { title: 'CUPON', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
+       { title: 'Cupon', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
         return display_x(data.TasaCupon, 8, 2);
       } },
       { title: 'Nominal', data: null, className: 'dt-body-right',
          render: (data: any, type: any, row: any, meta) => {
         return display_x(data.ValorNominalTotal, 22, 2);
       } },
-      { title: 'MONTO_EFECTIVO', data: null, className: 'dt-body-right',
+      { title: 'Monto Efectivo', data: null, className: 'dt-body-right',
          render: (data: any, type: any, row: any, meta) => {
         return display_x(data.ValorTransado, 22, 2);
       } }
     ];
 
     setTimeout(() => {
-      this.translateLAService.traducirColumnas(this.dtColumnas)
+      this.translateLAVIService.traducirColumnas(this.dtColumnas)
         .then(x => this.visibleColumnas = x);
     });
   }

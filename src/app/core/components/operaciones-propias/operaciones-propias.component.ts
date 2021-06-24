@@ -1,7 +1,8 @@
-import { display_x, HTfech_a_fech, TranslateLAService } from '@laranda/lib-sysutil';
+import { display_x, HTfech_a_fech, scrollFin } from '@laranda/lib-sysutil';
 import { CadJsonOpers } from './../../../shared/classes/bvrdClass';
 import { Component, OnInit, Input } from '@angular/core';
 import { DameCalendario } from '@laranda/lib-ultra-net';
+import { TranslateLAVIService } from '@laranda/lib-visual';
 
 @Component({
   selector: 'app-operaciones-propias',
@@ -10,6 +11,7 @@ import { DameCalendario } from '@laranda/lib-ultra-net';
 export class OperacionesPropiasComponent implements OnInit {
 
   private priFiltro: string[] = [];
+  private scrollFinLA = scrollFin;
   visible = true;
   visibleColumnas = true;
   tIdioma = '';
@@ -41,7 +43,7 @@ export class OperacionesPropiasComponent implements OnInit {
         }
 
         this.visible = true;
-        this.translateLAService.scrollFin();
+        this.scrollFinLA();
       }, 500);
     }
   @Input() set tipIdioma(tipo: string) {
@@ -51,7 +53,7 @@ export class OperacionesPropiasComponent implements OnInit {
 
 
   constructor(
-    private translateLAService: TranslateLAService,
+    private translateLAVIService: TranslateLAVIService,
     public dameCalendario: DameCalendario
   ) { }
 
@@ -65,25 +67,25 @@ export class OperacionesPropiasComponent implements OnInit {
       { title: 'ISIN', data: 'CodigoISIN' },
   //    { title:  this.colorGrid.tablaH('Emisor'), data: 'CodEmisorBVRD' },
 
-      { title:  'ESTATUS', data: 'Estatus' },
-      { title:  'FECH_LIQ', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  'Estatus', data: 'Estatus' },
+      { title:  'Fech Liq', data: null, render: (data: any, type: any, row: any, meta) => {
         return HTfech_a_fech(data.FechaLiquidacion).substr(0, 10);
       }, className: 'dt-body-center'},
-      { title:  'HORA', data: 'HoraOperacion'},
+      { title:  'Hora', data: 'HoraOperacion'},
       // { title:  this.colorGrid.tablaH('Hora'), data: null, render: (data: any, type: any, row: any, meta) => {
       //   const fechaX = new Date(data.HoraOperacion);
       //   return fechaX.getHours() + ':' + fechaX.getMinutes();
       // } },
-       { title: 'MON', data: 'MonedaTransada' },
-      { title: 'MERCADO', data: 'NombreMercado' },
-      { title: 'OFERT_COMP', data: 'NumeroOfertaCompra', className: 'dt-body-right' },
-      { title: 'OFERT_VEND', data: 'NumeroOfertaVenta', className: 'dt-body-right' },
-      { title: 'N_OPERAC', data: 'NumeroOperacion' },
-      { title: 'PRECIO', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
+      { title: 'Mon', data: 'MonedaTransada' },
+      { title: 'Mercado', data: 'NombreMercado' },
+      { title: 'Ofert Comp', data: 'NumeroOfertaCompra', className: 'dt-body-right' },
+      { title: 'Ofert Vend', data: 'NumeroOfertaVenta', className: 'dt-body-right' },
+      { title: 'Nro Operac', data: 'NumeroOperacion' },
+      { title: 'Precio', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
         return display_x(data.PrecioLimpio, 10, 4);
       } },
-      { title: 'COMPRADOR', data: 'PuestoComprador' },
-      { title: 'VENDEDOR', data: 'PuestoVendedor' },
+      { title: 'Comprador', data: 'PuestoComprador' },
+      { title: 'Vendedor', data: 'PuestoVendedor' },
       // { title: 'TasaCompra', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
       //   return display_x(data.TasaCompra, 10, 2);
       // } }
@@ -95,7 +97,7 @@ export class OperacionesPropiasComponent implements OnInit {
           return display_x(data.ValorNominalDolares, 14, 2);
         }
       } },
-      { title:  'EFECTIVO', data: null, className: 'dt-body-right',
+      { title:  'Efectivo', data: null, className: 'dt-body-right',
       render: (data: any, type: any, row: any, meta) => {
         if (data.MonedaTransada === 'DOP') {
           return display_x(data.ValorTransadoPesos, 14, 2);
@@ -104,18 +106,18 @@ export class OperacionesPropiasComponent implements OnInit {
         }
 
       } },
-      { title:  'CMI_COMP', data: null, className: 'dt-body-right',
+      { title:  'Cmi Comp', data: null, className: 'dt-body-right',
       render: (data: any, type: any, row: any, meta) => {
         return display_x(data.ComisionComprador, 8, 2);
       } },
-      { title: 'CMI_VEND', data: null, className: 'dt-body-right',
+      { title: 'Cmi Vend', data: null, className: 'dt-body-right',
       render: (data: any, type: any, row: any, meta) => {
         return display_x(data.ComisionVendedor, 8, 2);
       }}
     ];
 
     setTimeout(() => {
-      this.translateLAService.traducirColumnas(this.dtColumnas)
+      this.translateLAVIService.traducirColumnas(this.dtColumnas)
         .then(x => this.visibleColumnas = x);
     });
   }

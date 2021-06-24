@@ -1,3 +1,4 @@
+import { TranslateLAVIService } from '@laranda/lib-visual';
 import { Component, OnInit } from '@angular/core';
 import {
   DameCalendario,
@@ -17,7 +18,6 @@ import {
   DameRiesgoLiquidezServer,
 } from './../../../shared/services/data-bvrd.service';
 import swal from 'sweetalert2';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-data',
@@ -42,8 +42,8 @@ export class DataComponent implements OnInit {
     private dameTitulosAll: DameTitulosAll,
     private autenticaCli: AutenticaCli,
     private insertaPolicia: InsertaPolicia,
-    private translate: TranslateService,
     private translateLAService: TranslateLAService,
+    private translateLAVIService: TranslateLAVIService,
     public dameTitulos: DameTitulos,
     public damePosturasP: DamePosturasP,
     public damePosturasM: DamePosturasM,
@@ -60,20 +60,20 @@ export class DataComponent implements OnInit {
         'Ingresando al sistema', 'NgStock', 'C', 99);
     }
 
-    this.tipoIdioma = this.translate.getBrowserLang();
+    this.tipoIdioma = this.translateLAService.getBrowserLang();
   }
 
   ngOnInit(): void {
+    const browserLang = this.translateLAService.getBrowserLang();
+    this.translateLAService.usarIdioma(browserLang.match(/es|en/) ? browserLang : 'es');
 
-    this.translate.get('PROCESANDO_LOS_DATOS').subscribe(x => {
-      swal.fire({
-        allowOutsideClick: false,
-        icon: 'info',
-        text: x + '....',
-        title: 'Loading',
-      });
-      swal.showLoading();
+    swal.fire({
+      allowOutsideClick: false,
+      icon: 'info',
+      text: this.translateLAService.buscarPalabra('Procesando los Datos') + '....',
+      title: 'Loading',
     });
+    swal.showLoading();
 
     if (this.conectorService.info === undefined) {
       this.conectorService.getParametros().then(() => {
@@ -106,15 +106,13 @@ export class DataComponent implements OnInit {
     loading?: boolean
   ): void {
     if (loading === undefined) {
-      this.translate.get('PROCESANDO_LOS_DATOS').subscribe(x => {
-        swal.fire({
-          allowOutsideClick: false,
-          icon: 'info',
-          text: x + '....',
-          title: 'Loading',
-        });
-        swal.showLoading();
+      swal.fire({
+        allowOutsideClick: false,
+        icon: 'info',
+        text: this.translateLAService.buscarPalabra('Procesando los Datos') + '....',
+        title: 'Loading',
       });
+      swal.showLoading();
     }
 
     Promise.allSettled([
@@ -169,10 +167,9 @@ export class DataComponent implements OnInit {
     let PrecioOper = 'PrecioOper';
 
     if (tipo !== 'es') {
-      this.translate.get('PRECIO').subscribe(x => {
-        PrecioM = 'M' + x;
-        PrecioOper = 'Oper' + x;
-      });
+      const PRECIO = this.translateLAService.buscarPalabra('Precio');
+      PrecioM = 'M' + PRECIO;
+      PrecioOper = 'Oper' + PRECIO;
     }
 
     return new Chart('graficoPrecio', {
@@ -242,10 +239,9 @@ export class DataComponent implements OnInit {
     let VolumenOper = 'VolumenOper';
 
     if (tipo !== 'es') {
-      this.translate.get('VOLUMENES').subscribe(x => {
-        VolumenM = 'M' + x;
-        VolumenOper = 'Oper' + x;
-      });
+      const VOLUMEN = this.translateLAService.buscarPalabra('Volumenes');
+      VolumenM = 'M' + VOLUMEN;
+      VolumenOper = 'Oper' + VOLUMEN;
     }
 
     // willmer Git
@@ -405,6 +401,7 @@ export class DataComponent implements OnInit {
   }
 
   defineColumnas(tipo: string) {
+    this.translateLAService.usarIdioma(tipo);
     this.tipoIdioma = tipo;
     this.calculosRD.visibleMovi = false;
 
@@ -412,7 +409,7 @@ export class DataComponent implements OnInit {
 
     if (tipo !== 'es') {
       setTimeout(() => {
-        this.translateLAService.traducirTexto(this.dameCalendario.CadOut.Comentarios, tipo)
+        this.translateLAService.traducirTexto(this.dameCalendario.CadOut.Comentarios)
           .subscribe(x => {
             this.quePaso = x[0].translations[0].text;
           });
@@ -421,20 +418,20 @@ export class DataComponent implements OnInit {
 
     this.dtColumnasEjemplo = [
       {
-        title: 'TITULO',
+        title: 'Titulo',
         data : null,
         render: (data: any, type: any, row: any, meta) => {
           return data.Cotitulo.substr(0, 7); }
       },
       {
-        title: 'MON',
+        title: 'Mon',
         data: null,
         render: (data: any, type: any, row: any, meta) => {
           return data.Moneda + ' ' + data.c_v + '-' + display_x(data.Cant, 2, 0) ;
         }
       },
       {
-        title: 'Nom_Posturas_Transado',
+        title: 'Nom Posturas -> Transado',
         data: null,
         className: 'dt-body-right',
         render: (data: any, type: any, row: any, meta) => {
@@ -445,7 +442,7 @@ export class DataComponent implements OnInit {
         },
       },
       {
-        title: 'EFECT_REAL',
+        title: 'Efect Real',
         data: null,
         className: 'dt-body-right',
         render: (data: any, type: any, row: any, meta) => {
@@ -454,7 +451,7 @@ export class DataComponent implements OnInit {
       },
       { title: 'Isin', data: 'Isin' },
       {
-        title: 'ULT_PREC',
+        title: 'Ult Prec',
         data: null,
         className: 'dt-body-right',
         render: (data: any, type: any, row: any, meta) => {
@@ -465,11 +462,9 @@ export class DataComponent implements OnInit {
     ];
 
     setTimeout(() => {
-      this.translateLAService.traducirColumnas(this.dtColumnasEjemplo)
+      this.translateLAVIService.traducirColumnas(this.dtColumnasEjemplo)
         .then(x => {
           this.calculosRD.visibleMovi = x;
-          console.log('tipoIdioma ', this.tipoIdioma);
-          console.log(this.dtColumnasEjemplo);
         });
     });
   }

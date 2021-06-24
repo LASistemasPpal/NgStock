@@ -1,7 +1,8 @@
 import { CadJsons } from './../../../shared/classes/bvrdClass';
 import { Component, OnInit, Input } from '@angular/core';
-import { HTfech_a_fech, display_x, TranslateLAService } from '@laranda/lib-sysutil';
+import { HTfech_a_fech, display_x, scrollFin } from '@laranda/lib-sysutil';
 import { DameCalendario } from '@laranda/lib-ultra-net';
+import { TranslateLAVIService } from '@laranda/lib-visual';
 
 @Component({
   selector: 'app-posturas-propias',
@@ -10,6 +11,7 @@ import { DameCalendario } from '@laranda/lib-ultra-net';
 export class PosturasPropiasComponent implements OnInit {
 
   private priFiltro: string[] = [];
+  private scrollFinLA = scrollFin;
   visible = true;
   visibleColumnas = true;
   tIdioma = '';
@@ -41,7 +43,7 @@ export class PosturasPropiasComponent implements OnInit {
         }
 
         this.visible = true;
-        this.translateLAService.scrollFin();
+        this.scrollFinLA();
       }, 500);
     }
   @Input() set tipIdioma(tipo: string) {
@@ -52,7 +54,7 @@ export class PosturasPropiasComponent implements OnInit {
 
 
   constructor(
-    private translateLAService: TranslateLAService,
+    private translateLAVIService: TranslateLAVIService,
     public dameCalendario: DameCalendario
   ) {  }
 
@@ -62,40 +64,40 @@ export class PosturasPropiasComponent implements OnInit {
     this.visibleColumnas = false;
 
     this.dtColumnas = [
-      { title:  'RUEDA', data: 'CODRUEDA' },
-      { title:  'ESTATUS', data: 'Estatus' },
-      { title:  'POSTURAS', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  'Rueda', data: 'CODRUEDA' },
+      { title:  'Estatus', data: 'Estatus' },
+      { title:  'Posturas', data: null, render: (data: any, type: any, row: any, meta) => {
         return HTfech_a_fech(data.FechaPostura).substr(0, 10);
       }, className: 'dt-body-center' },
 
-      { title:  'FECH_LIQ', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  'Fech Liq', data: null, render: (data: any, type: any, row: any, meta) => {
         return HTfech_a_fech(data.FechaLiquidacion).substr(0, 10);
       }, className: 'dt-body-center' },
-      { title:  'HORA', data: 'HoraPostura' },
+      { title:  'Hora', data: 'HoraPostura' },
       { title:  'ISIN', data: 'ISIN' },
-      { title:  'MON', data: 'MonedaLiquidacion' },
-      { title:  'OPER_VINC', data: 'NroOperacionVinculada', className: 'dt-body-right' },
-      { title:  'N_ORDEN', data: 'OrdenesEnFirmeID', className: 'dt-body-right' },
-      { title:  'PLZ_LIQ', data: 'PlazoLiquidacion', className: 'dt-body-right' },
-      { title:  'COMP_VTA', data: 'PosicionCompraVenta' },
-      { title:  'PRECIO', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
+      { title:  'Mon', data: 'MonedaLiquidacion' },
+      { title:  'Oper Vinc', data: 'NroOperacionVinculada', className: 'dt-body-right' },
+      { title:  'Nº Orden', data: 'OrdenesEnFirmeID', className: 'dt-body-right' },
+      { title:  'Plz Liq', data: 'PlazoLiquidacion', className: 'dt-body-right' },
+      { title:  'Comp /Vta', data: 'PosicionCompraVenta' },
+      { title:  'Precio', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
         return display_x(data.Precio, 10, 8);
       } },
-      { title: 'REND', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'Rend', data: null, render: (data: any, type: any, row: any, meta) => {
         return display_x(data.Rendimiento, 10, 2);
       }, className: 'dt-body-right' },
       // { title: 'Secuencia', data: 'Secuencia' },
       // { title: 'TasaCupon', data: 'TasaCupon' },
-      { title:  'VALOR_NOMINAL', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  'Valor Nominal', data: null, render: (data: any, type: any, row: any, meta) => {
         return display_x(data.MonedaLiquidacion === 'DOP' ? data.ValorNominalPesos : data.ValorNominalDolares, 14, 2);
       }, className: 'dt-body-right'},
-      { title:  'VALOR_TRANSADO', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  'Valor Transado', data: null, render: (data: any, type: any, row: any, meta) => {
         return display_x(data.MonedaLiquidacion === 'DOP' ? data.ValorTransadoPesos : data.ValorTransadoDolares, 14, 2);
       }, className: 'dt-body-right' }
     ];
 
     setTimeout(() => {
-      this.translateLAService.traducirColumnas(this.dtColumnas)
+      this.translateLAVIService.traducirColumnas(this.dtColumnas)
         .then(x => this.visibleColumnas = x);
     });
   }

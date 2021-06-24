@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DameCalendario, DamePosicionMAnt } from '@laranda/lib-ultra-net';
-import { ConectorService, TranslateLAService } from '@laranda/lib-sysutil';
+import { ConectorService, scrollFin } from '@laranda/lib-sysutil';
 import { Movimientos } from './../../../shared/classes/bvrdClass';
+import { TranslateLAVIService } from '@laranda/lib-visual';
 
 
 @Component({
@@ -13,6 +14,7 @@ export class PosicionMAntComponent implements OnInit {
   dtColumnas: DataTables.ColumnSettings[] = [];
   visibleColumnas = true;
   tIdioma = '';
+  private scrollFinLA = scrollFin;
 
   @Input() codRif: string;
   @Input() fecha: string;
@@ -26,11 +28,11 @@ export class PosicionMAntComponent implements OnInit {
     public damePosicionMAnt: DamePosicionMAnt,
     public dameCalendario: DameCalendario,
     private conectorService: ConectorService,
-    private translateLAService: TranslateLAService
+    private translateLAVIService: TranslateLAVIService
   ) {}
 
   ngOnInit(): void {
-    this.translateLAService.scrollFin();
+    this.scrollFinLA();
 
     this.damePosicionMAnt.CadOut = [];
     this.damePosicionMAnt.visible = false;
@@ -43,8 +45,8 @@ export class PosicionMAntComponent implements OnInit {
     this.visibleColumnas = false;
 
     this.dtColumnas = [
-      { title: 'CLAVE', data: 'Clave' },
-      { title:  'PRODUCTO',
+      { title: 'Clave', data: 'Clave' },
+      { title:  'Producto',
         data: null, render: (data: any, type: any, row: any, meta) => {
           let chara = data.Producto.substr(3, 100).trim();
           if (data.Producto.substr(0, 2) === 'MM') {
@@ -68,8 +70,8 @@ export class PosicionMAntComponent implements OnInit {
           return chara;
         }
       },
-      { title:  'MON', data: 'Moneda_abrevia' },
-      { title:  'SALDO_INI', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  'Mon', data: 'Moneda_abrevia' },
+      { title:  'Saldo Ini', data: null, render: (data: any, type: any, row: any, meta) => {
           let saldoX = data.Saldofin;
 
           if ((data.Producto.substr(0, 2) === 'CV') || (data.Producto.substr(0, 2) === 'SB')) {
@@ -86,8 +88,8 @@ export class PosicionMAntComponent implements OnInit {
 
           return saldoX;
       }, className: 'dt-body-right' },
-      { title: 'FECHA_INI', data: 'Ini' },
-      { title: 'FECHA_FIN', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'Fecha Ini', data: 'Ini' },
+      { title: 'Fecha Fin', data: null, render: (data: any, type: any, row: any, meta) => {
         let fechaX = data.Ffin;
 
         if ((data.Producto.substr(0, 2) === 'CV') || (data.Producto.substr(0, 2) === 'SB')) {
@@ -107,7 +109,7 @@ export class PosicionMAntComponent implements OnInit {
 
         return fechaX;
       }},
-      { title:  'PREC_MRKT_PROM' , data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  'Prec Mrkt / Prom' , data: null, render: (data: any, type: any, row: any, meta) => {
         let precioX = data.Mrkt;
 
         if ((data.Producto.substr(0, 2) === 'MM') && (data.Rend === '0.00')) {
@@ -140,7 +142,7 @@ export class PosicionMAntComponent implements OnInit {
         return precioX;
 
       }, className: 'dt-body-right' },
-      { title:  'SALDO_FINAL', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  'Saldo Final', data: null, render: (data: any, type: any, row: any, meta) => {
 
         if ((data.Producto.substr(0, 2) === 'MT') && (data.Tipo === 'SIMPLE')) {
           return data.Intvcto;
@@ -153,7 +155,7 @@ export class PosicionMAntComponent implements OnInit {
     ];
 
     setTimeout(() => {
-      this.translateLAService.traducirColumnas(this.dtColumnas)
+      this.translateLAVIService.traducirColumnas(this.dtColumnas)
         .then(x => this.visibleColumnas = x);
     });
   }

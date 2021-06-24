@@ -2,8 +2,9 @@ import swal from 'sweetalert2';
 import { DameTitulos, DamePermisoUsuario, DameCalendario } from '@laranda/lib-ultra-net';
 import { PospropiaService } from './../../../shared/services/pospropia.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { ConectorService, TranslateLAService, lintstr, ceros } from '@laranda/lib-sysutil';
+import { ConectorService, lintstr, ceros, scrollFin } from '@laranda/lib-sysutil';
 import { Movimientos } from 'src/app/shared/classes/bvrdClass';
+import { TranslateLAVIService } from '@laranda/lib-visual';
 
 @Component({
   selector: 'app-posicion-propia',
@@ -16,6 +17,7 @@ export class PosicionPropiaComponent implements OnInit {
   nmcliente: '';
   visibleColumnas = true;
   tIdioma = '';
+  private scrollFinLA = scrollFin;
 
   @Input() codISIN: string;
   @Input() mov: Movimientos[] = [];
@@ -31,11 +33,11 @@ export class PosicionPropiaComponent implements OnInit {
     private conectorService: ConectorService,
     private dameTitulos: DameTitulos,
     private damePermisoUsuario: DamePermisoUsuario,
-    private translateLAService: TranslateLAService
+    private translateLAVIService: TranslateLAVIService
   ) { }
 
   ngOnInit(): void {
-    this.translateLAService.scrollFin();
+    this.scrollFinLA();
 
     this.pospropiaService.Ts = [];
     this.pospropiaService.visible = false;
@@ -62,18 +64,18 @@ export class PosicionPropiaComponent implements OnInit {
 
     this.dtColumnas = [
       { title: 'Nro Ts', data: 'Ts' },
-      { title: 'MONEDA', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'Moneda', data: null, render: (data: any, type: any, row: any, meta) => {
         let tp = 'RFij ';
         if (data.Tpoperac === '2') { tp = 'RVar '; }
         return  tp + ceros(lintstr(data.Moneda, 3)); }, className: 'dt-body-center'},
-      { title: 'VEH_CART',  data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'Veh-Cart',  data: null, render: (data: any, type: any, row: any, meta) => {
         return ceros(lintstr(data.Vehiculo, 2)) + '-' + ceros(lintstr(data.Cartera, 2)); }, className: 'dt-body-center'},
-      { title: 'FEC_COMPRA',  data: 'Apertura', className: 'dt-body-center'},
-      { title: 'ULT_OPERAC',  data: 'Ultimo', className: 'dt-body-center'},
-      { title: 'VENCIMIENTO',  data: 'Vencimiento', className: 'dt-body-center'},
-      { title: 'TITULO', data: 'Titulo' },
-      { title: 'SALDO', data: 'Saldo' , className: 'dt-body-right'},
-      { title: 'PREC_MRKT_PROM', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'Fec Compra',  data: 'Apertura', className: 'dt-body-center'},
+      { title: 'Ult Operac',  data: 'Ultimo', className: 'dt-body-center'},
+      { title: 'Vencimiento',  data: 'Vencimiento', className: 'dt-body-center'},
+      { title: 'Titulo', data: 'Titulo' },
+      { title: 'Saldo', data: 'Saldo' , className: 'dt-body-right'},
+      { title: 'Prec Mrkt / Prom', data: null, render: (data: any, type: any, row: any, meta) => {
         let precioX = data.Precio;
         let pHoy = 0.0;
         let cadena = '??';
@@ -102,7 +104,7 @@ export class PosicionPropiaComponent implements OnInit {
     ];
 
     setTimeout(() => {
-      this.translateLAService.traducirColumnas(this.dtColumnas)
+      this.translateLAVIService.traducirColumnas(this.dtColumnas)
         .then(x => this.visibleColumnas = x);
     });
   }

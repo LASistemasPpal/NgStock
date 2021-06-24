@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { DameCalendario, DameIDMRif, DameTitulos, AutenticaCli, InsertaPolicia, CierreRiesgo } from '@laranda/lib-ultra-net';
-import { ConectorService, ColorGrid, stringToTime, TranslateLAService } from '@laranda/lib-sysutil';
-import { TranslateService } from '@ngx-translate/core';
+import { ConectorService, stringToTime, TranslateLAService } from '@laranda/lib-sysutil';
+import { ColorGrid } from '@laranda/lib-visual';
 
 declare let $: any;
 @Component({
@@ -26,7 +26,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     public dameCalendario: DameCalendario,
-    public translate: TranslateService,
     private translateLAService: TranslateLAService,
     private autenticaCli: AutenticaCli,
     private dameIDMRif: DameIDMRif,
@@ -57,9 +56,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
           }
       });
     }
-
-    // translate.addLangs(['es', 'en']);
-    // translate.setDefaultLang('es');
   }
 
 
@@ -89,7 +85,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     }, (60000 * this.conectorService.info.ROBOT_LIQUIDEZ.MINUTOS));
 
-    const browserLang = this.translate.getBrowserLang();
+    const browserLang = this.translateLAService.getBrowserLang();
     this.modificarIdioma(browserLang.match(/es|en/) ? browserLang : 'es');
   }
 
@@ -233,11 +229,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   modificarIdioma(tipo: string) {
-    this.translate.use(tipo);
+    this.translateLAService.usarIdioma(tipo);
 
-    this.translateLAService.busca_title('CODIGO_TITULO_BUSCAR', 'buscarTitulo');
-    this.translateLAService.busca_title('CODIGO_MONEDA_BUSCAR', 'buscarMoneda');
-    this.translateLAService.busca_title('CODIGO_CLIENTE_BUSCAR', 'buscarCliente');
+    this.translateLAService.busca_title('Codigo del Titulo a Buscar', 'buscarTitulo');
+    this.translateLAService.busca_title('Codigo de la Moneda a Buscar', 'buscarMoneda');
+    this.translateLAService.busca_title('Codigo del Cliente a Buscar', 'buscarCliente');
 
     this.idioma.emit(tipo);
   }

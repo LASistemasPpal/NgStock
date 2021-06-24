@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
@@ -8,8 +8,14 @@ import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 
 // Librerías
-import { ColorGrid } from '@laranda/lib-sysutil';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ColorGrid } from '@laranda/lib-visual';
+import { TranslateLAService } from '@laranda/lib-sysutil';
+
+// AoT requiere una función exportada para fábricas
+export function datosTaductorJson(translateLAService: TranslateLAService) {
+  return () => translateLAService.cargar_Diccionario();
+}
 
 @NgModule({
   declarations: [
@@ -21,7 +27,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     NgbModule
   ],
-  providers: [ColorGrid ],
+  providers: [
+    ColorGrid,
+    TranslateLAService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: datosTaductorJson,
+      deps: [TranslateLAService],
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

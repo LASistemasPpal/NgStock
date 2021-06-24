@@ -9,11 +9,11 @@
         <div class="row">
           <div class="col pl-0">
             <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>{{ calculosRD.estadisticas.canti.PosturasM }}</strong></h1>
-            <p class="text-nowrap">{{ 'POSTURAS' | translate }} {{ calculosRD.estadisticas.canti.PosturasP }}</p>
+            <p class="text-nowrap"><span traductorLA>Posturas</span> {{ calculosRD.estadisticas.canti.PosturasP }}</p>
           </div>
           <div class="col">
             <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>{{ calculosRD.estadisticas.canti.PrimarioM }}</strong></h1>
-            <p class="text-nowrap">{{ 'PRIMARIO' | translate }} {{ calculosRD.estadisticas.canti.PrimarioP }}</p>
+            <p class="text-nowrap"><span traductorLA>Primario</span> {{ calculosRD.estadisticas.canti.PrimarioP }}</p>
           </div>
           <div class="col">
             <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>{{ calculosRD.estadisticas.canti.MarketMM }}</strong></h1>
@@ -21,13 +21,16 @@
           </div>
           <div class="col">
             <h1 [ngStyle]="dameCalendario['xcolor']" class="text-center"><strong>{{ calculosRD.estadisticas.canti.OperacionesM }}</strong></h1>
-            <p class="text-nowrap">{{ 'OPERAC' | translate}} {{ calculosRD.estadisticas.canti.OperacionesP }}</p>
+            <p class="text-nowrap"><span traductorLA>Operac</span> {{ calculosRD.estadisticas.canti.OperacionesP }}</p>
           </div>
         </div>
 
         <div class="row">
           <div class="col-12 pl-0">
-            <h3><i class="fas fa-user pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i> {{ 'QUE_PASO' | translate }}?</h3>
+            <h3>
+              <i class="fas fa-user pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i>
+              <span class="ml-1" traductorLA>Que paso</span>
+            </h3>
           </div>
           <p *ngIf="quePaso != undefined" class="tabla-font-12">
             {{ quePaso }}
@@ -36,39 +39,43 @@
       </div>
 
       <div class="col-2 pl-4 pt-2">
-        <h3><i class="fas fa-calendar-day pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i> {{ 'HOY' | translate}}</h3>
+        <h3>
+          <i class="fas fa-calendar-day pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i>
+          <span class="ml-1" traductorLA>Hoy</span>
+        </h3>
 
         <div *ngIf="fechaActual === dameCalendario.CadOut.Fecha; else fechaDoble">
-          <p class="mb-0">{{ 'FECHA' | translate}}</p>
+          <p class="mb-0" traductorLA>Fecha</p>
           <p *ngIf="dameCalendario.CadOut != undefined" [ngStyle]="dameCalendario['xcolor']"><strong> {{ dameCalendario.CadOut.Fecha }} </strong></p>
         </div>
 
         <ng-template #fechaDoble>
           <p *ngIf="dameCalendario.CadOut != undefined" [ngStyle]="dameCalendario['xcolor']"><strong> {{ fechaActual }} </strong></p>
 
-          <p class="mb-0">{{ 'FECHA_SISTEMA' | translate }}</p>
+          <p class="mb-0" traductorLA>Fecha Sistema</p>
           <p *ngIf="dameCalendario.CadOut != undefined" [ngStyle]="dameCalendario['xcolor']"><strong> {{ dameCalendario.CadOut.Fecha }} </strong></p>
         </ng-template>
 
 
-        <p class="mb-0  ">{{ 'MAS_TRANSADA' | translate }} PDO</p>
+        <p class="mb-0"><span traductorLA>Mas Transada</span> PDO</p>
         <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastransadaDOP }} / {{ calculosRD.estadisticas.MastranMtoDOP | number:'.0-0' }}</strong></p>
 
-        <p class="mb-0">{{ 'MAS_TRANSADA' | translate }} USD</p>
+        <p class="mb-0"><span traductorLA>Mas Transada</span> USD</p>
         <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.MastransadaUSD }} / {{ calculosRD.estadisticas.MastranMtoUSD | number:'.0-0' }}</strong></p>
 
-        <p class="mb-0">{{ 'EMISIONES' | translate }}</p>
+        <p class="mb-0" traductorLA>Emisiones</p>
         <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ calculosRD.estadisticas.Emisiones }}</strong></p>
 
-        <p class="mb-0">{{ 'T_Cambio' | translate }}</p>
+        <p class="mb-0" traductorLA>T/Cambio</p>
         <p [ngStyle]="dameCalendario['xcolor']"><strong>{{ dameCalendario.CadOut.Tcdolar }}</strong></p>
       </div>
 
       <div class="col-6 pt-2">
-        <h3 class="text-center"><i class="fas fa-money-bill-wave pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i>
-          {{ 'MOVIMIENTO_POR' | translate}} {{ 'TITULO' | translate }}
+        <h3 class="text-center">
+          <i class="fas fa-money-bill-wave pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i>
+          <span traductorLA class="ml-1">Movimiento por</span> <span traductorLA> Titulo</span>
         </h3>
-        <lsy-tabla-la *ngIf="calculosRD.visibleMovi" [columnas]="dtColumnasEjemplo" [datosX]="calculosRD.estadisticas.Movi" class="tabla-font-12" [botones]="false" [barraY]="'30vh'" [idioma]="tipoIdioma" [colorTH]="dameCalendario.CadOut.Color"></lsy-tabla-la>
+        <lvi-tabla-la *ngIf="calculosRD.visibleMovi" [columnas]="dtColumnasEjemplo" [datosX]="calculosRD.estadisticas.Movi" class="tabla-font-12" [botones]="false" [barraY]="'30vh'" [idioma]="tipoIdioma" [colorTH]="dameCalendario.CadOut.Color"></lvi-tabla-la>
       </div>
 
     </div>
@@ -79,7 +86,7 @@
   <div class="row">
     <div class="col-4 pr-0">
       <h3 class="text-center"><i class="fas fa-graduation-cap pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i>
-        {{ 'MONTOS_TRANSADOS' | translate }} <i *ngIf="consultaTipo === '3'"> {{ dameTitulos.ParamIn.Cotitulo }} </i>
+        <span traductorLA class="ml-1">Montos Transados</span> <i *ngIf="consultaTipo === '3'"> {{ dameTitulos.ParamIn.Cotitulo }} </i>
       </h3>
 
       <div class="row">
@@ -109,7 +116,7 @@
 
     <div class="col-4">
       <h3 class="text-center"><i class="fas fa-comments-dollar pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i>
-        {{ 'PRECIOS' | translate }}
+        <span traductorLA class="ml-1">Precios</span>
       </h3>
 
       <div class="row justify-content-center">
@@ -121,7 +128,7 @@
 
     <div class="col-4">
       <h3 class="text-center"><i class="fas fa-briefcase pr-1 rounded-circle p-2" [ngStyle]="dameCalendario['xbgColor']"></i>
-        {{ 'VOLUMENES' | translate}}
+        <span traductorLA class="ml-1">Volumenes</span>
       </h3>
 
       <div class="row justify-content-center">

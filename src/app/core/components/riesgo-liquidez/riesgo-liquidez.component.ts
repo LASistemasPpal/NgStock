@@ -1,7 +1,8 @@
-import { display_x, ConectorService, TranslateLAService } from '@laranda/lib-sysutil';
+import { display_x, ConectorService, scrollFin } from '@laranda/lib-sysutil';
 import { Component, Input, OnInit } from '@angular/core';
 import { DameRiesgoLiquidezServer } from './../../../shared/services/data-bvrd.service';
 import { AutenticaCli, DameTitulosAll, CierreRiesgo, DameCalendario } from '@laranda/lib-ultra-net';
+import { TranslateLAVIService } from '@laranda/lib-visual';
 
 @Component({
   selector: 'app-riesgo-liquidez',
@@ -12,6 +13,7 @@ export class RiesgoLiquidezComponent implements OnInit {
   dtColumnas: DataTables.ColumnSettings[] = [];
   visibleColumnas = true;
   tIdioma = '';
+  private scrollFinLA = scrollFin;
 
   @Input() set tipIdioma(tipo: string) {
     this.tIdioma = tipo;
@@ -26,7 +28,7 @@ export class RiesgoLiquidezComponent implements OnInit {
     private dameTitulosAll: DameTitulosAll,
     private cierreRiesgo: CierreRiesgo,
     private conectorService: ConectorService,
-    private translateLAService: TranslateLAService
+    private translateLAVIService: TranslateLAVIService
   ) { }
 
 
@@ -40,7 +42,7 @@ export class RiesgoLiquidezComponent implements OnInit {
     //  this.cierreRiesgo.CadOut.Mensaje+' '+cadena, 'info')
     // }
 
-    this.translateLAService.scrollFin();
+    this.scrollFinLA();
   }
 
   defineColumnas() {
@@ -48,29 +50,29 @@ export class RiesgoLiquidezComponent implements OnInit {
 
     this.dtColumnas = [
       { title: 'Isin', data: 'codigoisin' },
-      { title: 'CODIGO_LA', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'Codigo LA', data: null, render: (data: any, type: any, row: any, meta) => {
         return this.dameTitulosAll.getCodTituloLA(data.codigoisin);
       }},
 
-      { title: 'PRECIO_COMPRA', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'Precio Compra', data: null, render: (data: any, type: any, row: any, meta) => {
         return display_x(data.precioppcompra, 14, 8);
       }, className: 'dt-body-right' },
 
-      { title: 'PRECIO_VENTA', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'Precio Venta', data: null, render: (data: any, type: any, row: any, meta) => {
         return display_x(data.precioppventa, 14, 8);
       }, className: 'dt-body-right' },
 
-      { title: 'MARGEN', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'Margen', data: null, render: (data: any, type: any, row: any, meta) => {
         return display_x(data.margen, 12, 8);
       }, className: 'dt-body-right' },
 
-      { title: 'RECORTE', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'Recorte', data: null, render: (data: any, type: any, row: any, meta) => {
         return display_x(data.recorteregulatorio, 12, 8);
       }, className: 'dt-body-right' }
     ];
 
     setTimeout(() => {
-      this.translateLAService.traducirColumnas(this.dtColumnas)
+      this.translateLAVIService.traducirColumnas(this.dtColumnas)
         .then(x => this.visibleColumnas = x);
     });
   }

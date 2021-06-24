@@ -1,5 +1,6 @@
+import { TranslateLAVIService } from '@laranda/lib-visual';
 import { Component, Input, OnInit } from '@angular/core';
-import { display_x, TranslateLAService } from '@laranda/lib-sysutil';
+import { display_x, scrollFin } from '@laranda/lib-sysutil';
 import { DameCalendario, DameTitulosAll } from '@laranda/lib-ultra-net';
 
 @Component({
@@ -11,6 +12,7 @@ export class OperacionesOtcComponent implements OnInit {
   dtColumnas: DataTables.ColumnSettings[] = [];
   visibleColumnas = true;
   tIdioma = '';
+  private scrollFinLA = scrollFin;
 
   @Input() datos: [] = [];
   @Input() codISIN = '';
@@ -22,7 +24,7 @@ export class OperacionesOtcComponent implements OnInit {
 
   constructor(
     private dameTitulosAll: DameTitulosAll,
-    private translateLAService: TranslateLAService,
+    private translateLAVIService: TranslateLAVIService,
     public dameCalendario: DameCalendario
   ) { }
 
@@ -38,7 +40,7 @@ export class OperacionesOtcComponent implements OnInit {
       // });
     }
 
-    this.translateLAService.scrollFin();
+    this.scrollFinLA();
   }
 
   defineColumnas() {
@@ -48,18 +50,18 @@ export class OperacionesOtcComponent implements OnInit {
       // { title: 'CantidadTitulos', data: 'CantidadTitulos', className: 'dt-body-right' },
       { title: 'ISIN', data: 'CodigoISIN' },
       {
-        title: 'TITULO', data: null, render: (data: any, type: any, row: any, meta) => {
+        title: 'Titulo', data: null, render: (data: any, type: any, row: any, meta) => {
           return this.dameTitulosAll.getCodTituloLA(data.CodigoISIN);
         }
       },
-      { title: 'MON', data: 'MonedaTransada' },
+      { title: 'Mon', data: 'MonedaTransada' },
       {
-        title: 'PRECIO', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
+        title: 'Precio', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
           return display_x(data.PrecioLimpio, 14, 8);
         }
       },
       {
-        title: 'CUPON', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
+        title: 'Cupon', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
           return display_x(data.TasaCupon, 8, 2);
         }
       },
@@ -72,9 +74,8 @@ export class OperacionesOtcComponent implements OnInit {
     ];
 
     setTimeout(() => {
-      this.translateLAService.traducirColumnas(this.dtColumnas)
-        .then(x => this.visibleColumnas = x)
-        .then(() => console.log(this.dtColumnas));
+      this.translateLAVIService.traducirColumnas(this.dtColumnas)
+        .then(x => this.visibleColumnas = x);
     });
   }
 

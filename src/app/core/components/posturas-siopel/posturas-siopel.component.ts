@@ -1,7 +1,8 @@
 import { CadJsons } from './../../../shared/classes/bvrdClass';
 import { Component, OnInit, Input } from '@angular/core';
-import { HTfech_a_fech, display_x, TranslateLAService } from '@laranda/lib-sysutil';
+import { HTfech_a_fech, display_x, scrollFin } from '@laranda/lib-sysutil';
 import { DameCalendario, DameTitulosAll } from '@laranda/lib-ultra-net';
+import { TranslateLAVIService } from '@laranda/lib-visual';
 
 @Component({
   selector: 'app-posturas-siopel',
@@ -10,6 +11,7 @@ import { DameCalendario, DameTitulosAll } from '@laranda/lib-ultra-net';
 export class PosturasSiopelComponent implements OnInit {
 
   private priFiltro: string[] = [];
+  private scrollFinLA = scrollFin;
   visible = true;
 
   dtColumnas: DataTables.ColumnSettings[] = [];
@@ -41,7 +43,7 @@ export class PosturasSiopelComponent implements OnInit {
         }
 
         this.visible = true;
-        this.translateLAService.scrollFin();
+        this.scrollFinLA();
       }, 500);
     }
   @Input() set tipIdioma(tipo: string) {
@@ -51,7 +53,7 @@ export class PosturasSiopelComponent implements OnInit {
 
   constructor(
     private dameTitulosAll: DameTitulosAll,
-    private translateLAService: TranslateLAService,
+    private translateLAVIService: TranslateLAVIService,
     public dameCalendario: DameCalendario
   )
      { }
@@ -60,47 +62,47 @@ export class PosturasSiopelComponent implements OnInit {
     this.visibleColumnas = false;
 
     this.dtColumnas = [
-      { title:  'RUEDA', data: 'CODRUEDA' },
-      { title:  'DURACION', data: 'Duracion' },
-      { title:  'ESTATUS', data: 'Estatus' },
-      { title:  'POSTURAS', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  'Rueda', data: 'CODRUEDA' },
+      { title:  'Duración', data: 'Duracion' },
+      { title:  'Estatus', data: 'Estatus' },
+      { title:  'Posturas', data: null, render: (data: any, type: any, row: any, meta) => {
         return HTfech_a_fech(data.FechaPostura).substr(0, 10);
       }, className: 'dt-body-center' },
     //  { title: 'Postura', data: 'FechaPostura' },
-     { title: 'FECH_LIQ', data: null, render: (data: any, type: any, row: any, meta) => {
+     { title: 'Fech Liq', data: null, render: (data: any, type: any, row: any, meta) => {
         return HTfech_a_fech(data.FechaLiquidacion).substr(0, 10);
       }, className: 'dt-body-center' },
-       { title:  'HORA', data: 'HoraPostura' },
+       { title:  'Hora', data: 'HoraPostura' },
       { title:  'ISIN', data: 'ISIN' },
-      { title:  'MON', data: 'MonedaLiquidacion' },
+      { title:  'Mon', data: 'MonedaLiquidacion' },
       // { title: 'NroOperacionVinculada', data: 'NroOperacionVinculada' },
-      { title: 'N_ORDEN', data: 'OrdenesEnFirmeID' },
+      { title: 'Nº Orden', data: 'OrdenesEnFirmeID' },
       // { title: 'Plz Liq', data: 'PlazoLiquidacion', className: 'dt-body-right' },
-      { title:  'PLZ_LIQ', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title:  'Plz Liq', data: null, render: (data: any, type: any, row: any, meta) => {
         return display_x(data.PlazoLiquidacion, 4, 0);
       }},
-      { title: 'COMP_VTA', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'Comp /Vta', data: null, render: (data: any, type: any, row: any, meta) => {
         return data.PosicionCompraVenta + ' / ' + this.dameTitulosAll.getCodTituloLA(data.ISIN);
       }},
 
-      { title: 'PRECIO', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
+      { title: 'Precio', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
         return display_x(data.Precio, 10, 4);
       } },
-      { title: 'REND', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
+      { title: 'Rend', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
         return display_x(data.Rendimiento, 10, 4);
       } },
-      { title: 'SEC', data: 'Secuencia', className: 'dt-body-right' },
+      { title: 'Sec', data: 'Secuencia', className: 'dt-body-right' },
       // { title: 'TasaCupon', data: 'TasaCupon' },
-      { title: 'VALOR_NOMINAL', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'Valor Nominal', data: null, render: (data: any, type: any, row: any, meta) => {
         return display_x(data.MonedaLiquidacion === 'DOP' ? data.ValorNominalPesos : data.ValorNominalDolares, 14, 2);
       }, className: 'dt-body-right'},
-      { title: 'VALOR_TRANSADO', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'Valor Transado', data: null, render: (data: any, type: any, row: any, meta) => {
         return display_x(data.MonedaLiquidacion === 'DOP' ? data.ValorTransadoPesos : data.ValorTransadoDolares, 14, 2);
       }, className: 'dt-body-right' }
     ];
 
     setTimeout(() => {
-      this.translateLAService.traducirColumnas(this.dtColumnas)
+      this.translateLAVIService.traducirColumnas(this.dtColumnas)
         .then(x => this.visibleColumnas = x);
     });
   }

@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DameCOrdenX, CierreRiesgo, DameCalendario } from '@laranda/lib-ultra-net';
-import { ConectorService, TranslateLAService } from '@laranda/lib-sysutil';
+import { ConectorService, TranslateLAService, scrollFin } from '@laranda/lib-sysutil';
 import swal from 'sweetalert2';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateLAVIService } from '@laranda/lib-visual';
 
 declare let $: any;
 @Component({
@@ -23,6 +23,8 @@ export class CordenxComponent implements OnInit {
   dtColumnasCOrdenX: DataTables.ColumnSettings[] = [];
   visibleColumnas = true;
   tIdioma = 'es';
+
+  private scrollFinLA = scrollFin;
 
   IconCOrden: DataTables.FunctionColumnRender = (data, type, row, meta) => {
     let clase: string;
@@ -58,7 +60,7 @@ export class CordenxComponent implements OnInit {
     private conectorService: ConectorService,
     private cierreRiesgo: CierreRiesgo,
     private translateLAService: TranslateLAService,
-    private translate: TranslateService
+    private translateLAVIService: TranslateLAVIService
   ) { }
 
   ngOnInit(): void {
@@ -68,7 +70,7 @@ export class CordenxComponent implements OnInit {
     });
     // this.consultarOrdenes();
 
-    this.translateLAService.scrollFin();
+    this.scrollFinLA();
   }
 
   consultarOrdenes() {
@@ -108,20 +110,13 @@ export class CordenxComponent implements OnInit {
         buttonsStyling: false
       });
 
-      let DESEA_ENVIAR_SIOPEL_ORDEN = '';
-      let N_ORDEN = '';
-      let NOMBRE = '';
-      let MONTO = '';
-      let PRECIO = '';
-      let CANCELAR = '';
-      let CONFIRMAR = '';
-      this.translate.get('DESEA_ENVIAR_SIOPEL_ORDEN').subscribe(x => DESEA_ENVIAR_SIOPEL_ORDEN = x);
-      this.translate.get('N_ORDEN').subscribe(x => N_ORDEN = x);
-      this.translate.get('NOMBRE').subscribe(x => NOMBRE = x);
-      this.translate.get('MONTO').subscribe(x => MONTO = x);
-      this.translate.get('PRECIO').subscribe(x => PRECIO = x);
-      this.translate.get('CANCELAR').subscribe(x => CANCELAR = x);
-      this.translate.get('CONFIRMAR').subscribe(x => CONFIRMAR = x);
+      const DESEA_ENVIAR_SIOPEL_ORDEN = this.translateLAService.buscarPalabra('¿Desea Enviar a Siopel la orden?');
+      const N_ORDEN = this.translateLAService.buscarPalabra('Nº Orden');
+      const NOMBRE = this.translateLAService.buscarPalabra('Nombre');
+      const MONTO = this.translateLAService.buscarPalabra('Monto');
+      const PRECIO = this.translateLAService.buscarPalabra('Precio');
+      const CANCELAR = this.translateLAService.buscarPalabra('Cancelar');
+      const CONFIRMAR = this.translateLAService.buscarPalabra('Confirmar');
 
       swalEnviar.fire({
         title: DESEA_ENVIAR_SIOPEL_ORDEN,
@@ -162,30 +157,31 @@ export class CordenxComponent implements OnInit {
 
   defineColumnas() {
     this.visibleColumnas = false;
+    this.translateLAService.busca_title('Enviar a la Bolsa', 'sendBolsa');
 
     this.dtColumnasCOrdenX = [
-      { title: 'N_ORDEN', data: 'Nordennew' },
-      { title: 'ESTADO', data: 'Estado', render: this.IconCOrden },
-      { title: 'PRODUCTO', data: 'Concepto' },
-      { title: 'CLIENTE', data: 'Nombre' },
-      { title: 'HORA', data: 'Hora' },
+      { title: 'Nº Orden', data: 'Nordennew' },
+      { title: 'Estado', data: 'Estado', render: this.IconCOrden },
+      { title: 'Producto', data: 'Concepto' },
+      { title: 'Cliente', data: 'Nombre' },
+      { title: 'Hora', data: 'Hora' },
       { title: 'User', data: 'User' },
-      { title: 'TITULO', data: 'Producto' },
-      { title: 'CANT_MONTO', data: 'Camonto', className: 'dt-body-right' },
-      { title: 'PREC_REND', data: null, render: (data: any, type: any, row: any, meta) => {
+      { title: 'Titulo', data: 'Producto' },
+      { title: 'Cant./Monto', data: 'Camonto', className: 'dt-body-right' },
+      { title: 'Prec / Rend', data: null, render: (data: any, type: any, row: any, meta) => {
         // let prec = '.';
         // if (data.Concepto.substr(0, 1) === '0') {prec = data.Precio1;}
         //    else {prec = data.Rend.trim(); }
         // return prec; },
          return (data.Concepto.substr(0, 1) === '0') ?  data.Precio1 : data.Rend.trim() + '00'; },
          className: 'dt-body-right'},
-      { title: 'EJECUTIVO', data: 'Ejecutivo' },
-      { title: 'POSTURAS', data: 'Observacion2' },
-      { title: 'OBSERVAC', data: 'Observacion' }
+      { title: 'Ejec', data: 'Ejecutivo' },
+      { title: 'Posturas', data: 'Observacion2' },
+      { title: 'Observac', data: 'Observacion' }
     ];
 
     setTimeout(() => {
-      this.translateLAService.traducirColumnas(this.dtColumnasCOrdenX)
+      this.translateLAVIService.traducirColumnas(this.dtColumnasCOrdenX)
         .then(x => this.visibleColumnas = x);
     });
   }
