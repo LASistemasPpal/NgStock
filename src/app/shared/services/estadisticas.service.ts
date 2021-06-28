@@ -106,114 +106,107 @@ export class CalculosRD {
     if (this.bvrdPMkrt.posturasSiopel[0] !== undefined) {
       for (const bvrdMJson of this.bvrdPMkrt.posturasSiopel[0].CadJson) {
         if (this.estadisticas.hoy === '') {
-          this.estadisticas.hoy = bvrdMJson.FechaPostura + 'T'; // busco la fecha del dia en la primera postura
+          this.estadisticas.hoy = bvrdMJson.fecha_postura + 'T'; // busco la fecha del dia en la primera postura
         }
 
         if (
-          bvrdMJson.ValorNominalDolares > 0.1 &&
-          bvrdMJson.ValorTransadoDolares < 0.1
+          bvrdMJson.monto_nominal_dolares > 0.1 &&
+          bvrdMJson.monto_transado_dolares < 0.1
         ) {
-          if (bvrdMJson.TasaCupon > 0.01) {
-            bvrdMJson.ValorTransadoDolares =
-              (bvrdMJson.ValorNominalDolares * bvrdMJson.Precio) / 100.0;
+          if (bvrdMJson.tasa_cupon > 0.01) {
+            bvrdMJson.monto_transado_dolares =
+              (bvrdMJson.monto_nominal_dolares * bvrdMJson.precio_limpio) / 100.0;
           } else {
-            bvrdMJson.ValorTransadoDolares =
-              bvrdMJson.ValorNominalDolares * bvrdMJson.Precio;
+            bvrdMJson.monto_transado_dolares =
+              bvrdMJson.monto_nominal_dolares * bvrdMJson.precio_limpio;
           }
         }
 
         if (
-          bvrdMJson.ValorNominalPesos > 0.1 &&
-          bvrdMJson.ValorTransadoPesos < 0.1
+          bvrdMJson.monto_nominal_pesos > 0.1 &&
+          bvrdMJson.monto_transado_pesos < 0.1
         ) {
-          if (bvrdMJson.TasaCupon > 0.01) {
-            bvrdMJson.ValorTransadoPesos =
-              (bvrdMJson.ValorNominalPesos * bvrdMJson.Precio) / 100.0;
+          if (bvrdMJson.tasa_cupon > 0.01) {
+            bvrdMJson.monto_transado_pesos =
+              (bvrdMJson.monto_nominal_pesos * bvrdMJson.precio_limpio) / 100.0;
           } else {
-            bvrdMJson.ValorTransadoPesos =
-              bvrdMJson.ValorNominalPesos * bvrdMJson.Precio;
+            bvrdMJson.monto_transado_pesos =
+              bvrdMJson.monto_nominal_pesos * bvrdMJson.precio_limpio;
           }
         }
 
-        if (bvrdMJson.Estatus !== 'Cancelada') {
-          if (bvrdMJson.MonedaLiquidacion === this.estadisticas.monsel ||
+        if (bvrdMJson.estatus_orden !== 'Cancelada') {
+          if (bvrdMJson.moneda === this.estadisticas.monsel ||
             this.estadisticas.monsel === '') {
             if (
-              bvrdMJson.ISIN === this.estadisticas.isinsel ||
+              bvrdMJson.codisin === this.estadisticas.isinsel ||
               this.estadisticas.isinsel === ''
             ) {
               this.estadisticas.canti.PosturasM =
                 this.estadisticas.canti.PosturasM + 1;
             }
           }
-          // if (
-          //   bvrdMJson.Estatus !== 'Vencida' &&
-          //   bvrdMJson.Estatus !== 'Vigente' &&
-          //   bvrdMJson.PosicionCompraVenta === 'C'
-          // ) {
 
-          // }
-
-          if (bvrdMJson.Estatus === 'Calzada') {
-            if (bvrdMJson.MonedaLiquidacion === this.estadisticas.monsel ||
+          if (bvrdMJson.estatus_orden === 'Calzada') {
+            if (bvrdMJson.moneda === this.estadisticas.monsel ||
               this.estadisticas.monsel === '') {
-              if (bvrdMJson.ISIN === this.estadisticas.isinsel ||
+              if (bvrdMJson.codisin === this.estadisticas.isinsel ||
                 this.estadisticas.isinsel === '') {
-                if (bvrdMJson.CODRUEDA === 'LICI') {
+                if (bvrdMJson.codigo_rueda === 'LICI') {
                   this.estadisticas.canti.PrimarioM =
                     this.estadisticas.canti.PrimarioM + 1;
                 }
               }
             }
           }
-          if (bvrdMJson.ISIN === this.estadisticas.isinsel) {
+          if (bvrdMJson.codisin === this.estadisticas.isinsel) {
             // posturas de mercado
             this.estadisticas.GrafPrecioM.push({
-              x: new Date(this.estadisticas.hoy + bvrdMJson.HoraPostura),
-              y: bvrdMJson.Precio,
+              x: new Date(this.estadisticas.hoy + bvrdMJson.fecha_hora_postura),
+              y: bvrdMJson.precio_limpio,
             });
 
             // tslint:disable-next-line: max-line-length
             this.estadisticas.posi = this.indexGraf(
               this.estadisticas.GrafVolumenM,
-              new Date(this.estadisticas.hoy + `${bvrdMJson.HoraPostura}`)
+              new Date(this.estadisticas.hoy + `${bvrdMJson.fecha_hora_postura}`)
             );
-            if (bvrdMJson.ValorNominalPesos + bvrdMJson.ValorNominalDolares > 0.01) {
+            if (bvrdMJson.monto_nominal_pesos + bvrdMJson.monto_nominal_dolares > 0.01) {
               if (this.estadisticas.posi < 0) {
                 this.estadisticas.GrafVolumenM.push({
-                  x: new Date(this.estadisticas.hoy + `${bvrdMJson.HoraPostura}`),
-                  y: bvrdMJson.ValorNominalPesos + bvrdMJson.ValorNominalDolares
+                  x: new Date(this.estadisticas.hoy + `${bvrdMJson.fecha_hora_postura}`),
+                  y: bvrdMJson.monto_nominal_pesos + bvrdMJson.monto_nominal_dolares
                 });
               } else {
                 this.estadisticas.GrafVolumenM[this.estadisticas.posi].y =
                   this.estadisticas.GrafVolumenM[this.estadisticas.posi].y +
-                  bvrdMJson.ValorNominalPesos +
-                  bvrdMJson.ValorNominalDolares;
+                  bvrdMJson.monto_nominal_pesos +
+                  bvrdMJson.monto_nominal_dolares;
               }
             }
 
             //  operaciones de mercado
-            if (bvrdMJson.Estatus === 'Calzada') {
+            if (bvrdMJson.estatus_orden === 'Calzada') {
               this.estadisticas.GrafPrecioOper.push({
-                x: new Date(this.estadisticas.hoy + `${bvrdMJson.HoraPostura}`),
-                y: bvrdMJson.Precio,
+                x: new Date(this.estadisticas.hoy + `${bvrdMJson.fecha_hora_postura}`),
+                y: bvrdMJson.precio_limpio,
               });
               // tslint:disable-next-line: max-line-length
               this.estadisticas.posi = this.indexGraf(
                 this.estadisticas.GrafVolumenOper,
-                new Date(this.estadisticas.hoy + `${bvrdMJson.HoraPostura}`)
+                new Date(this.estadisticas.hoy + `${bvrdMJson.fecha_hora_postura}`)
               );
-              if (bvrdMJson.ValorNominalPesos + bvrdMJson.ValorNominalDolares > 0.01) {
+              if (bvrdMJson.monto_nominal_pesos + bvrdMJson.monto_nominal_dolares > 0.01) {
                 if (this.estadisticas.posi < 0) {
                   this.estadisticas.GrafVolumenOper.push({
-                    x: new Date(this.estadisticas.hoy + `${bvrdMJson.HoraPostura}`),
-                    y: bvrdMJson.ValorNominalPesos + bvrdMJson.ValorNominalDolares
+                    x: new Date(this.estadisticas.hoy + `${bvrdMJson.fecha_hora_postura}`),
+                    y: bvrdMJson.monto_nominal_pesos + bvrdMJson.monto_nominal_pesos
                   });
                 } else {
                   this.estadisticas.GrafVolumenOper[this.estadisticas.posi].y =
                     this.estadisticas.GrafVolumenOper[this.estadisticas.posi].y +
-                    bvrdMJson.ValorNominalPesos +
-                    bvrdMJson.ValorNominalDolares;
+                    bvrdMJson.monto_nominal_pesos +
+                    bvrdMJson.monto_nominal_dolares;
                 }
               }
             }
@@ -225,9 +218,9 @@ export class CalculosRD {
    // recorrido  operaciones propias
     if (this.bvrdOper.operacionBvrd[0] !== undefined) {
     for (const bvrdJson of this.bvrdOper.operacionBvrd[0].CadJson) {
-      if (bvrdJson.CodigoISIN === this.estadisticas.isinsel ||
+      if (bvrdJson.codisin === this.estadisticas.isinsel ||
         this.estadisticas.isinsel === '') {
-      if (bvrdJson.NombreMercado.substr(0, 4) === 'Crea') {
+      if (bvrdJson.nombre_mercado.substr(0, 4) === 'Prog') {
                  this.estadisticas.canti.MarketMP =
                    this.estadisticas.canti.MarketMP + 1;
                } else  {
@@ -241,72 +234,72 @@ export class CalculosRD {
     if (this.bvrdOperMrkt.operacionBvrdMrkt[0] !== undefined) {
       for (const bvrdOperM of this.bvrdOperMrkt.operacionBvrdMrkt[0].CadJson) {
         if (
-          bvrdOperM.MonedaTransada === this.estadisticas.monsel ||
+          bvrdOperM.moneda_transada === this.estadisticas.monsel ||
           this.estadisticas.monsel === ''
         ) {
           if (
-            bvrdOperM.CodigoISIN === this.estadisticas.isinsel ||
+            bvrdOperM.codisin === this.estadisticas.isinsel ||
             this.estadisticas.isinsel === ''
           ) {
             this.estadisticas.canti.MtodopM =
               this.estadisticas.canti.MtodopM +
-              bvrdOperM.ValorTransadoPesos / 1000000;
+              bvrdOperM.monto_transado_equivalente_pesos / 1000000;
             this.estadisticas.canti.MtousdM =
               this.estadisticas.canti.MtousdM +
-              bvrdOperM.ValorTransadoDolares / 1000;
+              bvrdOperM.monto_transado_equivalente_dolares / 1000;
             this.estadisticas.canti.MtototM =
               this.estadisticas.canti.MtototM +
-              (bvrdOperM.ValorTransadoDolares * this.estadisticas.tpcambio) /
+              (bvrdOperM.monto_transado_equivalente_dolares * this.estadisticas.tpcambio) /
                 1000000 +
-                bvrdOperM.ValorTransadoPesos / 1000000;
+                bvrdOperM.monto_transado_equivalente_pesos / 1000000;
           }
         }
         if (
-        bvrdOperM.MonedaTransada === this.estadisticas.monsel ||
+        bvrdOperM.moneda_transada === this.estadisticas.monsel ||
         this.estadisticas.monsel === ''
       ) {
         //  vigente cancelada y calzada  vencida
         this.estadisticas.posi = this.indexMovimientos(
           this.estadisticas.Movi,
-          bvrdOperM.CodigoISIN,
+          bvrdOperM.codisin,
           'C' // bvrdOperM.PosicionCompraVenta
         );
         if (this.estadisticas.posi < 0) {
-          CodLA = this.dameTitulosAll.getCodTituloLA(bvrdOperM.CodigoISIN);
+          CodLA = this.dameTitulosAll.getCodTituloLA(bvrdOperM.codisin);
 
-          if (bvrdOperM.ValorTransadoDolares > 0) {
+          if (bvrdOperM.monto_transado_equivalente_dolares > 0) {
             this.estadisticas.Movi.push({
               Moneda: 'USD',
-              MontoP: bvrdOperM.ValorTransadoDolares,
-              NominalP: bvrdOperM.ValorNominalDolares,
+              MontoP: bvrdOperM.monto_transado_equivalente_dolares,
+              NominalP: bvrdOperM.monto_nominal_equivalente_dolares,
               MontoReal: 0,
               NominalReal: 0,
               Cotitulo: CodLA,
-              Isin: bvrdOperM.CodigoISIN,
+              Isin: bvrdOperM.codisin,
               Cant: 1,
               c_v: 'C', // bvrdOperM.PosicionCompraVenta,
               PrecioC: 0,
               PrecioV: 0,
               UltPrecio: 0,
-              PrecioProm: bvrdOperM.PrecioLimpio,
+              PrecioProm: bvrdOperM.precio_limpio,
               UltNom: 0,
               NomOper: 0,
             });
           } else {
             this.estadisticas.Movi.push({
               Moneda: 'DOP',
-              MontoP: bvrdOperM.ValorTransadoPesos,
-              NominalP: bvrdOperM.ValorNominalPesos,
+              MontoP: bvrdOperM.monto_transado_equivalente_pesos,
+              NominalP: bvrdOperM.monto_nominal_equivalente_pesos,
               MontoReal: 0,
               NominalReal: 0,
               Cotitulo: CodLA,
-              Isin: bvrdOperM.CodigoISIN,
+              Isin: bvrdOperM.codisin,
               Cant: 1,
               c_v: 'C', // bvrdOperM.PosicionCompraVenta,
               PrecioC: 0,
               PrecioV: 0,
               UltPrecio: 0,
-              PrecioProm: bvrdOperM.PrecioLimpio,
+              PrecioProm: bvrdOperM.precio_limpio,
               UltNom: 0,
               NomOper: 0,
             });
@@ -315,22 +308,22 @@ export class CalculosRD {
         else {
           this.estadisticas.Movi[this.estadisticas.posi].Cant += 1;
           this.estadisticas.Movi[this.estadisticas.posi].PrecioProm =
-          bvrdOperM.PrecioLimpio;
-          if (bvrdOperM.ValorTransadoDolares > 0) {
+          bvrdOperM.precio_limpio;
+          if (bvrdOperM.monto_transado_equivalente_dolares > 0) {
             this.estadisticas.Movi[this.estadisticas.posi].MontoP +=
-            bvrdOperM.ValorTransadoDolares;
+            bvrdOperM.monto_transado_equivalente_dolares;
             this.estadisticas.Movi[this.estadisticas.posi].NominalP +=
-            bvrdOperM.ValorNominalDolares;
+            bvrdOperM.monto_transado_equivalente_dolares;
           } else {
             this.estadisticas.Movi[this.estadisticas.posi].MontoP +=
-            bvrdOperM.ValorTransadoPesos;
+            bvrdOperM.monto_transado_equivalente_pesos;
             this.estadisticas.Movi[this.estadisticas.posi].NominalP +=
-            bvrdOperM.ValorNominalPesos;
+            bvrdOperM.monto_transado_equivalente_pesos;
           }
         }
-        if (bvrdOperM.TipoMercado === 'LICI') {
-          if (this.estadisticas.Emisiones.indexOf(bvrdOperM.CodigoISIN) < 0) {
-            this.estadisticas.Emisiones.push(bvrdOperM.CodigoISIN);
+        if (bvrdOperM.tipo_mercado === 'LICI') {
+          if (this.estadisticas.Emisiones.indexOf(bvrdOperM.codisin) < 0) {
+            this.estadisticas.Emisiones.push(bvrdOperM.codisin);
           } // meto las emisiones
         }
       } // seleccion de moneda
@@ -348,39 +341,39 @@ export class CalculosRD {
 } //  para sumar recorrido operaciones mercado
     if (this.bvrdOperMrkt.operacionBvrdMrkt[0] !== undefined) {
       for (const bvrdOperM of this.bvrdOperMrkt.operacionBvrdMrkt[0].CadJson) {
-        if (bvrdOperM.CodigoISIN === this.estadisticas.isinsel ||
+        if (bvrdOperM.codisin === this.estadisticas.isinsel ||
           this.estadisticas.isinsel === '') {
-          if (bvrdOperM.NombreMercado.substr(0, 4) === 'Crea') {
+          if (bvrdOperM.nombre_mercado.substr(0, 4) === 'Prog') {
             this.estadisticas.canti.MarketMM += 1;
           } else {
           this.estadisticas.canti.OperacionesM += 1;
         }
 
           this.estadisticas.posi = this.indexMovimientos(
-            this.estadisticas.Movi, bvrdOperM.CodigoISIN, 'C');
+            this.estadisticas.Movi, bvrdOperM.codisin, 'C');
           if (this.estadisticas.posi >= 0) {
             this.estadisticas.Movi[this.estadisticas.posi].UltPrecio =
-              bvrdOperM.PrecioLimpio;
+              bvrdOperM.precio_limpio;
             this.estadisticas.Movi[this.estadisticas.posi].UltNom =
-              bvrdOperM.ValorNominalTotal;
+              bvrdOperM.monto_nominal_total;
             this.estadisticas.Movi[this.estadisticas.posi].NomOper +=
-              bvrdOperM.ValorNominalTotal;
+              bvrdOperM.monto_nominal_total;
             this.estadisticas.Movi[this.estadisticas.posi].PrecioProm +=
-              bvrdOperM.PrecioLimpio * bvrdOperM.ValorNominalTotal;
+              bvrdOperM.precio_limpio * bvrdOperM.monto_nominal_total;
             this.estadisticas.posi = this.indexMovimientos(
               this.estadisticas.Movi,
-              bvrdOperM.CodigoISIN,
+              bvrdOperM.codisin,
               'V'
             );
             if (this.estadisticas.posi >= 0) {
               this.estadisticas.Movi[this.estadisticas.posi].UltPrecio =
-                bvrdOperM.PrecioLimpio;
+                bvrdOperM.precio_limpio;
               this.estadisticas.Movi[this.estadisticas.posi].UltNom =
-                bvrdOperM.ValorNominalTotal;
+                bvrdOperM.monto_nominal_total;
               this.estadisticas.Movi[this.estadisticas.posi].NomOper +=
-                bvrdOperM.ValorNominalTotal;
+                bvrdOperM.monto_nominal_total;
               this.estadisticas.Movi[this.estadisticas.posi].PrecioProm +=
-                bvrdOperM.PrecioLimpio * bvrdOperM.ValorNominalTotal;
+                bvrdOperM.precio_limpio * bvrdOperM.monto_nominal_total;
             }
           }
         }
@@ -390,29 +383,29 @@ export class CalculosRD {
     // recorrido  posturas propias
     if (this.bvrdPsot.posturasPropias[0] !== undefined) {
       for (const bvrdPJson of this.bvrdPsot.posturasPropias[0].CadJson) {
-        if (bvrdPJson.Estatus !== 'Cancelada') {
+        if (bvrdPJson.estatus_orden !== 'Cancelada') {
           if (
-            bvrdPJson.MonedaLiquidacion === this.estadisticas.monsel ||
+            bvrdPJson.moneda === this.estadisticas.monsel ||
             this.estadisticas.monsel === ''
           ) {
             if (
-              bvrdPJson.ISIN === this.estadisticas.isinsel ||
+              bvrdPJson.codisin === this.estadisticas.isinsel ||
               this.estadisticas.isinsel === ''
             ) {
               this.estadisticas.canti.PosturasP =
                 this.estadisticas.canti.PosturasP + 1;
             }
           }
-          if (bvrdPJson.Estatus === 'Calzada') {
+          if (bvrdPJson.estatus_orden === 'Calzada') {
             if (
-              bvrdPJson.MonedaLiquidacion === this.estadisticas.monsel ||
+              bvrdPJson.moneda === this.estadisticas.monsel ||
               this.estadisticas.monsel === ''
             ) {
               if (
-                bvrdPJson.ISIN === this.estadisticas.isinsel ||
+                bvrdPJson.codisin === this.estadisticas.isinsel ||
                 this.estadisticas.isinsel === ''
               ) {
-                if (bvrdPJson.CODRUEDA === 'LICI') {
+                if (bvrdPJson.codigo_rueda === 'LICI') {
                   this.estadisticas.canti.PrimarioP =
                     this.estadisticas.canti.PrimarioP + 1;
                 }

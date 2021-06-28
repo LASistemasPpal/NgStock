@@ -35,9 +35,9 @@ export class PosturasPropiasComponent implements OnInit {
           this.datosFiltrados = this.datos.filter((valor) => {
 
             if (this.priFiltro[1] !== '') {
-              return valor.ISIN === this.priFiltro[1];
+              return valor.codisin === this.priFiltro[1];
             } else {
-              return valor.MonedaLiquidacion === this.priFiltro[0];
+              return valor.moneda === this.priFiltro[0];
             }
           });
         }
@@ -64,35 +64,32 @@ export class PosturasPropiasComponent implements OnInit {
     this.visibleColumnas = false;
 
     this.dtColumnas = [
-      { title:  'Rueda', data: 'CODRUEDA' },
-      { title:  'Estatus', data: 'Estatus' },
+      { title:  'Rueda', data: 'codigo_rueda' },
+      { title:  'Estatus', data: 'estatus_orden' },
       { title:  'Posturas', data: null, render: (data: any, type: any, row: any, meta) => {
-        return HTfech_a_fech(data.FechaPostura).substr(0, 10);
+        return HTfech_a_fech(data.fecha_postura).substr(0, 10);
       }, className: 'dt-body-center' },
 
       { title:  'Fech Liq', data: null, render: (data: any, type: any, row: any, meta) => {
-        return HTfech_a_fech(data.FechaLiquidacion).substr(0, 10);
+        return HTfech_a_fech(data.fecha_liquidacion).substr(0, 10);
       }, className: 'dt-body-center' },
-      { title:  'Hora', data: 'HoraPostura' },
-      { title:  'ISIN', data: 'ISIN' },
-      { title:  'Mon', data: 'MonedaLiquidacion' },
-      { title:  'Oper Vinc', data: 'NroOperacionVinculada', className: 'dt-body-right' },
-      { title:  'Nº Orden', data: 'OrdenesEnFirmeID', className: 'dt-body-right' },
-      { title:  'Plz Liq', data: 'PlazoLiquidacion', className: 'dt-body-right' },
-      { title:  'Comp /Vta', data: 'PosicionCompraVenta' },
+      { title:  'Hora', data: 'fecha_hora_postura' },
+      { title:  'ISIN', data: 'codisin' },
+      { title:  'Mon', data: 'moneda' },
+      { title:  'Nº Orden', data: 'numero_operacion_id', className: 'dt-body-right' },
+      { title:  'Plz Liq', data: 'plazo_liquidacion', className: 'dt-body-right' },
+      { title:  'Comp /Vta', data: 'compra_venta' },
       { title:  'Precio', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
-        return display_x(data.Precio, 10, 8);
+        return display_x(data.precio_limpio, 10, 8);
       } },
       { title: 'Rend', data: null, render: (data: any, type: any, row: any, meta) => {
-        return display_x(data.Rendimiento, 10, 2);
+        return display_x(data.rendimiento, 10, 2);
       }, className: 'dt-body-right' },
-      // { title: 'Secuencia', data: 'Secuencia' },
-      // { title: 'TasaCupon', data: 'TasaCupon' },
       { title:  'Valor Nominal', data: null, render: (data: any, type: any, row: any, meta) => {
-        return display_x(data.MonedaLiquidacion === 'DOP' ? data.ValorNominalPesos : data.ValorNominalDolares, 14, 2);
+        return display_x(data.moneda === 'DOP' ? data.monto_nominal_pesos : data.monto_nominal_dolares, 14, 2);
       }, className: 'dt-body-right'},
       { title:  'Valor Transado', data: null, render: (data: any, type: any, row: any, meta) => {
-        return display_x(data.MonedaLiquidacion === 'DOP' ? data.ValorTransadoPesos : data.ValorTransadoDolares, 14, 2);
+        return display_x(data.moneda === 'DOP' ? data.monto_transado_pesos : data.monto_transado_dolares, 14, 2);
       }, className: 'dt-body-right' }
     ];
 

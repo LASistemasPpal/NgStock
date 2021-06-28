@@ -35,9 +35,9 @@ export class OperacionMrktComponent implements OnInit {
           this.datosFiltrados = this.datos.filter((valor) => {
 
             if (this.priFiltro[1] !== '') {
-              return valor.CodigoISIN === this.priFiltro[1];
+              return valor.codisin === this.priFiltro[1];
             } else {
-              return valor.MonedaTransada === this.priFiltro[0];
+              return valor.moneda_transada === this.priFiltro[0];
             }
           });
         }
@@ -65,34 +65,34 @@ export class OperacionMrktComponent implements OnInit {
 
     this.dtColumnas = [
       // { title: 'CantidadTitulos', data: 'CantidadTitulos', className: 'dt-body-right' },
-      { title: 'ISIN', data: 'CodigoISIN' },
+      { title: 'ISIN', data: 'codisin' },
       { title: 'Titulo', data: null, render: (data: any, type: any, row: any, meta) => {
-        return  this.dameTitulosAll.getCodTituloLA(data.CodigoISIN);
+        return  this.dameTitulosAll.getCodTituloLA(data.codisin);
       }},
-      { title: 'Estatus', data: 'Estatus' },
+      { title: 'Estatus', data: 'estatus' },
       { title: 'Fech Liq', data: null, render: (data: any, type: any, row: any, meta) => {
-        return HTfech_a_fech(data.FechaLiquidacion).substr(0, 10);
+        return HTfech_a_fech(data.fecha_liquidacion).substr(0, 10);
       }, className: 'dt-body-center'},
       { title: 'Hora', data: null, render: (data: any, type: any, row: any, meta) => {
-        const fechaX = new Date(data.HoraOperacion);
+        const fechaX = new Date(data.hora_operacion);
         return fechaX.getHours() + ':' + fechaX.getMinutes();
       } },
-      { title: 'Mon', data: 'MonedaTransada' },
-      { title: 'Mercado', data: 'NombreMercado' },
-      { title: 'Nro Operac', data: 'NumeroOperacion' },
+      { title: 'Mon', data: 'moneda_transada' },
+      { title: 'Mercado', data: 'nombre_mercado' },
+      { title: 'Nro Operac', data: 'numero_operacion' },
       { title: 'Precio', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
-        return display_x(data.PrecioLimpio, 14, 8);
+        return display_x(data.precio_limpio, 14, 8);
       } },
        { title: 'Cupon', data: null, className: 'dt-body-right', render: (data: any, type: any, row: any, meta) => {
-        return display_x(data.TasaCupon, 8, 2);
+        return display_x(data.tasa_cupon, 8, 2);
       } },
       { title: 'Nominal', data: null, className: 'dt-body-right',
          render: (data: any, type: any, row: any, meta) => {
-        return display_x(data.ValorNominalTotal, 22, 2);
+        return display_x(data.monto_nominal_total, 22, 2);
       } },
       { title: 'Monto Efectivo', data: null, className: 'dt-body-right',
          render: (data: any, type: any, row: any, meta) => {
-        return display_x(data.ValorTransado, 22, 2);
+        return display_x(data.monto_transado, 22, 2);
       } }
     ];
 

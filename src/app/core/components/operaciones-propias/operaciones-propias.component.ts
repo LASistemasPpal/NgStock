@@ -35,9 +35,9 @@ export class OperacionesPropiasComponent implements OnInit {
           this.datosFiltrados = this.datos.filter((valor) => {
 
             if (this.priFiltro[1] !== '') {
-              return valor.CodigoISIN === this.priFiltro[1];
+              return valor.codisin === this.priFiltro[1];
             } else {
-              return valor.MonedaTransada === this.priFiltro[0];
+              return valor.moneda_transada === this.priFiltro[0];
             }
           });
         }
@@ -64,56 +64,57 @@ export class OperacionesPropiasComponent implements OnInit {
 
     this.dtColumnas = [
       // { title: 'CantidadTitulos', data: 'CantidadTitulos', className: 'dt-body-right' },
-      { title: 'ISIN', data: 'CodigoISIN' },
+      { title: 'ISIN', data: 'codisin' },
   //    { title:  this.colorGrid.tablaH('Emisor'), data: 'CodEmisorBVRD' },
 
-      { title:  'Estatus', data: 'Estatus' },
+      { title:  'Estatus', data: 'estatus' },
       { title:  'Fech Liq', data: null, render: (data: any, type: any, row: any, meta) => {
-        return HTfech_a_fech(data.FechaLiquidacion).substr(0, 10);
+        return HTfech_a_fech(data.fecha_liquidacion).substr(0, 10);
       }, className: 'dt-body-center'},
-      { title:  'Hora', data: 'HoraOperacion'},
+      { title:  'Hora', data: 'hora_operacion'},
       // { title:  this.colorGrid.tablaH('Hora'), data: null, render: (data: any, type: any, row: any, meta) => {
       //   const fechaX = new Date(data.HoraOperacion);
       //   return fechaX.getHours() + ':' + fechaX.getMinutes();
       // } },
-      { title: 'Mon', data: 'MonedaTransada' },
-      { title: 'Mercado', data: 'NombreMercado' },
-      { title: 'Ofert Comp', data: 'NumeroOfertaCompra', className: 'dt-body-right' },
-      { title: 'Ofert Vend', data: 'NumeroOfertaVenta', className: 'dt-body-right' },
-      { title: 'Nro Operac', data: 'NumeroOperacion' },
+      { title: 'Mon', data: 'moneda_transada' },
+      { title: 'Mercado', data: 'nombre_mercado' },
+      { title: 'Ofert Comp', data: 'numero_oferta_compra', className: 'dt-body-right' },
+      { title: 'Ofert Vend', data: 'numero_oferta_venta', className: 'dt-body-right' },
+      { title: 'Nro Operac', data: 'numero_operacion' },
       { title: 'Precio', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
-        return display_x(data.PrecioLimpio, 10, 4);
+        return display_x(data.precio_limpio, 10, 4);
       } },
-      { title: 'Comprador', data: 'PuestoComprador' },
-      { title: 'Vendedor', data: 'PuestoVendedor' },
+      { title: 'Comprador', data: 'puesto_comprador' },
+      { title: 'Vendedor', data: 'puesto_vendedor' },
       // { title: 'TasaCompra', data: null, className: 'dt-body-right',  render: (data: any, type: any, row: any, meta) => {
       //   return display_x(data.TasaCompra, 10, 2);
       // } }
       { title:  'Nominal', data: null, className: 'dt-body-right',
       render: (data: any, type: any, row: any, meta) => {
-        if (data.MonedaTransada === 'DOP') {
-          return display_x(data.ValorNominalPesos, 14, 2);
+        if (data.moneda_transada === 'DOP') {
+          return display_x(data.monto_nominal_equivalente_pesos, 14, 2);
         } else {
-          return display_x(data.ValorNominalDolares, 14, 2);
+          return display_x(data.monto_nominal_equivalente_dolares, 14, 2);
         }
       } },
       { title:  'Efectivo', data: null, className: 'dt-body-right',
       render: (data: any, type: any, row: any, meta) => {
-        if (data.MonedaTransada === 'DOP') {
-          return display_x(data.ValorTransadoPesos, 14, 2);
+        if (data.moneda_transada === 'DOP') {
+          return display_x(data.monto_transado_equivalente_pesos, 14, 2);
         } else {
-          return display_x(data.ValorTransadoDolares, 14, 2);
+          return display_x(data.monto_transado_equivalente_dolares, 14, 2);
         }
 
-      } },
-      { title:  'Cmi Comp', data: null, className: 'dt-body-right',
-      render: (data: any, type: any, row: any, meta) => {
-        return display_x(data.ComisionComprador, 8, 2);
-      } },
-      { title: 'Cmi Vend', data: null, className: 'dt-body-right',
-      render: (data: any, type: any, row: any, meta) => {
-        return display_x(data.ComisionVendedor, 8, 2);
-      }}
+      } }
+//      
+  //    { title:  'Cmi Comp', data: null, className: 'dt-body-right',
+      //render: (data: any, type: any, row: any, meta) => {
+//        return display_x(data.ComisionComprador, 8, 2);
+  //    } },
+    //  { title: 'Cmi Vend', data: null, className: 'dt-body-right',
+      //render: (data: any, type: any, row: any, meta) => {
+//        return display_x(data.ComisionVendedor, 8, 2);
+  //    }}
     ];
 
     setTimeout(() => {

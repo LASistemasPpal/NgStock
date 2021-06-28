@@ -140,8 +140,8 @@ POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/T
 
 {
   "Json":"false",
-  "param": {
-    "User": "USUARIO9"
+  "Param": {
+    "User": "USUARIO1"
   }
 }
 ###
@@ -151,8 +151,19 @@ POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/T
 
 {
   "Json":"False",
-  "param": {
-    "User": "USUARIO9"
+  "Param": {
+    "User": "USUARIO1"
+  }
+}
+###
+
+# Operaciones Mercado BVRD
+POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/TView/WdameOperacionesMercado
+
+{
+  "Json":"False",
+  "Param": {
+    "User": "USUARIO1"
   }
 }
 ###
@@ -162,8 +173,8 @@ POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/T
 
 {
     "Json":"False",
-    "param": {
-        "User": "USUARIO9"
+    "Param": {
+        "User": "USUARIO1"
     }
 }
 ###
@@ -188,7 +199,7 @@ POST http://la2K12.eastus.cloudapp.azure.com:8079/pview/PViewISAPI.dll/la/rest/T
 
 {
   "Json":"False",
-  "param": {
+  "Param": {
     "User": "USUARIO1"
   }
 }
