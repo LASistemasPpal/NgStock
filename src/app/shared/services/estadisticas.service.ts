@@ -233,7 +233,7 @@ export class CalculosRD {
             bvrdOperM.codisin === this.estadisticas.isinsel ||
             this.estadisticas.isinsel === ''
           ) {
-            if (bvrdOperM.moneda_transada = 'DOP') {
+            if (bvrdOperM.moneda_transada === 'DOP') {
               this.estadisticas.canti.MtodopM =
               this.estadisticas.canti.MtodopM +
               bvrdOperM.monto_transado / 1000000;
@@ -241,7 +241,7 @@ export class CalculosRD {
               this.estadisticas.canti.MtototM +
               (bvrdOperM.monto_transado ) / 1000000;              
             }
-            if (bvrdOperM.moneda_transada = 'USD') {
+            if (bvrdOperM.moneda_transada === 'USD') {
             this.estadisticas.canti.MtousdM =
               this.estadisticas.canti.MtousdM +
               bvrdOperM.monto_transado / 1000;
@@ -264,7 +264,7 @@ export class CalculosRD {
         if (this.estadisticas.posi < 0) {
           CodLA = this.dameTitulosAll.getCodTituloLA(bvrdOperM.codisin);
 
-          if (bvrdOperM.moneda_transada = 'USD') {
+          if (bvrdOperM.moneda_transada === 'USD') {
             this.estadisticas.Movi.push({
               Moneda: 'USD',
               MontoP: bvrdOperM.monto_transado,
@@ -306,7 +306,7 @@ export class CalculosRD {
           this.estadisticas.Movi[this.estadisticas.posi].Cant += 1;
           this.estadisticas.Movi[this.estadisticas.posi].PrecioProm =
           bvrdOperM.precio_limpio;
-          if (bvrdOperM.moneda_transada = 'USD') {
+          if (bvrdOperM.moneda_transada === 'USD') {
             this.estadisticas.Movi[this.estadisticas.posi].MontoP +=
             bvrdOperM.monto_transado;
             this.estadisticas.Movi[this.estadisticas.posi].NominalP +=
