@@ -109,10 +109,7 @@ export class CalculosRD {
           this.estadisticas.hoy = bvrdMJson.fecha_postura + 'T'; // busco la fecha del dia en la primera postura
         }
 
-        if (
-          bvrdMJson.monto_nominal_dolares > 0.1 &&
-          bvrdMJson.monto_transado_dolares < 0.1
-        ) {
+        if (bvrdMJson.moneda === 'USD') {
           if (bvrdMJson.tasa_cupon > 0.01) {
             bvrdMJson.monto_transado_dolares =
               (bvrdMJson.monto_nominal_dolares * bvrdMJson.precio_limpio) / 100.0;
@@ -122,10 +119,7 @@ export class CalculosRD {
           }
         }
 
-        if (
-          bvrdMJson.monto_nominal_pesos > 0.1 &&
-          bvrdMJson.monto_transado_pesos < 0.1
-        ) {
+        if (  bvrdMJson.moneda === 'DOP') {
           if (bvrdMJson.tasa_cupon > 0.01) {
             bvrdMJson.monto_transado_pesos =
               (bvrdMJson.monto_nominal_pesos * bvrdMJson.precio_limpio) / 100.0;
@@ -162,51 +156,49 @@ export class CalculosRD {
           if (bvrdMJson.codisin === this.estadisticas.isinsel) {
             // posturas de mercado
             this.estadisticas.GrafPrecioM.push({
-              x: new Date(bvrdMJson.fecha_hora_postura),
+              x: new Date(bvrdMJson.hora_postura),
               y: bvrdMJson.precio_limpio,
             });
 
             // tslint:disable-next-line: max-line-length
             this.estadisticas.posi = this.indexGraf(
               this.estadisticas.GrafVolumenM,
-              new Date(bvrdMJson.fecha_hora_postura)
+              new Date(bvrdMJson.hora_postura)
             );
-            if (bvrdMJson.monto_nominal_pesos + bvrdMJson.monto_nominal_dolares > 0.01) {
+            if (bvrdMJson.monto_nominal  > 0.01) {
               if (this.estadisticas.posi < 0) {
                 this.estadisticas.GrafVolumenM.push({
-                  x: new Date(bvrdMJson.fecha_hora_postura),
-                  y: bvrdMJson.monto_nominal_pesos + bvrdMJson.monto_nominal_dolares
+                  x: new Date(bvrdMJson.hora_postura),
+                  y: bvrdMJson.monto_nominal 
                 });
               } else {
                 this.estadisticas.GrafVolumenM[this.estadisticas.posi].y =
                   this.estadisticas.GrafVolumenM[this.estadisticas.posi].y +
-                  bvrdMJson.monto_nominal_pesos +
-                  bvrdMJson.monto_nominal_dolares;
+                  bvrdMJson.monto_nominal;
               }
             }
 
             //  operaciones de mercado
             if (bvrdMJson.estatus_orden === 'Calzada') {
               this.estadisticas.GrafPrecioOper.push({
-                x: new Date(bvrdMJson.fecha_hora_postura),
+                x: new Date(bvrdMJson.hora_postura),
                 y: bvrdMJson.precio_limpio,
               });
               // tslint:disable-next-line: max-line-length
               this.estadisticas.posi = this.indexGraf(
                 this.estadisticas.GrafVolumenOper,
-                new Date(bvrdMJson.fecha_hora_postura)
+                new Date(bvrdMJson.hora_postura)
               );
-              if (bvrdMJson.monto_nominal_pesos + bvrdMJson.monto_nominal_dolares > 0.01) {
+              if (bvrdMJson.monto_nominal  > 0.01) {
                 if (this.estadisticas.posi < 0) {
                   this.estadisticas.GrafVolumenOper.push({
-                    x: new Date(bvrdMJson.fecha_hora_postura),
-                    y: bvrdMJson.monto_nominal_pesos + bvrdMJson.monto_nominal_pesos
+                    x: new Date(bvrdMJson.hora_postura),
+                    y: bvrdMJson.monto_nominal 
                   });
                 } else {
                   this.estadisticas.GrafVolumenOper[this.estadisticas.posi].y =
                     this.estadisticas.GrafVolumenOper[this.estadisticas.posi].y +
-                    bvrdMJson.monto_nominal_pesos +
-                    bvrdMJson.monto_nominal_dolares;
+                    bvrdMJson.monto_nominal;
                 }
               }
             }
@@ -241,17 +233,22 @@ export class CalculosRD {
             bvrdOperM.codisin === this.estadisticas.isinsel ||
             this.estadisticas.isinsel === ''
           ) {
-            this.estadisticas.canti.MtodopM =
+            if (bvrdOperM.moneda_transada = 'DOP') {
+              this.estadisticas.canti.MtodopM =
               this.estadisticas.canti.MtodopM +
-              bvrdOperM.monto_transado_equivalente_pesos / 1000000;
+              bvrdOperM.monto_transado / 1000000;
+              this.estadisticas.canti.MtototM =
+              this.estadisticas.canti.MtototM +
+              (bvrdOperM.monto_transado ) / 1000000;              
+            }
+            if (bvrdOperM.moneda_transada = 'USD') {
             this.estadisticas.canti.MtousdM =
               this.estadisticas.canti.MtousdM +
-              bvrdOperM.monto_transado_equivalente_dolares / 1000;
+              bvrdOperM.monto_transado / 1000;
             this.estadisticas.canti.MtototM =
               this.estadisticas.canti.MtototM +
-              (bvrdOperM.monto_transado_equivalente_dolares * this.estadisticas.tpcambio) /
-                1000000 +
-                bvrdOperM.monto_transado_equivalente_pesos / 1000000;
+              (bvrdOperM.monto_transado * this.estadisticas.tpcambio) / 1000000;              
+            }
           }
         }
         if (
@@ -267,11 +264,11 @@ export class CalculosRD {
         if (this.estadisticas.posi < 0) {
           CodLA = this.dameTitulosAll.getCodTituloLA(bvrdOperM.codisin);
 
-          if (bvrdOperM.monto_transado_equivalente_dolares > 0) {
+          if (bvrdOperM.moneda_transada = 'USD') {
             this.estadisticas.Movi.push({
               Moneda: 'USD',
-              MontoP: bvrdOperM.monto_transado_equivalente_dolares,
-              NominalP: bvrdOperM.monto_nominal_equivalente_dolares,
+              MontoP: bvrdOperM.monto_transado,
+              NominalP: bvrdOperM.monto_nominal_total,
               MontoReal: 0,
               NominalReal: 0,
               Cotitulo: CodLA,
@@ -288,8 +285,8 @@ export class CalculosRD {
           } else {
             this.estadisticas.Movi.push({
               Moneda: 'DOP',
-              MontoP: bvrdOperM.monto_transado_equivalente_pesos,
-              NominalP: bvrdOperM.monto_nominal_equivalente_pesos,
+              MontoP: bvrdOperM.monto_transado,
+              NominalP: bvrdOperM.monto_nominal_total,
               MontoReal: 0,
               NominalReal: 0,
               Cotitulo: CodLA,
@@ -309,16 +306,16 @@ export class CalculosRD {
           this.estadisticas.Movi[this.estadisticas.posi].Cant += 1;
           this.estadisticas.Movi[this.estadisticas.posi].PrecioProm =
           bvrdOperM.precio_limpio;
-          if (bvrdOperM.monto_transado_equivalente_dolares > 0) {
+          if (bvrdOperM.moneda_transada = 'USD') {
             this.estadisticas.Movi[this.estadisticas.posi].MontoP +=
-            bvrdOperM.monto_transado_equivalente_dolares;
+            bvrdOperM.monto_transado;
             this.estadisticas.Movi[this.estadisticas.posi].NominalP +=
-            bvrdOperM.monto_transado_equivalente_dolares;
+            bvrdOperM.monto_nominal_total;
           } else {
             this.estadisticas.Movi[this.estadisticas.posi].MontoP +=
-            bvrdOperM.monto_transado_equivalente_pesos;
+            bvrdOperM.monto_transado;
             this.estadisticas.Movi[this.estadisticas.posi].NominalP +=
-            bvrdOperM.monto_transado_equivalente_pesos;
+            bvrdOperM.monto_nominal_total;
           }
         }
         if (bvrdOperM.tipo_mercado === 'LICI') {
@@ -430,32 +427,17 @@ export class CalculosRD {
           if (
             mov.MontoP > this.estadisticas.Movi[this.estadisticas.posi].MontoP
           ) {
-            mov.MontoReal = this.estadisticas.Movi[
-              this.estadisticas.posi
-            ].MontoP;
-            mov.NominalReal = this.estadisticas.Movi[
-              this.estadisticas.posi
-            ].NominalP;
-            this.estadisticas.Movi[
-              this.estadisticas.posi
-            ].MontoReal = this.estadisticas.Movi[this.estadisticas.posi].MontoP;
-            this.estadisticas.Movi[
-              this.estadisticas.posi
-            ].NominalReal = this.estadisticas.Movi[
-              this.estadisticas.posi
-            ].NominalP;
-            mov.PrecioProm = this.estadisticas.Movi[
-              this.estadisticas.posi
-            ].PrecioProm;
+            mov.MontoReal = this.estadisticas.Movi[this.estadisticas.posi].MontoP;
+            mov.NominalReal = this.estadisticas.Movi[this.estadisticas.posi].NominalP;
+            this.estadisticas.Movi[this.estadisticas.posi].MontoReal = this.estadisticas.Movi[this.estadisticas.posi].MontoP;
+            this.estadisticas.Movi[this.estadisticas.posi].NominalReal = this.estadisticas.Movi[this.estadisticas.posi].NominalP;
+            mov.PrecioProm = this.estadisticas.Movi[this.estadisticas.posi].PrecioProm;
           } else {
             mov.MontoReal = mov.MontoP;
             mov.NominalReal = mov.NominalP;
-            this.estadisticas.Movi[this.estadisticas.posi].MontoReal =
-              mov.MontoP;
-            this.estadisticas.Movi[this.estadisticas.posi].NominalReal =
-              mov.NominalP;
-            this.estadisticas.Movi[this.estadisticas.posi].PrecioProm =
-              mov.PrecioProm;
+            this.estadisticas.Movi[this.estadisticas.posi].MontoReal = mov.MontoP;
+            this.estadisticas.Movi[this.estadisticas.posi].NominalReal = mov.NominalP;
+            this.estadisticas.Movi[this.estadisticas.posi].PrecioProm = mov.PrecioProm;
           }
         }
       }

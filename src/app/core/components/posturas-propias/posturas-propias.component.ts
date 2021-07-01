@@ -73,7 +73,7 @@ export class PosturasPropiasComponent implements OnInit {
       { title:  'Fech Liq', data: null, render: (data: any, type: any, row: any, meta) => {
         return HTfech_a_fech(data.fecha_liquidacion).substr(0, 10);
       }, className: 'dt-body-center' },
-      { title:  'Hora', data: 'fecha_hora_postura' },
+      { title:  'Hora', data: 'hora_postura' },
       { title:  'ISIN', data: 'codisin' },
       { title:  'Mon', data: 'moneda' },
       { title:  'Nº Orden', data: 'numero_operacion_id', className: 'dt-body-right' },
