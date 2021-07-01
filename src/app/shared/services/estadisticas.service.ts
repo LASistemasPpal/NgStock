@@ -156,20 +156,20 @@ export class CalculosRD {
           if (bvrdMJson.codisin === this.estadisticas.isinsel) {
             // posturas de mercado
             this.estadisticas.GrafPrecioM.push({
-              x: new Date(bvrdMJson.hora_postura),
+              x: new Date(bvrdMJson.fecha_hora_postura),
               y: bvrdMJson.precio_limpio,
             });
 
             // tslint:disable-next-line: max-line-length
             this.estadisticas.posi = this.indexGraf(
               this.estadisticas.GrafVolumenM,
-              new Date(bvrdMJson.hora_postura)
+              new Date(bvrdMJson.fecha_hora_postura)
             );
             if (bvrdMJson.monto_nominal  > 0.01) {
               if (this.estadisticas.posi < 0) {
                 this.estadisticas.GrafVolumenM.push({
-                  x: new Date(bvrdMJson.hora_postura),
-                  y: bvrdMJson.monto_nominal 
+                  x: new Date(bvrdMJson.fecha_hora_postura),
+                  y: bvrdMJson.monto_nominal
                 });
               } else {
                 this.estadisticas.GrafVolumenM[this.estadisticas.posi].y =
@@ -181,19 +181,19 @@ export class CalculosRD {
             //  operaciones de mercado
             if (bvrdMJson.estatus_orden === 'Calzada') {
               this.estadisticas.GrafPrecioOper.push({
-                x: new Date(bvrdMJson.hora_postura),
+                x: new Date(bvrdMJson.fecha_hora_postura),
                 y: bvrdMJson.precio_limpio,
               });
               // tslint:disable-next-line: max-line-length
               this.estadisticas.posi = this.indexGraf(
                 this.estadisticas.GrafVolumenOper,
-                new Date(bvrdMJson.hora_postura)
+                new Date(bvrdMJson.fecha_hora_postura)
               );
               if (bvrdMJson.monto_nominal  > 0.01) {
                 if (this.estadisticas.posi < 0) {
                   this.estadisticas.GrafVolumenOper.push({
-                    x: new Date(bvrdMJson.hora_postura),
-                    y: bvrdMJson.monto_nominal 
+                    x: new Date(bvrdMJson.fecha_hora_postura),
+                    y: bvrdMJson.monto_nominal
                   });
                 } else {
                   this.estadisticas.GrafVolumenOper[this.estadisticas.posi].y =
@@ -239,7 +239,7 @@ export class CalculosRD {
               bvrdOperM.monto_transado / 1000000;
               this.estadisticas.canti.MtototM =
               this.estadisticas.canti.MtototM +
-              (bvrdOperM.monto_transado ) / 1000000;              
+              (bvrdOperM.monto_transado ) / 1000000;
             }
             if (bvrdOperM.moneda_transada === 'USD') {
             this.estadisticas.canti.MtousdM =
@@ -247,7 +247,7 @@ export class CalculosRD {
               bvrdOperM.monto_transado / 1000;
             this.estadisticas.canti.MtototM =
               this.estadisticas.canti.MtototM +
-              (bvrdOperM.monto_transado * this.estadisticas.tpcambio) / 1000000;              
+              (bvrdOperM.monto_transado * this.estadisticas.tpcambio) / 1000000;
             }
           }
         }
