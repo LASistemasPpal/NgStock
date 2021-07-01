@@ -91,9 +91,6 @@ export class OperacionMrktComponent implements OnInit {
          render: (data: any, type: any, row: any, meta) => {
         return display_x(data.monto_transado, 22, 2);
       } }
-   //   { title: 'Comp/Vend', data: null, render: (data: any, type: any, row: any, meta) => {
-   //     return data.puesto_comprador+'/'+data.puesto_vendedor;
-   //   }, className: 'dt-body-center'},
     ];
 
     setTimeout(() => {
