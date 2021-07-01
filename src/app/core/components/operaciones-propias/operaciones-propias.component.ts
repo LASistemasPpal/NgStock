@@ -104,17 +104,10 @@ export class OperacionesPropiasComponent implements OnInit {
         } else {
           return display_x(data.monto_transado_equivalente_dolares, 14, 2);
         }
-
-      } }
-//
-  //    { title:  'Cmi Comp', data: null, className: 'dt-body-right',
-      //render: (data: any, type: any, row: any, meta) => {
-//        return display_x(data.ComisionComprador, 8, 2);
-  //    } },
-    //  { title: 'Cmi Vend', data: null, className: 'dt-body-right',
-      //render: (data: any, type: any, row: any, meta) => {
-//        return display_x(data.ComisionVendedor, 8, 2);
-  //    }}
+      } },
+     { title: 'Comp/Vend', data: null, render: (data: any, type: any, row: any, meta) => {
+        return data.puesto_comprador+'/'+data.puesto_vendedor;
+      }, className: 'dt-body-center'}
     ];
 
     setTimeout(() => {
