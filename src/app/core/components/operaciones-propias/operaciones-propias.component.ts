@@ -71,7 +71,7 @@ export class OperacionesPropiasComponent implements OnInit {
       { title:  'Fech Liq', data: null, render: (data: any, type: any, row: any, meta) => {
         return HTfech_a_fech(data.fecha_liquidacion).substr(0, 10);
       }, className: 'dt-body-center'},
-      { title:  'Hora', data: 'hora_operacion'},
+      { title:  'Hora', data: 'aux_hora_operacion' },
       // { title:  this.colorGrid.tablaH('Hora'), data: null, render: (data: any, type: any, row: any, meta) => {
       //   const fechaX = new Date(data.HoraOperacion);
       //   return fechaX.getHours() + ':' + fechaX.getMinutes();
@@ -106,7 +106,7 @@ export class OperacionesPropiasComponent implements OnInit {
         }
 
       } }
-//      
+//
   //    { title:  'Cmi Comp', data: null, className: 'dt-body-right',
       //render: (data: any, type: any, row: any, meta) => {
 //        return display_x(data.ComisionComprador, 8, 2);

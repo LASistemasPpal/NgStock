@@ -162,19 +162,19 @@ export class CalculosRD {
           if (bvrdMJson.codisin === this.estadisticas.isinsel) {
             // posturas de mercado
             this.estadisticas.GrafPrecioM.push({
-              x: new Date(this.estadisticas.hoy + bvrdMJson.fecha_hora_postura),
+              x: new Date(bvrdMJson.fecha_hora_postura),
               y: bvrdMJson.precio_limpio,
             });
 
             // tslint:disable-next-line: max-line-length
             this.estadisticas.posi = this.indexGraf(
               this.estadisticas.GrafVolumenM,
-              new Date(this.estadisticas.hoy + `${bvrdMJson.fecha_hora_postura}`)
+              new Date(bvrdMJson.fecha_hora_postura)
             );
             if (bvrdMJson.monto_nominal_pesos + bvrdMJson.monto_nominal_dolares > 0.01) {
               if (this.estadisticas.posi < 0) {
                 this.estadisticas.GrafVolumenM.push({
-                  x: new Date(this.estadisticas.hoy + `${bvrdMJson.fecha_hora_postura}`),
+                  x: new Date(bvrdMJson.fecha_hora_postura),
                   y: bvrdMJson.monto_nominal_pesos + bvrdMJson.monto_nominal_dolares
                 });
               } else {
@@ -188,18 +188,18 @@ export class CalculosRD {
             //  operaciones de mercado
             if (bvrdMJson.estatus_orden === 'Calzada') {
               this.estadisticas.GrafPrecioOper.push({
-                x: new Date(this.estadisticas.hoy + `${bvrdMJson.fecha_hora_postura}`),
+                x: new Date(bvrdMJson.fecha_hora_postura),
                 y: bvrdMJson.precio_limpio,
               });
               // tslint:disable-next-line: max-line-length
               this.estadisticas.posi = this.indexGraf(
                 this.estadisticas.GrafVolumenOper,
-                new Date(this.estadisticas.hoy + `${bvrdMJson.fecha_hora_postura}`)
+                new Date(bvrdMJson.fecha_hora_postura)
               );
               if (bvrdMJson.monto_nominal_pesos + bvrdMJson.monto_nominal_dolares > 0.01) {
                 if (this.estadisticas.posi < 0) {
                   this.estadisticas.GrafVolumenOper.push({
-                    x: new Date(this.estadisticas.hoy + `${bvrdMJson.fecha_hora_postura}`),
+                    x: new Date(bvrdMJson.fecha_hora_postura),
                     y: bvrdMJson.monto_nominal_pesos + bvrdMJson.monto_nominal_pesos
                   });
                 } else {

@@ -1,6 +1,6 @@
 interface ICadJsonPosturas{
   codigo_rueda: string;
-  codisin: string;    
+  codisin: string;
   compra_venta: string;
   duracion_rueda: string;
   estatus_orden: string;
@@ -26,12 +26,12 @@ interface ICadJsonPosturas{
   precio_limpio: number;
   rendimiento: number;
   tasa_cupon: number;
-  
+
 }
 
 export class CadJsons implements ICadJsonPosturas{
   codigo_rueda: string;
-  codisin: string;    
+  codisin: string;
   compra_venta: string;
   duracion_rueda: string;
   estatus_orden: string;
@@ -135,7 +135,7 @@ interface ICadJsonOper {
   fecha_liquidacion: Date;
   fecha_operacion: string;
   fecha_vencimiento: Date;
-  hora_operacion: Date;
+  hora_operacion: string;
   mercado: number;
   moneda_transada: string;
   monto_nominal_total: number;
@@ -170,7 +170,7 @@ export class CadJsonOpers implements ICadJsonOper {
   fecha_liquidacion: Date;
   fecha_operacion: string;
   fecha_vencimiento: Date;
-  hora_operacion: Date;
+  hora_operacion: string;
 
   mercado: number;
   moneda_transada: string;
@@ -237,6 +237,14 @@ export class CadJsonOpers implements ICadJsonOper {
     //     this.ValorTransadoPesos = CadJOper.ValorTransadoPesos;
     //        this.Yield = CadJOper.Yield;
   }
+
+  get aux_hora_operacion(): string {
+    if (this.hora_operacion.length > 10) {
+      return this.hora_operacion.substr(11, 5);
+    } else {
+      return this.hora_operacion.substr(0, 5);
+    }
+  }
 }
 
 export interface IbvrdOper{
@@ -274,9 +282,9 @@ interface ICadJsonOperMrkt{
    fecha_liquidacion: Date;
    fecha_operacion: string;
    fecha_vencimiento: Date;
-   hora_operacion: Date;
+   hora_operacion: string;
 
-  mercado: number;      
+  mercado: number;
   moneda_transada: string;
   nemotecnico: string;
   nombre_mercado: string;
@@ -319,8 +327,8 @@ export class CadJsonOperMrkts implements ICadJsonOperMrkt{
   fecha_liquidacion: Date;
   fecha_operacion: string;
   fecha_vencimiento: Date;
-  hora_operacion: Date;
-  mercado: number;      
+  hora_operacion: string;
+  mercado: number;
   moneda_transada: string;
   nemotecnico: string;
   nombre_mercado: string;
@@ -353,7 +361,7 @@ export class CadJsonOperMrkts implements ICadJsonOperMrkt{
       this.codisin = CadJOperMrkt.codisin;
       this.descripcion_instrumento = CadJOperMrkt.descripcion_instrumento;
       this.dias_al_vencimiento = CadJOperMrkt.dias_al_vencimiento;
-      this.emisor = CadJOperMrkt.emisor;     
+      this.emisor = CadJOperMrkt.emisor;
          this.estatus = CadJOperMrkt.estatus;
          this.fecha_emision = CadJOperMrkt.fecha_emision;
          this.fecha_liquidacion = CadJOperMrkt.fecha_liquidacion;
@@ -387,6 +395,14 @@ export class CadJsonOperMrkts implements ICadJsonOperMrkt{
 //     this.ValorTransadoPesos = CadJOper.ValorTransadoPesos;
   //    this.Yield = CadJOperMrkt.Yield;
       }
+
+  get aux_hora_operacion(): string {
+    if (this.hora_operacion.length > 10) {
+      return this.hora_operacion.substr(11, 5);
+    } else {
+      return this.hora_operacion.substr(0, 5);
+    }
+  }
 }
 
 export interface IbvrdOperMrkt{

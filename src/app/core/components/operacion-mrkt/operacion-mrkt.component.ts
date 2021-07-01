@@ -73,10 +73,7 @@ export class OperacionMrktComponent implements OnInit {
       { title: 'Fech Liq', data: null, render: (data: any, type: any, row: any, meta) => {
         return HTfech_a_fech(data.fecha_liquidacion).substr(0, 10);
       }, className: 'dt-body-center'},
-      { title: 'Hora', data: null, render: (data: any, type: any, row: any, meta) => {
-        const fechaX = new Date(data.hora_operacion);
-        return fechaX.getHours() + ':' + fechaX.getMinutes();
-      } },
+      { title: 'Hora', data: 'aux_hora_operacion' },
       { title: 'Mon', data: 'moneda_transada' },
       { title: 'Mercado', data: 'nombre_mercado' },
       { title: 'Nro Operac', data: 'numero_operacion' },

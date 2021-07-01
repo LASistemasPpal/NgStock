@@ -103,7 +103,8 @@
     "Sale price": "Precio Venta",
     "Margin": "Margen",
     "Cutout": "Recorte",
-    "Processing the Data": "Procesando los Datos"
+    "Processing the Data": "Procesando los Datos",
+    "There is no data to be processed": "No hay datos para ser procesados"
   },
   "en": {
     "Visor de Mercado": "Market Visor",
@@ -209,7 +210,8 @@
     "Precio Venta": "Sale price",
     "Margen": "Margin",
     "Recorte": "Cutout",
-    "Procesando los Datos": "Processing the Data"
+    "Procesando los Datos": "Processing the Data",
+    "No hay datos para ser procesados": "There is no data to be processed"
   }
 }
 

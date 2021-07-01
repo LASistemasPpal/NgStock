@@ -159,6 +159,12 @@ export class DataComponent implements OnInit {
         );
       })
       .then(() => this.defineColumnas(this.tipoIdioma))
+      .then(() => {
+
+        if (this.damePosturasM.posturasSiopel.length === 0) {
+          this.mensajeError('Recalculo', 1, this.translateLAService.buscarPalabra('No hay datos para ser procesados'));
+        }
+      })
       .catch((e) => this.mensajeError('Error', e.Status, e.Mensaje));
   }
 
