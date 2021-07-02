@@ -252,3 +252,6 @@ Content-Type: application/json
 ]
 ###
 
+GET http://52.206.163.34/posturas_totales?usuario=adiaz&password=pQaJrgQWEnUM7zIPaLVO
+
+###

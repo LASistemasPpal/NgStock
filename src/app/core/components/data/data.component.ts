@@ -178,6 +178,14 @@ export class DataComponent implements OnInit {
       PrecioOper = 'Oper' + PRECIO;
     }
 
+    this.calculosRD.estadisticas.GrafPrecioM.sort((a, b) => {
+      return (a.x.getTime() - b.x.getTime());
+    });
+
+    this.calculosRD.estadisticas.GrafPrecioOper.sort((a, b) => {
+      return (a.x.getTime() - b.x.getTime());
+    });
+
     return new Chart('graficoPrecio', {
       type: 'line',
       data: {
@@ -250,9 +258,14 @@ export class DataComponent implements OnInit {
       VolumenOper = 'Oper' + VOLUMEN;
     }
 
-    // willmer Git
-    //  me esta graficando como que hubiera volumenes en cero
-    // ni el grafvolM ni P tienen ceros y tampoco los minimos
+    this.calculosRD.estadisticas.GrafVolumenM.sort((a, b) => {
+      return (a.x.getTime() - b.x.getTime());
+    });
+
+    this.calculosRD.estadisticas.GrafVolumenOper.sort((a, b) => {
+      return (a.x.getTime() - b.x.getTime());
+    });
+
     return new Chart('graficoVolumen', {
       type: 'line',
       data: {
